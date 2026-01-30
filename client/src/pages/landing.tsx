@@ -52,10 +52,10 @@ function Pill({
         "inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] tracking-wide " +
         (muted
           ? "bg-white/10 text-white/70 ring-1 ring-white/15"
-          : "bg-white/14 text-white/90 ring-1 ring-white/20")
+          : "bg-zinc-950/7 text-zinc-700 ring-1 ring-zinc-950/10")
       }
     >
-      <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
+      <span className={muted ? "h-1.5 w-1.5 rounded-full bg-white/70" : "h-1.5 w-1.5 rounded-full bg-zinc-950/55"} />
       {children}
     </span>
   );
