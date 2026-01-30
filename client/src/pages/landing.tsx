@@ -334,23 +334,26 @@ function About() {
           </div>
         </div>
 
-        <div className="md:pl-10">
-          <h2
-            data-testid="text-about-title"
-            className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-zinc-950 sm:text-[46px] lg:text-[56px]"
-          >
-            Somos um time
-            <br />
-            dedicado de especialistas
-            <br />
-            <span className="text-zinc-400">apaixonados</span> por
-            <br />
-            <span className="text-zinc-400">acelerar</span> a energia solar
-          </h2>
-          <p data-testid="text-about-desc" className="mt-4 max-w-[520px] text-sm leading-6 text-zinc-500">
-            Com um compromisso real com a sustentabilidade, ajudamos pessoas, famílias e empresas
-            a migrarem para uma energia mais limpa com soluções solares inteligentes, confiáveis e acessíveis\n            feitas para durar.
-          </p>
+        <div className="md:pl-10 lg:pl-0 lg:col-start-2">
+          <div className="lg:ml-auto lg:max-w-[740px]">
+            <h2
+              data-testid="text-about-title"
+              className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-zinc-950 sm:text-[46px] lg:text-[56px]"
+            >
+              Somos um time
+              <br />
+              dedicado de especialistas
+              <br />
+              <span className="text-zinc-400">apaixonados</span> por
+              <br />
+              <span className="text-zinc-400">acelerar</span> a energia solar
+            </h2>
+            <p data-testid="text-about-desc" className="mt-4 w-full text-sm leading-6 text-zinc-500">
+              Com um compromisso real com a sustentabilidade, ajudamos pessoas, famílias e empresas a migrarem para uma energia mais limpa com soluções solares inteligentes, confiáveis e acessíveis
+              <br />
+              feitas para durar.
+            </p>
+          </div>
 
           <div className="mt-6">
             <button
