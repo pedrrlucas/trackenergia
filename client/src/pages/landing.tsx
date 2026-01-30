@@ -503,13 +503,35 @@ function Process() {
             <Pill testId="pill-process" muted>
               ( seu processo )
             </Pill>
-            <div data-testid="text-process-counter" className="text-sm font-semibold text-white/85">
-              ({slides[idx].k}/04)
-            </div>
           </div>
 
           <div className="mt-24 grid gap-8 md:mt-28 md:grid-cols-[1fr_420px] md:items-start lg:mt-36 lg:grid-cols-[1fr_520px]">
-            <div />
+            <div className="flex items-end">
+              <div>
+                <div
+                  data-testid="text-process-counter"
+                  className="text-[56px] font-medium leading-none tracking-[-0.04em] text-white sm:text-[64px] lg:text-[72px]"
+                >
+                  ({slides[idx].k}/04)
+                </div>
+
+                <div className="mt-4">
+                  <div
+                    data-testid="progress-process-track"
+                    className="h-[2px] w-[220px] rounded-full bg-white/22"
+                  >
+                    <motion.div
+                      data-testid="progress-process-fill"
+                      className="h-full rounded-full bg-white"
+                      initial={reduced ? undefined : { width: 0 }}
+                      animate={{ width: `${((idx + 1) / slides.length) * 100}%` }}
+                      transition={reduced ? undefined : { duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div>
               <h3
                 data-testid="text-process-title"
@@ -538,21 +560,6 @@ function Process() {
             >
               <ChevronRight className="h-4 w-4 text-white" strokeWidth={2.25} />
             </button>
-
-            {!reduced ? (
-              <motion.div
-                className="ml-3 hidden items-center gap-2 rounded-full bg-white/10 px-3 py-2 text-xs font-semibold text-white/80 ring-1 ring-white/12 backdrop-blur sm:flex"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 }}
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/65 opacity-30" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-white/65" />
-                </span>
-                Ao vivo
-              </motion.div>
-            ) : null}
           </div>
         </div>
       </div>
