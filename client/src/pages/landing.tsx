@@ -208,12 +208,12 @@ function Hero({
   onPlay: () => void;
 }) {
   return (
-    <section id="top" className="relative overflow-hidden rounded-[34px] bg-black">
+    <section id="top" className="relative overflow-hidden rounded-[34px] bg-black lg:rounded-[40px]">
       <img
         data-testid="img-hero"
         src={heroImg}
         alt="Painéis solares"
-        className="h-[520px] w-full object-cover sm:h-[560px] md:h-[620px]"
+        className="h-[520px] w-full object-cover sm:h-[560px] md:h-[620px] lg:h-[720px]"
       />
       <div className="absolute inset-0 hero-overlay noise" />
 
@@ -221,11 +221,11 @@ function Hero({
         <Nav onContact={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })} />
 
         <div className="container-page">
-          <div className="pt-[104px] sm:pt-[112px]">
-            <div className="max-w-[520px]">
+          <div className="pt-[104px] sm:pt-[112px] lg:pt-[132px]">
+            <div className="max-w-[520px] lg:max-w-[640px]">
               <h1
                 data-testid="text-hero-title"
-                className="text-balance text-[44px] font-medium leading-[1.02] tracking-[-0.02em] text-white sm:text-[56px]"
+                className="text-balance text-[44px] font-medium leading-[1.02] tracking-[-0.02em] text-white sm:text-[56px] lg:text-[66px]"
               >
                 Energia solar
                 <br />
@@ -236,7 +236,7 @@ function Hero({
 
               <p
                 data-testid="text-hero-subtitle"
-                className="mt-4 max-w-[420px] text-xs leading-5 text-white/72"
+                className="mt-4 max-w-[460px] text-xs leading-5 text-white/72 sm:text-sm sm:leading-6"
               >
                 Energia limpa, acessível e renovável — assuma o controle da sua conta de luz com uma solução inteligente.
               </p>
@@ -256,10 +256,10 @@ function Hero({
               </div>
             </div>
 
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between lg:mt-14">
               <div />
 
-              <div className="flex w-full max-w-[360px] items-center justify-between gap-3 rounded-[22px] bg-white/10 p-3 ring-1 ring-white/16 backdrop-blur md:max-w-[420px]">
+              <div className="flex w-full max-w-[360px] items-center justify-between gap-3 rounded-[22px] bg-white/10 p-3 ring-1 ring-white/16 backdrop-blur md:max-w-[420px] lg:max-w-[520px]">
                 <div className="flex items-center gap-3">
                   <div className="h-14 w-14 overflow-hidden rounded-2xl bg-white/10 ring-1 ring-white/12">
                     <img
@@ -303,8 +303,8 @@ function Hero({
 
 function About() {
   return (
-    <section className="container-page py-12 sm:py-16">
-      <div className="grid gap-10 md:grid-cols-[360px_1fr] md:items-center">
+    <section className="container-page py-12 sm:py-16 lg:py-20">
+      <div className="grid gap-10 md:grid-cols-[360px_1fr] md:items-center lg:grid-cols-[420px_1fr] lg:gap-14">
         <div>
           <Pill testId="pill-about" muted={false}>
             ( sobre nós )
@@ -337,7 +337,7 @@ function About() {
         <div className="md:pl-10">
           <h2
             data-testid="text-about-title"
-            className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-zinc-950 sm:text-[46px]"
+            className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-zinc-950 sm:text-[46px] lg:text-[56px]"
           >
             Somos um time
             <br />
@@ -371,8 +371,8 @@ function About() {
 
 function ProductFeature({ product }: { product: Product }) {
   return (
-    <section id="product" className="container-page pb-12 sm:pb-16">
-      <div className="grid gap-6 md:grid-cols-2">
+    <section id="product" className="container-page pb-12 sm:pb-16 lg:pb-20">
+      <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
         <div className="rounded-[28px] bg-zinc-50 p-8 ring-1 ring-zinc-100">
           <Pill testId="pill-popular-product" muted={false}>
             ( produto popular )
@@ -433,12 +433,12 @@ function ProductFeature({ product }: { product: Product }) {
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-[28px]">
+        <div className="relative overflow-hidden rounded-[28px] lg:rounded-[32px]">
           <img
             data-testid="img-product"
             src={product.image}
             alt="Produto"
-            className="h-full min-h-[420px] w-full object-cover"
+            className="h-full min-h-[420px] w-full object-cover lg:min-h-[540px]"
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
         </div>
@@ -482,13 +482,13 @@ function Process() {
   const [idx, setIdx] = useState(2);
 
   return (
-    <section id="process" className="container-page pb-12 sm:pb-16">
-      <div className="relative overflow-hidden rounded-[32px] bg-black">
+    <section id="process" className="container-page pb-12 sm:pb-16 lg:pb-20">
+      <div className="relative overflow-hidden rounded-[32px] bg-black lg:rounded-[38px]">
         <img
           data-testid="img-process"
           src={slides[idx].img}
           alt="Process"
-          className="h-[480px] w-full object-cover sm:h-[520px]"
+          className="h-[480px] w-full object-cover sm:h-[520px] lg:h-[620px]"
         />
         <div className="absolute inset-0 hero-overlay" />
 
@@ -502,12 +502,12 @@ function Process() {
             </div>
           </div>
 
-          <div className="mt-24 grid gap-8 md:mt-28 md:grid-cols-[1fr_420px] md:items-start">
+          <div className="mt-24 grid gap-8 md:mt-28 md:grid-cols-[1fr_420px] md:items-start lg:mt-36 lg:grid-cols-[1fr_520px]">
             <div />
             <div>
               <h3
                 data-testid="text-process-title"
-                className="text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em] text-white"
+                className="text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em] text-white lg:text-[40px]"
               >
                 {slides[idx].title}
               </h3>
@@ -559,14 +559,14 @@ function ProductGrid({ products }: { products: Product[] }) {
   const [active, setActive] = useState<string | null>(null);
 
   return (
-    <section className="container-page pb-12 sm:pb-16">
-      <div className="grid gap-4 md:grid-cols-[240px_1fr] md:items-start">
+    <section className="container-page pb-12 sm:pb-16 lg:pb-20">
+      <div className="grid gap-4 md:grid-cols-[240px_1fr] md:items-start lg:grid-cols-[300px_1fr] lg:gap-10">
         <div className="pt-2">
           <Pill testId="pill-our-product">( nosso produto )</Pill>
         </div>
         <div>
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <h3 data-testid="text-grid-title" className="text-balance text-[38px] font-medium leading-[1.06] tracking-[-0.03em]">
+            <h3 data-testid="text-grid-title" className="text-balance text-[38px] font-medium leading-[1.06] tracking-[-0.03em] lg:text-[46px]">
               Explore nossa tecnologia
               <br />
               <span className="text-zinc-400">e pacotes de sistema</span>
@@ -579,7 +579,7 @@ function ProductGrid({ products }: { products: Product[] }) {
             </button>
           </div>
 
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
             {products.map((p, i) => (
               <motion.button
                 data-testid={`card-product-${p.id}`}
@@ -789,7 +789,7 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-white">
-      <main className="container-page py-5 sm:py-6">
+      <main className="container-page py-5 sm:py-6 lg:py-8">
         <Hero onPlay={() => setVideoOpen(true)} />
       </main>
 
