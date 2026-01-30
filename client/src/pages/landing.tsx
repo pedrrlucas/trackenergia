@@ -1238,7 +1238,7 @@ function Testimonials() {
 function Footer({ onPlay }: { onPlay: () => void }) {
   return (
     <footer id="footer" className="w-full bg-white">
-      <div className="w-full rounded-[30px] bg-zinc-950">
+      <div className="w-full bg-zinc-950">
         <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
           <div className="grid gap-12 py-10 md:grid-cols-[360px_minmax(0,1fr)] md:items-start md:gap-16 md:py-12">
             <div>
