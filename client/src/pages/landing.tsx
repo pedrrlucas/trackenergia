@@ -9,6 +9,49 @@ import {
   Quote,
   Star,
 } from "lucide-react";
+
+const revealViewport = { once: true, amount: 0.22 } as const;
+const revealTransition = { duration: 0.65, ease: [0.22, 1, 0.36, 1] } as const;
+
+function useScrollReveal(reduced: boolean, options?: { y?: number; x?: number; scale?: number }) {
+  const y = options?.y ?? 18;
+  const x = options?.x ?? 0;
+  const scale = options?.scale ?? 1;
+
+  if (reduced) {
+    return { viewport: revealViewport, transition: revealTransition } as const;
+  }
+
+  return {
+    initial: { opacity: 0, y, x, scale },
+    whileInView: { opacity: 1, y: 0, x: 0, scale: 1 },
+    viewport: revealViewport,
+    transition: revealTransition,
+  } as const;
+}
+
+function usePreloadImages(urls: string[]) {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const unique = Array.from(new Set(urls)).filter(Boolean);
+
+    let cancelled = false;
+    const imgs: HTMLImageElement[] = [];
+
+    for (const src of unique) {
+      const img = new Image();
+      imgs.push(img);
+      img.decoding = "async";
+      img.loading = "eager";
+      img.src = src;
+    }
+
+    return () => {
+      cancelled = true;
+      if (cancelled) imgs.length = 0;
+    };
+  }, [urls.join("|")]);
+}
 import heroImg from "@/assets/images/hero-solar.jpg";
 import processImg from "@/assets/images/process-installation.jpg";
 import productImg from "@/assets/images/product-solarfield.jpg";
