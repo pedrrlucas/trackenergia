@@ -1,12 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  CirclePlay,
-  MoveUpRight,
-} from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, CirclePlay, MoveUpRight } from "lucide-react";
 import heroImg from "@/assets/images/hero-solar.jpg";
 import processImg from "@/assets/images/process-installation.jpg";
 import productImg from "@/assets/images/product-solarfield.jpg";
@@ -226,7 +220,7 @@ function Hero({ onPlay }: { onPlay: () => void }) {
         data-testid="img-hero"
         src={heroImg}
         alt="Painéis solares"
-        className="h-[520px] w-full object-cover sm:h-[560px] md:h-[620px] lg:h-[calc(100vh-64px)]"
+        className="h-[520px] w-full object-cover sm:h-[560px] md:h-[620px] lg:h-screen"
       />
       <div className="absolute inset-0 hero-overlay noise" />
 
@@ -237,8 +231,8 @@ function Hero({ onPlay }: { onPlay: () => void }) {
           }
         />
 
-        <div className="container-page">
-          <div className="pt-[104px] sm:pt-[112px] lg:pt-[132px]">
+        <div className="h-full w-full">
+          <div className="container-page h-full pt-[104px] sm:pt-[112px] lg:pt-[132px]">
             <div className="max-w-[520px] lg:max-w-[640px]">
               <h1
                 data-testid="text-hero-title"
@@ -944,9 +938,7 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-white">
-      <main className="container-page py-4 sm:py-6 lg:py-6">
-        <Hero onPlay={() => setVideoOpen(true)} />
-      </main>
+      <Hero onPlay={() => setVideoOpen(true)} />
 
       <About />
       <ProductFeature product={primaryProduct} />
