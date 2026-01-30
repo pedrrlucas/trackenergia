@@ -789,7 +789,7 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-white">
-      <main className="container-page py-5 sm:py-6 lg:py-8">
+      <main className="container-page py-4 sm:py-6 lg:py-6">
         <Hero onPlay={() => setVideoOpen(true)} />
       </main>
 
