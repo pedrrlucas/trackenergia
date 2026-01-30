@@ -1237,10 +1237,10 @@ function Testimonials() {
 
 function Footer({ onPlay }: { onPlay: () => void }) {
   return (
-    <footer id="footer" className="w-full pb-14">
-      <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-4 2xl:px-6">
-        <div className="-mx-4 overflow-hidden rounded-[30px] bg-zinc-950 sm:-mx-6 lg:mx-0">
-          <div className="grid gap-10 p-8 md:grid-cols-[320px_minmax(0,1fr)] md:items-start md:gap-12 md:p-10">
+    <footer id="footer" className="w-full bg-white">
+      <div className="w-full rounded-[30px] bg-zinc-950">
+        <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
+          <div className="grid gap-12 py-10 md:grid-cols-[360px_minmax(0,1fr)] md:items-start md:gap-16 md:py-12">
             <div>
               <div className="flex items-center gap-2">
                 <span className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/10">
@@ -1250,6 +1250,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                   Solars
                 </span>
               </div>
+
               <div data-testid="text-footer-address" className="mt-5 text-xs leading-5 text-white/60">
                 1234 Solar Innovation Parkway,
                 <br />
@@ -1258,7 +1259,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                 United States of America (USA)
               </div>
 
-              <div className="mt-6 flex items-center gap-3 text-white/65">
+              <div className="mt-6 flex items-center gap-3 text-white/70">
                 {[
                   { k: "ig", label: "Instagram" },
                   { k: "x", label: "X" },
@@ -1281,7 +1282,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
             <div>
               <h3
                 data-testid="text-footer-title"
-                className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white"
+                className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-[46px]"
               >
                 Mude para a energia
                 <br />
@@ -1291,7 +1292,8 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                 <br />
                 <span className="text-white/65">para</span> a vida moderna
               </h3>
-              <p data-testid="text-footer-desc" className="mt-4 max-w-[520px] text-sm leading-6 text-white/60">
+
+              <p data-testid="text-footer-desc" className="mt-5 max-w-[620px] text-sm leading-6 text-white/60">
                 Energize sua casa ou empresa com soluções solares eficientes e acessíveis, feitas para gerar impacto real.
               </p>
 
@@ -1312,26 +1314,28 @@ function Footer({ onPlay }: { onPlay: () => void }) {
               </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 px-8 py-5 text-[11px] text-white/55 md:px-10">
-            <div data-testid="text-footer-copyright">©2025 Solars. Todos os direitos reservados</div>
-            <div className="flex items-center gap-4">
-              <a data-testid="link-footer-terms" href="#" className="transition hover:text-white">
-                Termos de uso
-              </a>
-              <a data-testid="link-footer-home" href="#top" className="transition hover:text-white">
-                Início
-              </a>
-              <a data-testid="link-footer-product" href="#product" className="transition hover:text-white">
-                Produto
-              </a>
-              <a data-testid="link-footer-process" href="#process" className="transition hover:text-white">
-                Processo
-              </a>
-              <a data-testid="link-footer-testimonials" href="#testimonials" className="transition hover:text-white">
-                Depoimentos
-              </a>
-            </div>
+      <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
+        <div className="flex flex-wrap items-center justify-between gap-3 py-6 text-[11px] text-zinc-500">
+          <div data-testid="text-footer-copyright">©2025 Solars. Todos os direitos reservados</div>
+          <div className="flex items-center gap-4">
+            <a data-testid="link-footer-terms" href="#" className="transition hover:text-zinc-950">
+              Termos de uso
+            </a>
+            <a data-testid="link-footer-home" href="#top" className="transition hover:text-zinc-950">
+              Início
+            </a>
+            <a data-testid="link-footer-product" href="#product" className="transition hover:text-zinc-950">
+              Produto
+            </a>
+            <a data-testid="link-footer-process" href="#process" className="transition hover:text-zinc-950">
+              Processo
+            </a>
+            <a data-testid="link-footer-testimonials" href="#testimonials" className="transition hover:text-zinc-950">
+              Depoimentos
+            </a>
           </div>
         </div>
       </div>
