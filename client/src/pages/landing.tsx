@@ -259,8 +259,8 @@ function Hero({
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between lg:mt-14">
               <div />
 
-              <div className="flex w-full max-w-[360px] items-center justify-between gap-3 rounded-[22px] bg-white/10 p-3 ring-1 ring-white/16 backdrop-blur md:max-w-[520px] lg:max-w-[620px]">
-                <div className="flex min-w-0 items-center gap-3">
+              <div className="flex w-full max-w-[360px] items-center justify-between gap-3 rounded-[22px] bg-white/10 p-3 ring-1 ring-white/16 backdrop-blur md:max-w-[420px] lg:max-w-[520px]">
+                <div className="flex items-center gap-3">
                   <div className="h-14 w-14 overflow-hidden rounded-2xl bg-white/10 ring-1 ring-white/12">
                     <img
                       data-testid="img-hero-card"
@@ -269,11 +269,11 @@ function Hero({
                       className="h-full w-full object-cover"
                     />
                   </div>
-                  <div className="min-w-0">
-                    <div data-testid="text-hero-card-title" className="truncate text-xs font-semibold text-white">
+                  <div>
+                    <div data-testid="text-hero-card-title" className="text-xs font-semibold text-white">
                       Suncryst EdgeTech 500...
                     </div>
-                    <div data-testid="text-hero-card-desc" className="mt-0.5 line-clamp-2 text-[11px] leading-4 text-white/65">
+                    <div data-testid="text-hero-card-desc" className="mt-0.5 text-[11px] leading-4 text-white/65">
                       Nossos painéis mais vendidos unem durabilidade e performance de alto nível.
                     </div>
                   </div>
