@@ -90,17 +90,27 @@ function PrimaryButton({
   onClick?: () => void;
   testId: string;
 }) {
+  const reduced = usePrefersReducedMotion();
+
   return (
-    <button
+    <motion.button
       data-testid={testId}
       onClick={onClick}
-      className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 shadow-[0_10px_30px_-20px_rgba(0,0,0,.65)] transition active:scale-[0.98]"
+      whileHover={reduced ? undefined : { y: -1 }}
+      whileTap={reduced ? undefined : { scale: 0.985 }}
+      transition={{ duration: 0.2, ease: [0.2, 0.8, 0.2, 1] }}
+      className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 shadow-[0_10px_30px_-20px_rgba(0,0,0,.65)]"
     >
       <span>{children}</span>
-      <span className="grid h-8 w-8 place-items-center rounded-full bg-zinc-950 text-white transition group-hover:translate-x-0.5">
+      <motion.span
+        className="grid h-8 w-8 place-items-center rounded-full bg-zinc-950 text-white"
+        animate={reduced ? undefined : { x: 0 }}
+        whileHover={reduced ? undefined : { x: 2 }}
+        transition={{ duration: 0.25, ease: [0.2, 0.8, 0.2, 1] }}
+      >
         <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
-      </span>
-    </button>
+      </motion.span>
+    </motion.button>
   );
 }
 
@@ -115,26 +125,40 @@ function GhostButton({
   icon?: React.ReactNode;
   testId: string;
 }) {
+  const reduced = usePrefersReducedMotion();
+
   return (
-    <button
+    <motion.button
       data-testid={testId}
       onClick={onClick}
-      className="group inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+      whileHover={reduced ? undefined : { y: -1 }}
+      whileTap={reduced ? undefined : { scale: 0.985 }}
+      transition={{ duration: 0.2, ease: [0.2, 0.8, 0.2, 1] }}
+      className="group inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/18 backdrop-blur hover:bg-white/16"
     >
       <span className="grid h-8 w-8 place-items-center rounded-full bg-white/14 ring-1 ring-white/14 transition group-hover:bg-white/16">
         {icon}
       </span>
       <span>{children}</span>
-    </button>
+    </motion.button>
   );
 }
 
 function Nav({ onContact }: { onContact: () => void }) {
+  const reduced = usePrefersReducedMotion();
+
+  const handleAnchor = (hash: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const el = document.querySelector(hash);
+    if (!el) return;
+    el.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+  };
+
   return (
     <div className="pointer-events-none absolute left-0 right-0 top-0 z-20">
       <div className="container-page pointer-events-auto">
         <div className="mt-4 flex items-center justify-between rounded-full bg-white/22 px-4 py-3 ring-1 ring-white/18 backdrop-blur">
-          <a data-testid="link-logo" href="#top" className="flex items-center gap-2">
+          <a data-testid="link-logo" href="#top" onClick={handleAnchor("#top")} className="flex items-center gap-2">
             <span className="grid h-9 w-9 place-items-center rounded-full bg-white/18 ring-1 ring-white/15">
               <span className="h-4 w-4 rotate-12 rounded-sm bg-white" />
             </span>
@@ -142,27 +166,33 @@ function Nav({ onContact }: { onContact: () => void }) {
           </a>
 
           <div className="hidden items-center gap-7 text-xs font-medium text-white/78 md:flex">
-            <a data-testid="link-nav-home" href="#top" className="transition hover:text-white">
+            <a data-testid="link-nav-home" href="#top" onClick={handleAnchor("#top")} className="transition hover:text-white">
               Início
             </a>
-            <a data-testid="link-nav-product" href="#product" className="transition hover:text-white">
+            <a data-testid="link-nav-product" href="#product" onClick={handleAnchor("#product")} className="transition hover:text-white">
               Produto
             </a>
-            <a data-testid="link-nav-process" href="#process" className="transition hover:text-white">
+            <a data-testid="link-nav-process" href="#process" onClick={handleAnchor("#process")} className="transition hover:text-white">
               Processo
             </a>
-            <a data-testid="link-nav-testimonials" href="#testimonials" className="transition hover:text-white">
+            <a
+              data-testid="link-nav-testimonials"
+              href="#testimonials"
+              onClick={handleAnchor("#testimonials")}
+              className="transition hover:text-white"
+            >
               Depoimentos
             </a>
           </div>
 
-          <button
+          <motion.button
             data-testid="button-contact"
             onClick={onContact}
-            className="rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-zinc-900 active:scale-[0.98]"
+            whileTap={reduced ? undefined : { scale: 0.985 }}
+            className="rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-zinc-900"
           >
             Fale Conosco
-          </button>
+          </motion.button>
         </div>
       </div>
     </div>
@@ -170,6 +200,8 @@ function Nav({ onContact }: { onContact: () => void }) {
 }
 
 function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const reduced = usePrefersReducedMotion();
+
   return (
     <AnimatePresence>
       {open ? (
@@ -183,10 +215,10 @@ function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
         >
           <motion.div
             className="relative w-full max-w-[920px] overflow-hidden rounded-[28px] bg-zinc-950 shadow-2xl ring-1 ring-white/10"
-            initial={{ y: 18, scale: 0.98, opacity: 0 }}
-            animate={{ y: 0, scale: 1, opacity: 1 }}
-            exit={{ y: 18, scale: 0.98, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 260, damping: 24 }}
+            initial={reduced ? { opacity: 0 } : { y: 18, scale: 0.98, opacity: 0 }}
+            animate={reduced ? { opacity: 1 } : { y: 0, scale: 1, opacity: 1 }}
+            exit={reduced ? { opacity: 0 } : { y: 18, scale: 0.98, opacity: 0 }}
+            transition={reduced ? { duration: 0.18 } : { type: "spring", stiffness: 260, damping: 24 }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between px-5 py-4">

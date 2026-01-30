@@ -82,6 +82,12 @@
   html {
     scroll-behavior: smooth;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
   body {
     @apply font-sans antialiased bg-background text-foreground;
   }
@@ -90,6 +96,29 @@
 @layer utilities {
   .container-page {
     @apply mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-4 2xl:px-6;
+  }
+
+  .interactive {
+    transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
+  }
+
+  .interactive:hover {
+    transform: translateY(-1px);
+  }
+
+  .interactive:active {
+    transform: translateY(0) scale(0.985);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .interactive {
+      transition: none;
+    }
+    .interactive:hover,
+    .interactive:active {
+      transform: none;
+    }
   }
 
   .glass {
