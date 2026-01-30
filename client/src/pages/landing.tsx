@@ -514,21 +514,6 @@ function Process() {
                 >
                   ({slides[idx].k}/04)
                 </div>
-
-                <div className="mt-4">
-                  <div
-                    data-testid="progress-process-track"
-                    className="h-[2px] w-[220px] rounded-full bg-white/22"
-                  >
-                    <motion.div
-                      data-testid="progress-process-fill"
-                      className="h-full rounded-full bg-white"
-                      initial={reduced ? undefined : { width: 0 }}
-                      animate={{ width: `${((idx + 1) / slides.length) * 100}%` }}
-                      transition={reduced ? undefined : { duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
-                    />
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -545,21 +530,36 @@ function Process() {
             </div>
           </div>
 
-          <div className="absolute bottom-5 right-5 flex items-center gap-2">
-            <button
-              data-testid="button-process-prev"
-              onClick={() => setIdx((p) => (p - 1 + slides.length) % slides.length)}
-              className="grid h-10 w-10 place-items-center rounded-full bg-white/12 ring-1 ring-white/15 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+          <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between gap-3">
+            <div
+              data-testid="progress-process-track"
+              className="h-[2px] flex-1 rounded-full bg-white/22"
             >
-              <ChevronLeft className="h-4 w-4 text-white" strokeWidth={2.25} />
-            </button>
-            <button
-              data-testid="button-process-next"
-              onClick={() => setIdx((p) => (p + 1) % slides.length)}
-              className="grid h-10 w-10 place-items-center rounded-full bg-white/12 ring-1 ring-white/15 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
-            >
-              <ChevronRight className="h-4 w-4 text-white" strokeWidth={2.25} />
-            </button>
+              <motion.div
+                data-testid="progress-process-fill"
+                className="h-full rounded-full bg-white"
+                initial={reduced ? undefined : { width: 0 }}
+                animate={{ width: `${((idx + 1) / slides.length) * 100}%` }}
+                transition={reduced ? undefined : { duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+              />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                data-testid="button-process-prev"
+                onClick={() => setIdx((p) => (p - 1 + slides.length) % slides.length)}
+                className="grid h-10 w-10 place-items-center rounded-full bg-white/12 ring-1 ring-white/15 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+              >
+                <ChevronLeft className="h-4 w-4 text-white" strokeWidth={2.25} />
+              </button>
+              <button
+                data-testid="button-process-next"
+                onClick={() => setIdx((p) => (p + 1) % slides.length)}
+                className="grid h-10 w-10 place-items-center rounded-full bg-white/12 ring-1 ring-white/15 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+              >
+                <ChevronRight className="h-4 w-4 text-white" strokeWidth={2.25} />
+              </button>
+            </div>
           </div>
         </div>
       </div>
