@@ -1237,99 +1237,101 @@ function Testimonials() {
 
 function Footer({ onPlay }: { onPlay: () => void }) {
   return (
-    <footer id="footer" className="container-page pb-14">
-      <div className="overflow-hidden rounded-[30px] bg-zinc-950">
-        <div className="grid gap-10 p-8 md:grid-cols-[280px_1fr] md:items-center md:gap-12 md:p-10">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/10">
-                <span className="h-4 w-4 rotate-12 rounded-sm bg-white" />
-              </span>
-              <span data-testid="text-footer-brand" className="text-sm font-semibold text-white">
-                Solars
-              </span>
-            </div>
-            <div data-testid="text-footer-address" className="mt-5 text-xs leading-5 text-white/60">
-              1234 Solar Innovation Parkway,
-              <br />
-              Suite 560, Palo Alto, California 94301,
-              <br />
-              United States of America (USA)
+    <footer id="footer" className="w-full pb-14">
+      <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-4 2xl:px-6">
+        <div className="-mx-4 overflow-hidden rounded-[30px] bg-zinc-950 sm:-mx-6 lg:mx-0">
+          <div className="grid gap-10 p-8 md:grid-cols-[320px_minmax(0,1fr)] md:items-start md:gap-12 md:p-10">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/10">
+                  <span className="h-4 w-4 rotate-12 rounded-sm bg-white" />
+                </span>
+                <span data-testid="text-footer-brand" className="text-sm font-semibold text-white">
+                  Solars
+                </span>
+              </div>
+              <div data-testid="text-footer-address" className="mt-5 text-xs leading-5 text-white/60">
+                1234 Solar Innovation Parkway,
+                <br />
+                Suite 560, Palo Alto, California 94301,
+                <br />
+                United States of America (USA)
+              </div>
+
+              <div className="mt-6 flex items-center gap-3 text-white/65">
+                {[
+                  { k: "ig", label: "Instagram" },
+                  { k: "x", label: "X" },
+                  { k: "in", label: "LinkedIn" },
+                  { k: "yt", label: "YouTube" },
+                ].map((s) => (
+                  <a
+                    data-testid={`link-social-${s.k}`}
+                    key={s.k}
+                    href="#"
+                    className="grid h-9 w-9 place-items-center rounded-full bg-white/8 ring-1 ring-white/10 transition hover:bg-white/12"
+                    aria-label={s.label}
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/55" />
+                  </a>
+                ))}
+              </div>
             </div>
 
-            <div className="mt-6 flex items-center gap-3 text-white/65">
-              {[
-                { k: "ig", label: "Instagram" },
-                { k: "x", label: "X" },
-                { k: "in", label: "LinkedIn" },
-                { k: "yt", label: "YouTube" },
-              ].map((s) => (
-                <a
-                  data-testid={`link-social-${s.k}`}
-                  key={s.k}
-                  href="#"
-                  className="grid h-9 w-9 place-items-center rounded-full bg-white/8 ring-1 ring-white/10 transition hover:bg-white/12"
-                  aria-label={s.label}
+            <div>
+              <h3
+                data-testid="text-footer-title"
+                className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white"
+              >
+                Mude para a energia
+                <br />
+                solar e ilumine o futuro,
+                <br />
+                <span className="text-white/65">Energia limpa e confiável</span> feita
+                <br />
+                <span className="text-white/65">para</span> a vida moderna
+              </h3>
+              <p data-testid="text-footer-desc" className="mt-4 max-w-[520px] text-sm leading-6 text-white/60">
+                Energize sua casa ou empresa com soluções solares eficientes e acessíveis, feitas para gerar impacto real.
+              </p>
+
+              <div className="mt-7 flex flex-wrap items-center gap-3">
+                <PrimaryButton
+                  testId="button-footer-explore"
+                  onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}
                 >
-                  <span className="h-1.5 w-1.5 rounded-full bg-white/55" />
-                </a>
-              ))}
+                  Explorar agora
+                </PrimaryButton>
+                <GhostButton
+                  testId="button-footer-play"
+                  onClick={onPlay}
+                  icon={<CirclePlay className="h-4 w-4" strokeWidth={2.25} />}
+                >
+                  Ver vídeo
+                </GhostButton>
+              </div>
             </div>
           </div>
 
-          <div>
-            <h3
-              data-testid="text-footer-title"
-              className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white"
-            >
-              Mude para a energia
-              <br />
-              solar e ilumine o futuro,
-              <br />
-              <span className="text-white/65">Energia limpa e confiável</span> feita
-              <br />
-              <span className="text-white/65">para</span> a vida moderna
-            </h3>
-            <p data-testid="text-footer-desc" className="mt-4 max-w-[520px] text-sm leading-6 text-white/60">
-              Energize sua casa ou empresa com soluções solares eficientes e acessíveis, feitas para gerar impacto real.
-            </p>
-
-            <div className="mt-7 flex flex-wrap items-center gap-3">
-              <PrimaryButton
-                testId="button-footer-explore"
-                onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}
-              >
-                Explorar agora
-              </PrimaryButton>
-              <GhostButton
-                testId="button-footer-play"
-                onClick={onPlay}
-                icon={<CirclePlay className="h-4 w-4" strokeWidth={2.25} />}
-              >
-                Ver vídeo
-              </GhostButton>
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 px-8 py-5 text-[11px] text-white/55 md:px-10">
+            <div data-testid="text-footer-copyright">©2025 Solars. Todos os direitos reservados</div>
+            <div className="flex items-center gap-4">
+              <a data-testid="link-footer-terms" href="#" className="transition hover:text-white">
+                Termos de uso
+              </a>
+              <a data-testid="link-footer-home" href="#top" className="transition hover:text-white">
+                Início
+              </a>
+              <a data-testid="link-footer-product" href="#product" className="transition hover:text-white">
+                Produto
+              </a>
+              <a data-testid="link-footer-process" href="#process" className="transition hover:text-white">
+                Processo
+              </a>
+              <a data-testid="link-footer-testimonials" href="#testimonials" className="transition hover:text-white">
+                Depoimentos
+              </a>
             </div>
-          </div>
-        </div>
-
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 px-8 py-5 text-[11px] text-white/55 md:px-10">
-          <div data-testid="text-footer-copyright">©2025 Solars. Todos os direitos reservados</div>
-          <div className="flex items-center gap-4">
-            <a data-testid="link-footer-terms" href="#" className="transition hover:text-white">
-              Termos de uso
-            </a>
-            <a data-testid="link-footer-home" href="#top" className="transition hover:text-white">
-              Início
-            </a>
-            <a data-testid="link-footer-product" href="#product" className="transition hover:text-white">
-              Produto
-            </a>
-            <a data-testid="link-footer-process" href="#process" className="transition hover:text-white">
-              Processo
-            </a>
-            <a data-testid="link-footer-testimonials" href="#testimonials" className="transition hover:text-white">
-              Depoimentos
-            </a>
           </div>
         </div>
       </div>
