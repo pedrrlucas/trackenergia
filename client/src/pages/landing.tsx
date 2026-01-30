@@ -512,7 +512,8 @@ function Process() {
                   data-testid="text-process-counter"
                   className="text-[56px] font-medium leading-none tracking-[-0.04em] text-white sm:text-[64px] lg:text-[72px]"
                 >
-                  ({slides[idx].k}/04)
+                  <span className="text-white">({slides[idx].k}</span>
+                  <span className="text-white/55">/04)</span>
                 </div>
               </div>
             </div>
