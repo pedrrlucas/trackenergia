@@ -6,6 +6,8 @@ import {
   ChevronRight,
   CirclePlay,
   MoveUpRight,
+  Quote,
+  Star,
 } from "lucide-react";
 import heroImg from "@/assets/images/hero-solar.jpg";
 import processImg from "@/assets/images/process-installation.jpg";
@@ -17,6 +19,9 @@ import product4 from "@/assets/images/product-4.jpg";
 import product5 from "@/assets/images/product-5.jpg";
 import product6 from "@/assets/images/product-6.jpg";
 import product7 from "@/assets/images/product-7.jpg";
+import t1 from "@/assets/images/testimonial-1.png";
+import t2 from "@/assets/images/testimonial-2.png";
+import t3 from "@/assets/images/testimonial-3.png";
 
 type Product = {
   id: string;
@@ -27,6 +32,16 @@ type Product = {
   specLeft: string[];
   specRight: string[];
   image: string;
+};
+
+type Testimonial = {
+  id: string;
+  name: string;
+  role: string;
+  city: string;
+  quote: string;
+  rating: number;
+  avatar: string;
 };
 
 function usePrefersReducedMotion() {
@@ -136,7 +151,7 @@ function Nav({ onContact }: { onContact: () => void }) {
             <a data-testid="link-nav-process" href="#process" className="transition hover:text-white">
               Processo
             </a>
-            <a data-testid="link-nav-testimonials" href="#footer" className="transition hover:text-white">
+            <a data-testid="link-nav-testimonials" href="#testimonials" className="transition hover:text-white">
               Depoimentos
             </a>
           </div>
@@ -204,12 +219,7 @@ function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
 function Hero({ onPlay }: { onPlay: () => void }) {
   return (
     <section id="top" className="relative min-h-screen w-full overflow-hidden bg-black">
-      <img
-        data-testid="img-hero"
-        src={heroImg}
-        alt="Painéis solares"
-        className="h-screen w-full object-cover"
-      />
+      <img data-testid="img-hero" src={heroImg} alt="Painéis solares" className="h-screen w-full object-cover" />
       <div className="absolute inset-0 hero-overlay noise" />
 
       <div className="absolute inset-0">
@@ -260,21 +270,13 @@ function Hero({ onPlay }: { onPlay: () => void }) {
               <div className="flex w-full max-w-[360px] items-center justify-between gap-3 rounded-[22px] bg-white/10 p-3 ring-1 ring-white/16 backdrop-blur md:max-w-[420px] lg:max-w-[520px]">
                 <div className="flex items-center gap-3">
                   <div className="h-14 w-14 overflow-hidden rounded-2xl bg-white/10 ring-1 ring-white/12">
-                    <img
-                      data-testid="img-hero-card"
-                      src={productImg}
-                      alt="Painel"
-                      className="h-full w-full object-cover"
-                    />
+                    <img data-testid="img-hero-card" src={productImg} alt="Painel" className="h-full w-full object-cover" />
                   </div>
                   <div>
                     <div data-testid="text-hero-card-title" className="text-xs font-semibold text-white">
                       Suncryst EdgeTech 500...
                     </div>
-                    <div
-                      data-testid="text-hero-card-desc"
-                      className="mt-0.5 text-[11px] leading-4 text-white/65"
-                    >
+                    <div data-testid="text-hero-card-desc" className="mt-0.5 text-[11px] leading-4 text-white/65">
                       Nossos painéis mais vendidos unem durabilidade e performance de alto nível.
                     </div>
                   </div>
@@ -349,7 +351,8 @@ function About() {
               <span className="text-zinc-400">acelerar</span> a energia solar
             </h2>
             <p data-testid="text-about-desc" className="mt-4 w-full text-sm leading-6 text-zinc-500">
-              Com um compromisso real com a sustentabilidade, ajudamos pessoas, famílias e empresas a migrarem para uma energia mais limpa com soluções solares inteligentes, confiáveis e acessíveis
+              Com um compromisso real com a sustentabilidade, ajudamos pessoas, famílias e empresas a migrarem para uma energia mais
+              limpa com soluções solares inteligentes, confiáveis e acessíveis
               <br />
               feitas para durar.
             </p>
@@ -831,6 +834,293 @@ function ProductGrid({ products }: { products: Product[] }) {
   );
 }
 
+function Testimonials() {
+  const reduced = usePrefersReducedMotion();
+  const [active, setActive] = useState<string | null>("t-2");
+
+  const items: Testimonial[] = useMemo(
+    () => [
+      {
+        id: "t-1",
+        name: "Mariana Alves",
+        role: "Proprietária",
+        city: "Campinas, SP",
+        quote:
+          "A instalação foi rápida e muito bem explicada. Em poucos dias já estávamos gerando energia e a conta de luz caiu de verdade — sem burocracia e com um acabamento impecável.",
+        rating: 5,
+        avatar: t1,
+      },
+      {
+        id: "t-2",
+        name: "Ricardo Nogueira",
+        role: "Gestor industrial",
+        city: "Joinville, SC",
+        quote:
+          "O que mais me surpreendeu foi o cuidado no projeto e o acompanhamento pós-instalação. O monitoramento é simples e o suporte responde rápido. Sensação de produto premium.",
+        rating: 5,
+        avatar: t2,
+      },
+      {
+        id: "t-3",
+        name: "Patrícia Moura",
+        role: "Empreendedora",
+        city: "Belo Horizonte, MG",
+        quote:
+          "Queríamos previsibilidade de custos e sustentabilidade. A Solars entregou um sistema sob medida e com estética bonita no telhado. Valeu cada centavo.",
+        rating: 5,
+        avatar: t3,
+      },
+    ],
+    [],
+  );
+
+  const activeItem = items.find((i) => i.id === active) ?? items[0];
+
+  return (
+    <section id="testimonials" className="container-page pb-12 sm:pb-16 lg:pb-20">
+      <div className="flex items-start justify-between gap-6">
+        <Pill testId="pill-testimonials">( depoimentos )</Pill>
+        <div className="hidden items-center gap-2 sm:flex">
+          <button
+            data-testid="button-testimonials-prev"
+            onClick={() => {
+              const idx = items.findIndex((i) => i.id === activeItem.id);
+              const next = (idx - 1 + items.length) % items.length;
+              setActive(items[next].id);
+            }}
+            className="grid h-10 w-10 place-items-center rounded-full bg-zinc-950 text-white ring-1 ring-zinc-950/10 transition hover:bg-zinc-900 active:scale-[0.98]"
+          >
+            <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
+          </button>
+          <button
+            data-testid="button-testimonials-next"
+            onClick={() => {
+              const idx = items.findIndex((i) => i.id === activeItem.id);
+              const next = (idx + 1) % items.length;
+              setActive(items[next].id);
+            }}
+            className="grid h-10 w-10 place-items-center rounded-full bg-zinc-950 text-white ring-1 ring-zinc-950/10 transition hover:bg-zinc-900 active:scale-[0.98]"
+          >
+            <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
+          </button>
+        </div>
+      </div>
+
+      <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
+        <motion.div
+          className="relative overflow-hidden rounded-[30px] bg-zinc-950 ring-1 ring-white/10"
+          initial={reduced ? undefined : { opacity: 0, y: 10 }}
+          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
+        >
+          <div className="absolute inset-0 hero-overlay opacity-60" />
+          <div className="absolute inset-0 noise opacity-[0.22]" />
+
+          <div className="relative p-7 sm:p-8">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <div data-testid="text-testimonials-title" className="text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em] text-white">
+                  O que nossos clientes
+                  <br />
+                  <span className="text-white/70">falam sobre a Solars</span>
+                </div>
+                <p data-testid="text-testimonials-sub" className="mt-3 max-w-[520px] text-sm leading-6 text-white/70">
+                  Experiências reais de quem já migrou para energia solar com projeto bem feito, instalação limpa e suporte presente.
+                </p>
+              </div>
+
+              <div className="hidden sm:grid h-11 w-11 place-items-center rounded-2xl bg-white/10 ring-1 ring-white/12">
+                <Quote className="h-5 w-5 text-white" strokeWidth={2.25} />
+              </div>
+            </div>
+
+            <div className="mt-7 rounded-[22px] bg-white/10 p-6 ring-1 ring-white/12 backdrop-blur">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="h-12 w-12 overflow-hidden rounded-2xl bg-white/10 ring-1 ring-white/12">
+                    <img
+                      data-testid="img-testimonial-active-avatar"
+                      src={activeItem.avatar}
+                      alt={activeItem.name}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <div data-testid="text-testimonial-active-name" className="text-sm font-semibold text-white">
+                      {activeItem.name}
+                    </div>
+                    <div data-testid="text-testimonial-active-role" className="mt-0.5 text-[12px] text-white/65">
+                      {activeItem.role} · {activeItem.city}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1" aria-label="Avaliação">
+                  {new Array(5).fill(0).map((_, i) => (
+                    <Star
+                      data-testid={`icon-testimonial-active-star-${i}`}
+                      key={i}
+                      className={"h-4 w-4 " + (i < activeItem.rating ? "text-white" : "text-white/25")}
+                      fill={i < activeItem.rating ? "currentColor" : "none"}
+                      strokeWidth={2}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={activeItem.id}
+                  data-testid="text-testimonial-active-quote"
+                  className="mt-4 text-sm leading-6 text-white/78"
+                  initial={reduced ? undefined : { opacity: 0, y: 8 }}
+                  animate={reduced ? undefined : { opacity: 1, y: 0 }}
+                  exit={reduced ? undefined : { opacity: 0, y: -8 }}
+                  transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
+                >
+                  “{activeItem.quote}”
+                </motion.p>
+              </AnimatePresence>
+            </div>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <button
+                data-testid="button-testimonials-cta"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]"
+                onClick={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })}
+              >
+                Quero um orçamento
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-zinc-950 text-white">
+                  <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
+                </span>
+              </button>
+              <div data-testid="text-testimonials-proof" className="text-[11px] font-semibold uppercase tracking-wide text-white/55">
+                4,9/5 · 1.200+ instalações
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        <div className="grid gap-4">
+          {items.map((t, i) => {
+            const selected = t.id === activeItem.id;
+            return (
+              <motion.button
+                data-testid={`card-testimonial-${t.id}`}
+                key={t.id}
+                onClick={() => setActive(t.id)}
+                onFocus={() => setActive(t.id)}
+                className={
+                  "group text-left rounded-[26px] p-5 ring-1 transition " +
+                  (selected
+                    ? "bg-zinc-950 text-white ring-zinc-950"
+                    : "bg-white text-zinc-950 ring-zinc-200 hover:bg-zinc-50")
+                }
+                initial={reduced ? undefined : { opacity: 0, y: 10 }}
+                whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1], delay: i * 0.04 }}
+              >
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={
+                        "h-11 w-11 overflow-hidden rounded-2xl ring-1 " +
+                        (selected ? "bg-white/10 ring-white/12" : "bg-zinc-100 ring-zinc-200")
+                      }
+                    >
+                      <img
+                        data-testid={`img-testimonial-avatar-${t.id}`}
+                        src={t.avatar}
+                        alt={t.name}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <div
+                        data-testid={`text-testimonial-name-${t.id}`}
+                        className={"text-sm font-semibold " + (selected ? "text-white" : "text-zinc-950")}
+                      >
+                        {t.name}
+                      </div>
+                      <div
+                        data-testid={`text-testimonial-meta-${t.id}`}
+                        className={"mt-0.5 text-[12px] " + (selected ? "text-white/65" : "text-zinc-500")}
+                      >
+                        {t.role} · {t.city}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-1">
+                    {new Array(5).fill(0).map((_, s) => (
+                      <Star
+                        data-testid={`icon-testimonial-star-${t.id}-${s}`}
+                        key={s}
+                        className={
+                          "h-3.5 w-3.5 " +
+                          (selected
+                            ? s < t.rating
+                              ? "text-white"
+                              : "text-white/25"
+                            : s < t.rating
+                              ? "text-zinc-950"
+                              : "text-zinc-950/20")
+                        }
+                        fill={s < t.rating ? "currentColor" : "none"}
+                        strokeWidth={2}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div
+                  data-testid={`text-testimonial-snippet-${t.id}`}
+                  className={
+                    "mt-3 line-clamp-3 text-sm leading-6 " + (selected ? "text-white/75" : "text-zinc-500")
+                  }
+                >
+                  “{t.quote}”
+                </div>
+              </motion.button>
+            );
+          })}
+
+          <div className="flex items-center justify-between gap-3 sm:hidden">
+            <button
+              data-testid="button-testimonials-prev-mobile"
+              onClick={() => {
+                const idx = items.findIndex((i) => i.id === activeItem.id);
+                const next = (idx - 1 + items.length) % items.length;
+                setActive(items[next].id);
+              }}
+              className="grid h-10 w-10 place-items-center rounded-full bg-zinc-950 text-white ring-1 ring-zinc-950/10 transition hover:bg-zinc-900 active:scale-[0.98]"
+            >
+              <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
+            </button>
+            <button
+              data-testid="button-testimonials-next-mobile"
+              onClick={() => {
+                const idx = items.findIndex((i) => i.id === activeItem.id);
+                const next = (idx + 1) % items.length;
+                setActive(items[next].id);
+              }}
+              className="grid h-10 w-10 place-items-center rounded-full bg-zinc-950 text-white ring-1 ring-zinc-950/10 transition hover:bg-zinc-900 active:scale-[0.98]"
+            >
+              <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
+            </button>
+
+            <div data-testid="text-testimonials-proof-mobile" className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">
+              4,9/5 · 1.200+ instalações
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Footer({ onPlay }: { onPlay: () => void }) {
   return (
     <footer id="footer" className="container-page pb-14">
@@ -923,7 +1213,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
             <a data-testid="link-footer-process" href="#process" className="transition hover:text-white">
               Processo
             </a>
-            <a data-testid="link-footer-testimonials" href="#footer" className="transition hover:text-white">
+            <a data-testid="link-footer-testimonials" href="#testimonials" className="transition hover:text-white">
               Depoimentos
             </a>
           </div>
@@ -1036,6 +1326,7 @@ export default function Landing() {
       <ProductFeature product={primaryProduct} />
       <Process />
       <ProductGrid products={products} />
+      <Testimonials />
       <Footer onPlay={() => setVideoOpen(true)} />
 
       <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} />
