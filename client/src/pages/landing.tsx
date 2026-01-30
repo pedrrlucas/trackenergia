@@ -130,10 +130,10 @@ function Nav({
           </a>
 
           <div className="hidden items-center gap-7 text-xs font-medium text-white/78 md:flex">
-            <a data-testid="link-nav-home" href="#top" className="hover:text-white transition">Home</a>
-            <a data-testid="link-nav-product" href="#product" className="hover:text-white transition">Our Product</a>
-            <a data-testid="link-nav-process" href="#process" className="hover:text-white transition">Production</a>
-            <a data-testid="link-nav-testimonials" href="#footer" className="hover:text-white transition">Testimonials</a>
+            <a data-testid="link-nav-home" href="#top" className="hover:text-white transition">Início</a>
+            <a data-testid="link-nav-product" href="#product" className="hover:text-white transition">Produto</a>
+            <a data-testid="link-nav-process" href="#process" className="hover:text-white transition">Processo</a>
+            <a data-testid="link-nav-testimonials" href="#footer" className="hover:text-white transition">Depoimentos</a>
           </div>
 
           <button
@@ -141,7 +141,7 @@ function Nav({
             onClick={onContact}
             className="rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-zinc-900 active:scale-[0.98]"
           >
-            Contact Us
+            Fale Conosco
           </button>
         </div>
       </div>
@@ -176,13 +176,13 @@ function VideoModal({
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between px-5 py-4">
-              <div className="text-sm font-semibold text-white">Solar overview</div>
+              <div className="text-sm font-semibold text-white">Visão geral solar</div>
               <button
                 data-testid="button-close-video"
                 onClick={onClose}
                 className="rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-white ring-1 ring-white/10 transition hover:bg-white/14"
               >
-                Close
+                Fechar
               </button>
             </div>
             <div className="aspect-video w-full bg-black">
@@ -190,7 +190,7 @@ function VideoModal({
                 data-testid="iframe-video"
                 className="h-full w-full"
                 src="https://www.youtube.com/embed/1kUE0BZtTRc?autoplay=1&mute=1"
-                title="Solar video"
+                title="Vídeo solar"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
@@ -212,7 +212,7 @@ function Hero({
       <img
         data-testid="img-hero"
         src={heroImg}
-        alt="Solar panels"
+        alt="Painéis solares"
         className="h-[520px] w-full object-cover sm:h-[560px] md:h-[620px]"
       />
       <div className="absolute inset-0 hero-overlay noise" />
@@ -227,24 +227,23 @@ function Hero({
                 data-testid="text-hero-title"
                 className="text-balance text-[44px] font-medium leading-[1.02] tracking-[-0.02em] text-white sm:text-[56px]"
               >
-                Power your
+                Energia solar
                 <br />
-                future with clean
+                para impulsionar
                 <br />
-                solar energy
+                o seu futuro
               </h1>
 
               <p
                 data-testid="text-hero-subtitle"
                 className="mt-4 max-w-[420px] text-xs leading-5 text-white/72"
               >
-                Clean, affordable, & renewable — take control of your electricity with smarter energy
-                solution.
+                Energia limpa, acessível e renovável — assuma o controle da sua conta de luz com uma solução inteligente.
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <PrimaryButton testId="button-explore-now" onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}>
-                  Explore Now
+                  Explorar agora
                 </PrimaryButton>
 
                 <GhostButton
@@ -252,15 +251,13 @@ function Hero({
                   onClick={onPlay}
                   icon={<CirclePlay className="h-4 w-4" strokeWidth={2.25} />}
                 >
-                  Play Video
+                  Ver vídeo
                 </GhostButton>
               </div>
             </div>
 
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-              <Pill testId="pill-hero-tag" muted>
-                ( about us )
-              </Pill>
+              <div />
 
               <div className="flex w-full max-w-[360px] items-center justify-between gap-3 rounded-[22px] bg-white/10 p-3 ring-1 ring-white/16 backdrop-blur md:max-w-[420px]">
                 <div className="flex items-center gap-3">
@@ -277,7 +274,7 @@ function Hero({
                       Suncryst EdgeTech 500...
                     </div>
                     <div data-testid="text-hero-card-desc" className="mt-0.5 text-[11px] leading-4 text-white/65">
-                      Our best selling panels combine durability with top-tier performance.
+                      Nossos painéis mais vendidos unem durabilidade e performance de alto nível.
                     </div>
                   </div>
                 </div>
@@ -310,7 +307,7 @@ function About() {
       <div className="grid gap-10 md:grid-cols-[360px_1fr] md:items-center">
         <div>
           <Pill testId="pill-about" muted={false}>
-            ( about us )
+            ( sobre nós )
           </Pill>
           <div className="mt-5 flex items-end gap-4">
             <div className="flex -space-x-2">
@@ -328,10 +325,10 @@ function About() {
             </div>
             <div>
               <div data-testid="text-team-count" className="text-[28px] font-medium tracking-[-0.02em]">
-                52 Team Member
+                52 especialistas
               </div>
               <div data-testid="text-team-sub" className="text-sm text-zinc-500">
-                Are ready to assist you
+                prontos para te ajudar
               </div>
             </div>
           </div>
@@ -342,18 +339,17 @@ function About() {
             data-testid="text-about-title"
             className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-zinc-950 sm:text-[46px]"
           >
-            We are a dedicated
+            Somos um time
             <br />
-            team of energy experts
+            dedicado de especialistas
             <br />
-            <span className="text-zinc-400">passionate</span> about the
+            <span className="text-zinc-400">apaixonados</span> por
             <br />
-            <span className="text-zinc-400">accelerating</span> solar
+            <span className="text-zinc-400">acelerar</span> a energia solar
           </h2>
           <p data-testid="text-about-desc" className="mt-4 max-w-[520px] text-sm leading-6 text-zinc-500">
-            With a hard commitment to sustainable, we help individuals, families, and organizations
-            transition to cleaner energy through smart, reliable, and affordable solar solutions designed
-            for lasting impact.
+            Com um compromisso real com a sustentabilidade, ajudamos pessoas, famílias e empresas
+            a migrarem para uma energia mais limpa com soluções solares inteligentes, confiáveis e acessíveis\n            feitas para durar.
           </p>
 
           <div className="mt-6">
@@ -361,7 +357,7 @@ function About() {
               data-testid="button-our-story"
               className="group inline-flex items-center gap-2 rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white transition hover:bg-zinc-900 active:scale-[0.98]"
             >
-              Our Story
+              Nossa história
               <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/10 transition group-hover:translate-x-0.5">
                 <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
               </span>
@@ -379,7 +375,7 @@ function ProductFeature({ product }: { product: Product }) {
       <div className="grid gap-6 md:grid-cols-2">
         <div className="rounded-[28px] bg-zinc-50 p-8 ring-1 ring-zinc-100">
           <Pill testId="pill-popular-product" muted={false}>
-            ( popular product )
+            ( produto popular )
           </Pill>
           <h3
             data-testid="text-product-title"
@@ -395,7 +391,7 @@ function ProductFeature({ product }: { product: Product }) {
 
           <div className="mt-8 grid gap-6 rounded-2xl bg-white p-5 ring-1 ring-zinc-100">
             <div className="text-sm font-semibold text-zinc-900" data-testid="text-spec-title">
-              Specification Product
+              Especificações do produto
             </div>
             <div className="grid gap-6 sm:grid-cols-2">
               <ul className="space-y-2.5 text-sm text-zinc-600">
@@ -425,13 +421,13 @@ function ProductFeature({ product }: { product: Product }) {
               <span className="grid h-7 w-7 place-items-center rounded-full bg-zinc-950 text-white">
                 <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
               </span>
-              Let’s Talk
+              Vamos conversar
             </button>
             <button
               data-testid="button-explore-product"
               className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white transition hover:bg-zinc-900 active:scale-[0.98]"
             >
-              Explore Product
+              Explorar produto
               <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
             </button>
           </div>
@@ -441,7 +437,7 @@ function ProductFeature({ product }: { product: Product }) {
           <img
             data-testid="img-product"
             src={product.image}
-            alt="Product"
+            alt="Produto"
             className="h-full min-h-[420px] w-full object-cover"
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
@@ -457,26 +453,26 @@ function Process() {
     () => [
       {
         k: "01",
-        title: "Site assessment and planning",
-        desc: "We evaluate your energy usage and roof conditions to design the best solar setup.",
+        title: "Avaliação do local e planejamento",
+        desc: "Analisamos seu consumo de energia e as condições do telhado para desenhar a melhor solução solar.",
         img: processImg,
       },
       {
         k: "02",
-        title: "System engineering and preparation",
-        desc: "Panels, inverters and mounting hardware are selected for your climate and goals.",
+        title: "Engenharia do sistema e preparação",
+        desc: "Selecionamos painéis, inversores e estrutura ideais para o seu clima e objetivos.",
         img: processImg,
       },
       {
         k: "03",
-        title: "Seamless installation, handled by professionals",
-        desc: "From on-site assessment to final setup, our team ensures a smooth and safe installation process tailored to your energy needs. Every panel is tested for optimal performance and installed with precision.",
+        title: "Instalação sem complicação, feita por profissionais",
+        desc: "Da vistoria no local à configuração final, nosso time garante uma instalação segura, ágil e sob medida. Cada painel é testado para desempenho máximo e instalado com precisão.",
         img: processImg,
       },
       {
         k: "04",
-        title: "Monitoring and ongoing support",
-        desc: "Track production in real time and get help whenever you need it.",
+        title: "Monitoramento e suporte contínuo",
+        desc: "Acompanhe a geração em tempo real e conte com suporte sempre que precisar.",
         img: processImg,
       },
     ],
@@ -499,7 +495,7 @@ function Process() {
         <div className="absolute inset-0 p-6 sm:p-8">
           <div className="flex items-start justify-between">
             <Pill testId="pill-process" muted>
-              ( your process )
+              ( seu processo )
             </Pill>
             <div data-testid="text-process-counter" className="text-sm font-semibold text-white/85">
               ({slides[idx].k}/04)
@@ -566,20 +562,20 @@ function ProductGrid({ products }: { products: Product[] }) {
     <section className="container-page pb-12 sm:pb-16">
       <div className="grid gap-4 md:grid-cols-[240px_1fr] md:items-start">
         <div className="pt-2">
-          <Pill testId="pill-our-product">( our product )</Pill>
+          <Pill testId="pill-our-product">( nosso produto )</Pill>
         </div>
         <div>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h3 data-testid="text-grid-title" className="text-balance text-[38px] font-medium leading-[1.06] tracking-[-0.03em]">
-              Explore our technology
+              Explore nossa tecnologia
               <br />
-              <span className="text-zinc-400">and system packages</span>
+              <span className="text-zinc-400">e pacotes de sistema</span>
             </h3>
             <button
               data-testid="button-grid-explore"
               className="rounded-full bg-zinc-100 px-4 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
             >
-              Explore Product
+              Explorar produto
             </button>
           </div>
 
@@ -623,7 +619,7 @@ function ProductGrid({ products }: { products: Product[] }) {
                           exit={{ scale: 0.95, y: 10, opacity: 0 }}
                           transition={{ type: "spring", stiffness: 260, damping: 22 }}
                         >
-                          Check Detail
+                          Ver detalhes
                           <span className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/14 ring-1 ring-white/16">
                             <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
                           </span>
@@ -695,41 +691,41 @@ function Footer({ onPlay }: { onPlay: () => void }) {
 
           <div>
             <h3 data-testid="text-footer-title" className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white">
-              Switch to the solar
+              Mude para a energia
               <br />
-              energy for a brighter world,
+              solar e ilumine o futuro,
               <br />
-              <span className="text-white/65">Reliable clean energy</span> built
+              <span className="text-white/65">Energia limpa e confiável</span> feita
               <br />
-              <span className="text-white/65">for</span> modern living
+              <span className="text-white/65">para</span> a vida moderna
             </h3>
             <p data-testid="text-footer-desc" className="mt-4 max-w-[520px] text-sm leading-6 text-white/60">
-              Power your home or business with efficient, affordable solar solutions made for real impact.
+              Energize sua casa ou empresa com soluções solares eficientes e acessíveis, feitas para gerar impacto real.
             </p>
 
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <PrimaryButton testId="button-footer-explore" onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}>
-                Explore Now
+                Explorar agora
               </PrimaryButton>
               <GhostButton
                 testId="button-footer-play"
                 onClick={onPlay}
                 icon={<CirclePlay className="h-4 w-4" strokeWidth={2.25} />}
               >
-                Play Video
+                Ver vídeo
               </GhostButton>
             </div>
           </div>
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 px-8 py-5 text-[11px] text-white/55 md:px-10">
-          <div data-testid="text-footer-copyright">©2025 Solars. All Right Reserved</div>
+          <div data-testid="text-footer-copyright">©2025 Solars. Todos os direitos reservados</div>
           <div className="flex items-center gap-4">
-            <a data-testid="link-footer-terms" href="#" className="hover:text-white transition">Terms of Use</a>
-            <a data-testid="link-footer-home" href="#top" className="hover:text-white transition">Home</a>
-            <a data-testid="link-footer-product" href="#product" className="hover:text-white transition">Our Product</a>
-            <a data-testid="link-footer-process" href="#process" className="hover:text-white transition">Production</a>
-            <a data-testid="link-footer-testimonials" href="#footer" className="hover:text-white transition">Testimonials</a>
+            <a data-testid="link-footer-terms" href="#" className="hover:text-white transition">Termos de uso</a>
+            <a data-testid="link-footer-home" href="#top" className="hover:text-white transition">Início</a>
+            <a data-testid="link-footer-product" href="#product" className="hover:text-white transition">Produto</a>
+            <a data-testid="link-footer-process" href="#process" className="hover:text-white transition">Processo</a>
+            <a data-testid="link-footer-testimonials" href="#footer" className="hover:text-white transition">Depoimentos</a>
           </div>
         </div>
       </div>
@@ -744,12 +740,12 @@ export default function Landing() {
   const primaryProduct: Product = useMemo(
     () => ({
       id: "edge-500",
-      tag: "POPULAR PRODUCT",
+      tag: "PRODUTO POPULAR",
       title: "Suncryst EdgeTech 500W",
-      subtitle: "Module Dual-Layer PERC",
-      desc: "Our best-selling panels combine durability with top-tier performance — perfect for homes and commercial use.",
-      specLeft: ["Accessories", "Inverter Output Power", "Solar Panel Module"],
-      specRight: ["DC Cable/Ground Cable", "800 VA / 1000 VA", "550W Mono Solar Panel"],
+      subtitle: "Módulo PERC de dupla camada",
+      desc: "Nossos painéis mais vendidos combinam durabilidade e alta performance — ideais para residências e uso comercial.",
+      specLeft: ["Acessórios", "Potência de saída do inversor", "Módulo de painel solar"],
+      specRight: ["Cabo DC / aterramento", "800 VA / 1000 VA", "Painel solar mono 550W"],
       image: productImg,
     }),
     [],
@@ -759,9 +755,9 @@ export default function Landing() {
     () => [
       {
         id: "solnova-550",
-        tag: "RESIDENTIAL ROOFTOP",
+        tag: "TELHADO RESIDENCIAL",
         title: "Solnova UltraCell 550W",
-        subtitle: "Mono SmartGrid Boost Series for All Climates",
+        subtitle: "Série Mono SmartGrid Boost para todos os climas",
         desc: "",
         specLeft: [],
         specRight: [],
@@ -769,9 +765,9 @@ export default function Landing() {
       },
       {
         id: "edge-500",
-        tag: "OFF-GRID SOLAR SYSTEMS",
+        tag: "SISTEMAS OFF-GRID",
         title: "Suncryst EdgeTech 500W",
-        subtitle: "Module Dual-Layer PERC Cell with AI Control",
+        subtitle: "Módulo PERC de dupla camada com controle por IA",
         desc: "",
         specLeft: [],
         specRight: [],
@@ -779,9 +775,9 @@ export default function Landing() {
       },
       {
         id: "heliomax-530",
-        tag: "COMMERCIAL & INDUSTRIAL",
+        tag: "COMERCIAL E INDUSTRIAL",
         title: "HelioMax TitanGlass 530W",
-        subtitle: "Panel Precision Engineered for Solar Efficiency",
+        subtitle: "Painel de alta precisão para eficiência solar",
         desc: "",
         specLeft: [],
         specRight: [],
@@ -805,17 +801,6 @@ export default function Landing() {
 
       <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} />
 
-      {!reduced ? (
-        <motion.div
-          className="pointer-events-none fixed bottom-6 left-1/2 z-40 hidden -translate-x-1/2 items-center gap-2 rounded-full bg-white/70 px-4 py-2 text-xs font-semibold text-zinc-900 shadow-lg ring-1 ring-zinc-200 backdrop-blur md:flex"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35 }}
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-          Smooth scroll enabled
-        </motion.div>
-      ) : null}
     </div>
   );
 }
