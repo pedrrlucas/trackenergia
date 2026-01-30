@@ -1,13 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
   ChevronLeft,
   ChevronRight,
   CirclePlay,
   MoveUpRight,
-  Pause,
-  Play,
 } from "lucide-react";
 import heroImg from "@/assets/images/hero-solar.jpg";
 import processImg from "@/assets/images/process-installation.jpg";
@@ -55,7 +53,13 @@ function Pill({
           : "bg-zinc-950/7 text-zinc-700 ring-1 ring-zinc-950/10")
       }
     >
-      <span className={muted ? "h-1.5 w-1.5 rounded-full bg-white/70" : "h-1.5 w-1.5 rounded-full bg-zinc-950/55"} />
+      <span
+        className={
+          muted
+            ? "h-1.5 w-1.5 rounded-full bg-white/70"
+            : "h-1.5 w-1.5 rounded-full bg-zinc-950/55"
+        }
+      />
       {children}
     </span>
   );
@@ -109,20 +113,12 @@ function GhostButton({
   );
 }
 
-function Nav({
-  onContact,
-}: {
-  onContact: () => void;
-}) {
+function Nav({ onContact }: { onContact: () => void }) {
   return (
     <div className="pointer-events-none absolute left-0 right-0 top-0 z-20">
       <div className="container-page pointer-events-auto">
         <div className="mt-4 flex items-center justify-between rounded-full bg-white/22 px-4 py-3 ring-1 ring-white/18 backdrop-blur">
-          <a
-            data-testid="link-logo"
-            href="#top"
-            className="flex items-center gap-2"
-          >
+          <a data-testid="link-logo" href="#top" className="flex items-center gap-2">
             <span className="grid h-9 w-9 place-items-center rounded-full bg-white/18 ring-1 ring-white/15">
               <span className="h-4 w-4 rotate-12 rounded-sm bg-white" />
             </span>
@@ -130,10 +126,34 @@ function Nav({
           </a>
 
           <div className="hidden items-center gap-7 text-xs font-medium text-white/78 md:flex">
-            <a data-testid="link-nav-home" href="#top" className="hover:text-white transition">Início</a>
-            <a data-testid="link-nav-product" href="#product" className="hover:text-white transition">Produto</a>
-            <a data-testid="link-nav-process" href="#process" className="hover:text-white transition">Processo</a>
-            <a data-testid="link-nav-testimonials" href="#footer" className="hover:text-white transition">Depoimentos</a>
+            <a
+              data-testid="link-nav-home"
+              href="#top"
+              className="hover:text-white transition"
+            >
+              Início
+            </a>
+            <a
+              data-testid="link-nav-product"
+              href="#product"
+              className="hover:text-white transition"
+            >
+              Produto
+            </a>
+            <a
+              data-testid="link-nav-process"
+              href="#process"
+              className="hover:text-white transition"
+            >
+              Processo
+            </a>
+            <a
+              data-testid="link-nav-testimonials"
+              href="#footer"
+              className="hover:text-white transition"
+            >
+              Depoimentos
+            </a>
           </div>
 
           <button
@@ -149,13 +169,7 @@ function Nav({
   );
 }
 
-function VideoModal({
-  open,
-  onClose,
-}: {
-  open: boolean;
-  onClose: () => void;
-}) {
+function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <AnimatePresence>
       {open ? (
@@ -202,13 +216,12 @@ function VideoModal({
   );
 }
 
-function Hero({
-  onPlay,
-}: {
-  onPlay: () => void;
-}) {
+function Hero({ onPlay }: { onPlay: () => void }) {
   return (
-    <section id="top" className="relative overflow-hidden rounded-[34px] bg-black lg:rounded-[40px]">
+    <section
+      id="top"
+      className="relative overflow-hidden rounded-[34px] bg-black lg:rounded-[40px]"
+    >
       <img
         data-testid="img-hero"
         src={heroImg}
@@ -218,7 +231,11 @@ function Hero({
       <div className="absolute inset-0 hero-overlay noise" />
 
       <div className="absolute inset-0">
-        <Nav onContact={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })} />
+        <Nav
+          onContact={() =>
+            document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })
+          }
+        />
 
         <div className="container-page">
           <div className="pt-[104px] sm:pt-[112px] lg:pt-[132px]">
@@ -238,11 +255,19 @@ function Hero({
                 data-testid="text-hero-subtitle"
                 className="mt-4 max-w-[460px] text-xs leading-5 text-white/72 sm:text-sm sm:leading-6"
               >
-                Energia limpa, acessível e renovável — assuma o controle da sua conta de luz com uma solução inteligente.
+                Energia limpa, acessível e renovável — assuma o controle da sua conta
+                de luz com uma solução inteligente.
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-3">
-                <PrimaryButton testId="button-explore-now" onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}>
+                <PrimaryButton
+                  testId="button-explore-now"
+                  onClick={() =>
+                    (
+                      document.getElementById("product") as HTMLElement | null
+                    )?.scrollIntoView({ behavior: "smooth" })
+                  }
+                >
                   Explorar agora
                 </PrimaryButton>
 
@@ -265,16 +290,23 @@ function Hero({
                     <img
                       data-testid="img-hero-card"
                       src={productImg}
-                      alt="Panel"
+                      alt="Painel"
                       className="h-full w-full object-cover"
                     />
                   </div>
                   <div>
-                    <div data-testid="text-hero-card-title" className="text-xs font-semibold text-white">
+                    <div
+                      data-testid="text-hero-card-title"
+                      className="text-xs font-semibold text-white"
+                    >
                       Suncryst EdgeTech 500...
                     </div>
-                    <div data-testid="text-hero-card-desc" className="mt-0.5 text-[11px] leading-4 text-white/65">
-                      Nossos painéis mais vendidos unem durabilidade e performance de alto nível.
+                    <div
+                      data-testid="text-hero-card-desc"
+                      className="mt-0.5 text-[11px] leading-4 text-white/65"
+                    >
+                      Nossos painéis mais vendidos unem durabilidade e performance de
+                      alto nível.
                     </div>
                   </div>
                 </div>
@@ -283,13 +315,19 @@ function Hero({
                     data-testid="button-hero-card-prev"
                     className="grid h-9 w-9 place-items-center rounded-full bg-white/10 ring-1 ring-white/12 transition hover:bg-white/14 active:scale-[0.98]"
                   >
-                    <ChevronLeft className="h-4 w-4 text-white" strokeWidth={2.25} />
+                    <ChevronLeft
+                      className="h-4 w-4 text-white"
+                      strokeWidth={2.25}
+                    />
                   </button>
                   <button
                     data-testid="button-hero-card-next"
                     className="grid h-9 w-9 place-items-center rounded-full bg-white/10 ring-1 ring-white/12 transition hover:bg-white/14 active:scale-[0.98]"
                   >
-                    <ChevronRight className="h-4 w-4 text-white" strokeWidth={2.25} />
+                    <ChevronRight
+                      className="h-4 w-4 text-white"
+                      strokeWidth={2.25}
+                    />
                   </button>
                 </div>
               </div>
@@ -304,8 +342,8 @@ function Hero({
 function About() {
   return (
     <section className="container-page py-12 sm:py-16 lg:py-20">
-      <div className="grid gap-10 md:grid-cols-[360px_1fr] md:items-center lg:grid-cols-[420px_1fr] lg:gap-14">
-        <div>
+      <div className="mx-auto grid max-w-[1280px] gap-10 md:grid-cols-[360px_1fr] md:items-center lg:grid-cols-[420px_1fr] lg:gap-14">
+        <div className="md:justify-self-center">
           <Pill testId="pill-about" muted={false}>
             ( sobre nós )
           </Pill>
@@ -324,17 +362,23 @@ function About() {
               ))}
             </div>
             <div>
-              <div data-testid="text-team-count" className="text-[28px] font-medium tracking-[-0.02em]">
+              <div
+                data-testid="text-team-count"
+                className="text-[28px] font-medium tracking-[-0.02em]"
+              >
                 52 especialistas
               </div>
-              <div data-testid="text-team-sub" className="text-sm text-zinc-500">
+              <div
+                data-testid="text-team-sub"
+                className="text-sm text-zinc-500"
+              >
                 prontos para te ajudar
               </div>
             </div>
           </div>
         </div>
 
-        <div className="md:pl-10">
+        <div className="md:pl-10 lg:pl-12">
           <h2
             data-testid="text-about-title"
             className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-zinc-950 sm:text-[46px] lg:text-[56px]"
@@ -347,9 +391,14 @@ function About() {
             <br />
             <span className="text-zinc-400">acelerar</span> a energia solar
           </h2>
-          <p data-testid="text-about-desc" className="mt-4 max-w-[520px] text-sm leading-6 text-zinc-500">
-            Com um compromisso real com a sustentabilidade, ajudamos pessoas, famílias e empresas
-            a migrarem para uma energia mais limpa com soluções solares inteligentes, confiáveis e acessíveis\n            feitas para durar.
+          <p
+            data-testid="text-about-desc"
+            className="mt-4 max-w-[520px] text-sm leading-6 text-zinc-500"
+          >
+            Com um compromisso real com a sustentabilidade, ajudamos pessoas,
+            famílias e empresas a migrarem para uma energia mais limpa com
+            soluções solares inteligentes, confiáveis e acessíveis feitas para
+            durar.
           </p>
 
           <div className="mt-6">
@@ -385,18 +434,28 @@ function ProductFeature({ product }: { product: Product }) {
             <br />
             <span className="text-zinc-400">{product.subtitle}</span>
           </h3>
-          <p data-testid="text-product-desc" className="mt-3 max-w-[520px] text-sm leading-6 text-zinc-500">
+          <p
+            data-testid="text-product-desc"
+            className="mt-3 max-w-[520px] text-sm leading-6 text-zinc-500"
+          >
             {product.desc}
           </p>
 
           <div className="mt-8 grid gap-6 rounded-2xl bg-white p-5 ring-1 ring-zinc-100">
-            <div className="text-sm font-semibold text-zinc-900" data-testid="text-spec-title">
+            <div
+              className="text-sm font-semibold text-zinc-900"
+              data-testid="text-spec-title"
+            >
               Especificações do produto
             </div>
             <div className="grid gap-6 sm:grid-cols-2">
               <ul className="space-y-2.5 text-sm text-zinc-600">
                 {product.specLeft.map((s, idx) => (
-                  <li data-testid={`text-spec-left-${idx}`} key={idx} className="flex items-center gap-2">
+                  <li
+                    data-testid={`text-spec-left-${idx}`}
+                    key={idx}
+                    className="flex items-center gap-2"
+                  >
                     <span className="h-1.5 w-1.5 rounded-full bg-zinc-950" />
                     {s}
                   </li>
@@ -404,7 +463,11 @@ function ProductFeature({ product }: { product: Product }) {
               </ul>
               <ul className="space-y-2.5 text-sm text-zinc-600">
                 {product.specRight.map((s, idx) => (
-                  <li data-testid={`text-spec-right-${idx}`} key={idx} className="flex items-center gap-2">
+                  <li
+                    data-testid={`text-spec-right-${idx}`}
+                    key={idx}
+                    className="flex items-center gap-2"
+                  >
                     <span className="h-1.5 w-1.5 rounded-full bg-zinc-950" />
                     {s}
                   </li>
@@ -487,7 +550,7 @@ function Process() {
         <img
           data-testid="img-process"
           src={slides[idx].img}
-          alt="Process"
+          alt="Processo"
           className="h-[480px] w-full object-cover sm:h-[520px] lg:h-[620px]"
         />
         <div className="absolute inset-0 hero-overlay" />
@@ -497,7 +560,10 @@ function Process() {
             <Pill testId="pill-process" muted>
               ( seu processo )
             </Pill>
-            <div data-testid="text-process-counter" className="text-sm font-semibold text-white/85">
+            <div
+              data-testid="text-process-counter"
+              className="text-sm font-semibold text-white/85"
+            >
               ({slides[idx].k}/04)
             </div>
           </div>
@@ -511,7 +577,10 @@ function Process() {
               >
                 {slides[idx].title}
               </h3>
-              <p data-testid="text-process-desc" className="mt-3 text-sm leading-6 text-white/70">
+              <p
+                data-testid="text-process-desc"
+                className="mt-3 text-sm leading-6 text-white/70"
+              >
                 {slides[idx].desc}
               </p>
             </div>
@@ -544,7 +613,7 @@ function Process() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/65 opacity-30" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-white/65" />
                 </span>
-                Live
+                Ao vivo
               </motion.div>
             ) : null}
           </div>
@@ -566,7 +635,10 @@ function ProductGrid({ products }: { products: Product[] }) {
         </div>
         <div>
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <h3 data-testid="text-grid-title" className="text-balance text-[38px] font-medium leading-[1.06] tracking-[-0.03em] lg:text-[46px]">
+            <h3
+              data-testid="text-grid-title"
+              className="text-balance text-[38px] font-medium leading-[1.06] tracking-[-0.03em] lg:text-[46px]"
+            >
               Explore nossa tecnologia
               <br />
               <span className="text-zinc-400">e pacotes de sistema</span>
@@ -585,14 +657,22 @@ function ProductGrid({ products }: { products: Product[] }) {
                 data-testid={`card-product-${p.id}`}
                 key={p.id}
                 onHoverStart={() => setActive(p.id)}
-                onHoverEnd={() => setActive((cur) => (cur === p.id ? null : cur))}
+                onHoverEnd={() =>
+                  setActive((cur) => (cur === p.id ? null : cur))
+                }
                 onFocus={() => setActive(p.id)}
-                onBlur={() => setActive((cur) => (cur === p.id ? null : cur))}
+                onBlur={() =>
+                  setActive((cur) => (cur === p.id ? null : cur))
+                }
                 className="group text-left"
                 initial={reduced ? undefined : { opacity: 0, y: 10 }}
                 whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1], delay: i * 0.04 }}
+                transition={{
+                  duration: 0.45,
+                  ease: [0.2, 0.8, 0.2, 1],
+                  delay: i * 0.04,
+                }}
               >
                 <div className="relative overflow-hidden rounded-[26px] bg-zinc-100 ring-1 ring-zinc-200">
                   <img
@@ -617,7 +697,11 @@ function ProductGrid({ products }: { products: Product[] }) {
                           initial={{ scale: 0.95, y: 10, opacity: 0 }}
                           animate={{ scale: 1, y: 0, opacity: 1 }}
                           exit={{ scale: 0.95, y: 10, opacity: 0 }}
-                          transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 260,
+                            damping: 22,
+                          }}
                         >
                           Ver detalhes
                           <span className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/14 ring-1 ring-white/16">
@@ -630,13 +714,22 @@ function ProductGrid({ products }: { products: Product[] }) {
                 </div>
 
                 <div className="mt-4">
-                  <div data-testid={`text-product-grid-tag-${p.id}`} className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">
+                  <div
+                    data-testid={`text-product-grid-tag-${p.id}`}
+                    className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500"
+                  >
                     {p.tag}
                   </div>
-                  <div data-testid={`text-product-grid-title-${p.id}`} className="mt-2 text-sm font-semibold text-zinc-950">
+                  <div
+                    data-testid={`text-product-grid-title-${p.id}`}
+                    className="mt-2 text-sm font-semibold text-zinc-950"
+                  >
                     {p.title}
                   </div>
-                  <div data-testid={`text-product-grid-sub-${p.id}`} className="mt-1 text-sm text-zinc-500">
+                  <div
+                    data-testid={`text-product-grid-sub-${p.id}`}
+                    className="mt-1 text-sm text-zinc-500"
+                  >
                     {p.subtitle}
                   </div>
                 </div>
@@ -652,16 +745,24 @@ function ProductGrid({ products }: { products: Product[] }) {
 function Footer({ onPlay }: { onPlay: () => void }) {
   return (
     <footer id="footer" className="container-page pb-14">
-      <div className="overflow-hidden rounded-[30px] bg-zinc-950">
+      <div className="mx-auto max-w-[1280px] overflow-hidden rounded-[30px] bg-zinc-950">
         <div className="grid gap-10 p-8 md:grid-cols-[280px_1fr] md:items-center md:gap-12 md:p-10">
-          <div>
+          <div className="md:justify-self-center">
             <div className="flex items-center gap-2">
               <span className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/10">
                 <span className="h-4 w-4 rotate-12 rounded-sm bg-white" />
               </span>
-              <span data-testid="text-footer-brand" className="text-sm font-semibold text-white">Solars</span>
+              <span
+                data-testid="text-footer-brand"
+                className="text-sm font-semibold text-white"
+              >
+                Solars
+              </span>
             </div>
-            <div data-testid="text-footer-address" className="mt-5 text-xs leading-5 text-white/60">
+            <div
+              data-testid="text-footer-address"
+              className="mt-5 text-xs leading-5 text-white/60"
+            >
               1234 Solar Innovation Parkway,
               <br />
               Suite 560, Palo Alto, California 94301,
@@ -689,8 +790,11 @@ function Footer({ onPlay }: { onPlay: () => void }) {
             </div>
           </div>
 
-          <div>
-            <h3 data-testid="text-footer-title" className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white">
+          <div className="md:justify-self-center">
+            <h3
+              data-testid="text-footer-title"
+              className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white"
+            >
               Mude para a energia
               <br />
               solar e ilumine o futuro,
@@ -699,12 +803,23 @@ function Footer({ onPlay }: { onPlay: () => void }) {
               <br />
               <span className="text-white/65">para</span> a vida moderna
             </h3>
-            <p data-testid="text-footer-desc" className="mt-4 max-w-[520px] text-sm leading-6 text-white/60">
-              Energize sua casa ou empresa com soluções solares eficientes e acessíveis, feitas para gerar impacto real.
+            <p
+              data-testid="text-footer-desc"
+              className="mt-4 max-w-[520px] text-sm leading-6 text-white/60"
+            >
+              Energize sua casa ou empresa com soluções solares eficientes e
+              acessíveis, feitas para gerar impacto real.
             </p>
 
             <div className="mt-7 flex flex-wrap items-center gap-3">
-              <PrimaryButton testId="button-footer-explore" onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}>
+              <PrimaryButton
+                testId="button-footer-explore"
+                onClick={() =>
+                  (
+                    document.getElementById("product") as HTMLElement | null
+                  )?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
                 Explorar agora
               </PrimaryButton>
               <GhostButton
@@ -719,13 +834,45 @@ function Footer({ onPlay }: { onPlay: () => void }) {
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 px-8 py-5 text-[11px] text-white/55 md:px-10">
-          <div data-testid="text-footer-copyright">©2025 Solars. Todos os direitos reservados</div>
+          <div data-testid="text-footer-copyright">
+            ©2025 Solars. Todos os direitos reservados
+          </div>
           <div className="flex items-center gap-4">
-            <a data-testid="link-footer-terms" href="#" className="hover:text-white transition">Termos de uso</a>
-            <a data-testid="link-footer-home" href="#top" className="hover:text-white transition">Início</a>
-            <a data-testid="link-footer-product" href="#product" className="hover:text-white transition">Produto</a>
-            <a data-testid="link-footer-process" href="#process" className="hover:text-white transition">Processo</a>
-            <a data-testid="link-footer-testimonials" href="#footer" className="hover:text-white transition">Depoimentos</a>
+            <a
+              data-testid="link-footer-terms"
+              href="#"
+              className="hover:text-white transition"
+            >
+              Termos de uso
+            </a>
+            <a
+              data-testid="link-footer-home"
+              href="#top"
+              className="hover:text-white transition"
+            >
+              Início
+            </a>
+            <a
+              data-testid="link-footer-product"
+              href="#product"
+              className="hover:text-white transition"
+            >
+              Produto
+            </a>
+            <a
+              data-testid="link-footer-process"
+              href="#process"
+              className="hover:text-white transition"
+            >
+              Processo
+            </a>
+            <a
+              data-testid="link-footer-testimonials"
+              href="#footer"
+              className="hover:text-white transition"
+            >
+              Depoimentos
+            </a>
           </div>
         </div>
       </div>
@@ -744,8 +891,16 @@ export default function Landing() {
       title: "Suncryst EdgeTech 500W",
       subtitle: "Módulo PERC de dupla camada",
       desc: "Nossos painéis mais vendidos combinam durabilidade e alta performance — ideais para residências e uso comercial.",
-      specLeft: ["Acessórios", "Potência de saída do inversor", "Módulo de painel solar"],
-      specRight: ["Cabo DC / aterramento", "800 VA / 1000 VA", "Painel solar mono 550W"],
+      specLeft: [
+        "Acessórios",
+        "Potência de saída do inversor",
+        "Módulo de painel solar",
+      ],
+      specRight: [
+        "Cabo DC / aterramento",
+        "800 VA / 1000 VA",
+        "Painel solar mono 550W",
+      ],
       image: productImg,
     }),
     [],
@@ -801,6 +956,7 @@ export default function Landing() {
 
       <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} />
 
+      {reduced ? null : null}
     </div>
   );
 }
