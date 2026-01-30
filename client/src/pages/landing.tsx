@@ -688,7 +688,7 @@ function ProductGrid({ products }: { products: Product[] }) {
                     data-testid={`img-product-grid-${p.id}`}
                     src={p.image}
                     alt={p.title}
-                    className="h-[220px] w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                    className="h-[248px] w-full object-cover transition duration-700 group-hover:scale-[1.03]"
                   />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-80" />
 
