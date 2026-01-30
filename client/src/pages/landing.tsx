@@ -220,13 +220,13 @@ function Hero({ onPlay }: { onPlay: () => void }) {
   return (
     <section
       id="top"
-      className="relative overflow-hidden rounded-[34px] bg-black lg:rounded-[40px]"
+      className="relative overflow-hidden rounded-none bg-black lg:rounded-none"
     >
       <img
         data-testid="img-hero"
         src={heroImg}
         alt="Painéis solares"
-        className="h-[520px] w-full object-cover sm:h-[560px] md:h-[620px] lg:h-[720px]"
+        className="h-[520px] w-full object-cover sm:h-[560px] md:h-[620px] lg:h-[calc(100vh-64px)]"
       />
       <div className="absolute inset-0 hero-overlay noise" />
 
