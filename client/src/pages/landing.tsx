@@ -90,17 +90,25 @@ function PrimaryButton({
   onClick?: () => void;
   testId: string;
 }) {
+  const reduced = usePrefersReducedMotion();
+
   return (
-    <button
+    <motion.button
       data-testid={testId}
       onClick={onClick}
-      className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 shadow-[0_10px_30px_-20px_rgba(0,0,0,.65)] transition active:scale-[0.98]"
+      initial={reduced ? undefined : { scale: 0.92, width: 44, paddingLeft: 0, paddingRight: 0, opacity: 0 }}
+      whileInView={reduced ? undefined : { scale: 1, width: "auto", paddingLeft: 16, paddingRight: 16, opacity: 1 }}
+      viewport={{ once: true, margin: "-90px" }}
+      transition={reduced ? undefined : { duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+      whileHover={reduced ? undefined : { y: -1 }}
+      whileTap={{ scale: 0.98 }}
+      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 shadow-[0_10px_30px_-20px_rgba(0,0,0,.65)]"
     >
-      <span>{children}</span>
-      <span className="grid h-8 w-8 place-items-center rounded-full bg-zinc-950 text-white transition group-hover:translate-x-0.5">
+      <span className="whitespace-nowrap">{children}</span>
+      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-zinc-950 text-white transition group-hover:translate-x-0.5">
         <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
       </span>
-    </button>
+    </motion.button>
   );
 }
 
@@ -115,17 +123,25 @@ function GhostButton({
   icon?: React.ReactNode;
   testId: string;
 }) {
+  const reduced = usePrefersReducedMotion();
+
   return (
-    <button
+    <motion.button
       data-testid={testId}
       onClick={onClick}
-      className="group inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+      initial={reduced ? undefined : { scale: 0.92, width: 44, paddingLeft: 0, paddingRight: 0, opacity: 0 }}
+      whileInView={reduced ? undefined : { scale: 1, width: "auto", paddingLeft: 16, paddingRight: 16, opacity: 1 }}
+      viewport={{ once: true, margin: "-90px" }}
+      transition={reduced ? undefined : { duration: 0.55, ease: [0.2, 0.8, 0.2, 1], delay: 0.04 }}
+      whileHover={reduced ? undefined : { y: -1 }}
+      whileTap={{ scale: 0.98 }}
+      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/18 backdrop-blur"
     >
-      <span className="grid h-8 w-8 place-items-center rounded-full bg-white/14 ring-1 ring-white/14 transition group-hover:bg-white/16">
+      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/14 ring-1 ring-white/14 transition group-hover:bg-white/16">
         {icon}
       </span>
-      <span>{children}</span>
-    </button>
+      <span className="whitespace-nowrap">{children}</span>
+    </motion.button>
   );
 }
 
@@ -305,15 +321,29 @@ function Hero({ onPlay }: { onPlay: () => void }) {
 }
 
 function About() {
+  const reduced = usePrefersReducedMotion();
+
   return (
-    <section className="container-page py-12 sm:py-16 lg:py-20">
+    <motion.section
+      className="container-page py-12 sm:py-16 lg:py-20"
+      initial={reduced ? undefined : { opacity: 0, y: 12 }}
+      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-90px" }}
+      transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+    >
       <div className="grid gap-10 md:grid-cols-[360px_1fr] md:items-center lg:grid-cols-[420px_1fr] lg:gap-14">
         <div>
           <Pill testId="pill-about" muted={false}>
             ( sobre nós )
           </Pill>
           <div className="mt-5 flex items-end gap-4">
-            <div className="flex -space-x-2">
+            <motion.div
+              className="flex -space-x-2"
+              initial={reduced ? undefined : { opacity: 0, x: -6 }}
+              whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-120px" }}
+              transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+            >
               {new Array(4).fill(0).map((_, i) => (
                 <div
                   data-testid={`img-team-${i}`}
@@ -324,7 +354,7 @@ function About() {
                   }}
                 />
               ))}
-            </div>
+            </motion.div>
             <div>
               <div data-testid="text-team-count" className="text-[28px] font-medium tracking-[-0.02em]">
                 52 especialistas
@@ -336,7 +366,13 @@ function About() {
           </div>
         </div>
 
-        <div className="md:pl-10 lg:pl-0 lg:col-start-2">
+        <motion.div
+          className="md:pl-10 lg:pl-0 lg:col-start-2"
+          initial={reduced ? undefined : { opacity: 0, y: 12 }}
+          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-90px" }}
+          transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1], delay: 0.05 }}
+        >
           <div className="lg:ml-auto lg:max-w-[740px]">
             <h2
               data-testid="text-about-title"
@@ -369,17 +405,32 @@ function About() {
               </span>
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 
 function ProductFeature({ product }: { product: Product }) {
+  const reduced = usePrefersReducedMotion();
+
   return (
-    <section id="product" className="container-page pb-12 sm:pb-16 lg:pb-20">
+    <motion.section
+      id="product"
+      className="container-page pb-12 sm:pb-16 lg:pb-20"
+      initial={reduced ? undefined : { opacity: 0, y: 12 }}
+      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-90px" }}
+      transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+    >
       <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
-        <div className="rounded-[28px] bg-zinc-50 p-8 ring-1 ring-zinc-100">
+        <motion.div
+          className="rounded-[28px] bg-zinc-50 p-8 ring-1 ring-zinc-100"
+          initial={reduced ? undefined : { opacity: 0, y: 10 }}
+          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-110px" }}
+          transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+        >
           <Pill testId="pill-popular-product" muted={false}>
             ( produto popular )
           </Pill>
@@ -437,9 +488,15 @@ function ProductFeature({ product }: { product: Product }) {
               <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
             </button>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="relative overflow-hidden rounded-[28px] lg:rounded-[32px]">
+        <motion.div
+          className="relative overflow-hidden rounded-[28px] lg:rounded-[32px]"
+          initial={reduced ? undefined : { opacity: 0, scale: 0.985 }}
+          whileInView={reduced ? undefined : { opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-120px" }}
+          transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1], delay: 0.05 }}
+        >
           <img
             data-testid="img-product"
             src={product.image}
@@ -447,14 +504,15 @@ function ProductFeature({ product }: { product: Product }) {
             className="h-full min-h-[420px] w-full object-cover lg:min-h-[540px]"
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 
 function Process() {
   const reduced = usePrefersReducedMotion();
+
   const slides = useMemo(
     () => [
       {
@@ -488,7 +546,14 @@ function Process() {
   const [idx, setIdx] = useState(2);
 
   return (
-    <section id="process" className="container-page pb-12 sm:pb-16 lg:pb-20">
+    <motion.section
+      id="process"
+      className="container-page pb-12 sm:pb-16 lg:pb-20"
+      initial={reduced ? undefined : { opacity: 0, y: 12 }}
+      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-90px" }}
+      transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+    >
       <div className="relative overflow-hidden rounded-[32px] bg-black lg:rounded-[38px]">
         <img
           data-testid="img-process"
@@ -564,7 +629,7 @@ function Process() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 
