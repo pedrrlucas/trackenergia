@@ -208,19 +208,19 @@ function Hero({
   onPlay: () => void;
 }) {
   return (
-    <section id="top" className="relative overflow-hidden rounded-[34px] bg-black lg:rounded-[40px]">
+    <section id="top" className="relative min-h-screen w-full overflow-hidden bg-black">
       <img
         data-testid="img-hero"
         src={heroImg}
         alt="Painéis solares"
-        className="h-[520px] w-full object-cover sm:h-[560px] md:h-[620px] lg:h-[720px]"
+        className="h-screen w-full object-cover"
       />
       <div className="absolute inset-0 hero-overlay noise" />
 
       <div className="absolute inset-0">
         <Nav onContact={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })} />
 
-        <div className="container-page">
+        <div className="container-page pt-4 sm:pt-6">
           <div className="pt-[104px] sm:pt-[112px] lg:pt-[132px]">
             <div className="max-w-[520px] lg:max-w-[640px]">
               <h1
@@ -789,9 +789,9 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-white">
-      <main className="container-page py-4 sm:py-6 lg:py-6">
+      <section className="w-full">
         <Hero onPlay={() => setVideoOpen(true)} />
-      </main>
+      </section>
 
       <About />
       <ProductFeature product={primaryProduct} />
