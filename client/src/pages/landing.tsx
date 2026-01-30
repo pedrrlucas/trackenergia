@@ -310,10 +310,10 @@ function About() {
   return (
     <motion.section
       className="container-page py-12 sm:py-16 lg:py-20"
-      initial={reduced ? undefined : { opacity: 0, y: 12 }}
+      initial={reduced ? undefined : { opacity: 0, y: 18 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-90px" }}
-      transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+      viewport={{ once: true, amount: 0.22 }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="grid gap-10 md:grid-cols-[360px_1fr] md:items-center lg:grid-cols-[420px_1fr] lg:gap-14">
         <div>
