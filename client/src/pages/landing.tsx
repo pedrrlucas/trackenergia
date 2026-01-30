@@ -90,25 +90,17 @@ function PrimaryButton({
   onClick?: () => void;
   testId: string;
 }) {
-  const reduced = usePrefersReducedMotion();
-
   return (
-    <motion.button
+    <button
       data-testid={testId}
       onClick={onClick}
-      initial={reduced ? undefined : { scale: 0.92, width: 44, paddingLeft: 0, paddingRight: 0, opacity: 0 }}
-      whileInView={reduced ? undefined : { scale: 1, width: "auto", paddingLeft: 16, paddingRight: 16, opacity: 1 }}
-      viewport={{ once: true, margin: "-90px" }}
-      transition={reduced ? undefined : { duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
-      whileHover={reduced ? undefined : { y: -1 }}
-      whileTap={{ scale: 0.98 }}
-      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 shadow-[0_10px_30px_-20px_rgba(0,0,0,.65)]"
+      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 shadow-[0_10px_30px_-20px_rgba(0,0,0,.65)] transition active:scale-[0.98]"
     >
       <span className="whitespace-nowrap">{children}</span>
       <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-zinc-950 text-white transition group-hover:translate-x-0.5">
         <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
       </span>
-    </motion.button>
+    </button>
   );
 }
 
@@ -123,25 +115,17 @@ function GhostButton({
   icon?: React.ReactNode;
   testId: string;
 }) {
-  const reduced = usePrefersReducedMotion();
-
   return (
-    <motion.button
+    <button
       data-testid={testId}
       onClick={onClick}
-      initial={reduced ? undefined : { scale: 0.92, width: 44, paddingLeft: 0, paddingRight: 0, opacity: 0 }}
-      whileInView={reduced ? undefined : { scale: 1, width: "auto", paddingLeft: 16, paddingRight: 16, opacity: 1 }}
-      viewport={{ once: true, margin: "-90px" }}
-      transition={reduced ? undefined : { duration: 0.55, ease: [0.2, 0.8, 0.2, 1], delay: 0.04 }}
-      whileHover={reduced ? undefined : { y: -1 }}
-      whileTap={{ scale: 0.98 }}
-      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/18 backdrop-blur"
+      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
     >
       <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/14 ring-1 ring-white/14 transition group-hover:bg-white/16">
         {icon}
       </span>
       <span className="whitespace-nowrap">{children}</span>
-    </motion.button>
+    </button>
   );
 }
 
@@ -554,7 +538,13 @@ function Process() {
       viewport={{ once: true, margin: "-90px" }}
       transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
     >
-      <div className="relative overflow-hidden rounded-[32px] bg-black lg:rounded-[38px]">
+      <motion.div
+        className="relative overflow-hidden rounded-[32px] bg-black lg:rounded-[38px]"
+        initial={reduced ? undefined : { scale: 0.995, opacity: 0 }}
+        whileInView={reduced ? undefined : { scale: 1, opacity: 1 }}
+        viewport={{ once: true, margin: "-120px" }}
+        transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
+      >
         <img
           data-testid="img-process"
           src={slides[idx].img}
@@ -571,7 +561,13 @@ function Process() {
           </div>
 
           <div className="mt-24 grid gap-8 md:mt-28 md:grid-cols-[1fr_420px] md:items-start lg:mt-36 lg:grid-cols-[1fr_520px]">
-            <div className="flex items-end">
+            <motion.div
+              className="flex items-end"
+              initial={reduced ? undefined : { opacity: 0, x: -10 }}
+              whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-120px" }}
+              transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+            >
               <div>
                 <div
                   data-testid="text-process-counter"
@@ -581,9 +577,14 @@ function Process() {
                   <span className="text-white/55">/04)</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            <div>
+            <motion.div
+              initial={reduced ? undefined : { opacity: 0, y: 12 }}
+              whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-120px" }}
+              transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1], delay: 0.04 }}
+            >
               <h3
                 data-testid="text-process-title"
                 className="text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em] text-white lg:text-[40px]"
@@ -593,14 +594,11 @@ function Process() {
               <p data-testid="text-process-desc" className="mt-3 text-sm leading-6 text-white/70">
                 {slides[idx].desc}
               </p>
-            </div>
+            </motion.div>
           </div>
 
           <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between gap-3">
-            <div
-              data-testid="progress-process-track"
-              className="h-[2px] flex-1 rounded-full bg-white/22"
-            >
+            <div data-testid="progress-process-track" className="h-[2px] flex-1 rounded-full bg-white/22">
               <motion.div
                 data-testid="progress-process-fill"
                 className="h-full rounded-full bg-white"
@@ -628,7 +626,7 @@ function Process() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </motion.section>
   );
 }
