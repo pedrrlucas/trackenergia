@@ -60,13 +60,15 @@ export default function Contact() {
     <div data-testid="page-contact" className="min-h-screen bg-white">
       <main data-testid="main-contact" className="relative">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-zinc-50" />
+          <div className="absolute inset-x-0 top-0 h-[340px] bg-gradient-to-b from-black via-[#12001f] to-[#1d0238]" />
+          <div className="absolute inset-x-0 top-[280px] h-[180px] bg-gradient-to-b from-[#1d0238]/20 via-white/80 to-white" />
+          <div className="absolute inset-x-0 top-0 h-[520px] hero-overlay opacity-[0.42]" />
           <div className="absolute inset-0 opacity-[0.08] noise" />
-          <div className="absolute -top-24 left-1/2 h-[420px] w-[920px] -translate-x-1/2 rounded-full bg-gradient-to-r from-[#30045c]/16 via-[#1d0238]/10 to-transparent blur-3xl" />
+          <div className="absolute -top-24 left-1/2 h-[420px] w-[920px] -translate-x-1/2 rounded-full bg-gradient-to-r from-[#30045c]/22 via-[#1d0238]/18 to-transparent blur-3xl" />
         </div>
 
         <div className="relative mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
-          <div className="pt-10 sm:pt-12 lg:pt-14">
+          <div className="pt-[96px] sm:pt-[108px] lg:pt-[124px]">
             <motion.div
               initial={reduced ? undefined : { opacity: 0, y: 14 }}
               animate={reduced ? undefined : { opacity: 1, y: 0 }}
