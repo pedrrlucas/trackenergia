@@ -115,7 +115,7 @@ function Pill({
         "inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] tracking-wide " +
         (muted
           ? "bg-white/10 text-white/70 ring-1 ring-white/15"
-          : "bg-[#100121]/7 text-zinc-700 ring-1 ring-[#100121]/18")
+          : "bg-[#1d0238]/7 text-zinc-700 ring-1 ring-[#1d0238]/18")
       }
     >
       <span className={muted ? "h-1.5 w-1.5 rounded-full bg-white/70" : "h-1.5 w-1.5 rounded-full bg-[#30045c]"} />
@@ -140,7 +140,7 @@ function PrimaryButton({
       className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 shadow-[0_10px_30px_-20px_rgba(0,0,0,.65)] transition active:scale-[0.98]"
     >
       <span className="whitespace-nowrap">{children}</span>
-      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#100121] text-white transition group-hover:translate-x-0.5">
+      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#1d0238] text-white transition group-hover:translate-x-0.5">
         <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
       </span>
     </button>
@@ -370,7 +370,7 @@ function Nav({ onContact }: { onContact: () => void }) {
           <button
             data-testid="button-contact"
             onClick={onContact}
-            className="relative rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1a0335] active:scale-[0.98]"
+            className="relative rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#30045c] active:scale-[0.98]"
           >
             Fale Conosco
           </button>
@@ -393,7 +393,7 @@ function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
           onClick={onClose}
         >
           <motion.div
-            className="relative w-full max-w-[920px] overflow-hidden rounded-[28px] bg-[#100121] shadow-2xl ring-1 ring-white/10"
+            className="relative w-full max-w-[920px] overflow-hidden rounded-[28px] bg-[#1d0238] shadow-2xl ring-1 ring-white/10"
             initial={{ y: 18, scale: 0.98, opacity: 0 }}
             animate={{ y: 0, scale: 1, opacity: 1 }}
             exit={{ y: 18, scale: 0.98, opacity: 0 }}
@@ -548,7 +548,7 @@ function About() {
 
               <button
                 data-testid="button-about-how-we-work"
-                className="group absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1a0335] active:scale-[0.98]"
+                className="group absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#30045c] active:scale-[0.98]"
               >
                 Como trabalhamos
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/10 transition group-hover:translate-x-0.5">
@@ -635,7 +635,7 @@ function ProductFeature({ product }: { product: Product }) {
               <ul className="space-y-2.5 text-sm text-zinc-600">
                 {product.specLeft.map((s, idx) => (
                   <li data-testid={`text-spec-left-${idx}`} key={idx} className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#100121]" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#1d0238]" />
                     {s}
                   </li>
                 ))}
@@ -643,7 +643,7 @@ function ProductFeature({ product }: { product: Product }) {
               <ul className="space-y-2.5 text-sm text-zinc-600">
                 {product.specRight.map((s, idx) => (
                   <li data-testid={`text-spec-right-${idx}`} key={idx} className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#100121]" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#1d0238]" />
                     {s}
                   </li>
                 ))}
@@ -656,14 +656,14 @@ function ProductFeature({ product }: { product: Product }) {
               data-testid="button-lets-talk"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
             >
-              <span className="grid h-7 w-7 place-items-center rounded-full bg-[#100121] text-white">
+              <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
                 <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
               </span>
               Vamos conversar
             </button>
             <button
               data-testid="button-explore-product"
-              className="inline-flex items-center gap-2 rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#1a0335] active:scale-[0.98]"
+              className="inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#30045c] active:scale-[0.98]"
             >
               Ver serviços
               <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
@@ -865,7 +865,7 @@ function ProductGrid({ products }: { products: Product[] }) {
               <div className="mt-6">
                 <button
                   data-testid="button-grid-explore"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#1a0335] active:scale-[0.98]"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#30045c] active:scale-[0.98]"
                 >
                   Ver serviços
                   <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
@@ -1159,7 +1159,7 @@ function Testimonials() {
               const next = (idx - 1 + items.length) % items.length;
               setActive(items[next].id);
             }}
-            className="grid h-10 w-10 place-items-center rounded-full bg-[#100121] text-white ring-1 ring-[#100121]/18 transition hover:bg-[#1a0335] active:scale-[0.98]"
+            className="grid h-10 w-10 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
           >
             <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
           </button>
@@ -1170,7 +1170,7 @@ function Testimonials() {
               const next = (idx + 1) % items.length;
               setActive(items[next].id);
             }}
-            className="grid h-10 w-10 place-items-center rounded-full bg-[#100121] text-white ring-1 ring-[#100121]/18 transition hover:bg-[#1a0335] active:scale-[0.98]"
+            className="grid h-10 w-10 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
           >
             <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
           </button>
@@ -1262,7 +1262,7 @@ function Testimonials() {
                 onClick={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })}
               >
                 Converse com a gente
-                <span className="grid h-7 w-7 place-items-center rounded-full bg-[#100121] text-white">
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
                   <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
                 </span>
               </button>
@@ -1285,7 +1285,7 @@ function Testimonials() {
                 className={
                   "group text-left rounded-[26px] p-5 ring-1 transition " +
                   (selected
-                    ? "bg-[#100121] text-white ring-[#100121]/18"
+                    ? "bg-[#1d0238] text-white ring-[#1d0238]/18"
                     : "bg-white text-zinc-950 ring-zinc-200 hover:bg-zinc-50")
                 }
                 initial={reduced ? undefined : { opacity: 0, y: 10 }}
@@ -1366,7 +1366,7 @@ function Testimonials() {
                 const next = (idx - 1 + items.length) % items.length;
                 setActive(items[next].id);
               }}
-              className="grid h-10 w-10 place-items-center rounded-full bg-[#100121] text-white ring-1 ring-[#100121]/18 transition hover:bg-[#1a0335] active:scale-[0.98]"
+              className="grid h-10 w-10 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
             >
               <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
             </button>
@@ -1377,7 +1377,7 @@ function Testimonials() {
                 const next = (idx + 1) % items.length;
                 setActive(items[next].id);
               }}
-              className="grid h-10 w-10 place-items-center rounded-full bg-[#100121] text-white ring-1 ring-[#100121]/18 transition hover:bg-[#1a0335] active:scale-[0.98]"
+              className="grid h-10 w-10 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
             >
               <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
             </button>
