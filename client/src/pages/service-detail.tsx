@@ -1,11 +1,92 @@
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import * as Accordion from "@radix-ui/react-accordion";
+import { RocketIcon, PieChartIcon, LightningBoltIcon, GlobeIcon, BackpackIcon, LoopIcon, SunIcon } from "@radix-ui/react-icons";
 import { useLocation } from "wouter";
-import { ArrowLeft, ArrowRight, Check, ChevronRight, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Sparkles } from "lucide-react";
 
 const revealViewport = { once: true, amount: 0.22 } as const;
 const revealTransition = { duration: 0.65, ease: [0.22, 1, 0.36, 1] } as const;
+
+function ServiceIcon({ id, className }: { id: string; className?: string }) {
+  const c = className ?? "";
+  switch (id) {
+    case "eficiencia":
+      return <PieChartIcon className={c} />;
+    case "geracao":
+      return <SunIcon className={c} />;
+    case "armazenamento":
+      return <LightningBoltIcon className={c} />;
+    case "mercado-livre":
+      return <GlobeIcon className={c} />;
+    case "assinatura":
+      return <LoopIcon className={c} />;
+    case "eletromobilidade":
+      return <RocketIcon className={c} />;
+    case "om-fv":
+      return <BackpackIcon className={c} />;
+    default:
+      return <Sparkles className={c} strokeWidth={2.25} />;
+  }
+}
+
+function SectionIcon({ id, className }: { id: string; className?: string }) {
+  const c = className ?? "";
+  // Map by section id first (more specific)
+  switch (id) {
+    case "diagnostico":
+      return <PieChartIcon className={c} />;
+    case "demanda":
+      return <LoopIcon className={c} />;
+    case "roadmap":
+      return <RocketIcon className={c} />;
+
+    case "dimensionamento":
+      return <SunIcon className={c} />;
+    case "implantacao":
+      return <BackpackIcon className={c} />;
+    case "monitoramento":
+      return <PieChartIcon className={c} />;
+
+    case "homecare":
+      return <BackpackIcon className={c} />;
+    case "peak-shaving":
+      return <LightningBoltIcon className={c} />;
+    case "continuidade":
+      return <LoopIcon className={c} />;
+
+    case "viabilidade":
+      return <PieChartIcon className={c} />;
+    case "contratos":
+      return <BackpackIcon className={c} />;
+    case "gestao":
+      return <LoopIcon className={c} />;
+
+    case "perfil":
+      return <PieChartIcon className={c} />;
+    case "condicoes":
+      return <BackpackIcon className={c} />;
+    case "acompanhamento":
+      return <LoopIcon className={c} />;
+
+    case "projeto":
+      return <RocketIcon className={c} />;
+    case "hardware":
+      return <BackpackIcon className={c} />;
+    case "operacao":
+      return <LoopIcon className={c} />;
+
+    case "inspecoes":
+      return <BackpackIcon className={c} />;
+    case "limpeza":
+      return <LoopIcon className={c} />;
+    case "relatorios":
+      return <PieChartIcon className={c} />;
+
+    default:
+      return <Sparkles className={c} strokeWidth={2.25} />;
+  }
+}
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = React.useState(false);
@@ -354,7 +435,7 @@ export default function ServiceDetailPage() {
                       </div>
                     </div>
                     <div className="grid h-10 w-10 place-items-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200">
-                      <ArrowRight className="h-5 w-5 text-zinc-900" strokeWidth={2.25} />
+                      <ServiceIcon id={service.id} className="h-5 w-5 text-zinc-900" />
                     </div>
                   </div>
                 </div>
@@ -369,13 +450,10 @@ export default function ServiceDetailPage() {
                         >
                           <div className="flex items-center gap-3">
                             <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-zinc-100 text-zinc-700 ring-1 ring-zinc-200">
-                              <ChevronRight className="h-4 w-4 transition group-data-[state=open]:rotate-90" strokeWidth={2.25} />
+                              <ServiceIcon id={service.id} className="h-4 w-4" />
                             </span>
                             <div className="text-sm font-semibold text-zinc-950">{s}</div>
                           </div>
-                          <span className="grid h-7 w-7 place-items-center rounded-full bg-zinc-100 text-zinc-700 ring-1 ring-zinc-200">
-                            <ChevronRight className="h-4 w-4 transition group-data-[state=open]:rotate-90" strokeWidth={2.25} />
-                          </span>
                         </Accordion.Trigger>
                       </Accordion.Header>
                       <Accordion.Content className="px-7 pb-6 data-[state=closed]:animate-accordionUp data-[state=open]:animate-accordionDown">
@@ -437,7 +515,7 @@ export default function ServiceDetailPage() {
                     </div>
                   </div>
                   <div className="grid h-10 w-10 place-items-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200">
-                    <Sparkles className="h-5 w-5 text-zinc-900" strokeWidth={2.25} />
+                    <ServiceIcon id={service.id} className="h-5 w-5 text-zinc-900" />
                   </div>
                 </div>
               </div>
@@ -452,7 +530,7 @@ export default function ServiceDetailPage() {
                       >
                         <div className="flex items-center gap-3">
                           <div className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-zinc-100 text-zinc-700 ring-1 ring-zinc-200">
-                            <ChevronRight className="h-4 w-4 transition group-data-[state=open]:rotate-90" strokeWidth={2.25} />
+                            <SectionIcon id={sec.id} className="h-4 w-4" />
                           </div>
                           <div>
                             <div data-testid={`text-section-title-${sec.id}`} className="text-sm font-semibold text-zinc-950">
@@ -463,9 +541,6 @@ export default function ServiceDetailPage() {
                             </div>
                           </div>
                         </div>
-                        <span className="grid h-7 w-7 place-items-center rounded-full bg-zinc-100 text-zinc-700 ring-1 ring-zinc-200">
-                          <ChevronRight className="h-4 w-4 transition group-data-[state=open]:rotate-90" strokeWidth={2.25} />
-                        </span>
                       </Accordion.Trigger>
                     </Accordion.Header>
 
