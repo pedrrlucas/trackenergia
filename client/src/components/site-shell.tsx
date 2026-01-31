@@ -442,7 +442,7 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
 }
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
-  const [location, setLocation] = useLocation() as unknown as [WouterLocation, (path: string) => void];
+  const [location, setLocation] = useLocation();
 
   const onContact = React.useCallback(() => {
     setLocation("/contato");
