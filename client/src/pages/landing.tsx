@@ -233,10 +233,11 @@ function Nav({ onContact }: { onContact: () => void }) {
             >
               <div
                 data-testid="anim-arrow-track"
-                className="absolute left-0 top-1/2 -translate-y-1/2"
+                className="absolute top-1/2 -translate-y-1/2"
                 style={{
+                  left: 0,
                   width: "100%",
-                  transform: `translate3d(${(1 - progress) * 110}%, -50%, 0)`,
+                  transform: `translate3d(${-progress * 100}%, -50%, 0)`,
                   willChange: "transform",
                 }}
               >
