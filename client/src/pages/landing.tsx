@@ -359,14 +359,15 @@ function About() {
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="grid gap-10 md:grid-cols-[360px_1fr] md:items-center lg:grid-cols-[420px_1fr] lg:gap-14">
-        <div>
+        <div className="relative">
           <Pill testId="pill-about" muted={false}>
             ( sobre a Track )
           </Pill>
+
           <div className="mt-5">
             <div
               data-testid="img-about-team-placeholder"
-              className="relative aspect-[4/3] w-full overflow-hidden rounded-[28px] bg-gradient-to-br from-zinc-100 via-white to-zinc-100 ring-1 ring-zinc-200"
+              className="relative aspect-[16/10] w-[calc(100%+120px)] max-w-none overflow-hidden rounded-[28px] bg-gradient-to-br from-zinc-100 via-white to-zinc-100 ring-1 ring-zinc-200 md:w-[calc(100%+160px)] lg:w-[calc(100%+220px)]"
             >
               <div className="absolute inset-0 bg-gradient-to-tr from-[#100121]/10 via-transparent to-[#30045c]/10" />
               <div className="absolute inset-0 noise opacity-[0.08]" />
