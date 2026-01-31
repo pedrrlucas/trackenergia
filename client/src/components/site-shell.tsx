@@ -217,7 +217,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             </div>
           ) : null}
 
-          <a data-testid="link-logo" href="#top" className="relative flex items-center gap-3">
+          <a data-testid="link-logo" href={location === "/" ? "#top" : "/"} className="relative flex items-center gap-3">
             <span ref={logoRef} data-testid="logo-mark" className="grid h-10 w-10 place-items-center">
               {!logoSwap ? (
                 <img
