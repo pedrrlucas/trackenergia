@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+
+import headerArrow from "../assets/images/header-arrow.png";
 import {
   ArrowRight,
   ChevronLeft,
@@ -175,36 +177,87 @@ function GhostButton({
 }
 
 function Nav({ onContact }: { onContact: () => void }) {
+  const [mounted, setMounted] = React.useState(false);
+  const [navReady, setNavReady] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+    const handle = window.setTimeout(() => setNavReady(true), 520);
+    return () => window.clearTimeout(handle);
+  }, []);
+
   return (
     <div className="pointer-events-none absolute left-0 right-0 top-0 z-20">
       <div className="container-page pointer-events-auto">
-        <div className="mt-4 flex items-center justify-between rounded-full bg-white/22 px-4 py-3 ring-1 ring-white/18 backdrop-blur">
-          <a data-testid="link-logo" href="#top" className="flex items-center gap-2">
+        <div className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/22 px-4 py-3 ring-1 ring-white/18 backdrop-blur">
+          <motion.img
+            data-testid="img-header-arrow"
+            src={headerArrow}
+            alt=""
+            className="pointer-events-none absolute right-0 top-1/2 z-10 h-[74px] w-[74px] -translate-y-1/2 select-none opacity-0"
+            initial={{ x: 260, opacity: 0, rotate: 6, scale: 0.96 }}
+            animate={
+              mounted
+                ? {
+                    x: navReady ? -340 : 260,
+                    opacity: navReady ? 1 : 0,
+                    rotate: navReady ? 0 : 6,
+                    scale: navReady ? 1 : 0.96,
+                  }
+                : { x: 260, opacity: 0 }
+            }
+            transition={{
+              x: { duration: 0.85, ease: [0.2, 0.85, 0.2, 1] },
+              opacity: { duration: 0.22, ease: "easeOut" },
+              rotate: { duration: 0.7, ease: "easeOut" },
+              scale: { duration: 0.7, ease: "easeOut" },
+            }}
+          />
+
+          <a data-testid="link-logo" href="#top" className="relative z-20 flex items-center gap-2">
             <span className="grid h-9 w-9 place-items-center rounded-full bg-white/18 ring-1 ring-white/15">
               <span className="h-4 w-4 rotate-12 rounded-sm bg-white" />
             </span>
             <span className="text-sm font-semibold text-white">Track</span>
           </a>
 
-          <div className="hidden items-center gap-7 text-xs font-medium text-white/78 md:flex">
-            <a data-testid="link-nav-home" href="#top" className="transition hover:text-white">
-              Início
-            </a>
-            <a data-testid="link-nav-product" href="#product" className="transition hover:text-white">
-              Serviços
-            </a>
-            <a data-testid="link-nav-process" href="#process" className="transition hover:text-white">
-              Abordagem
-            </a>
-            <a data-testid="link-nav-testimonials" href="#testimonials" className="transition hover:text-white">
-              Depoimentos
-            </a>
+          <div className="relative hidden items-center gap-7 text-xs font-medium md:flex">
+            {(
+              [
+                { id: "home", label: "Início", href: "#top", testId: "link-nav-home" },
+                { id: "product", label: "Serviços", href: "#product", testId: "link-nav-product" },
+                { id: "process", label: "Abordagem", href: "#process", testId: "link-nav-process" },
+                { id: "testimonials", label: "Depoimentos", href: "#testimonials", testId: "link-nav-testimonials" },
+              ] as const
+            ).map((item, idx) => (
+              <a
+                key={item.id}
+                data-testid={item.testId}
+                href={item.href}
+                className="relative text-white/78 transition hover:text-white"
+              >
+                <span
+                  className="inline-block transition"
+                  style={{
+                    transitionProperty: "clip-path, opacity, transform",
+                    transitionTimingFunction: "cubic-bezier(0.2, 0.85, 0.2, 1)",
+                    transitionDuration: "520ms",
+                    transitionDelay: navReady ? `${720 + idx * 80}ms` : "0ms",
+                    clipPath: navReady ? "inset(0 0 0 0 round 8px)" : "inset(0 100% 0 0 round 8px)",
+                    opacity: navReady ? 1 : 0,
+                    transform: navReady ? "translateX(0px)" : "translateX(-8px)",
+                  }}
+                >
+                  {item.label}
+                </span>
+              </a>
+            ))}
           </div>
 
           <button
             data-testid="button-contact"
             onClick={onContact}
-            className="rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1a0335] active:scale-[0.98]"
+            className="relative z-20 rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1a0335] active:scale-[0.98]"
           >
             Fale Conosco
           </button>
