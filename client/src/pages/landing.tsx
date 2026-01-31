@@ -179,6 +179,9 @@ function Nav({ onContact }: { onContact: () => void }) {
   const [ready, setReady] = useState(false);
   const [progress, setProgress] = useState(0);
   const [travelPx, setTravelPx] = useState(0);
+  const [arrowScale, setArrowScale] = useState(1);
+  const [logoSwap, setLogoSwap] = useState(false);
+  const swappedRef = React.useRef(false);
   const headerRef = React.useRef<HTMLDivElement | null>(null);
   const arrowRef = React.useRef<HTMLImageElement | null>(null);
   const logoRef = React.useRef<HTMLSpanElement | null>(null);
@@ -244,11 +247,22 @@ function Nav({ onContact }: { onContact: () => void }) {
         const x = m.startX - eased * m.distance;
         const p = (m.startX - x) / m.distance;
 
+        // A seta encolhe ~10% um pouco antes de chegar na logo
+        // (do ~82% até ~100% do percurso)
+        const shrinkStart = 0.82;
+        const shrinkP = Math.max(0, Math.min(1, (p - shrinkStart) / (1 - shrinkStart)));
+        const scale = 1 - 0.1 * shrinkP;
+
         setTravelPx(x - m.header.left);
+        setArrowScale(scale);
 
         if (now - last > 24 || t >= 1) {
           last = now;
           setProgress(Math.max(0, Math.min(1, p)));
+          if (p >= 0.999 && !swappedRef.current) {
+            swappedRef.current = true;
+            setLogoSwap(true);
+          }
         }
       }
 
@@ -296,8 +310,10 @@ function Nav({ onContact }: { onContact: () => void }) {
                   data-testid="img-header-arrow"
                   src="/attached_assets/arrow.png"
                   alt="Seta"
-                  className="h-[46px] w-auto opacity-[0.98] drop-shadow-[0_18px_30px_rgba(0,0,0,.35)] md:h-[52px]"
+                  className="h-[46px] w-auto origin-left opacity-[0.98] drop-shadow-[0_18px_30px_rgba(0,0,0,.35)] md:h-[52px]"
                   style={{
+                    transform: `scale(${arrowScale})`,
+                    willChange: "transform",
                     imageRendering: "auto",
                     pointerEvents: "none",
                     userSelect: "none",
@@ -315,9 +331,11 @@ function Nav({ onContact }: { onContact: () => void }) {
             >
               <img
                 data-testid="img-logo"
-                src="/attached_assets/logo.png"
+                src={logoSwap ? "/attached_assets/official-logo.png" : "/attached_assets/logo.png"}
                 alt="Track"
-                className="h-10 w-10 object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,.35)]"
+                className={`h-10 w-10 object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,.35)] ${
+                  logoSwap ? "animate-[logoBoop_520ms_cubic-bezier(0.22,1,0.36,1)_both]" : ""
+                }`}
                 style={{ pointerEvents: "none", userSelect: "none" }}
               />
             </span>
