@@ -222,23 +222,20 @@ function Nav({ onContact }: { onContact: () => void }) {
         >
           {/* Seta (imagem anexada) percorre todo o header até a bola da logo */}
           <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
-            {/* máscara para começar só com a pontinha */}
             <div
-              data-testid="anim-arrow-mask"
-              className="absolute inset-0 overflow-hidden"
+              data-testid="anim-arrow-track"
+              className="absolute right-0 top-1/2 -translate-y-1/2"
               style={{
-                clipPath: `inset(0 ${(1 - progress) * 100}% 0 0 round 999px)`,
-                willChange: "clip-path",
+                transform: `translate3d(${(1 - progress) * 100}%, -50%, 0)`,
+                willChange: "transform",
               }}
             >
               <div
-                data-testid="anim-arrow-track"
-                className="absolute top-1/2 -translate-y-1/2"
+                data-testid="anim-arrow-mask"
+                className="relative overflow-hidden"
                 style={{
-                  left: 0,
-                  width: "100%",
-                  transform: `translate3d(${-progress * 100}%, -50%, 0)`,
-                  willChange: "transform",
+                  width: `${Math.max(1, Math.round(progress * 100))}%`,
+                  willChange: "width",
                 }}
               >
                 <img
