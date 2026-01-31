@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import * as Accordion from "@radix-ui/react-accordion";
 import { useLocation } from "wouter";
-import { ArrowLeft, ArrowRight, Check, ChevronRight, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ChevronRight, Sparkles, Zap, Leaf, Shield, Wrench, LineChart, BatteryCharging, Cable } from "lucide-react";
 
 const revealViewport = { once: true, amount: 0.22 } as const;
 const revealTransition = { duration: 0.65, ease: [0.22, 1, 0.36, 1] } as const;
@@ -367,11 +367,8 @@ export default function ServiceDetailPage() {
                           data-testid={`accordion-scope-trigger-${i}`}
                           className="group flex w-full items-center justify-between gap-4 px-7 py-5 text-left"
                         >
-                          <div className="flex items-center gap-3">
-                            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-zinc-100 text-zinc-700 ring-1 ring-zinc-200">
-                              <ChevronRight className="h-4 w-4 transition group-data-[state=open]:rotate-90" strokeWidth={2.25} />
-                            </span>
-                            <div className="text-sm font-semibold text-zinc-950">{s}</div>
+                          <div className="min-w-0">
+                            <div className="truncate text-sm font-semibold text-zinc-950">{s}</div>
                           </div>
                           <span className="grid h-7 w-7 place-items-center rounded-full bg-zinc-100 text-zinc-700 ring-1 ring-zinc-200">
                             <ChevronRight className="h-4 w-4 transition group-data-[state=open]:rotate-90" strokeWidth={2.25} />
@@ -452,7 +449,30 @@ export default function ServiceDetailPage() {
                       >
                         <div className="flex items-center gap-3">
                           <div className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-zinc-100 text-zinc-700 ring-1 ring-zinc-200">
-                            <ChevronRight className="h-4 w-4 transition group-data-[state=open]:rotate-90" strokeWidth={2.25} />
+                            {(() => {
+                              const id = sec.id;
+                              const Icon =
+                                id.includes("home") ? Shield :
+                                id.includes("peak") ? LineChart :
+                                id.includes("cont") ? Zap :
+                                id.includes("viab") ? LineChart :
+                                id.includes("contr") ? Shield :
+                                id.includes("gest") ? LineChart :
+                                id.includes("perfil") ? Shield :
+                                id.includes("cond") ? Shield :
+                                id.includes("acom") ? LineChart :
+                                id.includes("projeto") ? Cable :
+                                id.includes("hardware") ? Wrench :
+                                id.includes("oper") ? Wrench :
+                                id.includes("inspec") ? Wrench :
+                                id.includes("limp") ? Wrench :
+                                id.includes("relat") ? LineChart :
+                                id.includes("dimen") ? Leaf :
+                                id.includes("impl") ? Wrench :
+                                id.includes("monitor") ? LineChart :
+                                BatteryCharging;
+                              return <Icon className="h-4 w-4" strokeWidth={2.25} />;
+                            })()}
                           </div>
                           <div>
                             <div data-testid={`text-section-title-${sec.id}`} className="text-sm font-semibold text-zinc-950">
