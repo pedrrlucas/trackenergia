@@ -475,6 +475,14 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
     <section id="top" className="relative min-h-screen w-full overflow-hidden bg-black">
       <img data-testid="img-hero" src={heroImg} alt="Energia e infraestrutura" className="h-screen w-full object-cover" />
       <div className="absolute inset-0 hero-overlay noise" />
+      <div
+        data-testid="bg-hero-corners-gradient"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 16%, rgba(255,255,255,0) 45%, rgba(255,255,255,0) 55%, rgba(255,255,255,0.06) 84%, rgba(255,255,255,0.18) 100%)",
+        }}
+      />
 
       <div className="absolute inset-0">
         <Nav onContact={onContact} />
