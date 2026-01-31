@@ -164,9 +164,11 @@ function GhostButton({
       onClick={onClick}
       className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
     >
-      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/14 ring-1 ring-white/14 transition group-hover:bg-white/16">
-        {icon}
-      </span>
+      {icon ? (
+        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/14 ring-1 ring-white/14 transition group-hover:bg-white/16">
+          {icon}
+        </span>
+      ) : null}
       <span className="whitespace-nowrap">{children}</span>
     </button>
   );
