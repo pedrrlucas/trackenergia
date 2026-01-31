@@ -294,7 +294,7 @@ function Nav({ onContact }: { onContact: () => void }) {
                 <img
                   ref={arrowRef}
                   data-testid="img-header-arrow"
-                  src="/attached_assets/image_1769823966992.png"
+                  src="/attached_assets/arrow.png"
                   alt="Seta"
                   className="h-[46px] w-auto opacity-[0.98] drop-shadow-[0_18px_30px_rgba(0,0,0,.35)] md:h-[52px]"
                   style={{
