@@ -187,7 +187,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(90deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.06) 18%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.06) 82%, rgba(255,255,255,0.26) 100%)",
+                "linear-gradient(90deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.06) 18%, rgba(29,2,56,0.12) 50%, rgba(255,255,255,0.06) 82%, rgba(255,255,255,0.26) 100%)",
             }}
           />
           <div
