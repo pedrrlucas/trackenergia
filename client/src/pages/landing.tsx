@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLocation } from "wouter";
 import {
   ArrowRight,
   ChevronLeft,
@@ -470,14 +471,14 @@ function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   );
 }
 
-function Hero({ onPlay }: { onPlay: () => void }) {
+function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void }) {
   return (
     <section id="top" className="relative min-h-screen w-full overflow-hidden bg-black">
       <img data-testid="img-hero" src={heroImg} alt="Energia e infraestrutura" className="h-screen w-full object-cover" />
       <div className="absolute inset-0 hero-overlay noise" />
 
       <div className="absolute inset-0">
-        <Nav onContact={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })} />
+        <Nav onContact={onContact} />
 
         <div className="container-page pt-4 sm:pt-6">
           <div className="pt-[104px] sm:pt-[112px] lg:pt-[132px]">
@@ -501,10 +502,7 @@ function Hero({ onPlay }: { onPlay: () => void }) {
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-3">
-                <PrimaryButton
-                  testId="button-explore-now"
-                  onClick={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })}
-                >
+                <PrimaryButton testId="button-explore-now" onClick={goContact}>
                   Vamos conversar
                 </PrimaryButton>
 
@@ -1302,7 +1300,7 @@ function Testimonials() {
               <button
                 data-testid="button-testimonials-cta"
                 className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]"
-                onClick={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })}
+                onClick={goContact}
               >
                 Converse com a gente
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
@@ -1497,10 +1495,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                 </p>
 
                 <div className="mt-7 flex flex-wrap items-center gap-3">
-                  <PrimaryButton
-                    testId="button-footer-explore"
-                    onClick={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })}
-                  >
+                  <PrimaryButton testId="button-footer-explore" onClick={goContact}>
                     Vamos conversar
                   </PrimaryButton>
                   <GhostButton
@@ -1581,6 +1576,9 @@ function Footer({ onPlay }: { onPlay: () => void }) {
 
 export default function Landing() {
   const [videoOpen, setVideoOpen] = useState(false);
+  const [, setLocation] = useLocation();
+
+  const goContact = () => setLocation("/contato");
 
   const primaryProduct: Product = useMemo(
     () => ({
@@ -1675,7 +1673,7 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-white">
       <section className="w-full">
-        <Hero onPlay={() => setVideoOpen(true)} />
+        <Hero onPlay={() => setVideoOpen(true)} onContact={goContact} />
       </section>
 
       <About />
