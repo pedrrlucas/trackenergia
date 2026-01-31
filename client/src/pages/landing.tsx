@@ -286,5 +286,17 @@ function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
 }
 
 export default function Landing() {
-  return null;
+  return (
+    <div data-testid="page-landing" className="min-h-screen bg-white">
+      <Nav onContact={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })} />
+      <main className="container-page pt-28">
+        <h1 data-testid="text-page-title" className="text-2xl font-semibold text-zinc-900">
+          Track
+        </h1>
+        <p data-testid="text-page-subtitle" className="mt-2 max-w-xl text-sm text-zinc-600">
+          A página estava em branco porque o componente Landing estava retornando null. Já corrigi.
+        </p>
+      </main>
+    </div>
+  );
 }
