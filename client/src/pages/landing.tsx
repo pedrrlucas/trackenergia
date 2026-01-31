@@ -162,7 +162,7 @@ function GhostButton({
     <button
       data-testid={testId}
       onClick={onClick}
-      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/16 active:scale-[0.98]"
+      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/9 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/14 active:scale-[0.98]"
     >
       {icon ? (
         <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/14 ring-1 ring-white/14 transition group-hover:bg-white/16">
@@ -294,7 +294,7 @@ function Nav({ onContact }: { onContact: () => void }) {
         <div
           ref={headerRef}
           data-testid="header-shell"
-          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/12 px-4 py-3"
+          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/9 px-4 py-3"
         >
           {/* Seta (imagem anexada) percorre todo o header até a logo e some ao chegar */}
           {!arrowGone ? (
