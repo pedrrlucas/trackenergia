@@ -409,9 +409,9 @@ function About() {
               <br />
               dedicado de especialistas
               <br />
-              <span className="text-zinc-400">apaixonados</span> por
+              <span className="subtle-grad">apaixonados</span> por
               <br />
-              <span className="text-zinc-400">acelerar</span> a energia solar
+              <span className="subtle-grad">acelerar</span> a energia solar
             </h2>
             <p data-testid="text-about-desc" className="mt-4 w-full text-sm leading-6 text-zinc-500">
               Com um compromisso real com a sustentabilidade, ajudamos pessoas, famílias e empresas a migrarem para uma energia mais
@@ -467,7 +467,7 @@ function ProductFeature({ product }: { product: Product }) {
           >
             {product.title}
             <br />
-            <span className="text-zinc-400">{product.subtitle}</span>
+            <span className="subtle-grad">{product.subtitle}</span>
           </h3>
           <p data-testid="text-product-desc" className="mt-3 max-w-[520px] text-sm leading-6 text-zinc-500">
             {product.desc}
@@ -701,7 +701,7 @@ function ProductGrid({ products }: { products: Product[] }) {
                 >
                   Explore nossa tecnologia
                   <br />
-                  <span className="text-zinc-400">e pacotes de sistema</span>
+                  <span className="subtle-grad">e pacotes de sistema</span>
                 </h3>
                 <p data-testid="text-grid-sub" className="mt-4 text-sm leading-6 text-zinc-500">
                   Soluções completas, do painel ao monitoramento — com acabamento premium e instalação profissional.
@@ -865,7 +865,7 @@ function ProductGrid({ products }: { products: Product[] }) {
             >
               Explore nossa tecnologia
               <br />
-              <span className="text-zinc-400">e pacotes de sistema</span>
+              <span className="subtle-grad">e pacotes de sistema</span>
             </h3>
             <button
               data-testid="button-grid-explore-mobile"
@@ -1037,7 +1037,7 @@ function Testimonials() {
                 <div data-testid="text-testimonials-title" className="text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em] text-white">
                   O que nossos clientes
                   <br />
-                  <span className="text-white/70">falam sobre a Solars</span>
+                  <span className="subtle-grad-dark">falam sobre a Solars</span>
                 </div>
                 <p data-testid="text-testimonials-sub" className="mt-3 max-w-[520px] text-sm leading-6 text-white/70">
                   Experiências reais de quem já migrou para energia solar com projeto bem feito, instalação limpa e suporte presente.
@@ -1288,9 +1288,9 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                 <br />
                 solar e ilumine o futuro,
                 <br />
-                <span className="text-white/65">Energia limpa e confiável</span> feita
+                <span className="subtle-grad-dark">Energia limpa e confiável</span> feita
                 <br />
-                <span className="text-white/65">para</span> a vida moderna
+                <span className="subtle-grad-dark">para</span> a vida moderna
               </h3>
 
               <p data-testid="text-footer-desc" className="mt-5 max-w-[620px] text-sm leading-6 text-white/60">

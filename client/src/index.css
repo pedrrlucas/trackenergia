@@ -122,4 +122,20 @@
   .soft-shadow {
     box-shadow: 0 22px 70px -44px hsl(0 0% 0% / 0.75);
   }
+
+  .subtle-grad {
+    color: transparent;
+    background-image: linear-gradient(92deg, hsl(240 3% 56%) 0%, hsl(240 3% 56%) 46%, #30045c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 0.01px hsl(0 0% 0% / 0.02);
+  }
+
+  .subtle-grad-dark {
+    color: transparent;
+    background-image: linear-gradient(92deg, hsl(0 0% 100% / 0.72) 0%, hsl(0 0% 100% / 0.72) 55%, #30045c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 0.01px hsl(0 0% 100% / 0.08);
+  }
 }
