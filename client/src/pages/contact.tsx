@@ -142,13 +142,13 @@ export default function Contact() {
                     </span>
                     <span className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-900">
                       Abrir
-                      <span className="grid h-9 w-9 place-items-center rounded-full bg-zinc-100 ring-1 ring-zinc-200 transition group-hover:bg-zinc-200">
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-zinc-100 ring-1 ring-zinc-200 transition group-hover:bg-zinc-200">
                         <MessageCircle className="h-4 w-4" strokeWidth={2.25} />
                       </span>
                     </span>
                   </a>
 
-                  <div className="mt-7 grid gap-3 sm:grid-cols-3">
+                  <div className="mt-7 hidden gap-3 sm:grid sm:grid-cols-3">
                     {[{ icon: <Clock className="h-4 w-4" strokeWidth={2.25} />, t: "Resposta rápida", d: "Fluxo direto no WhatsApp" }, { icon: <ShieldCheck className="h-4 w-4" strokeWidth={2.25} />, t: "Clareza", d: "Sem promessas vagas" }, { icon: <Sparkles className="h-4 w-4" strokeWidth={2.25} />, t: "Próximo passo", d: "Um plano simples de ação" }].map((b, i) => (
                       <div
                         data-testid={`card-benefit-${i}`}
@@ -156,7 +156,7 @@ export default function Contact() {
                         className="rounded-[20px] bg-white/10 p-4 ring-1 ring-white/12 backdrop-blur"
                       >
                         <div className="flex items-center gap-2 text-white">
-                          <span className="grid h-8 w-8 place-items-center rounded-xl bg-white/10 ring-1 ring-white/12">{b.icon}</span>
+                          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/10 ring-1 ring-white/12">{b.icon}</span>
                           <div data-testid={`text-benefit-title-${i}`} className="text-xs font-semibold">
                             {b.t}
                           </div>
@@ -199,7 +199,7 @@ export default function Contact() {
                     className="group flex items-center justify-between gap-4 rounded-[22px] bg-zinc-50 px-4 py-4 ring-1 ring-zinc-200 transition hover:bg-white"
                   >
                     <span className="flex items-center gap-3">
-                      <span className="grid h-10 w-10 place-items-center rounded-2xl bg-white ring-1 ring-zinc-200">
+                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white ring-1 ring-zinc-200">
                         <Mail className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
                       </span>
                       <span>
@@ -220,7 +220,7 @@ export default function Contact() {
                     className="group flex items-center justify-between gap-4 rounded-[22px] bg-zinc-50 px-4 py-4 ring-1 ring-zinc-200 transition hover:bg-white"
                   >
                     <span className="flex items-center gap-3">
-                      <span className="grid h-10 w-10 place-items-center rounded-2xl bg-white ring-1 ring-zinc-200">
+                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white ring-1 ring-zinc-200">
                         <Phone className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
                       </span>
                       <span>
