@@ -30,7 +30,7 @@ export function PrimaryButton({
     <button
       data-testid={testId}
       onClick={onClick}
-      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 shadow-[0_10px_30px_-20px_rgba(0,0,0,.65)] transition active:scale-[0.98]"
+      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 transition active:scale-[0.98]"
     >
       <span className="whitespace-nowrap">{children}</span>
       <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#1d0238] text-white transition group-hover:translate-x-0.5">
@@ -55,10 +55,10 @@ export function GhostButton({
     <button
       data-testid={testId}
       onClick={onClick}
-      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white transition active:scale-[0.98]"
     >
       {icon ? (
-        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/14 ring-1 ring-white/14 transition group-hover:bg-white/16">
+        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/14 transition">
           {icon}
         </span>
       ) : null}
