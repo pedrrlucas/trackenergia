@@ -292,9 +292,9 @@ function Hero({ onPlay }: { onPlay: () => void }) {
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <PrimaryButton
                   testId="button-explore-now"
-                  onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}
+                  onClick={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })}
                 >
-                  Explorar agora
+                  Vamos conversar
                 </PrimaryButton>
 
                 <GhostButton
@@ -1093,7 +1093,7 @@ function Testimonials() {
                 className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]"
                 onClick={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })}
               >
-                Quero um orçamento
+                Converse com a gente
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-[#100121] text-white">
                   <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
                 </span>
@@ -1288,16 +1288,15 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                 <div className="mt-7 flex flex-wrap items-center gap-3">
                   <PrimaryButton
                     testId="button-footer-explore"
-                    onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}
+                    onClick={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })}
                   >
-                    Explorar agora
+                    Vamos conversar
                   </PrimaryButton>
                   <GhostButton
-                    testId="button-footer-play"
-                    onClick={onPlay}
-                    icon={<CirclePlay className="h-4 w-4" strokeWidth={2.25} />}
+                    testId="button-footer-services"
+                    onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}
                   >
-                    Ver vídeo
+                    Nossos Serviços
                   </GhostButton>
                 </div>
               </div>
