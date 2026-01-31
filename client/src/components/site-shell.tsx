@@ -178,7 +178,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
         <div
           ref={headerRef}
           data-testid="header-shell"
-          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/18 px-4 py-3 ring-1 ring-white/14 backdrop-blur"
+          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-[#d9d5e1]/55 px-4 py-3 ring-1 ring-[#6d4aa8]/22 backdrop-blur"
         >
           {!arrowGone ? (
             <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
@@ -246,7 +246,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             <a
               data-testid="link-nav-home"
               href="#top"
-              className="transition hover:text-white/90"
+              className="transition"
               style={{ pointerEvents: showHome ? "auto" : "none", visibility: showHome ? "visible" : "hidden" }}
             >
               Início
@@ -254,7 +254,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             <a
               data-testid="link-nav-product"
               href="#product"
-              className="transition hover:text-white/90"
+              className="transition"
               style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
             >
               Serviços
@@ -262,7 +262,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             <a
               data-testid="link-nav-process"
               href="#process"
-              className="transition hover:text-white/90"
+              className="transition"
               style={{ pointerEvents: showProcess ? "auto" : "none", visibility: showProcess ? "visible" : "hidden" }}
             >
               Abordagem
@@ -270,7 +270,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             <a
               data-testid="link-nav-testimonials"
               href="#testimonials"
-              className="transition hover:text-white/90"
+              className="transition"
               style={{
                 pointerEvents: showTestimonials ? "auto" : "none",
                 visibility: showTestimonials ? "visible" : "hidden",
