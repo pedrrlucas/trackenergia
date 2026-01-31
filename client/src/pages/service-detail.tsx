@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import * as Accordion from "@radix-ui/react-accordion";
 import { useLocation } from "wouter";
-import { ArrowLeft, ArrowRight, Check, ChevronRight, MessageCircle, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ChevronRight, Sparkles } from "lucide-react";
 
 const revealViewport = { once: true, amount: 0.22 } as const;
 const revealTransition = { duration: 0.65, ease: [0.22, 1, 0.36, 1] } as const;
@@ -331,18 +331,6 @@ export default function ServiceDetailPage() {
                   </div>
                 </div>
 
-                <a
-                  data-testid="button-service-whatsapp"
-                  href="https://wa.me/5511999999999"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group inline-flex items-center gap-2 rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white transition hover:bg-zinc-900"
-                >
-                  Falar no WhatsApp
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-white/10 transition group-hover:translate-x-0.5">
-                    <MessageCircle className="h-4 w-4" strokeWidth={2.25} />
-                  </span>
-                </a>
               </div>
             </motion.div>
 

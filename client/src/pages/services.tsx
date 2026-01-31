@@ -158,16 +158,6 @@ export default function Services() {
                   </p>
                 </div>
 
-                <a
-                  data-testid="link-services-contact"
-                  href="/contato"
-                  className="group inline-flex items-center gap-2 rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white transition hover:bg-zinc-900"
-                >
-                  Fale com a Track
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-white/10 transition group-hover:translate-x-0.5">
-                    <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-                  </span>
-                </a>
               </div>
             </motion.div>
 
