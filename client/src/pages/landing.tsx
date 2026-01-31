@@ -1279,38 +1279,77 @@ function Footer({ onPlay }: { onPlay: () => void }) {
               </div>
             </div>
 
-            <div>
-              <h3
-                data-testid="text-footer-title"
-                className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-[46px]"
-              >
-                Mude para a energia
-                <br />
-                solar e ilumine o futuro,
-                <br />
-                <span className="subtle-grad-dark">Energia limpa e confiável</span> feita
-                <br />
-                <span className="subtle-grad-dark">para</span> a vida moderna
-              </h3>
-
-              <p data-testid="text-footer-desc" className="mt-5 max-w-[620px] text-sm leading-6 text-white/60">
-                Energize sua casa ou empresa com soluções solares eficientes e acessíveis, feitas para gerar impacto real.
-              </p>
-
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                <PrimaryButton
-                  testId="button-footer-explore"
-                  onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
+              <div>
+                <h3
+                  data-testid="text-footer-title"
+                  className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-[46px]"
                 >
-                  Explorar agora
-                </PrimaryButton>
-                <GhostButton
-                  testId="button-footer-play"
-                  onClick={onPlay}
-                  icon={<CirclePlay className="h-4 w-4" strokeWidth={2.25} />}
-                >
-                  Ver vídeo
-                </GhostButton>
+                  Mude para a energia
+                  <br />
+                  solar e ilumine o futuro,
+                  <br />
+                  <span className="subtle-grad-dark">Energia limpa e confiável</span> feita
+                  <br />
+                  <span className="subtle-grad-dark">para</span> a vida moderna
+                </h3>
+
+                <p data-testid="text-footer-desc" className="mt-5 max-w-[620px] text-sm leading-6 text-white/60">
+                  Energize sua casa ou empresa com soluções solares eficientes e acessíveis, feitas para gerar impacto real.
+                </p>
+
+                <div className="mt-7 flex flex-wrap items-center gap-3">
+                  <PrimaryButton
+                    testId="button-footer-explore"
+                    onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}
+                  >
+                    Explorar agora
+                  </PrimaryButton>
+                  <GhostButton
+                    testId="button-footer-play"
+                    onClick={onPlay}
+                    icon={<CirclePlay className="h-4 w-4" strokeWidth={2.25} />}
+                  >
+                    Ver vídeo
+                  </GhostButton>
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between gap-3">
+                  <div data-testid="text-footer-instagram-title" className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
+                    Instagram
+                  </div>
+                  <a
+                    data-testid="link-footer-instagram"
+                    href="#"
+                    className="text-xs font-medium text-white/70 transition hover:text-white"
+                  >
+                    Ver mais
+                  </a>
+                </div>
+
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  {new Array(6).fill(0).map((_, i) => (
+                    <a
+                      data-testid={`card-footer-ig-${i}`}
+                      key={i}
+                      href="#"
+                      className="group relative aspect-square overflow-hidden rounded-xl bg-white/8 ring-1 ring-white/10 transition hover:bg-white/10"
+                      aria-label={`Post do Instagram ${i + 1}`}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
+                      <div className="absolute inset-0 grid place-items-center">
+                        <div className="h-10 w-10 rounded-2xl bg-white/10 ring-1 ring-white/12" />
+                      </div>
+                      <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition group-hover:opacity-100" />
+                    </a>
+                  ))}
+                </div>
+
+                <div data-testid="text-footer-instagram-hint" className="mt-3 text-[11px] leading-5 text-white/55">
+                  Espaços reservados para 6 imagens quadradas (posts).
+                </div>
               </div>
             </div>
           </div>
