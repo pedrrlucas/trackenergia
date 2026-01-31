@@ -335,7 +335,7 @@ function Nav({ onContact }: { onContact: () => void }) {
             >
               <img
                 data-testid="img-logo"
-                src={logoSwap ? "/attached_assets/official-logo.png" : "/attached_assets/logo.png"}
+                src="/attached_assets/official-logo.png"
                 alt="Track"
                 className={`h-10 w-10 object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,.35)] ${
                   logoSwap ? "animate-[logoBoop_520ms_cubic-bezier(0.22,1,0.36,1)_both]" : ""
