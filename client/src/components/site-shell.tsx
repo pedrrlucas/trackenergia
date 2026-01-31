@@ -219,7 +219,17 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             </div>
           ) : null}
 
-          <a data-testid="link-logo" href={"/"} className="relative flex items-center gap-3">
+          <a
+            data-testid="link-logo"
+            href={location === "/" ? "#top" : "/"}
+            onClick={(e) => {
+              if (location !== "/") {
+                e.preventDefault();
+                setLocation("/");
+              }
+            }}
+            className="relative flex items-center gap-3"
+          >
             <span ref={logoRef} data-testid="logo-mark" className="grid h-10 w-10 place-items-center">
               {!logoSwap ? (
                 <img
@@ -432,11 +442,11 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
 }
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
-  const [location] = useLocation() as unknown as [WouterLocation, (path: string) => void];
+  const [location, setLocation] = useLocation() as unknown as [WouterLocation, (path: string) => void];
 
   const onContact = React.useCallback(() => {
-    window.location.href = "/contato";
-  }, []);
+    setLocation("/contato");
+  }, [setLocation]);
 
   return (
     <div className="min-h-screen bg-white">
