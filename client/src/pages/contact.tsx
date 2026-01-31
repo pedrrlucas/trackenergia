@@ -79,7 +79,10 @@ export default function Contact() {
               >
                 ← Voltar para a página inicial
               </a>
-              <Pill testId="pill-contact">( contato )</Pill>
+
+              <div className="mt-3">
+                <Pill testId="pill-contact">( contato )</Pill>
+              </div>
               <h1 data-testid="text-contact-title" className="mt-5 text-balance text-[46px] font-medium leading-[1.02] tracking-[-0.03em] text-zinc-950 sm:text-[56px]">
                 Fale com a Track
               </h1>
