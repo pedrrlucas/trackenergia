@@ -365,7 +365,7 @@ export default function ServiceDetailPage() {
                       <Accordion.Header className="">
                         <Accordion.Trigger
                           data-testid={`accordion-scope-trigger-${i}`}
-                          className="group flex w-full cursor-pointer items-center justify-between gap-4 px-7 py-5 text-left transition hover:bg-zinc-50"
+                          className="group flex w-full cursor-pointer items-center justify-between gap-4 px-7 py-5 text-left"
                         >
                           <div className="min-w-0">
                             <div className="truncate text-sm font-semibold text-zinc-950">{s}</div>
@@ -418,6 +418,16 @@ export default function ServiceDetailPage() {
                       </div>
                     ))}
                   </div>
+
+                  <div className="mt-6 hidden md:flex">
+                    <a
+                      data-testid="link-talk-track-outcomes"
+                      href="/contato"
+                      className="text-sm font-semibold text-white/90 underline decoration-white/30 underline-offset-4 transition hover:text-white hover:decoration-white/60"
+                    >
+                      Falar com a Track
+                    </a>
+                  </div>
                 </div>
               </motion.aside>
             </div>
@@ -445,7 +455,7 @@ export default function ServiceDetailPage() {
                     <Accordion.Header>
                       <Accordion.Trigger
                         data-testid={`accordion-section-trigger-${sec.id}`}
-                        className="group flex w-full cursor-pointer items-center justify-between gap-4 px-7 py-6 text-left transition hover:bg-zinc-50"
+                        className="group flex w-full cursor-pointer items-center justify-between gap-4 px-7 py-6 text-left"
                       >
                         <div className="flex items-center gap-3">
                           <div className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-zinc-100 text-zinc-700 ring-1 ring-zinc-200">
@@ -490,7 +500,7 @@ export default function ServiceDetailPage() {
                     </Accordion.Header>
 
                     <Accordion.Content className="px-7 pb-7 data-[state=closed]:animate-accordionUp data-[state=open]:animate-accordionDown">
-                      <div className="flex items-start justify-between gap-4">
+                      <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                         <div>
                           <div data-testid={`text-section-desc-${sec.id}`} className="text-sm leading-6 text-zinc-600">
                             {sec.description}
@@ -502,7 +512,7 @@ export default function ServiceDetailPage() {
                           href="https://wa.me/5511999999999"
                           target="_blank"
                           rel="noreferrer"
-                          className="shrink-0 rounded-full bg-zinc-950 px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-zinc-900"
+                          className="w-full rounded-full bg-zinc-950 px-3 py-2 text-center text-[11px] font-semibold text-white transition hover:bg-zinc-900 md:w-auto md:py-1.5"
                         >
                           Chamar no WhatsApp
                         </a>
