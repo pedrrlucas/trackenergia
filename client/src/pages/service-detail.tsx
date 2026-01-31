@@ -380,12 +380,14 @@ export default function ServiceDetailPage() {
                           className="group flex w-full items-center justify-between gap-4 px-7 py-5 text-left"
                         >
                           <div className="flex items-center gap-3">
-                            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-zinc-900 text-white">
+                            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-zinc-100 text-zinc-700 ring-1 ring-zinc-200">
                               <ChevronRight className="h-4 w-4 transition group-data-[state=open]:rotate-90" strokeWidth={2.25} />
                             </span>
                             <div className="text-sm font-semibold text-zinc-950">{s}</div>
                           </div>
-                          <div className="text-xs font-medium text-zinc-500 group-hover:text-zinc-700">Detalhes</div>
+                          <span className="grid h-7 w-7 place-items-center rounded-full bg-zinc-100 text-zinc-700 ring-1 ring-zinc-200">
+                            <ChevronRight className="h-4 w-4 transition group-data-[state=open]:rotate-90" strokeWidth={2.25} />
+                          </span>
                         </Accordion.Trigger>
                       </Accordion.Header>
                       <Accordion.Content className="px-7 pb-6 data-[state=closed]:animate-accordionUp data-[state=open]:animate-accordionDown">
@@ -461,7 +463,7 @@ export default function ServiceDetailPage() {
                         className="group flex w-full items-center justify-between gap-4 px-7 py-6 text-left"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-zinc-950 text-white">
+                          <div className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-zinc-100 text-zinc-700 ring-1 ring-zinc-200">
                             <ChevronRight className="h-4 w-4 transition group-data-[state=open]:rotate-90" strokeWidth={2.25} />
                           </div>
                           <div>
@@ -473,7 +475,9 @@ export default function ServiceDetailPage() {
                             </div>
                           </div>
                         </div>
-                        <div className="text-xs font-medium text-zinc-500 group-hover:text-zinc-700">Detalhes</div>
+                        <span className="grid h-7 w-7 place-items-center rounded-full bg-zinc-100 text-zinc-700 ring-1 ring-zinc-200">
+                          <ChevronRight className="h-4 w-4 transition group-data-[state=open]:rotate-90" strokeWidth={2.25} />
+                        </span>
                       </Accordion.Trigger>
                     </Accordion.Header>
 
