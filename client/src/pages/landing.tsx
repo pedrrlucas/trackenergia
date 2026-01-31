@@ -1022,7 +1022,7 @@ function Testimonials() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
         <motion.div
-          className="relative overflow-hidden rounded-[30px] bg-[#1d0238] ring-1 ring-white/10"
+          className="relative overflow-hidden rounded-[30px] bg-gradient-to-r from-black via-[#12001f] to-[#1d0238] ring-1 ring-white/10"
           initial={reduced ? undefined : { opacity: 0, y: 10 }}
           whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -1238,7 +1238,7 @@ function Testimonials() {
 function Footer({ onPlay }: { onPlay: () => void }) {
   return (
     <footer id="footer" className="w-full bg-white">
-      <div className="w-full bg-[#1d0238]">
+      <div className="w-full bg-gradient-to-r from-black via-[#12001f] to-[#1d0238]">
         <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
           <div className="grid gap-12 py-10 md:grid-cols-[360px_minmax(0,1fr)] md:items-start md:gap-16 md:py-12">
             <div>
