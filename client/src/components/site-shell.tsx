@@ -180,14 +180,14 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
         <div
           ref={headerRef}
           data-testid="header-shell"
-          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-[#bdb5cb]/70 px-4 py-3"
+          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-[#bdb5cb]/50 px-4 py-3"
         >
           <div
             data-testid="bg-contact-header-gradient"
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(90deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.08) 18%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.08) 82%, rgba(255,255,255,0.38) 100%)",
+                "linear-gradient(90deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.06) 18%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.06) 82%, rgba(255,255,255,0.26) 100%)",
             }}
           />
           <div
