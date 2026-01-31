@@ -191,6 +191,15 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             }}
           />
           <div
+            data-testid="bg-contact-header-text-clarity"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.02) 22%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.02) 78%, rgba(0,0,0,0.08) 100%)",
+              mixBlendMode: "multiply",
+            }}
+          />
+          <div
             data-testid="bg-contact-header-vignette"
             className="pointer-events-none absolute inset-0"
             style={{
