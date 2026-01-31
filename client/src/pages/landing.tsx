@@ -216,17 +216,23 @@ function Nav({ onContact }: { onContact: () => void }) {
     const start = performance.now();
     const total = 920; // rápido e elegante
 
+    let last = 0;
+
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / total);
       // easeOutCubic
       const eased = 1 - Math.pow(1 - t, 3);
 
-      const m = measure();
-      if (m) {
-        const x = m.startX - eased * m.distance;
-        const p = (m.startX - x) / m.distance;
-        setProgress(Math.max(0, Math.min(1, p)));
-        setTravelPx(x - m.header.left);
+      // reduz "picado": evita re-render em todo frame
+      if (now - last > 24 || t >= 1) {
+        last = now;
+        const m = measure();
+        if (m) {
+          const x = m.startX - eased * m.distance;
+          const p = (m.startX - x) / m.distance;
+          setProgress(Math.max(0, Math.min(1, p)));
+          setTravelPx(x - m.header.left);
+        }
       }
 
       if (t < 1) raf = requestAnimationFrame(tick);
@@ -256,7 +262,7 @@ function Nav({ onContact }: { onContact: () => void }) {
               data-testid="anim-arrow-track"
               className="absolute left-0 top-1/2 -translate-y-1/2"
               style={{
-                transform: `translate3d(${travelPx}px, -50%, 0)`,
+                transform: `translate3d(${travelPx}px, 0, 0)`,
                 willChange: "transform",
               }}
             >
