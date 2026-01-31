@@ -207,10 +207,11 @@ function Nav({ onContact }: { onContact: () => void }) {
     return () => cancelAnimationFrame(raf);
   }, [ready, reduced]);
 
-  const showHome = progress >= 0.26;
-  const showProduct = progress >= 0.42;
-  const showProcess = progress >= 0.58;
-  const showTestimonials = progress >= 0.74;
+  // Ordem pedida: Depoimentos → Abordagem → Serviços → Início (a seta vem da direita)
+  const showTestimonials = progress >= 0.26;
+  const showProcess = progress >= 0.42;
+  const showProduct = progress >= 0.58;
+  const showHome = progress >= 0.74;
 
   return (
     <div className="pointer-events-none absolute left-0 right-0 top-0 z-20">
@@ -246,6 +247,8 @@ function Nav({ onContact }: { onContact: () => void }) {
                   className="h-[46px] w-auto opacity-[0.98] drop-shadow-[0_18px_30px_rgba(0,0,0,.35)] md:h-[52px]"
                   style={{
                     imageRendering: "auto",
+                    pointerEvents: "none",
+                    userSelect: "none",
                   }}
                 />
               </div>
