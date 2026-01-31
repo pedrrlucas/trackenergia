@@ -335,10 +335,19 @@ function Nav({ onContact }: { onContact: () => void }) {
             >
               <img
                 data-testid="img-logo"
-                src="/attached_assets/official-logo.png"
+                src="/attached_assets/logo.png"
                 alt="Track"
                 className={`h-10 w-10 object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,.35)] ${
                   logoSwap ? "animate-[logoBoop_520ms_cubic-bezier(0.22,1,0.36,1)_both]" : ""
+                }`}
+                style={{ pointerEvents: "none", userSelect: "none" }}
+              />
+              <img
+                data-testid="img-logo-final"
+                src="/attached_assets/official-logo.png"
+                alt="Track"
+                className={`absolute inset-0 h-10 w-10 object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,.35)] ${
+                  logoSwap ? "opacity-100 animate-[logoBoop_520ms_cubic-bezier(0.22,1,0.36,1)_both]" : "opacity-0"
                 }`}
                 style={{ pointerEvents: "none", userSelect: "none" }}
               />
