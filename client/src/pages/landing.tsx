@@ -1689,7 +1689,6 @@ export default function Landing() {
       <Process />
       <ProductGrid products={products} />
       <Testimonials />
-      <Footer onPlay={() => setVideoOpen(true)} />
 
       <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} />
     </div>
