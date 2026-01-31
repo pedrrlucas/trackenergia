@@ -163,22 +163,26 @@ function Nav({ onContact }: { onContact: () => void }) {
   const [navReady, setNavReady] = useState(false);
 
   useEffect(() => {
-    const handle = window.setTimeout(() => setNavReady(true), 520);
+    const handle = window.setTimeout(() => setNavReady(true), 560);
     return () => window.clearTimeout(handle);
   }, []);
 
   return (
     <div className="pointer-events-none absolute left-0 right-0 top-0 z-20">
       <div className="container-page pointer-events-auto">
-        <div className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/22 px-4 py-3 ring-1 ring-white/18 backdrop-blur">
+        <div
+          data-testid="header-nav"
+          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/22 px-4 py-3 ring-1 ring-white/18 backdrop-blur"
+        >
+          {/* sweeping arrow */}
           <motion.img
             data-testid="img-header-arrow"
             src={headerArrow}
             alt=""
             className="pointer-events-none absolute right-0 top-1/2 z-10 h-[74px] w-[74px] -translate-y-1/2 select-none"
-            initial={{ x: 260, opacity: 0, rotate: 0, scale: 1 }}
-            animate={{ x: navReady ? -340 : 260, opacity: navReady ? 1 : 0 }}
-            transition={{ x: { duration: 0.85, ease: [0.2, 0.85, 0.2, 1] }, opacity: { duration: 0.18, ease: "easeOut" } }}
+            initial={{ x: 340, opacity: 0 }}
+            animate={{ x: navReady ? -820 : 340, opacity: navReady ? 1 : 0 }}
+            transition={{ x: { duration: 0.95, ease: [0.2, 0.85, 0.2, 1] }, opacity: { duration: 0.16, ease: "easeOut" } }}
           />
 
           <a data-testid="link-logo" href="#top" className="relative z-20 flex items-center gap-2">
@@ -204,15 +208,15 @@ function Nav({ onContact }: { onContact: () => void }) {
                 className="relative text-white/78 transition hover:text-white"
               >
                 <span
-                  className="inline-block transition"
+                  className="inline-block"
                   style={{
                     transitionProperty: "clip-path, opacity, transform",
                     transitionTimingFunction: "cubic-bezier(0.2, 0.85, 0.2, 1)",
-                    transitionDuration: "520ms",
-                    transitionDelay: navReady ? `${720 + idx * 80}ms` : "0ms",
-                    clipPath: navReady ? "inset(0 0 0 0 round 8px)" : "inset(0 100% 0 0 round 8px)",
+                    transitionDuration: "460ms",
+                    transitionDelay: navReady ? `${520 + idx * 120}ms` : "0ms",
+                    clipPath: navReady ? "inset(0 0 0 0 round 8px)" : "inset(0 0 0 100% round 8px)",
                     opacity: navReady ? 1 : 0,
-                    transform: navReady ? "translateX(0px)" : "translateX(-8px)",
+                    transform: navReady ? "translateX(0px)" : "translateX(10px)",
                   }}
                 >
                   {item.label}
