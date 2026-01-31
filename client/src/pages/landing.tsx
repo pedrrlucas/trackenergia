@@ -180,6 +180,7 @@ function Nav({ onContact }: { onContact: () => void }) {
   const [progress, setProgress] = useState(0);
   const [travelPx, setTravelPx] = useState(0);
   const [arrowScale, setArrowScale] = useState(1);
+  const [arrowGone, setArrowGone] = useState(false);
   const [logoSwap, setLogoSwap] = useState(false);
   const swappedRef = React.useRef(false);
   const headerRef = React.useRef<HTMLDivElement | null>(null);
@@ -262,6 +263,7 @@ function Nav({ onContact }: { onContact: () => void }) {
           if (p >= 0.999 && !swappedRef.current) {
             swappedRef.current = true;
             setLogoSwap(true);
+            window.setTimeout(() => setArrowGone(true), 70);
           }
         }
       }
@@ -287,41 +289,43 @@ function Nav({ onContact }: { onContact: () => void }) {
           data-testid="header-shell"
           className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/22 px-4 py-3 ring-1 ring-white/18 backdrop-blur"
         >
-          {/* Seta (imagem anexada) percorre todo o header até a bola da logo */}
-          <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
-            <div
-              data-testid="anim-arrow-track"
-              className="absolute left-0 top-1/2 -translate-y-1/2"
-              style={{
-                transform: `translate3d(${travelPx}px, 0, 0)`,
-                willChange: "transform",
-              }}
-            >
+          {/* Seta (imagem anexada) percorre todo o header até a logo e some ao chegar */}
+          {!arrowGone ? (
+            <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
               <div
-                data-testid="anim-arrow-mask"
-                className="relative overflow-hidden"
+                data-testid="anim-arrow-track"
+                className="absolute left-0 top-1/2 -translate-y-1/2"
                 style={{
-                  width: `${Math.max(1, Math.round(progress * 100))}%`,
-                  willChange: "width",
+                  transform: `translate3d(${travelPx}px, 0, 0)`,
+                  willChange: "transform",
                 }}
               >
-                <img
-                  ref={arrowRef}
-                  data-testid="img-header-arrow"
-                  src="/attached_assets/arrow.png"
-                  alt="Seta"
-                  className="h-[46px] w-auto origin-left opacity-[0.98] drop-shadow-[0_18px_30px_rgba(0,0,0,.35)] md:h-[52px]"
+                <div
+                  data-testid="anim-arrow-mask"
+                  className="relative overflow-hidden"
                   style={{
-                    transform: `scale(${arrowScale})`,
-                    willChange: "transform",
-                    imageRendering: "auto",
-                    pointerEvents: "none",
-                    userSelect: "none",
+                    width: `${Math.max(1, Math.round(progress * 100))}%`,
+                    willChange: "width",
                   }}
-                />
+                >
+                  <img
+                    ref={arrowRef}
+                    data-testid="img-header-arrow"
+                    src="/attached_assets/arrow.png"
+                    alt="Seta"
+                    className="h-[46px] w-auto origin-left opacity-[0.98] drop-shadow-[0_18px_30px_rgba(0,0,0,.35)] md:h-[52px]"
+                    style={{
+                      transform: `scale(${arrowScale})`,
+                      willChange: "transform",
+                      imageRendering: "auto",
+                      pointerEvents: "none",
+                      userSelect: "none",
+                    }}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          ) : null}
 
           <a data-testid="link-logo" href="#top" className="relative flex items-center gap-3">
             <span
