@@ -160,43 +160,39 @@ export default function Services() {
               </div>
             </motion.div>
 
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {services.map((s, index) => (
-                <motion.a
-                  key={s.id}
-                  data-testid={`card-service-${s.id}`}
-                  href={`/servicos/${s.id}`}
-                  className="group relative overflow-hidden rounded-[28px] bg-white p-6 ring-1 ring-zinc-200 transition hover:bg-zinc-50"
-                  initial={reduced ? undefined : { opacity: 0, y: 16 }}
-                  whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                  viewport={revealViewport}
-                  transition={{ ...revealTransition, delay: reduced ? 0 : index * 0.03 }}
-                >
-                  <div className="absolute inset-0 opacity-0 transition group-hover:opacity-100">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${s.gradient} opacity-[0.08]`} />
-                    <div className="absolute inset-0 noise opacity-[0.06]" />
-                  </div>
+            <div className="mt-10 overflow-hidden rounded-[32px] bg-white ring-1 ring-zinc-200">
+              <div className="grid divide-y divide-zinc-200">
+                {services.map((s, index) => (
+                  <motion.a
+                    key={s.id}
+                    data-testid={`row-service-${s.id}`}
+                    href={`/servicos/${s.id}`}
+                    className="group relative grid gap-4 px-6 py-6 transition hover:bg-zinc-50 sm:grid-cols-[1.1fr_.9fr_auto] sm:items-center"
+                    initial={reduced ? undefined : { opacity: 0, y: 10 }}
+                    whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+                    viewport={revealViewport}
+                    transition={{ ...revealTransition, delay: reduced ? 0 : index * 0.02 }}
+                  >
+                    <div className="absolute inset-0 opacity-0 transition group-hover:opacity-100">
+                      <div className={`absolute inset-0 bg-gradient-to-r ${s.gradient} opacity-[0.05]`} />
+                      <div className="absolute inset-0 noise opacity-[0.05]" />
+                    </div>
 
-                  <div className="relative">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="grid h-11 w-11 place-items-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200 transition group-hover:bg-white">
+                    <div className="relative flex items-start gap-4">
+                      <div className="grid h-12 w-12 place-items-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200 transition group-hover:bg-white">
                         <span className="text-zinc-900">{s.icon}</span>
                       </div>
-                      <div className="grid h-9 w-9 place-items-center rounded-full bg-zinc-50 ring-1 ring-zinc-200 transition group-hover:bg-zinc-100">
-                        <ChevronRight className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
+                      <div>
+                        <div data-testid={`text-service-title-${s.id}`} className="text-base font-semibold tracking-tight text-zinc-950">
+                          {s.title}
+                        </div>
+                        <div data-testid={`text-service-sub-${s.id}`} className="mt-1 text-sm leading-6 text-zinc-600">
+                          {s.subtitle}
+                        </div>
                       </div>
                     </div>
 
-                    <div className="mt-4">
-                      <div data-testid={`text-service-title-${s.id}`} className="text-base font-semibold tracking-tight text-zinc-950">
-                        {s.title}
-                      </div>
-                      <div data-testid={`text-service-sub-${s.id}`} className="mt-1 text-sm text-zinc-600">
-                        {s.subtitle}
-                      </div>
-                    </div>
-
-                    <div className="mt-5 grid gap-2">
+                    <div className="relative grid gap-2 sm:pl-4">
                       {s.bullets.map((b, i) => (
                         <div
                           key={i}
@@ -209,13 +205,15 @@ export default function Services() {
                       ))}
                     </div>
 
-                    <div className="mt-6 inline-flex items-center gap-2 text-xs font-semibold text-zinc-950">
-                      Ver detalhes
-                      <Sparkles className="h-4 w-4 text-[#30045c]" strokeWidth={2.25} />
+                    <div className="relative inline-flex items-center justify-end gap-2 text-xs font-semibold text-zinc-950">
+                      <span data-testid={`text-service-cta-${s.id}`} className="hidden sm:inline">Ver detalhes</span>
+                      <div className="grid h-9 w-9 place-items-center rounded-full bg-zinc-50 ring-1 ring-zinc-200 transition group-hover:bg-zinc-100">
+                        <ChevronRight className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
+                      </div>
                     </div>
-                  </div>
-                </motion.a>
-              ))}
+                  </motion.a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
