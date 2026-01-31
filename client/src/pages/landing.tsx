@@ -185,8 +185,22 @@ function Nav({ onContact }: { onContact: () => void }) {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const t = window.setTimeout(() => setReady(true), 260);
-    return () => window.clearTimeout(t);
+
+    const start = () => window.setTimeout(() => setReady(true), 1000);
+
+    if (document.readyState === "complete") {
+      const t = start();
+      return () => window.clearTimeout(t);
+    }
+
+    const onLoad = () => {
+      const t = start();
+      window.removeEventListener("load", onLoad);
+      // cleanup handled below
+    };
+
+    window.addEventListener("load", onLoad, { once: true });
+    return () => window.removeEventListener("load", onLoad);
   }, []);
 
   useEffect(() => {
