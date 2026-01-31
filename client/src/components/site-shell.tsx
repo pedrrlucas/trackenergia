@@ -436,13 +436,11 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
     window.location.href = "/contato";
   }, []);
 
-  const inHome = location === "/";
-
   return (
     <div className="min-h-screen bg-white">
-      {inHome ? <SiteHeader onContact={onContact} /> : null}
+      <SiteHeader onContact={onContact} />
       {children}
-      {inHome ? <SiteFooter onContact={onContact} /> : null}
+      <SiteFooter onContact={onContact} />
     </div>
   );
 }
