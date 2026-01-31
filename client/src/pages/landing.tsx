@@ -19,8 +19,8 @@ import {
   Sun,
   Zap,
 } from "lucide-react";
-import heroImg from "@/assets/hero.jpg";
-import productImg from "@/assets/product.jpg";
+import heroImg from "@/assets/images/hero-solar.jpg";
+import productImg from "@/assets/images/product-solarfield.jpg";
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
