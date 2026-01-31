@@ -65,7 +65,7 @@ export default function Contact() {
           <div className="absolute -top-24 left-1/2 h-[420px] w-[920px] -translate-x-1/2 rounded-full bg-gradient-to-r from-[#30045c]/16 via-[#1d0238]/10 to-transparent blur-3xl" />
         </div>
 
-        <div className="relative mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
+        <div className="relative mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12 overflow-x-hidden">
           <div className="pt-20 sm:pt-24 lg:pt-28">
             <motion.div
               initial={reduced ? undefined : { opacity: 0, y: 14 }}
@@ -91,10 +91,10 @@ export default function Contact() {
               </p>
             </motion.div>
 
-            <div className="mt-8 grid w-full gap-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
+            <div className="mt-8 grid w-full justify-items-center gap-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
               <motion.section
                 data-testid="section-contact-primary"
-                className="relative overflow-hidden rounded-[32px] bg-gradient-to-r from-black via-[#12001f] to-[#1d0238] p-7 ring-1 ring-black/10 sm:p-8"
+                className="relative w-full max-w-[760px] overflow-hidden rounded-[32px] bg-gradient-to-r from-black via-[#12001f] to-[#1d0238] p-7 ring-1 ring-black/10 sm:p-8 lg:max-w-none"
                 initial={reduced ? undefined : { opacity: 0, y: 16 }}
                 whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
                 viewport={revealViewport}
@@ -172,7 +172,7 @@ export default function Contact() {
 
               <motion.section
                 data-testid="section-contact-options"
-                className="rounded-[32px] bg-white p-6 ring-1 ring-zinc-200 sm:p-7"
+                className="w-full max-w-[760px] rounded-[32px] bg-white p-6 ring-1 ring-zinc-200 sm:p-7 lg:max-w-none"
                 initial={reduced ? undefined : { opacity: 0, y: 16 }}
                 whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
                 viewport={revealViewport}
