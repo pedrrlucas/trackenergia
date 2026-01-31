@@ -468,16 +468,6 @@ export default function ServiceDetailPage() {
               </div>
             </section>
 
-            <div className="mt-10">
-              <a
-                data-testid="button-next-service"
-                href={serviceId ? "/servicos" : "/servicos"}
-                className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-900 transition hover:translate-x-0.5"
-              >
-                Ver todos os serviços
-                <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-              </a>
-            </div>
           </div>
         </div>
       </main>

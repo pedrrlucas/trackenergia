@@ -124,8 +124,18 @@ export default function Services() {
         </div>
 
         <div className="relative mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
-          <div className="pt-20 sm:pt-24 lg:pt-28">
+          <div className="pt-14 sm:pt-18 lg:pt-20 pb-16 sm:pb-20 lg:pb-24">
+            <a
+              data-testid="link-back-home"
+              href="/"
+              className="inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950"
+            >
+              <ArrowRight className="h-4 w-4 -rotate-180" strokeWidth={2.25} />
+              Voltar para a página principal
+            </a>
+
             <motion.div
+              className="mt-6"
               initial={reduced ? undefined : { opacity: 0, y: 14 }}
               animate={reduced ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
