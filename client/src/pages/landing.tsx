@@ -735,13 +735,14 @@ function ProductGrid({ products }: { products: Product[] }) {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
+                        transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
                       >
                         <motion.div
-                          className="glass rounded-full px-4 py-2 text-xs font-semibold text-white"
-                          initial={{ scale: 0.95, y: 10, opacity: 0 }}
-                          animate={{ scale: 1, y: 0, opacity: 1 }}
-                          exit={{ scale: 0.95, y: 10, opacity: 0 }}
-                          transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                          className="glass inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold leading-none text-white"
+                          initial={{ opacity: 0, scale: 0.98 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.98 }}
+                          transition={{ duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
                         >
                           Ver detalhes
                           <span className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/14 ring-1 ring-white/16">
@@ -802,13 +803,14 @@ function ProductGrid({ products }: { products: Product[] }) {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
+                        transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
                       >
                         <motion.div
-                          className="glass rounded-full px-4 py-2 text-xs font-semibold text-white"
-                          initial={{ scale: 0.95, y: 10, opacity: 0 }}
-                          animate={{ scale: 1, y: 0, opacity: 1 }}
-                          exit={{ scale: 0.95, y: 10, opacity: 0 }}
-                          transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                          className="glass inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold leading-none text-white"
+                          initial={{ opacity: 0, scale: 0.98 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.98 }}
+                          transition={{ duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
                         >
                           Ver detalhes
                           <span className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/14 ring-1 ring-white/16">
@@ -893,13 +895,14 @@ function ProductGrid({ products }: { products: Product[] }) {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
+                        transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
                       >
                         <motion.div
-                          className="glass rounded-full px-4 py-2 text-xs font-semibold text-white"
-                          initial={{ scale: 0.95, y: 10, opacity: 0 }}
-                          animate={{ scale: 1, y: 0, opacity: 1 }}
-                          exit={{ scale: 0.95, y: 10, opacity: 0 }}
-                          transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                          className="glass inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold leading-none text-white"
+                          initial={{ opacity: 0, scale: 0.98 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.98 }}
+                          transition={{ duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
                         >
                           Ver detalhes
                           <span className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/14 ring-1 ring-white/16">
