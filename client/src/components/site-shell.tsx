@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "wouter";
+import { useLocation, useRoute } from "wouter";
 import { AnimatePresence } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight, CirclePlay, MoveUpRight, Quote, Star } from "lucide-react";
 
@@ -69,6 +69,9 @@ export function GhostButton({
 
 export function SiteHeader({ onContact }: { onContact: () => void }) {
   const reduced = usePrefersReducedMotion();
+  const [location, setLocation] = useLocation() as unknown as [string, (path: string) => void];
+  const [isContact] = useRoute("/contato");
+
   const [ready, setReady] = React.useState(false);
   const [progress, setProgress] = React.useState(0);
   const [travelPx, setTravelPx] = React.useState(0);
@@ -180,7 +183,11 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
         <div
           ref={headerRef}
           data-testid="header-shell"
-          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-[#bdb5cb]/70 px-4 py-3"
+          className={
+            isContact
+              ? "relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-[#bdb5cb]/70 px-4 py-3"
+              : "glass relative mt-4 flex items-center justify-between overflow-hidden rounded-full px-4 py-3"
+          }
         >
           {!arrowGone ? (
             <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
@@ -442,7 +449,7 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
 }
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
-  const [location, setLocation] = useLocation() as unknown as [WouterLocation, (path: string) => void];
+  const [location, setLocation] = useLocation() as unknown as [string, (path: string) => void];
 
   const onContact = React.useCallback(() => {
     setLocation("/contato");
