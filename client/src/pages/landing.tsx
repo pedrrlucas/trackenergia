@@ -190,17 +190,24 @@ function Nav({ onContact }: { onContact: () => void }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const start = () => window.setTimeout(() => setReady(true), 100);
+    const arrowImg = new Image();
+    arrowImg.src = "/attached_assets/arrow.png";
+
+    const startWhenReady = () => {
+      const done = () => setReady(true);
+      if (arrowImg.complete) return done();
+      arrowImg.addEventListener("load", done, { once: true });
+      arrowImg.addEventListener("error", done, { once: true });
+    };
 
     if (document.readyState === "complete") {
-      const t = start();
-      return () => window.clearTimeout(t);
+      startWhenReady();
+      return;
     }
 
     const onLoad = () => {
-      const t = start();
+      startWhenReady();
       window.removeEventListener("load", onLoad);
-      // cleanup handled below
     };
 
     window.addEventListener("load", onLoad, { once: true });
