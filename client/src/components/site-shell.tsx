@@ -178,7 +178,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
         <div
           ref={headerRef}
           data-testid="header-shell"
-          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-[#d9d5e1]/55 px-4 py-3 ring-1 ring-[#6d4aa8]/22 backdrop-blur"
+          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-[#d9d5e1]/55 px-4 py-3"
         >
           {!arrowGone ? (
             <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
