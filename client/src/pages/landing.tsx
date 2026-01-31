@@ -463,7 +463,7 @@ function ProductFeature({ product }: { product: Product }) {
 
           <div className="mt-8 grid gap-6 rounded-2xl bg-white p-5 ring-1 ring-zinc-100">
             <div className="text-sm font-semibold text-zinc-900" data-testid="text-spec-title">
-              Especificações do produto
+              Destaques da solução
             </div>
             <div className="grid gap-6 sm:grid-cols-2">
               <ul className="space-y-2.5 text-sm text-zinc-600">
