@@ -72,6 +72,13 @@ export default function Contact() {
               animate={reduced ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
+              <a
+                data-testid="link-back-home"
+                href="/"
+                className="inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950"
+              >
+                ← Voltar para a página inicial
+              </a>
               <Pill testId="pill-contact">( contato )</Pill>
               <h1 data-testid="text-contact-title" className="mt-5 text-balance text-[46px] font-medium leading-[1.02] tracking-[-0.03em] text-zinc-950 sm:text-[56px]">
                 Fale com a Track
