@@ -186,7 +186,7 @@ function Nav({ onContact }: { onContact: () => void }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const start = () => window.setTimeout(() => setReady(true), 1000);
+    const start = () => window.setTimeout(() => setReady(true), 100);
 
     if (document.readyState === "complete") {
       const t = start();
@@ -325,10 +325,10 @@ function Nav({ onContact }: { onContact: () => void }) {
               data-testid="link-nav-home"
               href="#top"
               className="transition hover:text-white"
-              initial={false}
-              animate={showHome ? { opacity: 1, x: 0, filter: "blur(0px)" } : { opacity: 0, x: 14, filter: "blur(6px)" }}
+              initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              style={{ pointerEvents: showHome ? "auto" : "none" }}
+              style={{ pointerEvents: showHome ? "auto" : "none", visibility: showHome ? "visible" : "hidden" }}
             >
               Início
             </motion.a>
@@ -336,10 +336,10 @@ function Nav({ onContact }: { onContact: () => void }) {
               data-testid="link-nav-product"
               href="#product"
               className="transition hover:text-white"
-              initial={false}
-              animate={showProduct ? { opacity: 1, x: 0, filter: "blur(0px)" } : { opacity: 0, x: 14, filter: "blur(6px)" }}
+              initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              style={{ pointerEvents: showProduct ? "auto" : "none" }}
+              style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
             >
               Serviços
             </motion.a>
@@ -347,10 +347,10 @@ function Nav({ onContact }: { onContact: () => void }) {
               data-testid="link-nav-process"
               href="#process"
               className="transition hover:text-white"
-              initial={false}
-              animate={showProcess ? { opacity: 1, x: 0, filter: "blur(0px)" } : { opacity: 0, x: 14, filter: "blur(6px)" }}
+              initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              style={{ pointerEvents: showProcess ? "auto" : "none" }}
+              style={{ pointerEvents: showProcess ? "auto" : "none", visibility: showProcess ? "visible" : "hidden" }}
             >
               Abordagem
             </motion.a>
@@ -358,10 +358,10 @@ function Nav({ onContact }: { onContact: () => void }) {
               data-testid="link-nav-testimonials"
               href="#testimonials"
               className="transition hover:text-white"
-              initial={false}
-              animate={showTestimonials ? { opacity: 1, x: 0, filter: "blur(0px)" } : { opacity: 0, x: 14, filter: "blur(6px)" }}
+              initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              style={{ pointerEvents: showTestimonials ? "auto" : "none" }}
+              style={{ pointerEvents: showTestimonials ? "auto" : "none", visibility: showTestimonials ? "visible" : "hidden" }}
             >
               Depoimentos
             </motion.a>
