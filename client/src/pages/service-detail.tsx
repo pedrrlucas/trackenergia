@@ -37,6 +37,12 @@ type ServiceSubtopic = {
   bullets: string[];
 };
 
+type ServiceSection = {
+  id: string;
+  title: string;
+  description: string;
+};
+
 type ServiceDetail = {
   id: string;
   title: string;
@@ -44,7 +50,7 @@ type ServiceDetail = {
   longText: string;
   outcomes: string[];
   scope: string[];
-  subtopics: ServiceSubtopic[];
+  sections: ServiceSection[];
 };
 
 const SERVICES: Record<string, ServiceDetail> = {
@@ -56,24 +62,21 @@ const SERVICES: Record<string, ServiceDetail> = {
       "Eficiência não é só trocar equipamento: é entender seu consumo de ponta a ponta, priorizar o que tem melhor retorno e executar com governança. A Track entra com diagnóstico, recomendações claras e acompanhamento — para virar rotina, não só um relatório.",
     outcomes: ["Redução de custos", "Melhora de performance", "Governança e indicadores"],
     scope: ["Levantamento e medições", "Mapa de oportunidades", "Plano de ação e priorização", "Acompanhamento e ajustes"],
-    subtopics: [
+    sections: [
       {
         id: "diagnostico",
         title: "Diagnóstico e mapa de perdas",
-        description: "Levantamento técnico e leitura do seu perfil de consumo para achar onde a energia está ‘escapando’.",
-        bullets: ["Medições e inspeções", "Curva de carga", "Mapa de perdas e riscos"],
+        description: "Levantamento técnico e leitura do perfil de consumo para identificar perdas, riscos e oportunidades com base em dados.",
       },
       {
         id: "demanda",
         title: "Gestão de demanda",
-        description: "Ajustes operacionais para reduzir picos e evitar custos desnecessários.",
-        bullets: ["Ponta x fora ponta", "Ajustes de operação", "Metas por setor"],
+        description: "Ajustes de rotina e estratégia para reduzir picos, controlar demanda e manter previsibilidade de custos.",
       },
       {
         id: "roadmap",
         title: "Roadmap de payback",
-        description: "Um plano priorizado com retorno esperado e próximos passos bem definidos.",
-        bullets: ["Prioridades", "Payback estimado", "Cronograma"],
+        description: "Plano priorizado com retorno esperado, cronograma e governança para execução e acompanhamento.",
       },
     ],
   },
@@ -85,24 +88,21 @@ const SERVICES: Record<string, ServiceDetail> = {
       "Geração própria precisa nascer alinhada com o consumo real e com a operação do local. A Track desenha, implanta e comissiona com foco em segurança, performance e integração — para você acompanhar resultados sem fricção.",
     outcomes: ["Economia recorrente", "Autonomia", "Previsibilidade"],
     scope: ["Dimensionamento", "Projeto executivo", "Implantação e comissionamento", "Monitoramento e suporte"],
-    subtopics: [
+    sections: [
       {
         id: "dimensionamento",
         title: "Dimensionamento sob medida",
-        description: "Potência e arquitetura do sistema considerando consumo, perfil e expansão.",
-        bullets: ["Leitura de consumo", "Simulações", "Escalabilidade"],
+        description: "Arquitetura e potência do sistema alinhadas ao consumo real, com margem para expansão e integração ao local.",
       },
       {
         id: "implantacao",
         title: "Implantação e comissionamento",
-        description: "Execução organizada, com checklist e validação final do sistema.",
-        bullets: ["Segurança", "Conformidade", "Entrega técnica"],
+        description: "Execução com checklist, segurança e conformidade — validando o funcionamento antes da entrega.",
       },
       {
         id: "monitoramento",
         title: "Monitoramento",
-        description: "Visibilidade contínua para garantir performance e detectar anomalias cedo.",
-        bullets: ["KPIs", "Alertas", "Relatórios"],
+        description: "Acompanhamento por indicadores para garantir performance, identificar desvios e agir rápido quando necessário.",
       },
     ],
   },
@@ -114,24 +114,21 @@ const SERVICES: Record<string, ServiceDetail> = {
       "Armazenamento é controle: você decide quando usar energia da rede e quando usar sua própria reserva. Criamos a arquitetura ideal para reduzir picos, aumentar resiliência e deixar a operação mais previsível — com segurança e integração ao seu sistema elétrico.",
     outcomes: ["Resiliência", "Peak shaving", "Continuidade"],
     scope: ["Arquitetura e segurança", "Integrações", "Operação e manutenção", "Relatórios"],
-    subtopics: [
+    sections: [
       {
         id: "homecare",
         title: "HomeCare",
-        description: "Resiliência para residências e pequenos comércios com foco em conforto e autonomia.",
-        bullets: ["Back-up essencial", "Automação básica", "Operação simples"],
+        description: "Resiliência para residências e pequenos comércios, com autonomia e operação simples no dia a dia.",
       },
       {
         id: "peak-shaving",
         title: "Peak shaving",
-        description: "Reduza picos de demanda e custos associados com uma estratégia de uso inteligente.",
-        bullets: ["Horários críticos", "Gestão de carga", "Otimização"],
+        description: "Estratégia para reduzir picos de demanda, aliviar custos e melhorar previsibilidade usando a reserva de energia.",
       },
       {
         id: "continuidade",
         title: "Continuidade operacional",
-        description: "Para ambientes que não podem parar: estabilidade e redundância.",
-        bullets: ["Arquitetura robusta", "Segurança", "Planos de contingência"],
+        description: "Arquitetura para ambientes que não podem parar, com redundância, estabilidade e plano de contingência.",
       },
     ],
   },
@@ -143,24 +140,21 @@ const SERVICES: Record<string, ServiceDetail> = {
       "No mercado livre, a vantagem vem com método: análise de viabilidade, estratégia de contratação e governança para manter controle de risco. A Track organiza o processo e acompanha a execução para você ter economia sem perder previsibilidade.",
     outcomes: ["Estratégia", "Gestão de risco", "Economia"],
     scope: ["Análise de viabilidade", "Modelagem e contratação", "Migração", "Gestão pós-migração"],
-    subtopics: [
+    sections: [
       {
         id: "viabilidade",
         title: "Viabilidade e modelagem",
-        description: "Entenda se faz sentido migrar e qual modelo se encaixa no seu perfil.",
-        bullets: ["Simulações", "Cenários", "Risco x retorno"],
+        description: "Simulações e cenários para entender aderência, economia potencial e riscos antes de migrar.",
       },
       {
         id: "contratos",
         title: "Contratação e governança",
-        description: "Estrutura de contratos com clareza e proteção para o seu negócio.",
-        bullets: ["Regras", "Preço", "Cláusulas"],
+        description: "Estruturação de contratação com regras claras, cláusulas e governança para proteger o seu negócio.",
       },
       {
         id: "gestao",
         title: "Gestão pós-migração",
-        description: "Acompanhamento contínuo para garantir que a estratégia continue funcionando.",
-        bullets: ["Indicadores", "Ajustes", "Relatórios"],
+        description: "Acompanhamento contínuo por indicadores, relatórios e ajustes para manter a estratégia saudável.",
       },
     ],
   },
@@ -172,24 +166,21 @@ const SERVICES: Record<string, ServiceDetail> = {
       "Assinatura é sobre simplicidade: você mantém seu consumo normal e recebe uma estrutura pensada para gerar economia sem burocracia. A Track ajuda a encaixar o modelo no seu perfil e acompanha resultados de forma transparente.",
     outcomes: ["Simplicidade", "Previsibilidade", "Acompanhamento"],
     scope: ["Aderência ao perfil", "Definição de condições", "Onboarding", "Acompanhamento"],
-    subtopics: [
+    sections: [
       {
         id: "perfil",
         title: "Aderência ao perfil",
-        description: "Checagem rápida para confirmar se o modelo funciona bem para você.",
-        bullets: ["Histórico", "Sazonalidade", "Consumo"],
+        description: "Checagem objetiva de histórico, sazonalidade e consumo para confirmar encaixe do modelo.",
       },
       {
         id: "condicoes",
         title: "Condições transparentes",
-        description: "Nada de pegadinha: condições claras e entendimento do que você contrata.",
-        bullets: ["Termos", "Prazos", "Economia prevista"],
+        description: "Condições claras, sem ambiguidades: termos, prazos e expectativa de economia bem explicados.",
       },
       {
         id: "acompanhamento",
         title: "Acompanhamento",
-        description: "Acompanhe indicadores e garanta que o modelo continue aderente ao longo do tempo.",
-        bullets: ["Relatórios", "Ajustes", "Suporte"],
+        description: "Acompanhamento por relatórios e ajustes para manter a economia prevista ao longo do tempo.",
       },
     ],
   },
@@ -201,24 +192,21 @@ const SERVICES: Record<string, ServiceDetail> = {
       "Projetamos a infraestrutura considerando potência, perfil de uso e expansão futura. A Track cuida do desenho elétrico, seleção de hardware e implantação — com uma operação simples e segura para o dia a dia.",
     outcomes: ["Infra pronta", "Segurança", "Operação"],
     scope: ["Projeto elétrico", "Seleção de hardware", "Implantação", "Operação e manutenção"],
-    subtopics: [
+    sections: [
       {
         id: "projeto",
         title: "Projeto elétrico",
-        description: "Planejamento para atender carga e evitar surpresas na operação.",
-        bullets: ["Potência", "Proteções", "Normas"],
+        description: "Planejamento de potência, proteções e conformidade para operar com segurança e margem de expansão.",
       },
       {
         id: "hardware",
         title: "Seleção de hardware",
-        description: "Equipamentos que fazem sentido para o seu caso, sem excesso nem falta.",
-        bullets: ["Capacidade", "Compatibilidade", "Manutenção"],
+        description: "Escolha de equipamentos compatíveis com o caso de uso, com manutenção e operação simples.",
       },
       {
         id: "operacao",
         title: "Operação e manutenção",
-        description: "Rotina simples e suporte para manter o sistema funcionando.",
-        bullets: ["Checklist", "Suporte", "Evolução"],
+        description: "Rotina de operação com checklist, suporte e evolução conforme o uso e crescimento do sistema.",
       },
     ],
   },
@@ -230,24 +218,21 @@ const SERVICES: Record<string, ServiceDetail> = {
       "O&M é onde a performance se mantém (ou se perde). Montamos rotina de inspeção, limpeza, correções e relatórios para que o sistema entregue o que promete, com transparência e previsibilidade.",
     outcomes: ["Performance", "Confiabilidade", "Relatórios"],
     scope: ["Inspeções", "Limpeza", "Correções", "Relatórios e indicadores"],
-    subtopics: [
+    sections: [
       {
         id: "inspecoes",
         title: "Inspeções",
-        description: "Identificação rápida de falhas e riscos antes de virarem problema.",
-        bullets: ["Elétrica", "Estrutural", "Termografia"],
+        description: "Inspeções elétricas, estruturais e termográficas para identificar riscos e falhas cedo.",
       },
       {
         id: "limpeza",
         title: "Limpeza e performance",
-        description: "Procedimentos para manter a geração no nível ideal.",
-        bullets: ["Rotina", "Qualidade", "Registro"],
+        description: "Rotina de limpeza com padrão de qualidade e registro para manter geração e confiabilidade.",
       },
       {
         id: "relatorios",
         title: "Relatórios e indicadores",
-        description: "Visão clara do que está funcionando e do que precisa ajuste.",
-        bullets: ["KPIs", "Alertas", "Ações"],
+        description: "Relatórios claros com KPIs, alertas e plano de ação para correções e melhorias.",
       },
     ],
   },
@@ -444,69 +429,41 @@ export default function ServiceDetailPage() {
               </motion.aside>
             </div>
 
-            <motion.section
-              data-testid="section-service-subtopics"
-              className="mt-6 rounded-[28px] bg-white p-7 ring-1 ring-zinc-200"
-              initial={reduced ? undefined : { opacity: 0, y: 16 }}
-              whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-              viewport={revealViewport}
-              transition={revealTransition}
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <div data-testid="text-subtopics-title" className="text-sm font-semibold text-zinc-950">
-                    Tópicos dentro do serviço
+            <section data-testid="section-service-sections" className="mt-6 overflow-hidden rounded-[32px] bg-white ring-1 ring-zinc-200">
+              <div className="px-7 pt-7">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div data-testid="text-sections-title" className="text-sm font-semibold text-zinc-950">
+                      Dentro deste serviço
+                    </div>
+                    <div data-testid="text-sections-sub" className="mt-1 text-sm text-zinc-600">
+                      Os principais blocos de entrega — organizados, sem excesso de elementos.
+                    </div>
                   </div>
-                  <div data-testid="text-subtopics-sub" className="mt-1 text-sm text-zinc-600">
-                    Subtópicos que detalham este serviço (ex.: HomeCare, peak shaving, continuidade).
+                  <div className="grid h-10 w-10 place-items-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200">
+                    <Sparkles className="h-5 w-5 text-zinc-900" strokeWidth={2.25} />
                   </div>
-                </div>
-                <div className="grid h-10 w-10 place-items-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200">
-                  <Sparkles className="h-5 w-5 text-zinc-900" strokeWidth={2.25} />
                 </div>
               </div>
 
-              <div className="mt-6 grid gap-4 md:grid-cols-3">
-                {service.subtopics.map((t, i) => (
-                  <div
-                    key={t.id}
-                    data-testid={`card-subtopic-${t.id}`}
-                    className="rounded-[22px] bg-zinc-50 p-5 ring-1 ring-zinc-200"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <div data-testid={`text-subtopic-title-${t.id}`} className="text-sm font-semibold text-zinc-950">
-                          {t.title}
-                        </div>
-                        <div data-testid={`text-subtopic-desc-${t.id}`} className="mt-1 text-sm leading-6 text-zinc-600">
-                          {t.description}
-                        </div>
-                      </div>
-                      <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white ring-1 ring-zinc-200">
-                        <ChevronRight className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
-                      </div>
+              <div className="mt-6 grid divide-y divide-zinc-200">
+                {service.sections.map((sec, index) => (
+                  <div key={sec.id} data-testid={`row-section-${sec.id}`} className="grid gap-3 px-7 py-6 sm:grid-cols-[auto_1fr] sm:items-start">
+                    <div className="mt-0.5 w-fit rounded-full bg-[#1d0238]/7 px-3 py-1 text-[11px] font-semibold tracking-wide text-zinc-700 ring-1 ring-[#1d0238]/18">
+                      {String(index + 1).padStart(2, "0")}
                     </div>
-
-                    <div className="mt-4 grid gap-2">
-                      {t.bullets.map((b, bi) => (
-                        <div
-                          key={bi}
-                          data-testid={`text-subtopic-bullet-${t.id}-${bi}`}
-                          className="flex items-center gap-2 text-[12px] text-zinc-700"
-                        >
-                          <span className="h-1.5 w-1.5 rounded-full bg-[#30045c]" />
-                          {b}
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-5 text-[11px] font-semibold uppercase tracking-wide text-zinc-500">
-                      Subtópico {i + 1}
+                    <div>
+                      <div data-testid={`text-section-title-${sec.id}`} className="text-sm font-semibold text-zinc-950">
+                        {sec.title}
+                      </div>
+                      <div data-testid={`text-section-desc-${sec.id}`} className="mt-1 text-sm leading-6 text-zinc-600">
+                        {sec.description}
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
-            </motion.section>
+            </section>
 
             <div className="mt-10">
               <a
