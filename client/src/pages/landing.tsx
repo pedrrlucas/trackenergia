@@ -248,9 +248,9 @@ function Nav({ onContact }: { onContact: () => void }) {
         const x = m.startX - eased * m.distance;
         const p = (m.startX - x) / m.distance;
 
-        // A seta encolhe ~10% um pouco antes de chegar na logo
-        // (do ~82% até ~100% do percurso)
-        const shrinkStart = 0.82;
+        // A seta encolhe ~10% nos instantes finais (mais perceptível)
+        // (do ~70% até ~100% do percurso)
+        const shrinkStart = 0.7;
         const shrinkP = Math.max(0, Math.min(1, (p - shrinkStart) / (1 - shrinkStart)));
         const scale = 1 - 0.1 * shrinkP;
 
