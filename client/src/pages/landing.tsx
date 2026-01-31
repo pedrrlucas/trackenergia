@@ -1580,7 +1580,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
   );
 }
 
-export default function Landing({ mode, activePage }: { mode?: "shell"; activePage?: "home" | "contato" } = {}) {
+export default function Landing() {
   const [videoOpen, setVideoOpen] = useState(false);
 
   const primaryProduct: Product = useMemo(
@@ -1673,13 +1673,9 @@ export default function Landing({ mode, activePage }: { mode?: "shell"; activePa
     [],
   );
 
-  const showHomeSections = mode === "shell" ? activePage !== "contato" : true;
-
   return (
     <div className="min-h-screen bg-white">
-      <section className={"w-full " + (showHomeSections ? "" : "pointer-events-none opacity-0")}
-        style={showHomeSections ? undefined : { height: 0, overflow: "hidden" }}
-      >
+      <section className="w-full">
         <Hero
           onPlay={() => setVideoOpen(true)}
           onContact={() => {
@@ -1688,17 +1684,12 @@ export default function Landing({ mode, activePage }: { mode?: "shell"; activePa
         />
       </section>
 
-      <div
-        className={showHomeSections ? "" : "pointer-events-none opacity-0"}
-        style={showHomeSections ? undefined : { height: 0, overflow: "hidden" }}
-      >
-        <About />
-        <ProductFeature product={primaryProduct} />
-        <Process />
-        <ProductGrid products={products} />
-        <Testimonials />
-        <Footer onPlay={() => setVideoOpen(true)} />
-      </div>
+      <About />
+      <ProductFeature product={primaryProduct} />
+      <Process />
+      <ProductGrid products={products} />
+      <Testimonials />
+      <Footer onPlay={() => setVideoOpen(true)} />
 
       <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} />
     </div>

@@ -1,6 +1,8 @@
 import React, { useMemo } from "react";
+import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import {
+  ArrowLeft,
   Mail,
   Phone,
   MessageCircle,
@@ -38,7 +40,139 @@ function Pill({ children, testId }: { children: React.ReactNode; testId: string 
   );
 }
 
+function Header() {
+  const [, setLocation] = useLocation();
 
+  return (
+    <header data-testid="header-contact" className="sticky top-0 z-40 w-full bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/70">
+      <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
+        <div className="flex h-[72px] items-center justify-between gap-4">
+          <button
+            data-testid="button-back-home"
+            onClick={() => setLocation("/")}
+            className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+          >
+            <ArrowLeft className="h-4 w-4" strokeWidth={2.25} />
+            Voltar
+          </button>
+
+          <div className="flex items-center gap-2">
+            <div className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-black via-[#12001f] to-[#1d0238] ring-1 ring-black/10">
+              <div className="h-4 w-4 rotate-12 rounded-sm bg-white" />
+            </div>
+            <div>
+              <div data-testid="text-header-brand" className="text-sm font-semibold tracking-tight text-zinc-950">
+                Track
+              </div>
+              <div data-testid="text-header-sub" className="-mt-0.5 text-[11px] text-zinc-500">Contato</div>
+            </div>
+          </div>
+
+          <a
+            data-testid="link-header-whatsapp"
+            href="https://wa.me/5511999999999"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#30045c] active:scale-[0.98]"
+          >
+            <MessageCircle className="h-4 w-4" strokeWidth={2.25} />
+            WhatsApp
+          </a>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function Footer() {
+  const [, setLocation] = useLocation();
+
+  return (
+    <footer data-testid="footer-contact" className="w-full bg-white">
+      <div className="w-full bg-gradient-to-r from-black via-[#12001f] to-[#1d0238]">
+        <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
+          <div className="grid gap-10 py-10 md:grid-cols-[360px_minmax(0,1fr)] md:items-start md:gap-16 md:py-12">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/10">
+                  <span className="h-4 w-4 rotate-12 rounded-sm bg-white" />
+                </span>
+                <span data-testid="text-footer-brand" className="text-sm font-semibold text-white">
+                  Track
+                </span>
+              </div>
+
+              <div data-testid="text-footer-address" className="mt-5 text-xs leading-5 text-white/60">
+                Track, Soluções em energia
+                <br />
+                Brasil
+              </div>
+
+              <div className="mt-6 flex items-center gap-3 text-white/70">
+                {[{ k: "fb", label: "Facebook" }, { k: "ig", label: "Instagram" }, { k: "in", label: "LinkedIn" }].map((s) => (
+                  <a
+                    data-testid={`link-social-${s.k}`}
+                    key={s.k}
+                    href="#"
+                    className="grid h-9 w-9 place-items-center rounded-full bg-white/8 ring-1 ring-white/10 transition hover:bg-white/12"
+                    aria-label={s.label}
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/55" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div data-testid="text-footer-title" className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-[46px]">
+                Vamos conversar
+                <br />
+                sobre sua energia
+              </div>
+              <p data-testid="text-footer-desc" className="mt-5 max-w-[620px] text-sm leading-6 text-white/60">
+                Conte para a gente o contexto e o objetivo. Respondemos com clareza e próximos passos simples.
+              </p>
+
+              <div className="mt-7 flex flex-wrap items-center gap-3">
+                <a
+                  data-testid="button-footer-whatsapp"
+                  href="https://wa.me/5511999999999"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]"
+                >
+                  <MessageCircle className="h-4 w-4" strokeWidth={2.25} />
+                  WhatsApp
+                </a>
+                <button
+                  data-testid="button-footer-home"
+                  onClick={() => setLocation("/")}
+                  className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/12 transition hover:bg-white/14 active:scale-[0.98]"
+                >
+                  Voltar para Início
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
+        <div className="flex flex-wrap items-center justify-between gap-3 py-6 text-[11px] text-zinc-500">
+          <div data-testid="text-footer-copyright">©2026 Track. Todos os direitos reservados</div>
+          <div className="flex items-center gap-4">
+            <button data-testid="link-footer-home" onClick={() => setLocation("/")} className="transition hover:text-zinc-950">
+              Início
+            </button>
+            <a data-testid="link-footer-email" href="mailto:contato@trackenergia.com.br" className="transition hover:text-zinc-950">
+              contato@trackenergia.com.br
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
 
 export default function Contact() {
   const reduced = usePrefersReducedMotion();
@@ -58,7 +192,9 @@ export default function Contact() {
   const phoneTel = "+5511999999999";
 
   return (
-    <div data-testid="page-contact" className="w-full bg-white">
+    <div data-testid="page-contact" className="min-h-screen bg-white">
+      <Header />
+
       <main data-testid="main-contact" className="relative">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-zinc-50" />
@@ -67,7 +203,7 @@ export default function Contact() {
         </div>
 
         <div className="relative mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
-          <div className="pt-[120px] sm:pt-[132px] lg:pt-[148px]">
+          <div className="pt-10 sm:pt-12 lg:pt-14">
             <motion.div
               initial={reduced ? undefined : { opacity: 0, y: 14 }}
               animate={reduced ? undefined : { opacity: 1, y: 0 }}
@@ -268,10 +404,42 @@ export default function Contact() {
               </motion.section>
             </div>
 
+            <motion.section
+              data-testid="section-contact-note"
+              className="mt-6 rounded-[28px] bg-gradient-to-br from-white via-white to-zinc-50 p-6 ring-1 ring-zinc-200 sm:p-7"
+              initial={reduced ? undefined : { opacity: 0, y: 14 }}
+              whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+              viewport={revealViewport}
+              transition={revealTransition}
+            >
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <div data-testid="text-note-title" className="text-sm font-semibold text-zinc-950">
+                    O que enviar na primeira mensagem
+                  </div>
+                  <div data-testid="text-note-desc" className="mt-1 max-w-[860px] text-sm leading-6 text-zinc-600">
+                    Para acelerar, diga: (1) cidade/estado, (2) tipo de operação (casa/empresa), (3) objetivo (reduzir custo, autonomia, mercado livre) e (4) prazo.
+                  </div>
+                </div>
+                <a
+                  data-testid="button-note-whatsapp"
+                  href={`${whatsapp.waLink}?text=${encodeURIComponent(whatsapp.message)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#30045c] active:scale-[0.98]"
+                >
+                  <MessageCircle className="h-4 w-4" strokeWidth={2.25} />
+                  Abrir WhatsApp
+                </a>
+              </div>
+            </motion.section>
+
             <div className="h-12" />
           </div>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }
