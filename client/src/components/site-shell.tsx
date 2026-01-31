@@ -271,7 +271,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             </span>
           </a>
 
-          <div data-testid="nav-desktop" className="hidden items-center gap-7 text-xs font-medium text-white/78 md:flex">
+          <div data-testid="nav-desktop" className="hidden items-center gap-7 text-xs font-medium text-white md:flex">
             <a
               data-testid="link-nav-home"
               href="#top"
