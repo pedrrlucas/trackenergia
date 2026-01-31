@@ -182,6 +182,23 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
           data-testid="header-shell"
           className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-[#bdb5cb]/70 px-4 py-3"
         >
+          <div
+            data-testid="bg-contact-header-gradient"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.08) 18%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.08) 82%, rgba(255,255,255,0.38) 100%)",
+            }}
+          />
+          <div
+            data-testid="bg-contact-header-vignette"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(120% 140% at 50% 0%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 55%)",
+            }}
+          />
+
           {!arrowGone ? (
             <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
               <div
@@ -225,7 +242,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             onClick={(e) => {
               if (location !== "/") {
                 e.preventDefault();
-                setLocation("/");
+                window.location.href = "/";
               }
             }}
             className="relative flex items-center gap-3"
@@ -442,7 +459,7 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
 }
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
-  const [location, setLocation] = useLocation();
+  const [location, setLocation] = useLocation() as unknown as [string, (path: string) => void];
 
   const onContact = React.useCallback(() => {
     setLocation("/contato");
