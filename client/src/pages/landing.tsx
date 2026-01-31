@@ -263,7 +263,7 @@ function Nav({ onContact }: { onContact: () => void }) {
           if (p >= 0.999 && !swappedRef.current) {
             swappedRef.current = true;
             setLogoSwap(true);
-            window.setTimeout(() => setArrowGone(true), 70);
+            setArrowGone(true);
           }
         }
       }
