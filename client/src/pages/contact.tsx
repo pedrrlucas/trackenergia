@@ -91,7 +91,7 @@ export default function Contact() {
               </p>
             </motion.div>
 
-            <div className="mt-8 mx-auto w-full grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
+            <div className="mt-8 grid w-full gap-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
               <motion.section
                 data-testid="section-contact-primary"
                 className="relative overflow-hidden rounded-[32px] bg-gradient-to-r from-black via-[#12001f] to-[#1d0238] p-7 ring-1 ring-black/10 sm:p-8"
