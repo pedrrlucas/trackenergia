@@ -363,32 +363,29 @@ function About() {
           <Pill testId="pill-about" muted={false}>
             ( sobre a Track )
           </Pill>
-          <div className="mt-5 flex items-end gap-4">
-            <motion.div
-              className="flex -space-x-2"
-              initial={reduced ? undefined : { opacity: 0, x: -6 }}
-              whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-120px" }}
-              transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+          <div className="mt-5">
+            <div
+              data-testid="img-about-team-placeholder"
+              className="relative aspect-[4/3] w-full overflow-hidden rounded-[28px] bg-gradient-to-br from-zinc-100 via-white to-zinc-100 ring-1 ring-zinc-200"
             >
-              {new Array(4).fill(0).map((_, i) => (
-                <div
-                  data-testid={`img-team-${i}`}
-                  key={i}
-                  className="h-11 w-11 overflow-hidden rounded-full ring-2 ring-white"
-                  style={{
-                    background: "linear-gradient(135deg, rgba(0,0,0,.06), rgba(0,0,0,.15))",
-                  }}
-                />
-              ))}
-            </motion.div>
-            <div>
-              <div data-testid="text-team-count" className="text-[28px] font-medium tracking-[-0.02em]">
-                52 especialistas
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#100121]/10 via-transparent to-[#30045c]/10" />
+              <div className="absolute inset-0 noise opacity-[0.08]" />
+
+              <div className="absolute inset-0 grid place-items-center">
+                <div data-testid="text-about-team-placeholder" className="text-xs font-medium text-zinc-500">
+                  Espaço reservado para foto
+                </div>
               </div>
-              <div data-testid="text-team-sub" className="text-sm text-zinc-500">
-                prontos para te ajudar
-              </div>
+
+              <button
+                data-testid="button-about-how-we-work"
+                className="group absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1a0335] active:scale-[0.98]"
+              >
+                Como trabalhamos
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/10 transition group-hover:translate-x-0.5">
+                  <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -420,17 +417,6 @@ function About() {
             </p>
           </div>
 
-          <div className="mt-6">
-            <button
-              data-testid="button-our-story"
-              className="group inline-flex items-center gap-2 rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#1a0335] active:scale-[0.98]"
-            >
-              Como trabalhamos
-              <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/10 transition group-hover:translate-x-0.5">
-                <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-              </span>
-            </button>
-          </div>
         </motion.div>
       </div>
     </motion.section>
