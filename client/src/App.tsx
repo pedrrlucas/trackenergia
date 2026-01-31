@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Landing from "./pages/landing";
 import Contact from "./pages/contact";
+import { SiteShell } from "@/components/site-shell";
 
 function Router() {
   return (
@@ -22,7 +23,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <Router />
+        <SiteShell>
+          <Router />
+        </SiteShell>
       </TooltipProvider>
     </QueryClientProvider>
   );

@@ -1,0 +1,448 @@
+import React from "react";
+import { useLocation } from "wouter";
+import { AnimatePresence } from "framer-motion";
+import { ArrowRight, ChevronLeft, ChevronRight, CirclePlay, MoveUpRight, Quote, Star } from "lucide-react";
+
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = React.useState(false);
+  React.useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(mq.matches);
+    update();
+    mq.addEventListener?.("change", update);
+    return () => mq.removeEventListener?.("change", update);
+  }, []);
+  return reduced;
+}
+
+export function PrimaryButton({
+  children,
+  onClick,
+  testId,
+}: {
+  children: React.ReactNode;
+  onClick?: () => void;
+  testId: string;
+}) {
+  return (
+    <button
+      data-testid={testId}
+      onClick={onClick}
+      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 shadow-[0_10px_30px_-20px_rgba(0,0,0,.65)] transition active:scale-[0.98]"
+    >
+      <span className="whitespace-nowrap">{children}</span>
+      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#1d0238] text-white transition group-hover:translate-x-0.5">
+        <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
+      </span>
+    </button>
+  );
+}
+
+export function GhostButton({
+  children,
+  onClick,
+  icon,
+  testId,
+}: {
+  children: React.ReactNode;
+  onClick?: () => void;
+  icon?: React.ReactNode;
+  testId: string;
+}) {
+  return (
+    <button
+      data-testid={testId}
+      onClick={onClick}
+      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+    >
+      {icon ? (
+        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/14 ring-1 ring-white/14 transition group-hover:bg-white/16">
+          {icon}
+        </span>
+      ) : null}
+      <span className="whitespace-nowrap">{children}</span>
+    </button>
+  );
+}
+
+export function SiteHeader({ onContact }: { onContact: () => void }) {
+  const reduced = usePrefersReducedMotion();
+  const [ready, setReady] = React.useState(false);
+  const [progress, setProgress] = React.useState(0);
+  const [travelPx, setTravelPx] = React.useState(0);
+  const [arrowScale, setArrowScale] = React.useState(1);
+  const [arrowGone, setArrowGone] = React.useState(false);
+  const [logoSwap, setLogoSwap] = React.useState(false);
+  const swappedRef = React.useRef(false);
+  const headerRef = React.useRef<HTMLDivElement | null>(null);
+  const arrowRef = React.useRef<HTMLImageElement | null>(null);
+  const logoRef = React.useRef<HTMLSpanElement | null>(null);
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const arrowImg = new Image();
+    arrowImg.src = "/attached_assets/arrow.png";
+
+    const startWhenReady = () => {
+      const done = () => setReady(true);
+      if (arrowImg.complete) return done();
+      arrowImg.addEventListener("load", done, { once: true });
+      arrowImg.addEventListener("error", done, { once: true });
+    };
+
+    if (document.readyState === "complete") {
+      startWhenReady();
+      return;
+    }
+
+    const onLoad = () => {
+      startWhenReady();
+      window.removeEventListener("load", onLoad);
+    };
+
+    window.addEventListener("load", onLoad, { once: true });
+    return () => window.removeEventListener("load", onLoad);
+  }, []);
+
+  React.useEffect(() => {
+    if (!ready || reduced) {
+      setProgress(reduced ? 1 : 0);
+      return;
+    }
+
+    const headerEl = headerRef.current;
+    const arrowEl = arrowRef.current;
+    const logoEl = logoRef.current;
+    if (!headerEl || !arrowEl || !logoEl) return;
+
+    const measure = () => {
+      const header = headerEl.getBoundingClientRect();
+      const arrow = arrowEl.getBoundingClientRect();
+      const logo = logoEl.getBoundingClientRect();
+
+      const startX = header.right + 8;
+      const endX = logo.left + logo.width * 0.5 - arrow.width * 0.06;
+      const distance = Math.max(1, startX - endX);
+
+      return { header, startX, endX, distance };
+    };
+
+    let raf = 0;
+    const start = performance.now();
+    const total = 920;
+    let last = 0;
+
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / total);
+      const eased = 1 - Math.pow(1 - t, 3);
+
+      const m = measure();
+      if (m) {
+        const x = m.startX - eased * m.distance;
+        const p = (m.startX - x) / m.distance;
+
+        const shrinkStart = 0.7;
+        const shrinkP = Math.max(0, Math.min(1, (p - shrinkStart) / (1 - shrinkStart)));
+        const scale = 1 - 0.1 * shrinkP;
+
+        setTravelPx(x - m.header.left);
+        setArrowScale(scale);
+
+        if (now - last > 24 || t >= 1) {
+          last = now;
+          setProgress(Math.max(0, Math.min(1, p)));
+          if (p >= 0.999 && !swappedRef.current) {
+            swappedRef.current = true;
+            setLogoSwap(true);
+            setArrowGone(true);
+          }
+        }
+      }
+
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [ready, reduced]);
+
+  const showTestimonials = progress >= 0.26;
+  const showProcess = progress >= 0.42;
+  const showProduct = progress >= 0.58;
+  const showHome = progress >= 0.74;
+
+  return (
+    <div className="pointer-events-none absolute left-0 right-0 top-0 z-20">
+      <div className="container-page pointer-events-auto">
+        <div
+          ref={headerRef}
+          data-testid="header-shell"
+          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/22 px-4 py-3 ring-1 ring-white/18 backdrop-blur"
+        >
+          {!arrowGone ? (
+            <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
+              <div
+                data-testid="anim-arrow-track"
+                className="absolute left-0 top-1/2 -translate-y-1/2"
+                style={{
+                  transform: `translate3d(${travelPx}px, 0, 0)`,
+                  willChange: "transform",
+                }}
+              >
+                <div
+                  data-testid="anim-arrow-mask"
+                  className="relative overflow-hidden"
+                  style={{
+                    width: `${Math.max(1, Math.round(progress * 100))}%`,
+                    willChange: "width",
+                  }}
+                >
+                  <img
+                    ref={arrowRef}
+                    data-testid="img-header-arrow"
+                    src="/attached_assets/arrow.png"
+                    alt="Seta"
+                    className="h-[46px] w-auto origin-left opacity-[0.98] drop-shadow-[0_18px_30px_rgba(0,0,0,.35)] md:h-[52px]"
+                    style={{
+                      transform: `scale(${arrowScale})`,
+                      willChange: "transform",
+                      imageRendering: "auto",
+                      pointerEvents: "none",
+                      userSelect: "none",
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          <a data-testid="link-logo" href="#top" className="relative flex items-center gap-3">
+            <span ref={logoRef} data-testid="logo-mark" className="grid h-10 w-10 place-items-center">
+              {!logoSwap ? (
+                <img
+                  data-testid="img-logo"
+                  src="/attached_assets/logo.png"
+                  alt="Track"
+                  className="h-10 w-10 object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,.35)]"
+                  style={{ pointerEvents: "none", userSelect: "none" }}
+                />
+              ) : (
+                <img
+                  data-testid="img-logo-final"
+                  src="/attached_assets/official-logo.png"
+                  alt="Track"
+                  className="h-10 w-10 object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,.35)] animate-[logoBoop_520ms_cubic-bezier(0.22,1,0.36,1)_both]"
+                  style={{ pointerEvents: "none", userSelect: "none" }}
+                />
+              )}
+            </span>
+            <span data-testid="text-logo" className="text-sm font-semibold text-white">
+              Track
+            </span>
+          </a>
+
+          <div data-testid="nav-desktop" className="hidden items-center gap-7 text-xs font-medium text-white/78 md:flex">
+            <a
+              data-testid="link-nav-home"
+              href="#top"
+              className="transition hover:text-white"
+              style={{ pointerEvents: showHome ? "auto" : "none", visibility: showHome ? "visible" : "hidden" }}
+            >
+              Início
+            </a>
+            <a
+              data-testid="link-nav-product"
+              href="#product"
+              className="transition hover:text-white"
+              style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
+            >
+              Serviços
+            </a>
+            <a
+              data-testid="link-nav-process"
+              href="#process"
+              className="transition hover:text-white"
+              style={{ pointerEvents: showProcess ? "auto" : "none", visibility: showProcess ? "visible" : "hidden" }}
+            >
+              Abordagem
+            </a>
+            <a
+              data-testid="link-nav-testimonials"
+              href="#testimonials"
+              className="transition hover:text-white"
+              style={{
+                pointerEvents: showTestimonials ? "auto" : "none",
+                visibility: showTestimonials ? "visible" : "hidden",
+              }}
+            >
+              Depoimentos
+            </a>
+          </div>
+
+          <button
+            data-testid="button-contact"
+            onClick={onContact}
+            className="relative rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#30045c] active:scale-[0.98]"
+          >
+            Fale Conosco
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function SiteFooter({ onContact }: { onContact: () => void }) {
+  return (
+    <footer id="footer" className="w-full bg-white">
+      <div className="w-full bg-gradient-to-r from-black via-[#12001f] to-[#1d0238]">
+        <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
+          <div className="grid gap-12 py-10 md:grid-cols-[360px_minmax(0,1fr)] md:items-start md:gap-16 md:py-12">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/10">
+                  <span className="h-4 w-4 rotate-12 rounded-sm bg-white" />
+                </span>
+                <span data-testid="text-footer-brand" className="text-sm font-semibold text-white">
+                  Track
+                </span>
+              </div>
+
+              <div data-testid="text-footer-address" className="mt-5 text-xs leading-5 text-white/60">
+                Track, Soluções em energia
+                <br />
+                Brasil
+              </div>
+
+              <div className="mt-6 flex items-center gap-3 text-white/70">
+                {[
+                  { k: "fb", label: "Facebook" },
+                  { k: "ig", label: "Instagram" },
+                  { k: "in", label: "LinkedIn" },
+                ].map((s) => (
+                  <a
+                    data-testid={`link-social-${s.k}`}
+                    key={s.k}
+                    href="#"
+                    className="grid h-9 w-9 place-items-center rounded-full bg-white/8 ring-1 ring-white/10 transition hover:bg-white/12"
+                    aria-label={s.label}
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/55" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
+              <div>
+                <h3
+                  data-testid="text-footer-title"
+                  className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-[46px]"
+                >
+                  Mude sua energia
+                  <br />
+                  e ilumine o futuro,
+                  <br />
+                  <span className="subtle-grad-dark">Energia limpa e confiável</span> feita
+                  <br />
+                  <span className="subtle-grad-dark">para</span> a vida moderna
+                </h3>
+
+                <p data-testid="text-footer-desc" className="mt-5 max-w-[620px] text-sm leading-6 text-white/60">
+                  Energize sua casa ou empresa com soluções de energia eficientes e acessíveis, feitas para gerar impacto real.
+                </p>
+
+                <div className="mt-7 flex flex-wrap items-center gap-3">
+                  <PrimaryButton testId="button-footer-explore" onClick={onContact}>
+                    Vamos conversar
+                  </PrimaryButton>
+                  <GhostButton
+                    testId="button-footer-services"
+                    onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}
+                  >
+                    Nossos Serviços
+                  </GhostButton>
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between gap-3">
+                  <div data-testid="text-footer-instagram-title" className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
+                    Instagram
+                  </div>
+                  <a data-testid="link-footer-instagram" href="#" className="text-xs font-medium text-white/70 transition hover:text-white">
+                    Ver mais
+                  </a>
+                </div>
+
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  {new Array(9).fill(0).map((_, i) => (
+                    <a
+                      data-testid={`card-footer-ig-${i}`}
+                      key={i}
+                      href="#"
+                      className="group relative aspect-square overflow-hidden rounded-xl bg-white/8 ring-1 ring-white/10 transition hover:bg-white/10"
+                      aria-label={`Post do Instagram ${i + 1}`}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
+                      <div className="absolute inset-0 grid place-items-center">
+                        <div className="h-10 w-10 rounded-2xl bg-white/10 ring-1 ring-white/12" />
+                      </div>
+                      <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition group-hover:opacity-100" />
+                    </a>
+                  ))}
+                </div>
+
+                <div data-testid="text-footer-instagram-hint" className="mt-3 text-[11px] leading-5 text-white/55">
+                  Espaços reservados para 9 imagens quadradas (posts).
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
+        <div className="flex flex-wrap items-center justify-between gap-3 py-6 text-[11px] text-zinc-500">
+          <div data-testid="text-footer-copyright">©2026 Track. Todos os direitos reservados</div>
+          <div className="flex items-center gap-4">
+            <a data-testid="link-footer-terms" href="#" className="transition hover:text-zinc-950">
+              Termos de uso
+            </a>
+            <a data-testid="link-footer-home" href="#top" className="transition hover:text-zinc-950">
+              Início
+            </a>
+            <a data-testid="link-footer-product" href="#product" className="transition hover:text-zinc-950">
+              Serviços
+            </a>
+            <a data-testid="link-footer-process" href="#process" className="transition hover:text-zinc-950">
+              Processo
+            </a>
+            <a data-testid="link-footer-testimonials" href="#testimonials" className="transition hover:text-zinc-950">
+              Depoimentos
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export function SiteShell({ children }: { children: React.ReactNode }) {
+  const [location] = useLocation();
+
+  const onContact = React.useCallback(() => {
+    window.location.href = "/contato";
+  }, []);
+
+  const inHome = location === "/";
+
+  return (
+    <div className="min-h-screen bg-white">
+      {inHome ? <SiteHeader onContact={onContact} /> : null}
+      {children}
+      {inHome ? <SiteFooter onContact={onContact} /> : null}
+    </div>
+  );
+}
