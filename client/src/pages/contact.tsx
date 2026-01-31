@@ -91,7 +91,7 @@ export default function Contact() {
               </p>
             </motion.div>
 
-            <div className="mt-8 grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
+            <div className="mt-8 mx-auto w-full grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
               <motion.section
                 data-testid="section-contact-primary"
                 className="relative overflow-hidden rounded-[32px] bg-gradient-to-r from-black via-[#12001f] to-[#1d0238] p-7 ring-1 ring-black/10 sm:p-8"
@@ -128,7 +128,7 @@ export default function Contact() {
                     className="mt-7 group inline-flex w-full items-center justify-between gap-4 rounded-[22px] bg-white px-5 py-4 text-left text-zinc-950 shadow-lg shadow-black/20 ring-1 ring-white/30 transition hover:bg-zinc-50 active:scale-[0.99]"
                   >
                     <span className="flex items-center gap-4">
-                      <span className="grid h-12 w-12 place-items-center rounded-2xl bg-[#1d0238] text-white shadow-sm transition group-hover:bg-[#30045c]">
+                      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#1d0238] text-white shadow-sm transition group-hover:bg-[#30045c]">
                         <MessageCircle className="h-5 w-5" strokeWidth={2.25} />
                       </span>
                       <span>
@@ -142,7 +142,7 @@ export default function Contact() {
                     </span>
                     <span className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-900">
                       Abrir
-                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-zinc-100 ring-1 ring-zinc-200 transition group-hover:bg-zinc-200">
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-2xl bg-zinc-100 ring-1 ring-zinc-200 transition group-hover:bg-zinc-200">
                         <MessageCircle className="h-4 w-4" strokeWidth={2.25} />
                       </span>
                     </span>
@@ -156,7 +156,7 @@ export default function Contact() {
                         className="rounded-[20px] bg-white/10 p-4 ring-1 ring-white/12 backdrop-blur"
                       >
                         <div className="flex items-center gap-2 text-white">
-                          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/10 ring-1 ring-white/12">{b.icon}</span>
+                          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-white/10 ring-1 ring-white/12">{b.icon}</span>
                           <div data-testid={`text-benefit-title-${i}`} className="text-xs font-semibold">
                             {b.t}
                           </div>
@@ -199,7 +199,7 @@ export default function Contact() {
                     className="group flex items-center justify-between gap-4 rounded-[22px] bg-zinc-50 px-4 py-4 ring-1 ring-zinc-200 transition hover:bg-white"
                   >
                     <span className="flex items-center gap-3">
-                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white ring-1 ring-zinc-200">
+                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-white ring-1 ring-zinc-200">
                         <Mail className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
                       </span>
                       <span>
@@ -220,7 +220,7 @@ export default function Contact() {
                     className="group flex items-center justify-between gap-4 rounded-[22px] bg-zinc-50 px-4 py-4 ring-1 ring-zinc-200 transition hover:bg-white"
                   >
                     <span className="flex items-center gap-3">
-                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white ring-1 ring-zinc-200">
+                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-white ring-1 ring-zinc-200">
                         <Phone className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
                       </span>
                       <span>
