@@ -115,10 +115,10 @@ function Pill({
         "inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] tracking-wide " +
         (muted
           ? "bg-white/10 text-white/70 ring-1 ring-white/15"
-          : "bg-zinc-950/7 text-zinc-700 ring-1 ring-zinc-950/10")
+          : "bg-[#100121]/7 text-zinc-700 ring-1 ring-[#100121]/18")
       }
     >
-      <span className={muted ? "h-1.5 w-1.5 rounded-full bg-white/70" : "h-1.5 w-1.5 rounded-full bg-zinc-950/55"} />
+      <span className={muted ? "h-1.5 w-1.5 rounded-full bg-white/70" : "h-1.5 w-1.5 rounded-full bg-[#100121]/55"} />
       {children}
     </span>
   );
@@ -140,7 +140,7 @@ function PrimaryButton({
       className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 shadow-[0_10px_30px_-20px_rgba(0,0,0,.65)] transition active:scale-[0.98]"
     >
       <span className="whitespace-nowrap">{children}</span>
-      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-zinc-950 text-white transition group-hover:translate-x-0.5">
+      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#100121] text-white transition group-hover:translate-x-0.5">
         <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
       </span>
     </button>
@@ -202,7 +202,7 @@ function Nav({ onContact }: { onContact: () => void }) {
           <button
             data-testid="button-contact"
             onClick={onContact}
-            className="rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-zinc-900 active:scale-[0.98]"
+            className="rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1a0335] active:scale-[0.98]"
           >
             Fale Conosco
           </button>
@@ -225,7 +225,7 @@ function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
           onClick={onClose}
         >
           <motion.div
-            className="relative w-full max-w-[920px] overflow-hidden rounded-[28px] bg-zinc-950 shadow-2xl ring-1 ring-white/10"
+            className="relative w-full max-w-[920px] overflow-hidden rounded-[28px] bg-[#100121] shadow-2xl ring-1 ring-white/10"
             initial={{ y: 18, scale: 0.98, opacity: 0 }}
             animate={{ y: 0, scale: 1, opacity: 1 }}
             exit={{ y: 18, scale: 0.98, opacity: 0 }}
@@ -424,7 +424,7 @@ function About() {
           <div className="mt-6">
             <button
               data-testid="button-our-story"
-              className="group inline-flex items-center gap-2 rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white transition hover:bg-zinc-900 active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#1a0335] active:scale-[0.98]"
             >
               Nossa história
               <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/10 transition group-hover:translate-x-0.5">
@@ -481,7 +481,7 @@ function ProductFeature({ product }: { product: Product }) {
               <ul className="space-y-2.5 text-sm text-zinc-600">
                 {product.specLeft.map((s, idx) => (
                   <li data-testid={`text-spec-left-${idx}`} key={idx} className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-zinc-950" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#100121]" />
                     {s}
                   </li>
                 ))}
@@ -489,7 +489,7 @@ function ProductFeature({ product }: { product: Product }) {
               <ul className="space-y-2.5 text-sm text-zinc-600">
                 {product.specRight.map((s, idx) => (
                   <li data-testid={`text-spec-right-${idx}`} key={idx} className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-zinc-950" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#100121]" />
                     {s}
                   </li>
                 ))}
@@ -502,14 +502,14 @@ function ProductFeature({ product }: { product: Product }) {
               data-testid="button-lets-talk"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
             >
-              <span className="grid h-7 w-7 place-items-center rounded-full bg-zinc-950 text-white">
+              <span className="grid h-7 w-7 place-items-center rounded-full bg-[#100121] text-white">
                 <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
               </span>
               Vamos conversar
             </button>
             <button
               data-testid="button-explore-product"
-              className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white transition hover:bg-zinc-900 active:scale-[0.98]"
+              className="inline-flex items-center gap-2 rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#1a0335] active:scale-[0.98]"
             >
               Explorar produto
               <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
@@ -711,7 +711,7 @@ function ProductGrid({ products }: { products: Product[] }) {
               <div className="mt-6">
                 <button
                   data-testid="button-grid-explore"
-                  className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white transition hover:bg-zinc-900 active:scale-[0.98]"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#1a0335] active:scale-[0.98]"
                 >
                   Explorar produtos
                   <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
@@ -1002,7 +1002,7 @@ function Testimonials() {
               const next = (idx - 1 + items.length) % items.length;
               setActive(items[next].id);
             }}
-            className="grid h-10 w-10 place-items-center rounded-full bg-zinc-950 text-white ring-1 ring-zinc-950/10 transition hover:bg-zinc-900 active:scale-[0.98]"
+            className="grid h-10 w-10 place-items-center rounded-full bg-[#100121] text-white ring-1 ring-[#100121]/18 transition hover:bg-[#1a0335] active:scale-[0.98]"
           >
             <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
           </button>
@@ -1013,7 +1013,7 @@ function Testimonials() {
               const next = (idx + 1) % items.length;
               setActive(items[next].id);
             }}
-            className="grid h-10 w-10 place-items-center rounded-full bg-zinc-950 text-white ring-1 ring-zinc-950/10 transition hover:bg-zinc-900 active:scale-[0.98]"
+            className="grid h-10 w-10 place-items-center rounded-full bg-[#100121] text-white ring-1 ring-[#100121]/18 transition hover:bg-[#1a0335] active:scale-[0.98]"
           >
             <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
           </button>
@@ -1022,7 +1022,7 @@ function Testimonials() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
         <motion.div
-          className="relative overflow-hidden rounded-[30px] bg-zinc-950 ring-1 ring-white/10"
+          className="relative overflow-hidden rounded-[30px] bg-[#1d0238] ring-1 ring-white/10"
           initial={reduced ? undefined : { opacity: 0, y: 10 }}
           whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -1105,7 +1105,7 @@ function Testimonials() {
                 onClick={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })}
               >
                 Quero um orçamento
-                <span className="grid h-7 w-7 place-items-center rounded-full bg-zinc-950 text-white">
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-[#100121] text-white">
                   <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
                 </span>
               </button>
@@ -1128,7 +1128,7 @@ function Testimonials() {
                 className={
                   "group text-left rounded-[26px] p-5 ring-1 transition " +
                   (selected
-                    ? "bg-zinc-950 text-white ring-zinc-950"
+                    ? "bg-[#100121] text-white ring-[#100121]/18"
                     : "bg-white text-zinc-950 ring-zinc-200 hover:bg-zinc-50")
                 }
                 initial={reduced ? undefined : { opacity: 0, y: 10 }}
@@ -1209,7 +1209,7 @@ function Testimonials() {
                 const next = (idx - 1 + items.length) % items.length;
                 setActive(items[next].id);
               }}
-              className="grid h-10 w-10 place-items-center rounded-full bg-zinc-950 text-white ring-1 ring-zinc-950/10 transition hover:bg-zinc-900 active:scale-[0.98]"
+              className="grid h-10 w-10 place-items-center rounded-full bg-[#100121] text-white ring-1 ring-[#100121]/18 transition hover:bg-[#1a0335] active:scale-[0.98]"
             >
               <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
             </button>
@@ -1220,7 +1220,7 @@ function Testimonials() {
                 const next = (idx + 1) % items.length;
                 setActive(items[next].id);
               }}
-              className="grid h-10 w-10 place-items-center rounded-full bg-zinc-950 text-white ring-1 ring-zinc-950/10 transition hover:bg-zinc-900 active:scale-[0.98]"
+              className="grid h-10 w-10 place-items-center rounded-full bg-[#100121] text-white ring-1 ring-[#100121]/18 transition hover:bg-[#1a0335] active:scale-[0.98]"
             >
               <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
             </button>
@@ -1238,7 +1238,7 @@ function Testimonials() {
 function Footer({ onPlay }: { onPlay: () => void }) {
   return (
     <footer id="footer" className="w-full bg-white">
-      <div className="w-full bg-zinc-950">
+      <div className="w-full bg-[#1d0238]">
         <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
           <div className="grid gap-12 py-10 md:grid-cols-[360px_minmax(0,1fr)] md:items-start md:gap-16 md:py-12">
             <div>
