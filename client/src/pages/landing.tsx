@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLocation } from "wouter";
 import {
   ArrowRight,
   ChevronLeft,
@@ -1300,7 +1301,7 @@ function Testimonials() {
                 data-testid="button-testimonials-cta"
                 className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]"
                 onClick={() => {
-                  window.location.href = "/contato";
+                  setLocation("/contato");
                 }}
               >
                 Converse com a gente
@@ -1499,7 +1500,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                   <PrimaryButton
                     testId="button-footer-explore"
                     onClick={() => {
-                      window.location.href = "/contato";
+                      setLocation("/contato");
                     }}
                   >
                     Vamos conversar
@@ -1581,6 +1582,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
 }
 
 export default function Landing() {
+  const [, setLocation] = useLocation();
   const [videoOpen, setVideoOpen] = useState(false);
 
   const primaryProduct: Product = useMemo(
@@ -1679,7 +1681,7 @@ export default function Landing() {
         <Hero
           onPlay={() => setVideoOpen(true)}
           onContact={() => {
-            window.location.href = "/contato";
+            setLocation("/contato");
           }}
         />
       </section>
