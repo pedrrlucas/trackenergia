@@ -1330,7 +1330,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                 </div>
 
                 <div className="mt-4 grid grid-cols-3 gap-2">
-                  {new Array(6).fill(0).map((_, i) => (
+                  {new Array(9).fill(0).map((_, i) => (
                     <a
                       data-testid={`card-footer-ig-${i}`}
                       key={i}
@@ -1348,7 +1348,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                 </div>
 
                 <div data-testid="text-footer-instagram-hint" className="mt-3 text-[11px] leading-5 text-white/55">
-                  Espaços reservados para 6 imagens quadradas (posts).
+                  Espaços reservados para 9 imagens quadradas (posts).
                 </div>
               </div>
             </div>
