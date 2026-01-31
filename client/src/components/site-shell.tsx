@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, useRoute } from "wouter";
+import { useLocation } from "wouter";
 import { AnimatePresence } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight, CirclePlay, MoveUpRight, Quote, Star } from "lucide-react";
 
@@ -30,7 +30,7 @@ export function PrimaryButton({
     <button
       data-testid={testId}
       onClick={onClick}
-      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 transition active:scale-[0.98]"
+      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 shadow-[0_10px_30px_-20px_rgba(0,0,0,.65)] transition active:scale-[0.98]"
     >
       <span className="whitespace-nowrap">{children}</span>
       <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#1d0238] text-white transition group-hover:translate-x-0.5">
@@ -55,10 +55,10 @@ export function GhostButton({
     <button
       data-testid={testId}
       onClick={onClick}
-      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white transition active:scale-[0.98]"
+      className="group inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
     >
       {icon ? (
-        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/14 transition">
+        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/14 ring-1 ring-white/14 transition group-hover:bg-white/16">
           {icon}
         </span>
       ) : null}
@@ -69,9 +69,6 @@ export function GhostButton({
 
 export function SiteHeader({ onContact }: { onContact: () => void }) {
   const reduced = usePrefersReducedMotion();
-  const [location, setLocation] = useLocation() as unknown as [string, (path: string) => void];
-  const [isContact] = useRoute("/contato");
-
   const [ready, setReady] = React.useState(false);
   const [progress, setProgress] = React.useState(0);
   const [travelPx, setTravelPx] = React.useState(0);
@@ -183,11 +180,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
         <div
           ref={headerRef}
           data-testid="header-shell"
-          className={
-            isContact
-              ? "relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-[#bdb5cb]/70 px-4 py-3"
-              : "glass relative mt-4 flex items-center justify-between overflow-hidden rounded-full px-4 py-3"
-          }
+          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-[#bdb5cb]/70 px-4 py-3"
         >
           {!arrowGone ? (
             <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
@@ -449,7 +442,7 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
 }
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
-  const [location, setLocation] = useLocation() as unknown as [string, (path: string) => void];
+  const [location, setLocation] = useLocation() as unknown as [WouterLocation, (path: string) => void];
 
   const onContact = React.useCallback(() => {
     setLocation("/contato");

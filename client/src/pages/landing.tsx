@@ -294,7 +294,7 @@ function Nav({ onContact }: { onContact: () => void }) {
         <div
           ref={headerRef}
           data-testid="header-shell"
-          className="glass relative mt-4 flex items-center justify-between overflow-hidden rounded-full px-4 py-3"
+          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/22 px-4 py-3"
         >
           {/* Seta (imagem anexada) percorre todo o header até a logo e some ao chegar */}
           {!arrowGone ? (
