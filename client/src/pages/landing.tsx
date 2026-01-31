@@ -223,15 +223,18 @@ function Nav({ onContact }: { onContact: () => void }) {
       // easeOutCubic
       const eased = 1 - Math.pow(1 - t, 3);
 
-      // reduz "picado": evita re-render em todo frame
-      if (now - last > 24 || t >= 1) {
-        last = now;
-        const m = measure();
-        if (m) {
-          const x = m.startX - eased * m.distance;
-          const p = (m.startX - x) / m.distance;
+      // Mantém a caminhada fluida: atualiza sempre o deslocamento (transform),
+      // e limita apenas o "progress" (reveal do menu) para não pesar.
+      const m = measure();
+      if (m) {
+        const x = m.startX - eased * m.distance;
+        const p = (m.startX - x) / m.distance;
+
+        setTravelPx(x - m.header.left);
+
+        if (now - last > 24 || t >= 1) {
+          last = now;
           setProgress(Math.max(0, Math.min(1, p)));
-          setTravelPx(x - m.header.left);
         }
       }
 
