@@ -31,7 +31,7 @@ function Pill({ children, testId }: { children: React.ReactNode; testId: string 
   return (
     <span
       data-testid={testId}
-      className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium tracking-wide text-white/80 ring-1 ring-white/14"
+      className="inline-flex items-center gap-2 rounded-full bg-[#1d0238]/7 px-3 py-1 text-[11px] font-medium tracking-wide text-zinc-700 ring-1 ring-[#1d0238]/18"
     >
       {children}
     </span>
@@ -58,12 +58,12 @@ export default function Contact() {
   const phoneTel = "+5511999999999";
 
   return (
-    <div data-testid="page-contact" className="min-h-screen bg-black">
+    <div data-testid="page-contact" className="min-h-screen bg-white">
       <main data-testid="main-contact" className="relative">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-[#1d0238]" />
-          <div className="absolute inset-0 opacity-[0.10] noise" />
-          <div className="absolute -top-28 left-1/2 h-[440px] w-[980px] -translate-x-1/2 rounded-full bg-gradient-to-r from-[#1d0238]/35 via-[#1d0238]/18 to-transparent blur-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-zinc-50" />
+          <div className="absolute inset-0 opacity-[0.08] noise" />
+          <div className="absolute -top-24 left-1/2 h-[420px] w-[920px] -translate-x-1/2 rounded-full bg-gradient-to-r from-[#30045c]/16 via-[#1d0238]/10 to-transparent blur-3xl" />
         </div>
 
         <div className="relative mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
@@ -74,10 +74,10 @@ export default function Contact() {
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
               <Pill testId="pill-contact">( contato )</Pill>
-              <h1 data-testid="text-contact-title" className="mt-5 text-balance text-[46px] font-medium leading-[1.02] tracking-[-0.03em] text-white sm:text-[56px]">
+              <h1 data-testid="text-contact-title" className="mt-5 text-balance text-[46px] font-medium leading-[1.02] tracking-[-0.03em] text-zinc-950 sm:text-[56px]">
                 Fale com a Track
               </h1>
-              <p data-testid="text-contact-subtitle" className="mt-4 max-w-[680px] text-sm leading-6 text-white/70">
+              <p data-testid="text-contact-subtitle" className="mt-4 max-w-[680px] text-sm leading-6 text-zinc-600">
                 Um ponto de contato direto, sem fricção. WhatsApp para resposta rápida, e-mail para detalhes, e telefone para urgências.
               </p>
             </motion.div>

@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useLocation } from "wouter";
 import {
   ArrowRight,
   ChevronLeft,
@@ -1582,7 +1581,6 @@ function Footer({ onPlay }: { onPlay: () => void }) {
 }
 
 export default function Landing() {
-  const [, setLocation] = useLocation();
   const [videoOpen, setVideoOpen] = useState(false);
 
   const primaryProduct: Product = useMemo(
@@ -1681,7 +1679,7 @@ export default function Landing() {
         <Hero
           onPlay={() => setVideoOpen(true)}
           onContact={() => {
-            setLocation("/contato");
+            window.location.href = "/contato";
           }}
         />
       </section>
