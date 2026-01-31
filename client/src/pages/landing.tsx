@@ -288,7 +288,7 @@ function Hero({ onPlay }: { onPlay: () => void }) {
                 data-testid="text-hero-subtitle"
                 className="mt-4 max-w-[460px] text-xs leading-5 text-white/72 sm:text-sm sm:leading-6"
               >
-                A Track entrega soluções reais em energia — da eficiência à geração, armazenamento e mercado livre — com proposta sob medida, execução e monitoramento contínuo.
+                A Track entrega soluções reais em energia: da eficiência à geração, armazenamento e mercado livre, com proposta sob medida, execução e monitoramento contínuo.
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -416,7 +416,7 @@ function About() {
             <p data-testid="text-about-desc" className="mt-4 w-full text-sm leading-6 text-zinc-500">
               A Track nasceu em 2024 com um propósito diferente do mercado tradicional: não vendemos equipamentos.
               Nosso foco é entregar <span className="font-medium text-zinc-800">soluções reais</span> para quem precisa, entendendo o setor com profundidade
-              e conectando cada cliente à solução energética ideal — sem excessos e sem soluções genéricas.
+              e conectando cada cliente à solução energética ideal, sem excessos e sem soluções genéricas.
             </p>
           </div>
 
@@ -539,7 +539,7 @@ function Process() {
       {
         k: "02",
         title: "Cliente final: proposta sob medida",
-        desc: "Analisamos perfil, objetivos e necessidades para desenhar uma proposta personalizada — sem excessos e sem soluções genéricas.",
+        desc: "Analisamos perfil, objetivos e necessidades para desenhar uma proposta personalizada, sem excessos e sem soluções genéricas.",
         img: processImg,
       },
       {
@@ -551,7 +551,7 @@ function Process() {
       {
         k: "04",
         title: "Monitoramento contínuo e melhorias",
-        desc: "Após a entrega, acompanhamos performance, operação e manutenção quando necessário — com radar ligado para otimizações ao longo do tempo.",
+        desc: "Após a entrega, acompanhamos performance, operação e manutenção quando necessário, com radar ligado para otimizações ao longo do tempo.",
         img: processImg,
       },
     ],
@@ -951,7 +951,7 @@ function Testimonials() {
         role: "Proprietária",
         city: "Campinas, SP",
         quote:
-          "A instalação foi rápida e muito bem explicada. Em poucos dias já estávamos gerando energia e a conta de luz caiu de verdade — sem burocracia e com um acabamento impecável.",
+          "A implementação foi rápida e muito bem explicada. Em poucos dias já estávamos vendo resultado e a conta de luz caiu de verdade, sem burocracia e com um acabamento impecável.",
         rating: 5,
         avatar: t1,
       },
@@ -1031,7 +1031,7 @@ function Testimonials() {
                   <span className="subtle-grad-dark">falam sobre a Track</span>
                 </div>
                 <p data-testid="text-testimonials-sub" className="mt-3 max-w-[520px] text-sm leading-6 text-white/70">
-                  Experiências reais de quem implementou soluções com a Track — do diagnóstico à operação, com acompanhamento e foco em resultado.
+                  Experiências reais de quem implementou soluções com a Track, do diagnóstico à operação, com acompanhamento e foco em resultado.
                 </p>
               </div>
 
@@ -1243,7 +1243,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
               </div>
 
               <div data-testid="text-footer-address" className="mt-5 text-xs leading-5 text-white/60">
-                Track — Soluções em energia
+                Track, Soluções em energia
                 <br />
                 Brasil
               </div>
@@ -1379,7 +1379,7 @@ export default function Landing() {
       tag: "SOLUÇÕES TRACK",
       title: "Energia sob medida",
       subtitle: "Da estratégia à operação",
-      desc: "Analisamos oportunidades, desenhamos a proposta ideal e executamos com monitoramento após a implementação — sempre com o radar ligado para melhorias.",
+      desc: "Analisamos oportunidades, desenhamos a proposta ideal e executamos com monitoramento após a implementação, sempre com o radar ligado para melhorias.",
       specLeft: ["Eficiência energética", "Geração própria", "Armazenamento"],
       specRight: ["Mercado livre", "Assinatura de energia", "O&M fotovoltaico"],
       image: productImg,
