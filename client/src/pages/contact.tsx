@@ -58,7 +58,7 @@ export default function Contact() {
   const phoneTel = "+5511999999999";
 
   return (
-    <div data-testid="page-contact" className="min-h-screen bg-white">
+    <div data-testid="page-contact" className="w-full bg-white">
       <main data-testid="main-contact" className="relative">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-zinc-50" />
@@ -67,7 +67,7 @@ export default function Contact() {
         </div>
 
         <div className="relative mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
-          <div className="pt-10 sm:pt-12 lg:pt-14">
+          <div className="pt-[120px] sm:pt-[132px] lg:pt-[148px]">
             <motion.div
               initial={reduced ? undefined : { opacity: 0, y: 14 }}
               animate={reduced ? undefined : { opacity: 1, y: 0 }}
