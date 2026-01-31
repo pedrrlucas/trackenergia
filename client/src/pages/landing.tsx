@@ -178,6 +178,10 @@ function Nav({ onContact }: { onContact: () => void }) {
   const reduced = usePrefersReducedMotion();
   const [ready, setReady] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [travelPx, setTravelPx] = useState(0);
+  const headerRef = React.useRef<HTMLDivElement | null>(null);
+  const arrowRef = React.useRef<HTMLImageElement | null>(null);
+  const logoRef = React.useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -191,15 +195,40 @@ function Nav({ onContact }: { onContact: () => void }) {
       return;
     }
 
+    const headerEl = headerRef.current;
+    const arrowEl = arrowRef.current;
+    const logoEl = logoRef.current;
+    if (!headerEl || !arrowEl || !logoEl) return;
+
+    const measure = () => {
+      const header = headerEl.getBoundingClientRect();
+      const arrow = arrowEl.getBoundingClientRect();
+      const logo = logoEl.getBoundingClientRect();
+
+      const startX = header.right + 8; // bico começa fora no canto direito
+      const endX = logo.left + logo.width * 0.5 - arrow.width * 0.06; // para perto da bolinha
+      const distance = Math.max(1, startX - endX);
+
+      return { header, startX, endX, distance };
+    };
+
     let raf = 0;
     const start = performance.now();
-    const total = 880; // rápido e suave
+    const total = 920; // rápido e elegante
 
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / total);
       // easeOutCubic
       const eased = 1 - Math.pow(1 - t, 3);
-      setProgress(eased);
+
+      const m = measure();
+      if (m) {
+        const x = m.startX - eased * m.distance;
+        const p = (m.startX - x) / m.distance;
+        setProgress(Math.max(0, Math.min(1, p)));
+        setTravelPx(x - m.header.left);
+      }
+
       if (t < 1) raf = requestAnimationFrame(tick);
     };
 
@@ -217,6 +246,7 @@ function Nav({ onContact }: { onContact: () => void }) {
     <div className="pointer-events-none absolute left-0 right-0 top-0 z-20">
       <div className="container-page pointer-events-auto">
         <div
+          ref={headerRef}
           data-testid="header-shell"
           className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/22 px-4 py-3 ring-1 ring-white/18 backdrop-blur"
         >
@@ -224,9 +254,9 @@ function Nav({ onContact }: { onContact: () => void }) {
           <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
             <div
               data-testid="anim-arrow-track"
-              className="absolute right-0 top-1/2 -translate-y-1/2"
+              className="absolute left-0 top-1/2 -translate-y-1/2"
               style={{
-                transform: `translate3d(${(1 - progress) * 100}%, -50%, 0)`,
+                transform: `translate3d(${travelPx}px, -50%, 0)`,
                 willChange: "transform",
               }}
             >
@@ -239,6 +269,7 @@ function Nav({ onContact }: { onContact: () => void }) {
                 }}
               >
                 <img
+                  ref={arrowRef}
                   data-testid="img-header-arrow"
                   src="/attached_assets/image_1769823966992.png"
                   alt="Seta"
@@ -255,6 +286,7 @@ function Nav({ onContact }: { onContact: () => void }) {
 
           <a data-testid="link-logo" href="#top" className="relative flex items-center gap-2">
             <span
+              ref={logoRef}
               data-testid="logo-ball"
               className="grid h-9 w-9 place-items-center rounded-full bg-white/18 ring-1 ring-white/15"
             >
