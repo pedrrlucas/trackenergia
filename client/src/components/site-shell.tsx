@@ -180,15 +180,14 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
         <div
           ref={headerRef}
           data-testid="header-shell"
-          data-liquid="dark"
-          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full border border-white/10 bg-[#1b0c2c]/35 px-4 py-3 backdrop-blur-xl"
+          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-[#bdb5cb]/70 px-4 py-3"
         >
           <div
             data-testid="bg-contact-header-gradient"
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(90deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 18%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.05) 82%, rgba(255,255,255,0.18) 100%)",
+                "linear-gradient(90deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.08) 18%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.08) 82%, rgba(255,255,255,0.38) 100%)",
             }}
           />
           <div
@@ -196,25 +195,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(140% 160% at 50% 0%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 58%)",
-            }}
-          />
-          <div
-            data-testid="bg-liquid-specular"
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(60% 120% at 18% 0%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 55%), radial-gradient(60% 120% at 82% 0%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 55%)",
-              mixBlendMode: "screen",
-              opacity: 0.85,
-            }}
-          />
-          <div
-            data-testid="bg-liquid-inner"
-            className="pointer-events-none absolute inset-0"
-            style={{
-              boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.25)",
+                "radial-gradient(120% 140% at 50% 0%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 55%)",
             }}
           />
 
@@ -257,7 +238,13 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
 
           <a
             data-testid="link-logo"
-            href="#top"
+            href={location === "/" ? "#top" : "/"}
+            onClick={(e) => {
+              if (location !== "/") {
+                e.preventDefault();
+                window.location.href = "/";
+              }
+            }}
             className="relative flex items-center gap-3"
           >
             <span ref={logoRef} data-testid="logo-mark" className="grid h-10 w-10 place-items-center">
