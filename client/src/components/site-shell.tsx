@@ -5,10 +5,6 @@ import { ArrowRight, ChevronLeft, ChevronRight, CirclePlay, MoveUpRight, Quote, 
 
 type WouterLocation = string;
 
-function useWouterNav() {
-  return useLocation() as unknown as [WouterLocation, (path: string) => void];
-}
-
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = React.useState(false);
   React.useEffect(() => {
@@ -72,7 +68,6 @@ export function GhostButton({
 }
 
 export function SiteHeader({ onContact }: { onContact: () => void }) {
-  const [location, setLocation] = useWouterNav();
   const reduced = usePrefersReducedMotion();
   const [ready, setReady] = React.useState(false);
   const [progress, setProgress] = React.useState(0);
@@ -185,7 +180,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
         <div
           ref={headerRef}
           data-testid="header-shell"
-          className="glass-header relative mt-4 flex items-center justify-between overflow-hidden rounded-full px-4 py-3"
+          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-[#bdb5cb]/70 px-4 py-3"
         >
           {!arrowGone ? (
             <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
@@ -447,7 +442,7 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
 }
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
-  const [location, setLocation] = useWouterNav();
+  const [location, setLocation] = useLocation() as unknown as [WouterLocation, (path: string) => void];
 
   const onContact = React.useCallback(() => {
     setLocation("/contato");
