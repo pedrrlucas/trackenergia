@@ -118,7 +118,7 @@ function Pill({
           : "bg-[#100121]/7 text-zinc-700 ring-1 ring-[#100121]/18")
       }
     >
-      <span className={muted ? "h-1.5 w-1.5 rounded-full bg-white/70" : "h-1.5 w-1.5 rounded-full bg-[#100121]/55"} />
+      <span className={muted ? "h-1.5 w-1.5 rounded-full bg-white/70" : "h-1.5 w-1.5 rounded-full bg-[#30045c]"} />
       {children}
     </span>
   );
