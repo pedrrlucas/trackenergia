@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useLocation } from "wouter";
 import {
   ArrowRight,
   ChevronLeft,
@@ -502,7 +501,7 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-3">
-                <PrimaryButton testId="button-explore-now" onClick={goContact}>
+                <PrimaryButton testId="button-explore-now" onClick={onContact}>
                   Vamos conversar
                 </PrimaryButton>
 
@@ -1300,7 +1299,9 @@ function Testimonials() {
               <button
                 data-testid="button-testimonials-cta"
                 className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]"
-                onClick={goContact}
+                onClick={() => {
+                  window.location.href = "/contato";
+                }}
               >
                 Converse com a gente
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
@@ -1495,7 +1496,12 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                 </p>
 
                 <div className="mt-7 flex flex-wrap items-center gap-3">
-                  <PrimaryButton testId="button-footer-explore" onClick={goContact}>
+                  <PrimaryButton
+                    testId="button-footer-explore"
+                    onClick={() => {
+                      window.location.href = "/contato";
+                    }}
+                  >
                     Vamos conversar
                   </PrimaryButton>
                   <GhostButton
@@ -1576,9 +1582,6 @@ function Footer({ onPlay }: { onPlay: () => void }) {
 
 export default function Landing() {
   const [videoOpen, setVideoOpen] = useState(false);
-  const [, setLocation] = useLocation();
-
-  const goContact = () => setLocation("/contato");
 
   const primaryProduct: Product = useMemo(
     () => ({
@@ -1673,7 +1676,12 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-white">
       <section className="w-full">
-        <Hero onPlay={() => setVideoOpen(true)} onContact={goContact} />
+        <Hero
+          onPlay={() => setVideoOpen(true)}
+          onContact={() => {
+            window.location.href = "/contato";
+          }}
+        />
       </section>
 
       <About />
