@@ -307,13 +307,19 @@ function Nav({ onContact }: { onContact: () => void }) {
             </div>
           </div>
 
-          <a data-testid="link-logo" href="#top" className="relative flex items-center gap-2">
+          <a data-testid="link-logo" href="#top" className="relative flex items-center gap-3">
             <span
               ref={logoRef}
-              data-testid="logo-ball"
-              className="grid h-9 w-9 place-items-center rounded-full bg-white/18 ring-1 ring-white/15"
+              data-testid="logo-mark"
+              className="grid h-10 w-10 place-items-center"
             >
-              <span className="h-4 w-4 rotate-12 rounded-sm bg-white" />
+              <img
+                data-testid="img-logo"
+                src="/attached_assets/logo.png"
+                alt="Track"
+                className="h-10 w-10 object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,.35)]"
+                style={{ pointerEvents: "none", userSelect: "none" }}
+              />
             </span>
             <span data-testid="text-logo" className="text-sm font-semibold text-white">
               Track
