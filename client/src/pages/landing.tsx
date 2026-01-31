@@ -477,7 +477,7 @@ function Hero({ onPlay }: { onPlay: () => void }) {
       <div className="absolute inset-0 hero-overlay noise" />
 
       <div className="absolute inset-0">
-        <Nav onContact={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })} />
+        <Nav onContact={() => (window.location.href = "/contato")} />
 
         <div className="container-page pt-4 sm:pt-6">
           <div className="pt-[104px] sm:pt-[112px] lg:pt-[132px]">
@@ -503,7 +503,7 @@ function Hero({ onPlay }: { onPlay: () => void }) {
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <PrimaryButton
                   testId="button-explore-now"
-                  onClick={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })}
+                  onClick={() => (window.location.href = "/contato")}
                 >
                   Vamos conversar
                 </PrimaryButton>
@@ -698,6 +698,7 @@ function ProductFeature({ product }: { product: Product }) {
             <button
               data-testid="button-lets-talk"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+              onClick={() => (window.location.href = "/contato")}
             >
               <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
                 <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
@@ -1302,7 +1303,7 @@ function Testimonials() {
               <button
                 data-testid="button-testimonials-cta"
                 className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]"
-                onClick={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() => (window.location.href = "/contato")}
               >
                 Converse com a gente
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
@@ -1499,7 +1500,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                 <div className="mt-7 flex flex-wrap items-center gap-3">
                   <PrimaryButton
                     testId="button-footer-explore"
-                    onClick={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })}
+                    onClick={() => (window.location.href = "/contato")}
                   >
                     Vamos conversar
                   </PrimaryButton>
