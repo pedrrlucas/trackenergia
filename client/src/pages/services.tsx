@@ -208,7 +208,7 @@ export default function Services() {
 
                     <div className="relative inline-flex items-center justify-end gap-2 text-xs font-semibold text-zinc-950">
                       <span data-testid={`text-service-cta-${s.id}`} className="hidden sm:inline">Ver detalhes</span>
-                      <div className="grid h-9 w-9 place-items-center rounded-full bg-zinc-50 ring-1 ring-zinc-200 transition group-hover:bg-zinc-100">
+                      <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-zinc-50 ring-1 ring-zinc-200 transition group-hover:bg-zinc-100">
                         <ChevronRight className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
                       </div>
                     </div>

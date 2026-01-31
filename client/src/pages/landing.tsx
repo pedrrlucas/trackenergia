@@ -575,7 +575,7 @@ function About() {
           <div className="mt-5">
             <div
               data-testid="img-about-team-placeholder"
-              className="relative aspect-[16/10] w-[calc(100%+120px)] max-w-none overflow-hidden rounded-[28px] bg-gradient-to-br from-zinc-100 via-white to-zinc-100 ring-1 ring-zinc-200 md:w-[calc(100%+160px)] lg:w-[calc(100%+220px)]"
+              className="relative aspect-[16/10] w-full overflow-hidden rounded-[28px] bg-gradient-to-br from-zinc-100 via-white to-zinc-100 ring-1 ring-zinc-200 sm:aspect-[16/9]"
             >
               <div className="absolute inset-0 bg-gradient-to-tr from-[#100121]/10 via-transparent to-[#30045c]/10" />
               <div className="absolute inset-0 noise opacity-[0.08]" />
@@ -786,7 +786,7 @@ function Process() {
           data-testid="img-process"
           src={slides[idx].img}
           alt="Processo"
-          className="h-[480px] w-full object-cover sm:h-[520px] lg:h-[620px]"
+          className="h-[560px] w-full object-cover sm:h-[520px] lg:h-[620px]"
         />
         <div className="absolute inset-0 hero-overlay" />
 
@@ -1050,9 +1050,6 @@ function ProductGrid({ products }: { products: Product[] }) {
         </div>
 
         <div className="lg:hidden">
-          <div className="pt-2">
-            <Pill testId="pill-our-product-mobile">( nosso produto )</Pill>
-          </div>
 
           <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
             <h3
