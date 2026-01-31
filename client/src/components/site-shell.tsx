@@ -3,8 +3,6 @@ import { useLocation } from "wouter";
 import { AnimatePresence } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight, CirclePlay, MoveUpRight, Quote, Star } from "lucide-react";
 
-type WouterLocation = string;
-
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = React.useState(false);
   React.useEffect(() => {
@@ -188,6 +186,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             style={{
               background:
                 "linear-gradient(90deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.06) 18%, rgba(29,2,56,0.12) 50%, rgba(255,255,255,0.06) 82%, rgba(255,255,255,0.26) 100%)",
+              zIndex: 0,
             }}
           />
           <div
@@ -196,7 +195,8 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             style={{
               background:
                 "linear-gradient(90deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.02) 22%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.02) 78%, rgba(0,0,0,0.08) 100%)",
-              mixBlendMode: "multiply",
+              opacity: 0.55,
+              zIndex: 0,
             }}
           />
           <div
@@ -205,6 +205,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             style={{
               background:
                 "radial-gradient(120% 140% at 50% 0%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 55%)",
+              zIndex: 0,
             }}
           />
 
@@ -247,14 +248,14 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
 
           <a
             data-testid="link-logo"
-            href={location === "/" ? "#top" : "/"}
+            href={String(location) === "/" ? "#top" : "/"}
+            className="relative z-10 flex items-center gap-3"
             onClick={(e) => {
-              if (location !== "/") {
+              if (String(location) !== "/") {
                 e.preventDefault();
                 window.location.href = "/";
               }
             }}
-            className="relative flex items-center gap-3"
           >
             <span ref={logoRef} data-testid="logo-mark" className="grid h-10 w-10 place-items-center">
               {!logoSwap ? (
@@ -280,7 +281,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             </span>
           </a>
 
-          <div data-testid="nav-desktop" className="hidden items-center gap-7 text-xs font-medium text-white md:flex">
+          <div data-testid="nav-desktop" className="relative z-10 hidden items-center gap-7 text-xs font-medium text-white md:flex">
             <a
               data-testid="link-nav-home"
               href="#top"
@@ -320,6 +321,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
 
           <button
             data-testid="button-contact"
+            style={{ zIndex: 10 }}
             onClick={onContact}
             className="relative rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#30045c] active:scale-[0.98]"
           >
