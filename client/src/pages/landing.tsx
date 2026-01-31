@@ -294,8 +294,27 @@ function Nav({ onContact }: { onContact: () => void }) {
         <div
           ref={headerRef}
           data-testid="header-shell"
-          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/12 px-4 py-3"
+          data-liquid="light"
+          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full border border-white/18 bg-white/10 px-4 py-3 backdrop-blur-xl"
         >
+          <div
+            data-testid="bg-liquid-specular"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(60% 120% at 18% 0%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 55%), radial-gradient(60% 120% at 82% 0%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 55%)",
+              mixBlendMode: "screen",
+              opacity: 0.75,
+            }}
+          />
+          <div
+            data-testid="bg-liquid-inner"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.16)",
+            }}
+          />
+
           {/* Seta (imagem anexada) percorre todo o header até a logo e some ao chegar */}
           {!arrowGone ? (
             <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
