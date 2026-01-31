@@ -155,4 +155,36 @@
     background-clip: text;
     text-shadow: 0 0 0.01px hsl(0 0% 100% / 0.08);
   }
+
+  @keyframes accordionDown {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+      opacity: 1;
+    }
+  }
+
+  @keyframes accordionUp {
+    from {
+      height: var(--radix-accordion-content-height);
+      opacity: 1;
+    }
+    to {
+      height: 0;
+      opacity: 0;
+    }
+  }
+
+  .animate-accordionDown {
+    overflow: hidden;
+    animation: accordionDown 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .animate-accordionUp {
+    overflow: hidden;
+    animation: accordionUp 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
 }

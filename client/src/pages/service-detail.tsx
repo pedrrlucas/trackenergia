@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
+import * as Accordion from "@radix-ui/react-accordion";
 import { useLocation } from "wouter";
 import { ArrowLeft, ArrowRight, Check, ChevronRight, MessageCircle, Sparkles } from "lucide-react";
 
@@ -348,40 +349,53 @@ export default function ServiceDetailPage() {
             <div className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
               <motion.section
                 data-testid="section-service-scope"
-                className="rounded-[28px] bg-white p-7 ring-1 ring-zinc-200"
+                className="overflow-hidden rounded-[28px] bg-white ring-1 ring-zinc-200"
                 initial={reduced ? undefined : { opacity: 0, y: 16 }}
                 whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
                 viewport={revealViewport}
                 transition={revealTransition}
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div data-testid="text-scope-title" className="text-sm font-semibold text-zinc-950">
-                      Escopo (o que entregamos)
+                <div className="px-7 pt-7">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <div data-testid="text-scope-title" className="text-sm font-semibold text-zinc-950">
+                        O que entregamos
+                      </div>
+                      <div data-testid="text-scope-sub" className="mt-1 text-sm text-zinc-600">
+                        Cada item abre com mais detalhes.
+                      </div>
                     </div>
-                    <div data-testid="text-scope-sub" className="mt-1 text-sm text-zinc-600">
-                      Um roteiro claro de trabalho, do diagnóstico ao acompanhamento.
+                    <div className="grid h-10 w-10 place-items-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200">
+                      <ArrowRight className="h-5 w-5 text-zinc-900" strokeWidth={2.25} />
                     </div>
-                  </div>
-                  <div className="grid h-10 w-10 place-items-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200">
-                    <ArrowRight className="h-5 w-5 text-zinc-900" strokeWidth={2.25} />
                   </div>
                 </div>
 
-                <div className="mt-6 grid gap-3">
+                <Accordion.Root type="single" collapsible className="mt-6 grid divide-y divide-zinc-200">
                   {service.scope.map((s, i) => (
-                    <div
-                      key={i}
-                      data-testid={`row-scope-${i}`}
-                      className="flex items-start gap-3 rounded-[18px] bg-zinc-50 px-4 py-3 ring-1 ring-zinc-200"
-                    >
-                      <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#1d0238] text-white">
-                        <Check className="h-4 w-4" strokeWidth={2.5} />
-                      </span>
-                      <div className="text-sm text-zinc-800">{s}</div>
-                    </div>
+                    <Accordion.Item key={i} value={String(i)} className="">
+                      <Accordion.Header className="">
+                        <Accordion.Trigger
+                          data-testid={`accordion-scope-trigger-${i}`}
+                          className="group flex w-full items-center justify-between gap-4 px-7 py-5 text-left"
+                        >
+                          <div className="flex items-center gap-3">
+                            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-zinc-900 text-white">
+                              <ChevronRight className="h-4 w-4 transition group-data-[state=open]:rotate-90" strokeWidth={2.25} />
+                            </span>
+                            <div className="text-sm font-semibold text-zinc-950">{s}</div>
+                          </div>
+                          <div className="text-xs font-medium text-zinc-500 group-hover:text-zinc-700">Detalhes</div>
+                        </Accordion.Trigger>
+                      </Accordion.Header>
+                      <Accordion.Content className="px-7 pb-6 data-[state=closed]:animate-accordionUp data-[state=open]:animate-accordionDown">
+                        <div data-testid={`accordion-scope-content-${i}`} className="text-sm leading-6 text-zinc-600">
+                          Entregáveis e passos típicos para <span className="font-medium text-zinc-800">{s}</span>, ajustados ao seu contexto e às prioridades do projeto.
+                        </div>
+                      </Accordion.Content>
+                    </Accordion.Item>
                   ))}
-                </div>
+                </Accordion.Root>
               </motion.section>
 
               <motion.aside
@@ -407,27 +421,16 @@ export default function ServiceDetailPage() {
                     {service.outcomes.map((o, i) => (
                       <div
                         key={i}
-                        data-testid={`card-outcome-${i}`}
-                        className="rounded-[20px] bg-white/10 p-4 ring-1 ring-white/12"
+                        data-testid={`row-outcome-${i}`}
+                        className="flex items-start gap-3 rounded-[20px] bg-white/10 p-4 ring-1 ring-white/12"
                       >
-                        <div className="flex items-center justify-between gap-3">
-                          <div className="text-sm font-semibold text-white">{o}</div>
-                          <div className="grid h-9 w-9 place-items-center rounded-full bg-white/10 ring-1 ring-white/12">
-                            <ChevronRight className="h-4 w-4 text-white" strokeWidth={2.25} />
-                          </div>
-                        </div>
+                        <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white/10 ring-1 ring-white/12">
+                          <Check className="h-4 w-4 text-white" strokeWidth={2.5} />
+                        </span>
+                        <div className="text-sm font-semibold text-white">{o}</div>
                       </div>
                     ))}
                   </div>
-
-                  <a
-                    data-testid="link-service-contact"
-                    href="/contato"
-                    className="mt-7 inline-flex items-center gap-2 text-xs font-semibold text-white/90 transition hover:text-white"
-                  >
-                    Falar com a Track
-                    <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-                  </a>
                 </div>
               </motion.aside>
             </div>
@@ -437,10 +440,10 @@ export default function ServiceDetailPage() {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <div data-testid="text-sections-title" className="text-sm font-semibold text-zinc-950">
-                      Dentro deste serviço
+                      Tópicos do serviço
                     </div>
                     <div data-testid="text-sections-sub" className="mt-1 text-sm text-zinc-600">
-                      Os principais blocos de entrega — organizados, sem excesso de elementos.
+                      Clique para expandir. Ao abrir, você tem um atalho para chamar no WhatsApp.
                     </div>
                   </div>
                   <div className="grid h-10 w-10 place-items-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200">
@@ -449,23 +452,53 @@ export default function ServiceDetailPage() {
                 </div>
               </div>
 
-              <div className="mt-6 grid divide-y divide-zinc-200">
+              <Accordion.Root type="single" collapsible className="mt-6 grid divide-y divide-zinc-200">
                 {service.sections.map((sec, index) => (
-                  <div key={sec.id} data-testid={`row-section-${sec.id}`} className="grid gap-3 px-7 py-6 sm:grid-cols-[auto_1fr] sm:items-start">
-                    <div className="mt-0.5 w-fit rounded-full bg-[#1d0238]/7 px-3 py-1 text-[11px] font-semibold tracking-wide text-zinc-700 ring-1 ring-[#1d0238]/18">
-                      {String(index + 1).padStart(2, "0")}
-                    </div>
-                    <div>
-                      <div data-testid={`text-section-title-${sec.id}`} className="text-sm font-semibold text-zinc-950">
-                        {sec.title}
+                  <Accordion.Item key={sec.id} value={sec.id}>
+                    <Accordion.Header>
+                      <Accordion.Trigger
+                        data-testid={`accordion-section-trigger-${sec.id}`}
+                        className="group flex w-full items-center justify-between gap-4 px-7 py-6 text-left"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-zinc-950 text-white">
+                            <ChevronRight className="h-4 w-4 transition group-data-[state=open]:rotate-90" strokeWidth={2.25} />
+                          </div>
+                          <div>
+                            <div data-testid={`text-section-title-${sec.id}`} className="text-sm font-semibold text-zinc-950">
+                              {sec.title}
+                            </div>
+                            <div data-testid={`text-section-index-${sec.id}`} className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-zinc-500">
+                              Tópico {String(index + 1).padStart(2, "0")}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-xs font-medium text-zinc-500 group-hover:text-zinc-700">Detalhes</div>
+                      </Accordion.Trigger>
+                    </Accordion.Header>
+
+                    <Accordion.Content className="px-7 pb-7 data-[state=closed]:animate-accordionUp data-[state=open]:animate-accordionDown">
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <div data-testid={`text-section-desc-${sec.id}`} className="text-sm leading-6 text-zinc-600">
+                            {sec.description}
+                          </div>
+                        </div>
+
+                        <a
+                          data-testid={`link-section-whatsapp-${sec.id}`}
+                          href="https://wa.me/5511999999999"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="shrink-0 rounded-full bg-zinc-950 px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-zinc-900"
+                        >
+                          Chamar no WhatsApp
+                        </a>
                       </div>
-                      <div data-testid={`text-section-desc-${sec.id}`} className="mt-1 text-sm leading-6 text-zinc-600">
-                        {sec.description}
-                      </div>
-                    </div>
-                  </div>
+                    </Accordion.Content>
+                  </Accordion.Item>
                 ))}
-              </div>
+              </Accordion.Root>
             </section>
 
           </div>
