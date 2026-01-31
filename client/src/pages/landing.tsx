@@ -1301,7 +1301,7 @@ function Testimonials() {
                 data-testid="button-testimonials-cta"
                 className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]"
                 onClick={() => {
-                  setLocation("/contato");
+                  window.location.href = "/contato";
                 }}
               >
                 Converse com a gente
@@ -1500,7 +1500,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                   <PrimaryButton
                     testId="button-footer-explore"
                     onClick={() => {
-                      setLocation("/contato");
+                      window.location.href = "/contato";
                     }}
                   >
                     Vamos conversar
