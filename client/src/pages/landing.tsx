@@ -1187,34 +1187,33 @@ function Testimonials() {
   return (
     <section id="testimonials" className="container-page pb-12 sm:pb-16 lg:pb-20">
       <div className="flex items-start justify-between gap-6">
-        <div className="flex items-center gap-2">
-          <Pill testId="pill-testimonials">( depoimentos )</Pill>
-          <div className="flex items-center gap-2 sm:hidden">
-            <button
-              data-testid="button-testimonials-prev-mobile-top"
-              onClick={() => {
-                const idx = items.findIndex((i) => i.id === activeItem.id);
-                const next = (idx - 1 + items.length) % items.length;
-                setActive(items[next].id);
-              }}
-              className="grid h-9 w-9 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
-              aria-label="Depoimento anterior"
-            >
-              <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
-            </button>
-            <button
-              data-testid="button-testimonials-next-mobile-top"
-              onClick={() => {
-                const idx = items.findIndex((i) => i.id === activeItem.id);
-                const next = (idx + 1) % items.length;
-                setActive(items[next].id);
-              }}
-              className="grid h-9 w-9 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
-              aria-label="Próximo depoimento"
-            >
-              <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
-            </button>
-          </div>
+        <Pill testId="pill-testimonials">( depoimentos )</Pill>
+
+        <div className="flex items-center gap-2 sm:hidden">
+          <button
+            data-testid="button-testimonials-prev-mobile-top"
+            onClick={() => {
+              const idx = items.findIndex((i) => i.id === activeItem.id);
+              const next = (idx - 1 + items.length) % items.length;
+              setActive(items[next].id);
+            }}
+            className="grid h-9 w-9 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
+            aria-label="Depoimento anterior"
+          >
+            <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
+          </button>
+          <button
+            data-testid="button-testimonials-next-mobile-top"
+            onClick={() => {
+              const idx = items.findIndex((i) => i.id === activeItem.id);
+              const next = (idx + 1) % items.length;
+              setActive(items[next].id);
+            }}
+            className="grid h-9 w-9 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
+            aria-label="Próximo depoimento"
+          >
+            <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
+          </button>
         </div>
 
         <div className="hidden items-center gap-2 sm:flex">
