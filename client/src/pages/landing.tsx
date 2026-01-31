@@ -190,21 +190,48 @@ function Nav({ onContact }: { onContact: () => void }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const start = () => window.setTimeout(() => setReady(true), 100);
+    let cancelled = false;
+    let img: HTMLImageElement | null = null;
+
+    const startWhenArrowReady = () => {
+      img = new Image();
+      img.decoding = "async";
+      img.loading = "eager";
+
+      const done = () => {
+        if (cancelled) return;
+        setReady(true);
+      };
+
+      img.addEventListener?.("load", done, { once: true } as any);
+      img.addEventListener?.("error", done, { once: true } as any);
+      img.onload = done;
+      img.onerror = done;
+      img.src = "/attached_assets/arrow.png";
+
+      // Caso o browser marque como completa imediatamente (cache)
+      if ((img as any).complete) done();
+    };
 
     if (document.readyState === "complete") {
-      const t = start();
-      return () => window.clearTimeout(t);
+      startWhenArrowReady();
+      return () => {
+        cancelled = true;
+        img = null;
+      };
     }
 
     const onLoad = () => {
-      const t = start();
       window.removeEventListener("load", onLoad);
-      // cleanup handled below
+      startWhenArrowReady();
     };
 
     window.addEventListener("load", onLoad, { once: true });
-    return () => window.removeEventListener("load", onLoad);
+    return () => {
+      cancelled = true;
+      window.removeEventListener("load", onLoad);
+      img = null;
+    };
   }, []);
 
   useEffect(() => {
