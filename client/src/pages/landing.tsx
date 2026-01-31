@@ -181,7 +181,7 @@ function Nav({ onContact }: { onContact: () => void }) {
             <span className="grid h-9 w-9 place-items-center rounded-full bg-white/18 ring-1 ring-white/15">
               <span className="h-4 w-4 rotate-12 rounded-sm bg-white" />
             </span>
-            <span className="text-sm font-semibold text-white">Solars</span>
+            <span className="text-sm font-semibold text-white">Track</span>
           </a>
 
           <div className="hidden items-center gap-7 text-xs font-medium text-white/78 md:flex">
@@ -189,10 +189,10 @@ function Nav({ onContact }: { onContact: () => void }) {
               Início
             </a>
             <a data-testid="link-nav-product" href="#product" className="transition hover:text-white">
-              Produto
+              Serviços
             </a>
             <a data-testid="link-nav-process" href="#process" className="transition hover:text-white">
-              Processo
+              Abordagem
             </a>
             <a data-testid="link-nav-testimonials" href="#testimonials" className="transition hover:text-white">
               Depoimentos
@@ -233,7 +233,7 @@ function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between px-5 py-4">
-              <div className="text-sm font-semibold text-white">Visão geral solar</div>
+              <div className="text-sm font-semibold text-white">Visão geral Track</div>
               <button
                 data-testid="button-close-video"
                 onClick={onClose}
@@ -247,7 +247,7 @@ function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
                 data-testid="iframe-video"
                 className="h-full w-full"
                 src="https://www.youtube.com/embed/1kUE0BZtTRc?autoplay=1&mute=1"
-                title="Vídeo solar"
+                title="Vídeo Track"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
@@ -262,7 +262,7 @@ function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
 function Hero({ onPlay }: { onPlay: () => void }) {
   return (
     <section id="top" className="relative min-h-screen w-full overflow-hidden bg-black">
-      <img data-testid="img-hero" src={heroImg} alt="Painéis solares" className="h-screen w-full object-cover" />
+      <img data-testid="img-hero" src={heroImg} alt="Energia e infraestrutura" className="h-screen w-full object-cover" />
       <div className="absolute inset-0 hero-overlay noise" />
 
       <div className="absolute inset-0">
@@ -275,18 +275,18 @@ function Hero({ onPlay }: { onPlay: () => void }) {
                 data-testid="text-hero-title"
                 className="text-balance text-[44px] font-medium leading-[1.02] tracking-[-0.02em] text-white sm:text-[56px] lg:text-[66px]"
               >
-                Energia solar
+                Soluções de energia
                 <br />
-                para impulsionar
+                com visão crítica
                 <br />
-                o seu futuro
+                e execução completa
               </h1>
 
               <p
                 data-testid="text-hero-subtitle"
                 className="mt-4 max-w-[460px] text-xs leading-5 text-white/72 sm:text-sm sm:leading-6"
               >
-                Energia limpa, acessível e renovável — assuma o controle da sua conta de luz com uma solução inteligente.
+                A Track entrega soluções reais em energia — da eficiência à geração, armazenamento e mercado livre — com proposta sob medida, execução e monitoramento contínuo.
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -317,10 +317,10 @@ function Hero({ onPlay }: { onPlay: () => void }) {
                   </div>
                   <div>
                     <div data-testid="text-hero-card-title" className="text-xs font-semibold text-white">
-                      Suncryst EdgeTech 500...
+                      Track | Soluções em energia
                     </div>
                     <div data-testid="text-hero-card-desc" className="mt-0.5 text-[11px] leading-4 text-white/65">
-                      Nossos painéis mais vendidos unem durabilidade e performance de alto nível.
+                      Da análise à operação: eficiência, geração, armazenamento e gestão de energia com acompanhamento.
                     </div>
                   </div>
                 </div>
@@ -361,7 +361,7 @@ function About() {
       <div className="grid gap-10 md:grid-cols-[360px_1fr] md:items-center lg:grid-cols-[420px_1fr] lg:gap-14">
         <div>
           <Pill testId="pill-about" muted={false}>
-            ( sobre nós )
+            ( sobre a Track )
           </Pill>
           <div className="mt-5 flex items-end gap-4">
             <motion.div
@@ -405,19 +405,18 @@ function About() {
               data-testid="text-about-title"
               className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-zinc-950 sm:text-[46px] lg:text-[56px]"
             >
-              Somos um time
+              Fundada por dois sócios
               <br />
-              dedicado de especialistas
+              vindos do setor solar e
               <br />
-              <span className="subtle-grad">apaixonados</span> por
+              <span className="subtle-grad">apaixonados</span> pela
               <br />
-              <span className="subtle-grad">acelerar</span> a energia solar
+              <span className="subtle-grad">vastidão</span> de possibilidades
             </h2>
             <p data-testid="text-about-desc" className="mt-4 w-full text-sm leading-6 text-zinc-500">
-              Com um compromisso real com a sustentabilidade, ajudamos pessoas, famílias e empresas a migrarem para uma energia mais
-              limpa com soluções solares inteligentes, confiáveis e acessíveis
-              <br />
-              feitas para durar.
+              A Track nasceu em 2024 com um propósito diferente do mercado tradicional: não vendemos equipamentos.
+              Nosso foco é entregar <span className="font-medium text-zinc-800">soluções reais</span> para quem precisa, entendendo o setor com profundidade
+              e conectando cada cliente à solução energética ideal — sem excessos e sem soluções genéricas.
             </p>
           </div>
 
@@ -426,7 +425,7 @@ function About() {
               data-testid="button-our-story"
               className="group inline-flex items-center gap-2 rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#1a0335] active:scale-[0.98]"
             >
-              Nossa história
+              Como trabalhamos
               <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/10 transition group-hover:translate-x-0.5">
                 <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
               </span>
@@ -459,7 +458,7 @@ function ProductFeature({ product }: { product: Product }) {
           transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
         >
           <Pill testId="pill-popular-product" muted={false}>
-            ( produto popular )
+            ( soluções )
           </Pill>
           <h3
             data-testid="text-product-title"
@@ -511,7 +510,7 @@ function ProductFeature({ product }: { product: Product }) {
               data-testid="button-explore-product"
               className="inline-flex items-center gap-2 rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#1a0335] active:scale-[0.98]"
             >
-              Explorar produto
+              Ver serviços
               <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
             </button>
           </div>
@@ -544,26 +543,26 @@ function Process() {
     () => [
       {
         k: "01",
-        title: "Avaliação do local e planejamento",
-        desc: "Analisamos seu consumo de energia e as condições do telhado para desenhar a melhor solução solar.",
+        title: "Parceria: diagnóstico do setor",
+        desc: "Nos conectamos com empresas, grupos e cooperativas para entender os desafios mais comuns e impactantes do segmento e compor soluções que geram competitividade, segurança ou economia.",
         img: processImg,
       },
       {
         k: "02",
-        title: "Engenharia do sistema e preparação",
-        desc: "Selecionamos painéis, inversores e estrutura ideais para o seu clima e objetivos.",
+        title: "Cliente final: proposta sob medida",
+        desc: "Analisamos perfil, objetivos e necessidades para desenhar uma proposta personalizada — sem excessos e sem soluções genéricas.",
         img: processImg,
       },
       {
         k: "03",
-        title: "Instalação sem complicação, feita por profissionais",
-        desc: "Da vistoria no local à configuração final, nosso time garante uma instalação segura, ágil e sob medida. Cada painel é testado para desempenho máximo e instalado com precisão.",
+        title: "Execução completa e integração",
+        desc: "Fazemos a implementação com coordenação técnica e foco em resultado: eficiência, geração própria, armazenamento, eletromobilidade e acesso ao mercado livre quando fizer sentido.",
         img: processImg,
       },
       {
         k: "04",
-        title: "Monitoramento e suporte contínuo",
-        desc: "Acompanhe a geração em tempo real e conte com suporte sempre que precisar.",
+        title: "Monitoramento contínuo e melhorias",
+        desc: "Após a entrega, acompanhamos performance, operação e manutenção quando necessário — com radar ligado para otimizações ao longo do tempo.",
         img: processImg,
       },
     ],
@@ -599,7 +598,7 @@ function Process() {
         <div className="absolute inset-0 p-6 sm:p-8">
           <div className="flex items-start justify-between">
             <Pill testId="pill-process" muted>
-              ( seu processo )
+              ( como trabalhamos )
             </Pill>
           </div>
 
@@ -687,7 +686,7 @@ function ProductGrid({ products }: { products: Product[] }) {
   return (
     <section className="container-page pb-12 sm:pb-16 lg:pb-20">
       <div className="flex items-start justify-between gap-6">
-        <Pill testId="pill-our-product">( nosso produto )</Pill>
+        <Pill testId="pill-our-product">( serviços )</Pill>
       </div>
 
       <div className="mt-6">
@@ -699,12 +698,12 @@ function ProductGrid({ products }: { products: Product[] }) {
                   data-testid="text-grid-title"
                   className="text-balance text-[40px] font-medium leading-[1.06] tracking-[-0.03em]"
                 >
-                  Explore nossa tecnologia
+                  Explore nossos
                   <br />
-                  <span className="subtle-grad">e pacotes de sistema</span>
+                  <span className="subtle-grad">serviços em energia</span>
                 </h3>
                 <p data-testid="text-grid-sub" className="mt-4 text-sm leading-6 text-zinc-500">
-                  Soluções completas, do painel ao monitoramento — com acabamento premium e instalação profissional.
+                  Do diagnóstico à operação: eficiência, geração própria, armazenamento, mercado livre e manutenção, sempre com proposta sob medida.
                 </p>
               </div>
 
@@ -713,7 +712,7 @@ function ProductGrid({ products }: { products: Product[] }) {
                   data-testid="button-grid-explore"
                   className="inline-flex items-center gap-2 rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#1a0335] active:scale-[0.98]"
                 >
-                  Explorar produtos
+                  Ver serviços
                   <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
                 </button>
               </div>
@@ -863,15 +862,15 @@ function ProductGrid({ products }: { products: Product[] }) {
               data-testid="text-grid-title-mobile"
               className="text-balance text-[38px] font-medium leading-[1.06] tracking-[-0.03em]"
             >
-              Explore nossa tecnologia
+              Explore nossos
               <br />
-              <span className="subtle-grad">e pacotes de sistema</span>
+              <span className="subtle-grad">serviços em energia</span>
             </h3>
             <button
               data-testid="button-grid-explore-mobile"
               className="rounded-full bg-zinc-100 px-4 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
             >
-              Explorar produto
+              Ver serviços
             </button>
           </div>
 
@@ -980,7 +979,7 @@ function Testimonials() {
         role: "Empreendedora",
         city: "Belo Horizonte, MG",
         quote:
-          "Queríamos previsibilidade de custos e sustentabilidade. A Solars entregou um sistema sob medida e com estética bonita no telhado. Valeu cada centavo.",
+          "Queríamos previsibilidade e clareza de custos. A Track entregou uma estratégia sólida e executou com acompanhamento pós-implantação. Valeu cada centavo.",
         rating: 5,
         avatar: t3,
       },
@@ -1037,10 +1036,10 @@ function Testimonials() {
                 <div data-testid="text-testimonials-title" className="text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em] text-white">
                   O que nossos clientes
                   <br />
-                  <span className="subtle-grad-dark">falam sobre a Solars</span>
+                  <span className="subtle-grad-dark">falam sobre a Track</span>
                 </div>
                 <p data-testid="text-testimonials-sub" className="mt-3 max-w-[520px] text-sm leading-6 text-white/70">
-                  Experiências reais de quem já migrou para energia solar com projeto bem feito, instalação limpa e suporte presente.
+                  Experiências reais de quem implementou soluções com a Track — do diagnóstico à operação, com acompanhamento e foco em resultado.
                 </p>
               </div>
 
@@ -1247,16 +1246,14 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                   <span className="h-4 w-4 rotate-12 rounded-sm bg-white" />
                 </span>
                 <span data-testid="text-footer-brand" className="text-sm font-semibold text-white">
-                  Solars
+                  Track
                 </span>
               </div>
 
               <div data-testid="text-footer-address" className="mt-5 text-xs leading-5 text-white/60">
-                1234 Solar Innovation Parkway,
+                Track — Soluções em energia
                 <br />
-                Suite 560, Palo Alto, California 94301,
-                <br />
-                United States of America (USA)
+                Brasil
               </div>
 
               <div className="mt-6 flex items-center gap-3 text-white/70">
@@ -1285,9 +1282,9 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                   data-testid="text-footer-title"
                   className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-[46px]"
                 >
-                  Mude para a energia
+                  Mude sua energia
                   <br />
-                  solar e ilumine o futuro,
+                  e ilumine o futuro,
                   <br />
                   <span className="subtle-grad-dark">Energia limpa e confiável</span> feita
                   <br />
@@ -1295,7 +1292,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                 </h3>
 
                 <p data-testid="text-footer-desc" className="mt-5 max-w-[620px] text-sm leading-6 text-white/60">
-                  Energize sua casa ou empresa com soluções solares eficientes e acessíveis, feitas para gerar impacto real.
+                  Energize sua casa ou empresa com soluções de energia eficientes e acessíveis, feitas para gerar impacto real.
                 </p>
 
                 <div className="mt-7 flex flex-wrap items-center gap-3">
@@ -1358,7 +1355,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
 
       <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
         <div className="flex flex-wrap items-center justify-between gap-3 py-6 text-[11px] text-zinc-500">
-          <div data-testid="text-footer-copyright">©2025 Solars. Todos os direitos reservados</div>
+          <div data-testid="text-footer-copyright">©2026 Track. Todos os direitos reservados</div>
           <div className="flex items-center gap-4">
             <a data-testid="link-footer-terms" href="#" className="transition hover:text-zinc-950">
               Termos de uso
@@ -1367,7 +1364,7 @@ function Footer({ onPlay }: { onPlay: () => void }) {
               Início
             </a>
             <a data-testid="link-footer-product" href="#product" className="transition hover:text-zinc-950">
-              Produto
+              Serviços
             </a>
             <a data-testid="link-footer-process" href="#process" className="transition hover:text-zinc-950">
               Processo
@@ -1387,13 +1384,13 @@ export default function Landing() {
 
   const primaryProduct: Product = useMemo(
     () => ({
-      id: "edge-500",
-      tag: "PRODUTO POPULAR",
-      title: "Suncryst EdgeTech 500W",
-      subtitle: "Módulo PERC de dupla camada",
-      desc: "Nossos painéis mais vendidos combinam durabilidade e alta performance — ideais para residências e uso comercial.",
-      specLeft: ["Acessórios", "Potência de saída do inversor", "Módulo de painel solar"],
-      specRight: ["Cabo DC / aterramento", "800 VA / 1000 VA", "Painel solar mono 550W"],
+      id: "solucoes-track",
+      tag: "SOLUÇÕES TRACK",
+      title: "Energia sob medida",
+      subtitle: "Da estratégia à operação",
+      desc: "Analisamos oportunidades, desenhamos a proposta ideal e executamos com monitoramento após a implementação — sempre com o radar ligado para melhorias.",
+      specLeft: ["Eficiência energética", "Geração própria", "Armazenamento"],
+      specRight: ["Mercado livre", "Assinatura de energia", "O&M fotovoltaico"],
       image: productImg,
     }),
     [],
@@ -1402,70 +1399,70 @@ export default function Landing() {
   const products: Product[] = useMemo(
     () => [
       {
-        id: "solnova-550",
-        tag: "TELHADO RESIDENCIAL",
-        title: "Solnova UltraCell 550W",
-        subtitle: "Série Mono SmartGrid Boost para todos os climas",
+        id: "eficiencia",
+        tag: "ANÁLISE",
+        title: "Eficiência energética",
+        subtitle: "Análise de oportunidades e plano de ação",
         desc: "",
         specLeft: [],
         specRight: [],
         image: product1,
       },
       {
-        id: "edge-500",
-        tag: "SISTEMAS OFF-GRID",
-        title: "Suncryst EdgeTech 500W",
-        subtitle: "Módulo PERC de dupla camada com controle por IA",
+        id: "geracao",
+        tag: "GERAÇÃO PRÓPRIA",
+        title: "Sistemas de geração própria",
+        subtitle: "Projeto, execução e integração",
         desc: "",
         specLeft: [],
         specRight: [],
         image: product2,
       },
       {
-        id: "heliomax-530",
-        tag: "COMERCIAL E INDUSTRIAL",
-        title: "HelioMax TitanGlass 530W",
-        subtitle: "Painel de alta precisão para eficiência solar",
+        id: "armazenamento",
+        tag: "ARMAZENAMENTO",
+        title: "Armazenamento de energia",
+        subtitle: "Resiliência, estabilidade e autonomia",
         desc: "",
         specLeft: [],
         specRight: [],
         image: product3,
       },
       {
-        id: "prime-480",
-        tag: "SOLAR FARM",
-        title: "PrimeArray Field 480W",
-        subtitle: "Estrutura otimizada para geração em escala",
+        id: "mercado-livre",
+        tag: "ESTRATÉGIA",
+        title: "Mercado livre de energia",
+        subtitle: "Análise de viabilidade e migração",
         desc: "",
         specLeft: [],
         specRight: [],
         image: product4,
       },
       {
-        id: "invert-pro",
-        tag: "INVERSORES",
-        title: "Inverto Pro X",
-        subtitle: "Conversão eficiente e silenciosa",
+        id: "assinatura",
+        tag: "ASSINATURA",
+        title: "Assinatura de energia",
+        subtitle: "Modelo simples para economia previsível",
         desc: "",
         specLeft: [],
         specRight: [],
         image: product5,
       },
       {
-        id: "storage-peak",
-        tag: "ARMAZENAMENTO",
-        title: "StoragePeak 12kWh",
-        subtitle: "Baterias para autonomia e estabilidade",
+        id: "eletromobilidade",
+        tag: "INFRAESTRUTURA",
+        title: "Eletromobilidade",
+        subtitle: "Infraestrutura para recarga e operação",
         desc: "",
         specLeft: [],
         specRight: [],
         image: product6,
       },
       {
-        id: "care-plus",
-        tag: "MANUTENÇÃO",
-        title: "CarePlus Monitor",
-        subtitle: "Acompanhamento e suporte contínuos",
+        id: "om-fv",
+        tag: "OPERAÇÃO",
+        title: "O&M fotovoltaico",
+        subtitle: "Operação e manutenção com monitoramento",
         desc: "",
         specLeft: [],
         specRight: [],
