@@ -1258,8 +1258,14 @@ function Testimonials() {
                     <div data-testid="text-testimonial-active-name" className="text-sm font-semibold text-white">
                       {activeItem.name}
                     </div>
-                    <div data-testid="text-testimonial-active-role" className="mt-0.5 text-[12px] text-white/65">
-                      {activeItem.role} · {activeItem.city}
+                    <div
+                      data-testid="text-testimonial-active-role"
+                      className="mt-0.5 text-[12px] text-white/65 sm:whitespace-nowrap"
+                    >
+                      <span className="hidden sm:inline">{activeItem.role} · {activeItem.city}</span>
+                      <span className="sm:hidden">{activeItem.role}</span>
+                      <br className="sm:hidden" />
+                      <span className="sm:hidden">{activeItem.city}</span>
                     </div>
                   </div>
                 </div>
