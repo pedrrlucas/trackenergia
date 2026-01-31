@@ -712,7 +712,7 @@ function ProductFeature({ product }: { product: Product }) {
         </motion.div>
 
         <motion.div
-          className="relative overflow-hidden rounded-[28px] lg:rounded-[32px]"
+          className="relative hidden overflow-hidden rounded-[28px] lg:block lg:rounded-[32px]"
           initial={reduced ? undefined : { opacity: 0, scale: 0.985 }}
           whileInView={reduced ? undefined : { opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-120px" }}
@@ -1246,7 +1246,7 @@ function Testimonials() {
             <div className="mt-7 rounded-[22px] bg-white/10 p-6 ring-1 ring-white/12 backdrop-blur">
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 overflow-hidden rounded-2xl bg-white/10 ring-1 ring-white/12">
+                  <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-white/10 ring-1 ring-white/12">
                     <img
                       data-testid="img-testimonial-active-avatar"
                       src={activeItem.avatar}
@@ -1336,7 +1336,7 @@ function Testimonials() {
                   <div className="flex items-center gap-3">
                     <div
                       className={
-                        "h-11 w-11 overflow-hidden rounded-2xl ring-1 " +
+                        "h-11 w-11 shrink-0 overflow-hidden rounded-full ring-1 " +
                         (selected ? "bg-white/10 ring-white/12" : "bg-zinc-100 ring-zinc-200")
                       }
                     >
