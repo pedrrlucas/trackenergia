@@ -319,11 +319,14 @@ export default function ServiceDetailPage() {
                     {service.summary}
                   </p>
 
-                  <div
-                    data-testid="text-service-long"
-                    className="mt-5 max-w-[860px] rounded-[22px] bg-white/70 p-5 text-sm leading-6 text-zinc-700 ring-1 ring-zinc-200"
-                  >
-                    {service.longText}
+                  <div className="mt-5 max-w-[860px]">
+                    <p
+                      data-testid="text-service-long"
+                      className="text-sm leading-7 text-zinc-700"
+                      style={{ textWrap: "pretty" as any }}
+                    >
+                      {service.longText}
+                    </p>
                   </div>
                 </div>
 
