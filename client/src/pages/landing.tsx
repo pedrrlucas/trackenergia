@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
@@ -175,36 +175,146 @@ function GhostButton({
 }
 
 function Nav({ onContact }: { onContact: () => void }) {
+  const reduced = usePrefersReducedMotion();
+  const [ready, setReady] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const t = window.setTimeout(() => setReady(true), 260);
+    return () => window.clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    if (!ready || reduced) {
+      setProgress(reduced ? 1 : 0);
+      return;
+    }
+
+    let raf = 0;
+    const start = performance.now();
+    const total = 880; // rápido e suave
+
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / total);
+      // easeOutCubic
+      const eased = 1 - Math.pow(1 - t, 3);
+      setProgress(eased);
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [ready, reduced]);
+
+  const showHome = progress >= 0.26;
+  const showProduct = progress >= 0.42;
+  const showProcess = progress >= 0.58;
+  const showTestimonials = progress >= 0.74;
+
   return (
     <div className="pointer-events-none absolute left-0 right-0 top-0 z-20">
       <div className="container-page pointer-events-auto">
-        <div className="mt-4 flex items-center justify-between rounded-full bg-white/22 px-4 py-3 ring-1 ring-white/18 backdrop-blur">
-          <a data-testid="link-logo" href="#top" className="flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-white/18 ring-1 ring-white/15">
+        <div
+          data-testid="header-shell"
+          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/22 px-4 py-3 ring-1 ring-white/18 backdrop-blur"
+        >
+          {/* Seta (imagem anexada) percorre todo o header até a bola da logo */}
+          <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
+            {/* máscara para começar só com a pontinha */}
+            <div
+              data-testid="anim-arrow-mask"
+              className="absolute inset-0 overflow-hidden"
+              style={{
+                clipPath: `inset(0 ${(1 - progress) * 100}% 0 0 round 999px)`,
+                willChange: "clip-path",
+              }}
+            >
+              <div
+                data-testid="anim-arrow-track"
+                className="absolute left-0 top-1/2 -translate-y-1/2"
+                style={{
+                  width: "100%",
+                  transform: `translate3d(${(1 - progress) * 110}%, -50%, 0)`,
+                  willChange: "transform",
+                }}
+              >
+                <img
+                  data-testid="img-header-arrow"
+                  src="/attached_assets/image_1769823966992.png"
+                  alt="Seta"
+                  className="h-[46px] w-auto opacity-[0.98] drop-shadow-[0_18px_30px_rgba(0,0,0,.35)] md:h-[52px]"
+                  style={{
+                    imageRendering: "auto",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <a data-testid="link-logo" href="#top" className="relative flex items-center gap-2">
+            <span
+              data-testid="logo-ball"
+              className="grid h-9 w-9 place-items-center rounded-full bg-white/18 ring-1 ring-white/15"
+            >
               <span className="h-4 w-4 rotate-12 rounded-sm bg-white" />
             </span>
-            <span className="text-sm font-semibold text-white">Track</span>
+            <span data-testid="text-logo" className="text-sm font-semibold text-white">
+              Track
+            </span>
           </a>
 
-          <div className="hidden items-center gap-7 text-xs font-medium text-white/78 md:flex">
-            <a data-testid="link-nav-home" href="#top" className="transition hover:text-white">
+          <div data-testid="nav-desktop" className="hidden items-center gap-7 text-xs font-medium text-white/78 md:flex">
+            <motion.a
+              data-testid="link-nav-home"
+              href="#top"
+              className="transition hover:text-white"
+              initial={false}
+              animate={showHome ? { opacity: 1, x: 0, filter: "blur(0px)" } : { opacity: 0, x: 14, filter: "blur(6px)" }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              style={{ pointerEvents: showHome ? "auto" : "none" }}
+            >
               Início
-            </a>
-            <a data-testid="link-nav-product" href="#product" className="transition hover:text-white">
+            </motion.a>
+            <motion.a
+              data-testid="link-nav-product"
+              href="#product"
+              className="transition hover:text-white"
+              initial={false}
+              animate={showProduct ? { opacity: 1, x: 0, filter: "blur(0px)" } : { opacity: 0, x: 14, filter: "blur(6px)" }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              style={{ pointerEvents: showProduct ? "auto" : "none" }}
+            >
               Serviços
-            </a>
-            <a data-testid="link-nav-process" href="#process" className="transition hover:text-white">
+            </motion.a>
+            <motion.a
+              data-testid="link-nav-process"
+              href="#process"
+              className="transition hover:text-white"
+              initial={false}
+              animate={showProcess ? { opacity: 1, x: 0, filter: "blur(0px)" } : { opacity: 0, x: 14, filter: "blur(6px)" }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              style={{ pointerEvents: showProcess ? "auto" : "none" }}
+            >
               Abordagem
-            </a>
-            <a data-testid="link-nav-testimonials" href="#testimonials" className="transition hover:text-white">
+            </motion.a>
+            <motion.a
+              data-testid="link-nav-testimonials"
+              href="#testimonials"
+              className="transition hover:text-white"
+              initial={false}
+              animate={showTestimonials ? { opacity: 1, x: 0, filter: "blur(0px)" } : { opacity: 0, x: 14, filter: "blur(6px)" }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              style={{ pointerEvents: showTestimonials ? "auto" : "none" }}
+            >
               Depoimentos
-            </a>
+            </motion.a>
           </div>
 
           <button
             data-testid="button-contact"
             onClick={onContact}
-            className="rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1a0335] active:scale-[0.98]"
+            className="relative rounded-full bg-[#100121] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1a0335] active:scale-[0.98]"
           >
             Fale Conosco
           </button>
