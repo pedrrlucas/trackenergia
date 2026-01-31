@@ -320,7 +320,7 @@ function Nav({ onContact }: { onContact: () => void }) {
                     data-testid="img-header-arrow"
                     src="/attached_assets/arrow.png"
                     alt="Seta"
-                    className="h-[46px] w-auto origin-left opacity-[0.98] drop-shadow-[0_18px_30px_rgba(0,0,0,.35)] md:h-[52px]"
+                    className="h-[46px] w-auto origin-left opacity-[0.98] md:h-[52px]"
                     style={{
                       transform: `scale(${arrowScale})`,
                       willChange: "transform",
@@ -345,7 +345,7 @@ function Nav({ onContact }: { onContact: () => void }) {
                   data-testid="img-logo"
                   src="/attached_assets/logo.png"
                   alt="Track"
-                  className="h-10 w-10 object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,.35)]"
+                  className="h-10 w-10 object-contain"
                   style={{ pointerEvents: "none", userSelect: "none" }}
                 />
               ) : (
@@ -353,7 +353,7 @@ function Nav({ onContact }: { onContact: () => void }) {
                   data-testid="img-logo-final"
                   src="/attached_assets/official-logo.png"
                   alt="Track"
-                  className="h-10 w-10 object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,.35)] animate-[logoBoop_520ms_cubic-bezier(0.22,1,0.36,1)_both]"
+                  className="h-10 w-10 object-contain animate-[logoBoop_520ms_cubic-bezier(0.22,1,0.36,1)_both]"
                   style={{ pointerEvents: "none", userSelect: "none" }}
                 />
               )}
