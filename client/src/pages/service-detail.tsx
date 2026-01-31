@@ -365,7 +365,7 @@ export default function ServiceDetailPage() {
                       <Accordion.Header className="">
                         <Accordion.Trigger
                           data-testid={`accordion-scope-trigger-${i}`}
-                          className="group flex w-full items-center justify-between gap-4 px-7 py-5 text-left"
+                          className="group flex w-full cursor-pointer items-center justify-between gap-4 px-7 py-5 text-left transition hover:bg-zinc-50"
                         >
                           <div className="min-w-0">
                             <div className="truncate text-sm font-semibold text-zinc-950">{s}</div>
@@ -409,9 +409,9 @@ export default function ServiceDetailPage() {
                       <div
                         key={i}
                         data-testid={`row-outcome-${i}`}
-                        className="flex items-start gap-3 rounded-[20px] bg-white/10 p-4 ring-1 ring-white/12"
+                        className="flex items-center gap-3 rounded-[20px] bg-white/10 p-4 ring-1 ring-white/12"
                       >
-                        <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white/10 ring-1 ring-white/12">
+                        <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white/10 ring-1 ring-white/12">
                           <Check className="h-4 w-4 text-white" strokeWidth={2.5} />
                         </span>
                         <div className="text-sm font-semibold text-white">{o}</div>
@@ -445,7 +445,7 @@ export default function ServiceDetailPage() {
                     <Accordion.Header>
                       <Accordion.Trigger
                         data-testid={`accordion-section-trigger-${sec.id}`}
-                        className="group flex w-full items-center justify-between gap-4 px-7 py-6 text-left"
+                        className="group flex w-full cursor-pointer items-center justify-between gap-4 px-7 py-6 text-left transition hover:bg-zinc-50"
                       >
                         <div className="flex items-center gap-3">
                           <div className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-zinc-100 text-zinc-700 ring-1 ring-zinc-200">
