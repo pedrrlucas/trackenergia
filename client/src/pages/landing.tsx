@@ -1156,37 +1156,50 @@ function ProductGrid({ products }: { products: Product[] }) {
               ))}
             </div>
 
-            <div className="mt-4 flex items-center justify-end gap-2">
-              <button
-                data-testid="button-grid-prev-mobile"
-                onClick={() => {
-                  const el = document.getElementById("services-mobile-scroll");
-                  if (!el) return;
-                  const card = el.querySelector<HTMLElement>("[data-service-card]");
-                  const gap = 16;
-                  const step = card ? card.offsetWidth + gap : el.clientWidth;
-                  el.scrollBy({ left: -step, behavior: "smooth" });
-                }}
-                className="grid h-10 w-10 place-items-center rounded-full bg-white text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
-                aria-label="Serviço anterior"
+            <div className="mt-4 flex items-center justify-between gap-3">
+              <a
+                data-testid="link-services-view-all"
+                href="/servicos"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
               >
-                <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
-              </button>
-              <button
-                data-testid="button-grid-next-mobile"
-                onClick={() => {
-                  const el = document.getElementById("services-mobile-scroll");
-                  if (!el) return;
-                  const card = el.querySelector<HTMLElement>("[data-service-card]");
-                  const gap = 16;
-                  const step = card ? card.offsetWidth + gap : el.clientWidth;
-                  el.scrollBy({ left: step, behavior: "smooth" });
-                }}
-                className="grid h-10 w-10 place-items-center rounded-full bg-white text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
-                aria-label="Próximo serviço"
-              >
-                <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
-              </button>
+                Ver todos os serviços
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-zinc-100 ring-1 ring-zinc-200">
+                  <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
+                </span>
+              </a>
+
+              <div className="flex items-center justify-end gap-2">
+                <button
+                  data-testid="button-grid-prev-mobile"
+                  onClick={() => {
+                    const el = document.getElementById("services-mobile-scroll");
+                    if (!el) return;
+                    const card = el.querySelector<HTMLElement>("[data-service-card]");
+                    const gap = 16;
+                    const step = card ? card.offsetWidth + gap : el.clientWidth;
+                    el.scrollBy({ left: -step, behavior: "smooth" });
+                  }}
+                  className="grid h-10 w-10 place-items-center rounded-full bg-white text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+                  aria-label="Serviço anterior"
+                >
+                  <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
+                </button>
+                <button
+                  data-testid="button-grid-next-mobile"
+                  onClick={() => {
+                    const el = document.getElementById("services-mobile-scroll");
+                    if (!el) return;
+                    const card = el.querySelector<HTMLElement>("[data-service-card]");
+                    const gap = 16;
+                    const step = card ? card.offsetWidth + gap : el.clientWidth;
+                    el.scrollBy({ left: step, behavior: "smooth" });
+                  }}
+                  className="grid h-10 w-10 place-items-center rounded-full bg-white text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+                  aria-label="Próximo serviço"
+                >
+                  <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
