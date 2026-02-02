@@ -124,7 +124,7 @@ export default function Services() {
         </div>
 
         <div className="relative mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
-          <div className="pt-20 sm:pt-24 lg:pt-28 pb-16 sm:pb-20 lg:pb-24">
+          <div className="pt-24 sm:pt-24 lg:pt-28 pb-16 sm:pb-20 lg:pb-24">
             <motion.div
               initial={reduced ? undefined : { opacity: 0, y: 14 }}
               animate={reduced ? undefined : { opacity: 1, y: 0 }}
@@ -133,7 +133,7 @@ export default function Services() {
               <a
                 data-testid="link-back-home"
                 href="/"
-                className="inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950"
+                className="inline-flex items-center gap-2 rounded-full bg-[#1d0238]/7 px-3 py-1 text-xs font-medium text-zinc-700 ring-1 ring-[#1d0238]/18 transition hover:bg-[#1d0238]/9 hover:text-zinc-900"
               >
                 ← Voltar para a página inicial
               </a>
