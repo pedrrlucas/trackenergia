@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
+  ArrowUpRight,
   ChevronLeft,
   ChevronRight,
   CirclePlay,
@@ -975,7 +976,7 @@ function ProductGrid({ products }: { products: Product[] }) {
                           exit={{ opacity: 0, scale: 0.98 }}
                           transition={{ duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
                         >
-                          Ver detalhes
+                          Saiba mais
                           <span className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/14 ring-1 ring-white/16">
                             <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
                           </span>
@@ -1043,7 +1044,7 @@ function ProductGrid({ products }: { products: Product[] }) {
                           exit={{ opacity: 0, scale: 0.98 }}
                           transition={{ duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
                         >
-                          Ver detalhes
+                          Saiba mais
                           <span className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/14 ring-1 ring-white/16">
                             <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
                           </span>
@@ -1144,7 +1145,7 @@ function ProductGrid({ products }: { products: Product[] }) {
                           data-testid={`button-service-details-${p.id}`}
                           className="group/details inline-flex items-center gap-2 rounded-full bg-zinc-100 px-3.5 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
                         >
-                          Ver detalhes
+                          Saiba mais
                           <span className="grid h-7 w-7 place-items-center rounded-full bg-white ring-1 ring-zinc-200 transition group-hover/details:translate-x-0.5">
                             <ArrowRight className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
                           </span>
@@ -1160,11 +1161,11 @@ function ProductGrid({ products }: { products: Product[] }) {
               <a
                 data-testid="link-services-view-all"
                 href="/servicos"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+                className="inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/10 transition hover:bg-[#30045c] active:scale-[0.98]"
               >
                 Ver todos os serviços
-                <span className="grid h-7 w-7 place-items-center rounded-full bg-zinc-100 ring-1 ring-zinc-200">
-                  <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/10">
+                  <ArrowUpRight className="h-4 w-4" strokeWidth={2.25} />
                 </span>
               </a>
 
