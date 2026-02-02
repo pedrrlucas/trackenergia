@@ -178,19 +178,15 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
         <div
           ref={headerRef}
           data-testid="header-shell"
-          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full px-4 py-3 ring-1 ring-white/20 backdrop-blur-xl"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.10) 35%, rgba(29,2,56,0.10) 68%, rgba(255,255,255,0.18) 100%)",
-          }}
+          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/70 px-4 py-3 ring-1 ring-zinc-200/70 backdrop-blur-xl"
         >
           <div
             data-testid="bg-header-glass-sheen"
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(90deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.10) 22%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.10) 78%, rgba(255,255,255,0.34) 100%)",
-              opacity: 0.9,
+                "linear-gradient(90deg, rgba(255,255,255,0.58) 0%, rgba(255,255,255,0.22) 22%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.22) 78%, rgba(255,255,255,0.58) 100%)",
+              opacity: 0.7,
               zIndex: 0,
             }}
           />
@@ -199,20 +195,20 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(120% 120% at 50% 0%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 58%), radial-gradient(120% 160% at 50% 120%, rgba(29,2,56,0.14) 0%, rgba(29,2,56,0) 55%)",
+                "radial-gradient(120% 120% at 50% 0%, rgba(255,255,255,0.60) 0%, rgba(255,255,255,0.00) 58%)",
               zIndex: 0,
             }}
           />
-          <div data-testid="bg-header-glass-noise" className="pointer-events-none absolute inset-0 noise opacity-[0.10]" />
+          <div data-testid="bg-header-glass-noise" className="pointer-events-none absolute inset-0 noise opacity-[0.06]" />
           <div
             data-testid="bg-header-glass-highlight"
             className="pointer-events-none absolute -left-14 top-1/2 h-10 w-[220px] -translate-y-1/2 rotate-[-12deg] rounded-full blur-md"
-            style={{ background: "rgba(255,255,255,0.34)" }}
+            style={{ background: "rgba(255,255,255,0.44)" }}
           />
           <div
             data-testid="bg-header-glass-highlight-2"
             className="pointer-events-none absolute -right-14 top-1/2 h-10 w-[220px] -translate-y-1/2 rotate-[12deg] rounded-full blur-md"
-            style={{ background: "rgba(255,255,255,0.22)" }}
+            style={{ background: "rgba(255,255,255,0.32)" }}
           />
 
           {!arrowGone ? (
