@@ -288,16 +288,16 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
                 />
               )}
             </span>
-            <span data-testid="text-logo" className="text-sm font-semibold text-white">
+            <span data-testid="text-logo" className="text-sm font-semibold text-zinc-700">
               Track
             </span>
           </a>
 
-          <div data-testid="nav-desktop" className="relative z-10 hidden items-center gap-7 text-xs font-medium text-white/85 md:flex">
+          <div data-testid="nav-desktop" className="relative z-10 hidden items-center gap-7 text-xs font-medium text-zinc-700 md:flex">
             <a
               data-testid="link-nav-home"
               href="#top"
-              className="transition hover:text-white"
+              className="transition hover:text-zinc-900"
               style={{ pointerEvents: showHome ? "auto" : "none", visibility: showHome ? "visible" : "hidden" }}
             >
               Início
@@ -305,7 +305,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             <a
               data-testid="link-nav-product"
               href="#product"
-              className="transition hover:text-white"
+              className="transition hover:text-zinc-900"
               style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
             >
               Serviços
@@ -313,7 +313,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             <a
               data-testid="link-nav-process"
               href="#process"
-              className="transition hover:text-white"
+              className="transition hover:text-zinc-900"
               style={{ pointerEvents: showProcess ? "auto" : "none", visibility: showProcess ? "visible" : "hidden" }}
             >
               Abordagem
@@ -321,7 +321,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             <a
               data-testid="link-nav-testimonials"
               href="#testimonials"
-              className="transition hover:text-white"
+              className="transition hover:text-zinc-900"
               style={{
                 pointerEvents: showTestimonials ? "auto" : "none",
                 visibility: showTestimonials ? "visible" : "hidden",
@@ -335,17 +335,17 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             data-testid="button-contact"
             style={{ zIndex: 10 }}
             onClick={onContact}
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/22 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/70 px-4 py-2 text-xs font-semibold text-zinc-700 ring-1 ring-zinc-200/70 backdrop-blur-xl transition hover:bg-white/80 hover:text-zinc-800 active:scale-[0.98]"
           >
             <span className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               <span className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.18) 22%, rgba(255,255,255,0.00) 48%, rgba(255,255,255,0.16) 74%, rgba(255,255,255,0.00) 100%)" }} />
             </span>
             <span className="relative">
-              <span className="absolute -inset-x-2 -inset-y-1 rounded-full bg-white/18 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100" />
+              <span className="absolute -inset-x-2 -inset-y-1 rounded-full bg-black/5 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100" />
               <span className="relative">Fale Conosco</span>
             </span>
-            <span className="relative grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/14 transition duration-300 group-hover:translate-x-0.5 group-hover:bg-white/14 group-active:translate-x-0">
-              <ArrowRight className="h-3.5 w-3.5 transition duration-300 group-hover:translate-x-[1px]" strokeWidth={2.25} />
+            <span className="relative grid h-7 w-7 place-items-center rounded-full bg-black/5 ring-1 ring-black/5 transition duration-300 group-hover:translate-x-0.5 group-hover:bg-black/8 group-active:translate-x-0">
+              <ArrowRight className="h-3.5 w-3.5 text-zinc-700 transition duration-300 group-hover:translate-x-[1px]" strokeWidth={2.25} />
             </span>
           </button>
         </div>
