@@ -435,6 +435,18 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
 }
 
 export function SiteFooter({ onContact }: { onContact: () => void }) {
+  const scrollRef = React.useRef<HTMLDivElement | null>(null);
+
+  const scrollBy = (dir: -1 | 1) => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const gap = 6;
+    const card = el.querySelector<HTMLElement>("[data-ig-card]");
+    const step = card ? card.offsetWidth + gap : el.clientWidth;
+    el.scrollBy({ left: dir * step, behavior: "smooth" });
+  };
+
   return (
     <footer id="footer" className="w-full bg-white">
       <div className="w-full bg-gradient-to-r from-black via-[#12001f] to-[#1d0238]">
@@ -495,7 +507,6 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                 >
                   <Linkedin className="h-5 w-5" strokeWidth={2.25} />
                 </a>
-
               </div>
             </div>
 
@@ -505,15 +516,27 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                   Conteúdo
                 </div>
                 <div className="mt-3 grid gap-2 text-xs font-medium text-white/65">
-                  <a data-testid="link-footer-home" href="/" className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white">
+                  <a
+                    data-testid="link-footer-home"
+                    href="/"
+                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                  >
                     <span>Início</span>
                     <span className="text-white/35">/</span>
                   </a>
-                  <a data-testid="link-footer-services" href="/servicos" className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white">
+                  <a
+                    data-testid="link-footer-services"
+                    href="/servicos"
+                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                  >
                     <span>Serviços</span>
                     <span className="text-white/35">/</span>
                   </a>
-                  <a data-testid="link-footer-contact" href="/contato" className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white">
+                  <a
+                    data-testid="link-footer-contact"
+                    href="/contato"
+                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                  >
                     <span>Contato</span>
                     <span className="text-white/35">/</span>
                   </a>
@@ -525,15 +548,27 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                   Soluções
                 </div>
                 <div className="mt-3 grid gap-2 text-xs font-medium text-white/65">
-                  <a data-testid="link-footer-efficiency" href="/servicos/eficiencia" className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white">
+                  <a
+                    data-testid="link-footer-efficiency"
+                    href="/servicos/eficiencia"
+                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                  >
                     <span>Eficiência</span>
                     <span className="text-white/35">/</span>
                   </a>
-                  <a data-testid="link-footer-generation" href="/servicos/geracao" className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white">
+                  <a
+                    data-testid="link-footer-generation"
+                    href="/servicos/geracao"
+                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                  >
                     <span>Geração</span>
                     <span className="text-white/35">/</span>
                   </a>
-                  <a data-testid="link-footer-storage" href="/servicos/armazenamento" className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white">
+                  <a
+                    data-testid="link-footer-storage"
+                    href="/servicos/armazenamento"
+                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                  >
                     <span>Armazenamento</span>
                     <span className="text-white/35">/</span>
                   </a>
@@ -545,19 +580,28 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                   <div data-testid="text-footer-instagram-title" className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
                     Instagram
                   </div>
-                  <a data-testid="link-footer-instagram" href="#" className="text-xs font-medium text-white/70 transition hover:text-white">
+                  <a
+                    data-testid="link-footer-instagram"
+                    href="#"
+                    className="text-xs font-medium text-white/70 transition hover:text-white"
+                  >
                     Ver mais
                   </a>
                 </div>
 
-                <div className="mt-3 rounded-2xl bg-white/6 p-2 ring-1 ring-white/10">
-                  <div className="grid grid-cols-3 gap-1.5">
-                    {new Array(3).fill(0).map((_, i) => (
+                <div data-testid="carousel-instagram" className="group relative mt-3 rounded-2xl bg-white/6 p-2 ring-1 ring-white/10">
+                  <div
+                    ref={scrollRef}
+                    className="scrollbar-none flex snap-x snap-mandatory gap-1.5 overflow-x-auto overscroll-x-contain"
+                    style={{ scrollPaddingLeft: 8, scrollPaddingRight: 8 }}
+                  >
+                    {new Array(9).fill(0).map((_, i) => (
                       <a
                         data-testid={`card-footer-ig-${i}`}
+                        data-ig-card
                         key={i}
                         href="#"
-                        className="group relative aspect-square overflow-hidden rounded-lg bg-white/7 ring-1 ring-white/10 transition hover:bg-white/10"
+                        className="relative aspect-square w-[calc((100%-12px)/3)] shrink-0 snap-start overflow-hidden rounded-lg bg-white/7 ring-1 ring-white/10 transition hover:bg-white/10"
                         aria-label={`Post do Instagram ${i + 1}`}
                       >
                         <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
@@ -568,8 +612,26 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                       </a>
                     ))}
                   </div>
-                </div>
 
+                  <button
+                    type="button"
+                    data-testid="button-ig-prev"
+                    onClick={() => scrollBy(-1)}
+                    className="pointer-events-none absolute left-2 top-1/2 hidden h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-white/12 text-white/80 opacity-0 ring-1 ring-white/16 backdrop-blur transition group-hover:opacity-100 md:grid md:group-hover:pointer-events-auto"
+                    aria-label="Anterior"
+                  >
+                    <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
+                  </button>
+                  <button
+                    type="button"
+                    data-testid="button-ig-next"
+                    onClick={() => scrollBy(1)}
+                    className="pointer-events-none absolute right-2 top-1/2 hidden h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-white/12 text-white/80 opacity-0 ring-1 ring-white/16 backdrop-blur transition group-hover:opacity-100 md:grid md:group-hover:pointer-events-auto"
+                    aria-label="Próximo"
+                  >
+                    <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
