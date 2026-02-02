@@ -1073,7 +1073,7 @@ function ProductGrid({ products }: { products: Product[] }) {
         </div>
 
         <div className="lg:hidden">
-          <div className="mt-4 flex items-end justify-between gap-4">
+          <div className="mt-4">
             <h3
               data-testid="text-grid-title-mobile"
               className="text-balance text-[38px] font-medium leading-[1.06] tracking-[-0.03em]"
@@ -1083,7 +1083,7 @@ function ProductGrid({ products }: { products: Product[] }) {
               <span className="subtle-grad">serviços em energia</span>
             </h3>
 
-            <div className="flex items-center gap-2">
+            <div className="mt-4 flex items-center justify-end gap-2">
               <button
                 data-testid="button-grid-prev-mobile"
                 onClick={() => {
@@ -1117,11 +1117,6 @@ function ProductGrid({ products }: { products: Product[] }) {
             </div>
           </div>
 
-          <div className="mt-2 flex items-center justify-between">
-            <p data-testid="text-grid-sub-mobile" className="text-sm leading-6 text-zinc-500">
-              Arraste para ver mais. Cada card é um serviço.
-            </p>
-          </div>
 
           <div
             id="services-mobile-scroll"
@@ -1267,57 +1262,9 @@ function Testimonials() {
       <div className="flex items-start justify-between gap-6">
         <Pill testId="pill-testimonials">( depoimentos )</Pill>
 
-        <div className="flex items-center gap-2 sm:hidden">
-          <button
-            data-testid="button-testimonials-prev-mobile-top"
-            onClick={() => {
-              const idx = items.findIndex((i) => i.id === activeItem.id);
-              const next = (idx - 1 + items.length) % items.length;
-              setActive(items[next].id);
-            }}
-            className="grid h-9 w-9 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
-            aria-label="Depoimento anterior"
-          >
-            <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
-          </button>
-          <button
-            data-testid="button-testimonials-next-mobile-top"
-            onClick={() => {
-              const idx = items.findIndex((i) => i.id === activeItem.id);
-              const next = (idx + 1) % items.length;
-              setActive(items[next].id);
-            }}
-            className="grid h-9 w-9 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
-            aria-label="Próximo depoimento"
-          >
-            <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
-          </button>
-        </div>
+        <div className="hidden" />
 
-        <div className="hidden items-center gap-2 sm:flex">
-          <button
-            data-testid="button-testimonials-prev"
-            onClick={() => {
-              const idx = items.findIndex((i) => i.id === activeItem.id);
-              const next = (idx - 1 + items.length) % items.length;
-              setActive(items[next].id);
-            }}
-            className="grid h-10 w-10 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
-          >
-            <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
-          </button>
-          <button
-            data-testid="button-testimonials-next"
-            onClick={() => {
-              const idx = items.findIndex((i) => i.id === activeItem.id);
-              const next = (idx + 1) % items.length;
-              setActive(items[next].id);
-            }}
-            className="grid h-10 w-10 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
-          >
-            <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
-          </button>
-        </div>
+        <div className="hidden" />
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
@@ -1339,9 +1286,38 @@ function Testimonials() {
                   <br />
                   <span className="subtle-grad-dark">falam sobre a Track</span>
                 </div>
-                <p data-testid="text-testimonials-sub" className="mt-3 max-w-[520px] text-sm leading-6 text-white/70">
-                  Experiências reais de quem implementou soluções com a Track, do diagnóstico à operação, com acompanhamento e foco em resultado.
-                </p>
+                <div className="mt-3 flex items-end justify-between gap-3">
+                  <p data-testid="text-testimonials-sub" className="max-w-[520px] text-sm leading-6 text-white/70">
+                    Experiências reais de quem implementou soluções com a Track, do diagnóstico à operação, com acompanhamento e foco em resultado.
+                  </p>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      data-testid="button-testimonials-prev-sub"
+                      onClick={() => {
+                        const idx = items.findIndex((i) => i.id === activeItem.id);
+                        const next = (idx - 1 + items.length) % items.length;
+                        setActive(items[next].id);
+                      }}
+                      className="grid h-10 w-10 place-items-center rounded-full bg-white/12 text-white ring-1 ring-white/16 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+                      aria-label="Depoimento anterior"
+                    >
+                      <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
+                    </button>
+                    <button
+                      data-testid="button-testimonials-next-sub"
+                      onClick={() => {
+                        const idx = items.findIndex((i) => i.id === activeItem.id);
+                        const next = (idx + 1) % items.length;
+                        setActive(items[next].id);
+                      }}
+                      className="grid h-10 w-10 place-items-center rounded-full bg-white/12 text-white ring-1 ring-white/16 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+                      aria-label="Próximo depoimento"
+                    >
+                      <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <div className="hidden sm:grid h-11 w-11 place-items-center rounded-2xl bg-white/10 ring-1 ring-white/12">
