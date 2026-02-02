@@ -439,8 +439,8 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
     <footer id="footer" className="w-full bg-white">
       <div className="w-full bg-gradient-to-r from-black via-[#12001f] to-[#1d0238]">
         <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
-          <div className="grid gap-12 py-10 md:grid-cols-[360px_minmax(0,1fr)] md:items-start md:gap-16 md:py-12">
-            <div>
+          <div className="grid gap-10 py-10 md:grid-cols-4 md:items-start md:gap-10 md:py-12">
+            <div className="min-w-0">
               <div className="flex items-center gap-2">
                 <span className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/10">
                   <span className="h-4 w-4 rotate-12 rounded-sm bg-white" />
@@ -451,9 +451,7 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
               </div>
 
               <div data-testid="text-footer-address" className="mt-5 text-xs leading-5 text-white/60">
-                Track, Soluções em energia
-                <br />
-                Brasil
+                Track, Soluções em energia · Brasil
               </div>
 
               <div className="mt-6 flex flex-wrap items-center gap-2 text-white/75">
@@ -511,31 +509,43 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
               </div>
             </div>
 
-            <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_360px] md:items-start">
+            <div className="contents">
               <div>
-                <div className="text-xs font-semibold text-white">Conteúdo</div>
-                <div className="mt-3 grid gap-2 text-xs text-white/70">
-                  <a data-testid="link-footer-home" href="/" className="transition hover:text-white">
-                    Início
+                <div data-testid="text-footer-content-title" className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
+                  Conteúdo
+                </div>
+                <div className="mt-3 grid gap-2 text-xs font-medium text-white/65">
+                  <a data-testid="link-footer-home" href="/" className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white">
+                    <span>Início</span>
+                    <span className="text-white/35">/</span>
                   </a>
-                  <a data-testid="link-footer-services" href="/servicos" className="transition hover:text-white">
-                    Serviços
+                  <a data-testid="link-footer-services" href="/servicos" className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white">
+                    <span>Serviços</span>
+                    <span className="text-white/35">/</span>
                   </a>
-                  <a data-testid="link-footer-contact" href="/contato" className="transition hover:text-white">
-                    Contato
+                  <a data-testid="link-footer-contact" href="/contato" className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white">
+                    <span>Contato</span>
+                    <span className="text-white/35">/</span>
                   </a>
                 </div>
+              </div>
 
-                <div className="mt-7 text-xs font-semibold text-white">Soluções</div>
-                <div className="mt-3 grid gap-2 text-xs text-white/70">
-                  <a data-testid="link-footer-efficiency" href="/servicos/eficiencia" className="transition hover:text-white">
-                    Eficiência
+              <div>
+                <div data-testid="text-footer-solutions-title" className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
+                  Soluções
+                </div>
+                <div className="mt-3 grid gap-2 text-xs font-medium text-white/65">
+                  <a data-testid="link-footer-efficiency" href="/servicos/eficiencia" className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white">
+                    <span>Eficiência</span>
+                    <span className="text-white/35">/</span>
                   </a>
-                  <a data-testid="link-footer-generation" href="/servicos/geracao" className="transition hover:text-white">
-                    Geração
+                  <a data-testid="link-footer-generation" href="/servicos/geracao" className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white">
+                    <span>Geração</span>
+                    <span className="text-white/35">/</span>
                   </a>
-                  <a data-testid="link-footer-storage" href="/servicos/armazenamento" className="transition hover:text-white">
-                    Armazenamento
+                  <a data-testid="link-footer-storage" href="/servicos/armazenamento" className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white">
+                    <span>Armazenamento</span>
+                    <span className="text-white/35">/</span>
                   </a>
                 </div>
               </div>
@@ -550,26 +560,28 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                   </a>
                 </div>
 
-                <div className="mt-4 grid grid-cols-3 gap-2">
-                  {new Array(9).fill(0).map((_, i) => (
-                    <a
-                      data-testid={`card-footer-ig-${i}`}
-                      key={i}
-                      href="#"
-                      className="group relative aspect-square overflow-hidden rounded-xl bg-white/8 ring-1 ring-white/10 transition hover:bg-white/10"
-                      aria-label={`Post do Instagram ${i + 1}`}
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
-                      <div className="absolute inset-0 grid place-items-center">
-                        <div className="h-10 w-10 rounded-2xl bg-white/10 ring-1 ring-white/12" />
-                      </div>
-                      <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition group-hover:opacity-100" />
-                    </a>
-                  ))}
+                <div className="mt-3 rounded-2xl bg-white/6 p-2 ring-1 ring-white/10">
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {new Array(9).fill(0).map((_, i) => (
+                      <a
+                        data-testid={`card-footer-ig-${i}`}
+                        key={i}
+                        href="#"
+                        className="group relative aspect-square overflow-hidden rounded-lg bg-white/7 ring-1 ring-white/10 transition hover:bg-white/10"
+                        aria-label={`Post do Instagram ${i + 1}`}
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
+                        <div className="absolute inset-0 grid place-items-center">
+                          <div className="h-7 w-7 rounded-xl bg-white/10 ring-1 ring-white/12" />
+                        </div>
+                        <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-black/45 to-transparent opacity-0 transition group-hover:opacity-100" />
+                      </a>
+                    ))}
+                  </div>
                 </div>
 
-                <div data-testid="text-footer-instagram-hint" className="mt-3 text-[11px] leading-5 text-white/55">
-                  Espaços reservados para 9 imagens quadradas (posts).
+                <div data-testid="text-footer-instagram-hint" className="mt-2 text-[11px] leading-5 text-white/50">
+                  Grade 3×3 (posts)
                 </div>
               </div>
             </div>
