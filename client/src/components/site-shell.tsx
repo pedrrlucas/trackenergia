@@ -496,16 +496,6 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                   <Linkedin className="h-5 w-5" strokeWidth={2.25} />
                 </a>
 
-                <button
-                  data-testid="button-footer-contact"
-                  onClick={onContact}
-                  className="ml-1 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 shadow-lg shadow-black/20 ring-1 ring-white/25 transition hover:bg-zinc-50 active:scale-[0.99]"
-                >
-                  Fale com a Track
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-zinc-100 ring-1 ring-zinc-200">
-                    <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-                  </span>
-                </button>
               </div>
             </div>
 
@@ -562,12 +552,12 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
 
                 <div className="mt-3 rounded-2xl bg-white/6 p-2 ring-1 ring-white/10">
                   <div className="grid grid-cols-3 gap-1.5">
-                    {new Array(9).fill(0).map((_, i) => (
+                    {new Array(3).fill(0).map((_, i) => (
                       <a
                         data-testid={`card-footer-ig-${i}`}
                         key={i}
                         href="#"
-                        className="group relative aspect-square overflow-hidden rounded-lg bg-white/7 ring-1 ring-white/10 transition hover:bg-white/10"
+                        className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-white/7 ring-1 ring-white/10 transition hover:bg-white/10"
                         aria-label={`Post do Instagram ${i + 1}`}
                       >
                         <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
@@ -581,7 +571,7 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                 </div>
 
                 <div data-testid="text-footer-instagram-hint" className="mt-2 text-[11px] leading-5 text-white/50">
-                  Grade 3×3 (posts)
+                  3 posts em destaque
                 </div>
               </div>
             </div>
