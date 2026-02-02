@@ -1280,7 +1280,7 @@ function Testimonials() {
               </div>
             </div>
 
-            <div className="relative mt-7 rounded-[22px] bg-white/10 p-6 ring-1 ring-white/12 backdrop-blur">
+            <div className="relative mt-7 rounded-[22px] bg-white/10 p-6 pb-20 ring-1 ring-white/12 backdrop-blur">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-3">
                   <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-white/10 ring-1 ring-white/12">
