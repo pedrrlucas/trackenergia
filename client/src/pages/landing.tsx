@@ -491,7 +491,12 @@ function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
 function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void }) {
   return (
     <section id="top" className="relative min-h-screen w-full overflow-hidden bg-black">
-      <img data-testid="img-hero" src={heroImg} alt="Energia e infraestrutura" className="h-screen w-full object-cover" />
+      <img
+        data-testid="img-hero"
+        src={heroImg}
+        alt="Energia e infraestrutura"
+        className="h-screen w-full object-cover brightness-[0.78]"
+      />
       <div className="absolute inset-0 hero-overlay noise" />
 
       <div className="absolute inset-0">
