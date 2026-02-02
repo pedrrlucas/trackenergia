@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import * as Accordion from "@radix-ui/react-accordion";
 import { useLocation } from "wouter";
-import { ArrowLeft, ArrowRight, Check, ChevronRight, Sparkles, Zap, Leaf, Shield, Wrench, LineChart, BatteryCharging, Cable } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check, ChevronRight, Sparkles, Zap, Leaf, Shield, Wrench, LineChart, BatteryCharging, Cable } from "lucide-react";
 
 const revealViewport = { once: true, amount: 0.22 } as const;
 const revealTransition = { duration: 0.65, ease: [0.22, 1, 0.36, 1] } as const;
@@ -423,9 +423,10 @@ export default function ServiceDetailPage() {
                     <a
                       data-testid="link-talk-track-outcomes"
                       href="/contato"
-                      className="text-sm font-semibold text-white/90 underline decoration-white/30 underline-offset-4 transition hover:text-white hover:decoration-white/60"
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-white/90 underline decoration-white/30 underline-offset-4 transition hover:text-white hover:decoration-white/60"
                     >
                       Falar com a Track
+                      <ArrowUpRight className="h-4 w-4" strokeWidth={2.25} />
                     </a>
                   </div>
                 </div>
