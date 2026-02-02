@@ -58,55 +58,6 @@ export default function Contact() {
 
   return (
     <div data-testid="page-contact" className="min-h-screen bg-white">
-      <header data-testid="header-page" className="pointer-events-none absolute left-0 right-0 top-0 z-20">
-        <div className="container-page pointer-events-auto">
-          <div
-            data-testid="header-shell"
-            className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white px-4 py-3 ring-1 ring-zinc-200"
-          >
-            <div data-testid="bg-header-badge-sheen" className="pointer-events-none absolute inset-0">
-              <div className="absolute inset-0 bg-gradient-to-r from-zinc-50 via-white to-zinc-50" />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(90deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.00) 18%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.00) 82%, rgba(0,0,0,0.02) 100%)",
-                  opacity: 0.85,
-                }}
-              />
-              <div className="absolute inset-0 noise opacity-[0.06]" />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "radial-gradient(120% 140% at 50% 0%, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0) 52%)",
-                }}
-              />
-            </div>
-
-            <a
-              data-testid="link-header-home"
-              href="/"
-              className="relative z-10 inline-flex items-center gap-2 text-xs font-semibold text-zinc-700 transition hover:text-zinc-900"
-            >
-              Voltar
-            </a>
-
-            <div data-testid="text-header-title" className="relative z-10 text-xs font-semibold text-zinc-700">
-              Contato
-            </div>
-
-            <a
-              data-testid="link-header-services"
-              href="/servicos"
-              className="relative z-10 inline-flex items-center gap-2 text-xs font-semibold text-zinc-700 transition hover:text-zinc-900"
-            >
-              Serviços
-            </a>
-          </div>
-        </div>
-      </header>
-
       <main data-testid="main-contact" className="relative">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-zinc-50" />
