@@ -1149,7 +1149,6 @@ function ProductGrid({ products }: { products: Product[] }) {
                         </span>
                       </button>
 
-                      <span className="text-[11px] font-medium text-zinc-500">{String(i + 1).padStart(2, "0")}/{String(products.length).padStart(2, "0")}</span>
                     </div>
                   </div>
                 </div>
