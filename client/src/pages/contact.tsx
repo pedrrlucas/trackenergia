@@ -270,9 +270,6 @@ export default function Contact() {
                     </a>
                   </div>
 
-                  <div data-testid="text-social-hint" className="mt-3 text-[11px] leading-5 text-zinc-500">
-                    Se preferir, mande uma mensagem curta com seu objetivo (economia, resiliência, expansão ou migração para mercado livre).
-                  </div>
                 </div>
               </motion.section>
             </div>
