@@ -1073,7 +1073,6 @@ function ProductGrid({ products }: { products: Product[] }) {
         </div>
 
         <div className="lg:hidden">
-
           <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
             <h3
               data-testid="text-grid-title-mobile"
@@ -1091,73 +1090,87 @@ function ProductGrid({ products }: { products: Product[] }) {
             </button>
           </div>
 
-          <div className="mt-8 grid gap-5 sm:grid-cols-2">
-            {products.map((p, i) => (
-              <motion.button
-                data-testid={`card-product-mobile-${p.id}`}
-                key={`mobile-${p.id}`}
-                onHoverStart={() => setActiveMobile(p.id)}
-                onHoverEnd={() => setActiveMobile((cur) => (cur === p.id ? null : cur))}
-                onFocus={() => setActiveMobile(p.id)}
-                onBlur={() => setActiveMobile((cur) => (cur === p.id ? null : cur))}
-                className="group text-left"
-                initial={reduced ? undefined : { opacity: 0, y: 10 }}
-                whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1], delay: i * 0.04 }}
-              >
-                <div className="relative overflow-hidden rounded-[26px] bg-zinc-100 ring-1 ring-zinc-200">
-                  <img
-                    data-testid={`img-product-grid-mobile-${p.id}`}
-                    src={p.image}
-                    alt={p.title}
-                    className="h-[220px] w-full object-cover transition duration-700 group-hover:scale-[1.03]"
-                  />
+          <div className="mt-6 rounded-[26px] bg-zinc-50 p-2 ring-1 ring-zinc-200">
+            <div className="flex gap-2 overflow-x-auto scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {products.map((p, i) => (
+                <motion.button
+                  data-testid={`card-product-mobile-${p.id}`}
+                  key={`mobile-${p.id}`}
+                  onClick={() => setActiveMobile(p.id)}
+                  onFocus={() => setActiveMobile(p.id)}
+                  className={
+                    "relative shrink-0 snap-start overflow-hidden rounded-[22px] ring-1 transition " +
+                    (activeMobile === p.id ? "bg-white ring-zinc-300" : "bg-white/70 ring-zinc-200")
+                  }
+                  style={{ width: "82%" }}
+                  initial={reduced ? undefined : { opacity: 0, y: 8 }}
+                  whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.4, ease: [0.2, 0.8, 0.2, 1], delay: i * 0.03 }}
+                >
+                  <div className="relative">
+                    <img
+                      data-testid={`img-product-grid-mobile-${p.id}`}
+                      src={p.image}
+                      alt={p.title}
+                      className="h-[210px] w-full object-cover"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0" />
 
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-80" />
-
-                  <AnimatePresence>
-                    {activeMobile === p.id ? (
-                      <motion.div
-                        className="absolute inset-0 grid place-items-center"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
+                    <div className="pointer-events-none absolute left-3 top-3">
+                      <div
+                        data-testid={`text-product-grid-mobile-tag-${p.id}`}
+                        className="inline-flex items-center rounded-full bg-white/14 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white ring-1 ring-white/18 backdrop-blur"
                       >
-                        <motion.div
-                          className="glass inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold leading-none text-white"
-                          initial={{ opacity: 0, scale: 0.98 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.98 }}
-                          transition={{ duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
-                        >
-                          Ver detalhes
-                          <span className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/14 ring-1 ring-white/16">
-                            <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-                          </span>
-                        </motion.div>
-                      </motion.div>
-                    ) : null}
-                  </AnimatePresence>
-                </div>
+                        {p.tag}
+                      </div>
+                    </div>
 
-                <div className="mt-4">
-                  <div
-                    data-testid={`text-product-grid-mobile-tag-${p.id}`}
-                    className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500"
-                  >
-                    {p.tag}
+                    <div className="pointer-events-none absolute bottom-3 left-3 right-3">
+                      <div
+                        data-testid={`text-product-grid-mobile-title-${p.id}`}
+                        className="text-base font-semibold leading-tight text-white"
+                      >
+                        {p.title}
+                      </div>
+                      <div
+                        data-testid={`text-product-grid-mobile-sub-${p.id}`}
+                        className="mt-0.5 text-sm leading-5 text-white/80"
+                      >
+                        {p.subtitle}
+                      </div>
+                    </div>
+
+                    <div
+                      className={
+                        "pointer-events-none absolute inset-x-0 bottom-0 h-1.5 bg-gradient-to-r from-transparent via-white/45 to-transparent transition " +
+                        (activeMobile === p.id ? "opacity-100" : "opacity-0")
+                      }
+                    />
                   </div>
-                  <div data-testid={`text-product-grid-mobile-title-${p.id}`} className="mt-2 text-sm font-semibold text-zinc-950">
-                    {p.title}
-                  </div>
-                  <div data-testid={`text-product-grid-mobile-sub-${p.id}`} className="mt-1 text-sm text-zinc-500">
-                    {p.subtitle}
-                  </div>
-                </div>
-              </motion.button>
-            ))}
+                </motion.button>
+              ))}
+            </div>
+
+            <div className="mt-3 flex items-center justify-between px-2">
+              <div data-testid="text-services-scroll-hint" className="text-[11px] font-medium text-zinc-500">
+                Arraste para ver mais
+              </div>
+              <div className="flex items-center gap-1.5">
+                {products.slice(0, 9).map((p, idx) => (
+                  <button
+                    key={p.id}
+                    data-testid={`dot-services-${p.id}`}
+                    onClick={() => setActiveMobile(p.id)}
+                    aria-label={`Selecionar ${p.title}`}
+                    className={
+                      "h-1.5 w-1.5 rounded-full transition " +
+                      (activeMobile === p.id ? "bg-zinc-900" : "bg-zinc-300")
+                    }
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

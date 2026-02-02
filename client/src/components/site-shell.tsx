@@ -550,23 +550,43 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                   </a>
                 </div>
 
-                <div className="mt-3 rounded-2xl bg-white/6 p-2 ring-1 ring-white/10">
-                  <div className="grid grid-cols-3 gap-1.5">
-                    {new Array(3).fill(0).map((_, i) => (
-                      <a
-                        data-testid={`card-footer-ig-${i}`}
-                        key={i}
-                        href="#"
-                        className="group relative aspect-square overflow-hidden rounded-lg bg-white/7 ring-1 ring-white/10 transition hover:bg-white/10"
-                        aria-label={`Post do Instagram ${i + 1}`}
+                <div className="mt-3">
+                  <div
+                    data-testid="carousel-instagram"
+                    className="group relative rounded-2xl bg-white/6 p-2 ring-1 ring-white/10"
+                  >
+                    <div
+                      data-testid="carousel-instagram-track"
+                      className="flex gap-2 overflow-x-auto scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                    >
+                      {new Array(9).fill(0).map((_, i) => (
+                        <a
+                          data-testid={`card-footer-ig-${i}`}
+                          key={i}
+                          href="#"
+                          className="group/item relative aspect-square w-[92px] shrink-0 snap-start overflow-hidden rounded-lg bg-white/7 ring-1 ring-white/10 transition hover:bg-white/10 sm:w-[96px]"
+                          aria-label={`Post do Instagram ${i + 1}`}
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
+                          <div className="absolute inset-0 grid place-items-center">
+                            <div className="h-7 w-7 rounded-xl bg-white/10 ring-1 ring-white/12" />
+                          </div>
+                          <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-black/45 to-transparent opacity-0 transition group-hover/item:opacity-100" />
+                        </a>
+                      ))}
+                    </div>
+
+                    <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-10 bg-gradient-to-r from-black/35 to-transparent opacity-0 transition group-hover:opacity-100 lg:block" />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-10 bg-gradient-to-l from-black/35 to-transparent opacity-0 transition group-hover:opacity-100 lg:block" />
+
+                    <div className="pointer-events-none absolute inset-y-0 right-2 hidden items-center lg:flex">
+                      <div
+                        data-testid="icon-instagram-scroll-hint"
+                        className="grid h-8 w-8 place-items-center rounded-full bg-white/12 ring-1 ring-white/18 backdrop-blur opacity-0 transition group-hover:opacity-100"
                       >
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
-                        <div className="absolute inset-0 grid place-items-center">
-                          <div className="h-7 w-7 rounded-xl bg-white/10 ring-1 ring-white/12" />
-                        </div>
-                        <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-black/45 to-transparent opacity-0 transition group-hover:opacity-100" />
-                      </a>
-                    ))}
+                        <ChevronRight className="h-4 w-4 text-white" strokeWidth={2.25} />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
