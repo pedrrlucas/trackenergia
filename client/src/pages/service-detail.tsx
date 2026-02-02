@@ -263,7 +263,7 @@ export default function ServiceDetailPage() {
               <a
                 data-testid="link-back-services"
                 href="/servicos"
-                className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950 sm:mt-0"
+                className="inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950"
               >
                 <ArrowLeft className="h-4 w-4" strokeWidth={2.25} />
                 Voltar para serviços
@@ -301,7 +301,7 @@ export default function ServiceDetailPage() {
               <a
                 data-testid="link-back-services"
                 href="/servicos"
-                className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950 sm:mt-0"
+                className="inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950"
               >
                 <ArrowLeft className="h-4 w-4" strokeWidth={2.25} />
                 Voltar para serviços
