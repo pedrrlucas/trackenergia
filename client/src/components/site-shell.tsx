@@ -510,3 +510,27 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
     </footer>
   );
 }
+
+export function SiteShell({ children }: { children: React.ReactNode }) {
+  const [location] = useLocation();
+
+  const onContact = () => {
+    const path = String(location);
+    if (path === "/") {
+      const el = document.getElementById("footer");
+      el?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    window.location.href = "/contato";
+  };
+
+  return (
+    <div data-testid="site-shell" className="min-h-screen w-full">
+      <div className="relative">
+        <SiteHeader onContact={onContact} />
+        {children}
+        <SiteFooter onContact={onContact} />
+      </div>
+    </div>
+  );
+}
