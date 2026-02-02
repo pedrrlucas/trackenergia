@@ -78,6 +78,9 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
   const arrowRef = React.useRef<HTMLImageElement | null>(null);
   const logoRef = React.useRef<HTMLSpanElement | null>(null);
 
+  const [location] = useLocation();
+  const onHome = String(location) === "/";
+
   React.useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -178,42 +181,74 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
         <div
           ref={headerRef}
           data-testid="header-shell"
-          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full px-4 py-3 ring-1 ring-white/20 backdrop-blur-xl"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.10) 35%, rgba(29,2,56,0.10) 68%, rgba(255,255,255,0.18) 100%)",
-          }}
+          className={
+            onHome
+              ? "relative mt-4 flex items-center justify-between overflow-hidden rounded-full px-4 py-3 ring-1 ring-white/20 backdrop-blur-xl"
+              : "relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white px-4 py-3 ring-1 ring-zinc-200"
+          }
+          style={
+            onHome
+              ? {
+                  background:
+                    "linear-gradient(135deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.10) 35%, rgba(29,2,56,0.10) 68%, rgba(255,255,255,0.18) 100%)",
+                }
+              : undefined
+          }
         >
-          <div
-            data-testid="bg-header-glass-sheen"
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(0,0,0,0.06) 0%, rgba(255,255,255,0.22) 50%, rgba(0,0,0,0.06) 100%)",
-              opacity: 1,
-              zIndex: 0,
-            }}
-          />
-          <div
-            data-testid="bg-header-glass-vignette"
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(120% 120% at 50% 0%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 58%), radial-gradient(120% 160% at 50% 120%, rgba(29,2,56,0.14) 0%, rgba(29,2,56,0) 55%)",
-              zIndex: 0,
-            }}
-          />
-          <div data-testid="bg-header-glass-noise" className="pointer-events-none absolute inset-0 noise opacity-[0.10]" />
-          <div
-            data-testid="bg-header-glass-highlight"
-            className="pointer-events-none absolute -left-14 top-1/2 h-10 w-[220px] -translate-y-1/2 rotate-[-12deg] rounded-full blur-md"
-            style={{ background: "rgba(255,255,255,0.34)" }}
-          />
-          <div
-            data-testid="bg-header-glass-highlight-2"
-            className="pointer-events-none absolute -right-14 top-1/2 h-10 w-[220px] -translate-y-1/2 rotate-[12deg] rounded-full blur-md"
-            style={{ background: "rgba(255,255,255,0.22)" }}
-          />
+          {onHome ? (
+            <>
+              <div
+                data-testid="bg-header-glass-sheen"
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(90deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.10) 22%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.10) 78%, rgba(255,255,255,0.34) 100%)",
+                  opacity: 0.9,
+                  zIndex: 0,
+                }}
+              />
+              <div
+                data-testid="bg-header-glass-vignette"
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(120% 120% at 50% 0%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 58%), radial-gradient(120% 160% at 50% 120%, rgba(29,2,56,0.14) 0%, rgba(29,2,56,0) 55%)",
+                  zIndex: 0,
+                }}
+              />
+              <div data-testid="bg-header-glass-noise" className="pointer-events-none absolute inset-0 noise opacity-[0.10]" />
+              <div
+                data-testid="bg-header-glass-highlight"
+                className="pointer-events-none absolute -left-14 top-1/2 h-10 w-[220px] -translate-y-1/2 rotate-[-12deg] rounded-full blur-md"
+                style={{ background: "rgba(255,255,255,0.34)" }}
+              />
+              <div
+                data-testid="bg-header-glass-highlight-2"
+                className="pointer-events-none absolute -right-14 top-1/2 h-10 w-[220px] -translate-y-1/2 rotate-[12deg] rounded-full blur-md"
+                style={{ background: "rgba(255,255,255,0.22)" }}
+              />
+            </>
+          ) : (
+            <>
+              <div data-testid="bg-header-badge-sheen" className="pointer-events-none absolute inset-0">
+                <div className="absolute inset-0 bg-gradient-to-r from-zinc-100 via-white to-zinc-100" />
+                <div
+                  data-testid="bg-header-badge-center-lift"
+                  className="absolute inset-x-10 top-1/2 h-10 -translate-y-1/2 rounded-full blur-xl"
+                  style={{ background: "rgba(255,255,255,0.80)" }}
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(0,0,0,0.08) 0%, rgba(255,255,255,0.00) 22%, rgba(255,255,255,0.14) 50%, rgba(255,255,255,0.00) 78%, rgba(0,0,0,0.08) 100%)",
+                    opacity: 1,
+                  }}
+                />
+                <div className="absolute inset-0 noise opacity-[0.05]" />
+              </div>
+            </>
+          )}
 
           {!arrowGone ? (
             <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
@@ -254,19 +289,16 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
 
           <a
             data-testid="link-logo"
-            href={String(location) === "/" ? "#top" : "/"}
+            href={onHome ? "#top" : "/"}
             className="relative z-10 flex items-center gap-3"
             onClick={(e) => {
-              if (String(location) !== "/") {
+              if (!onHome) {
                 e.preventDefault();
                 window.location.href = "/";
               }
             }}
           >
-            <span
-              data-testid="text-header-tagline"
-              className="sr-only"
-            >
+            <span data-testid="text-header-tagline" className="sr-only">
               Da análise à operação: eficiência, geração, armazenamento e gestão de energia com acompanhamento.
             </span>
             <span ref={logoRef} data-testid="logo-mark" className="grid h-10 w-10 place-items-center">
@@ -288,16 +320,23 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
                 />
               )}
             </span>
-            <span data-testid="text-logo" className="text-sm font-semibold text-zinc-700">
+            <span data-testid="text-logo" className={onHome ? "text-sm font-semibold text-white" : "text-sm font-semibold text-zinc-700"}>
               Track
             </span>
           </a>
 
-          <div data-testid="nav-desktop" className="relative z-10 hidden items-center gap-7 text-xs font-medium text-zinc-700 md:flex">
+          <div
+            data-testid="nav-desktop"
+            className={
+              onHome
+                ? "relative z-10 hidden items-center gap-7 text-xs font-medium text-white/85 md:flex"
+                : "relative z-10 hidden items-center gap-7 text-xs font-medium text-zinc-700 md:flex"
+            }
+          >
             <a
               data-testid="link-nav-home"
               href="#top"
-              className="transition hover:text-zinc-900"
+              className={onHome ? "transition hover:text-white" : "transition hover:text-zinc-900"}
               style={{ pointerEvents: showHome ? "auto" : "none", visibility: showHome ? "visible" : "hidden" }}
             >
               Início
@@ -305,7 +344,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             <a
               data-testid="link-nav-product"
               href="#product"
-              className="transition hover:text-zinc-900"
+              className={onHome ? "transition hover:text-white" : "transition hover:text-zinc-900"}
               style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
             >
               Serviços
@@ -313,7 +352,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             <a
               data-testid="link-nav-process"
               href="#process"
-              className="transition hover:text-zinc-900"
+              className={onHome ? "transition hover:text-white" : "transition hover:text-zinc-900"}
               style={{ pointerEvents: showProcess ? "auto" : "none", visibility: showProcess ? "visible" : "hidden" }}
             >
               Abordagem
@@ -321,11 +360,8 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             <a
               data-testid="link-nav-testimonials"
               href="#testimonials"
-              className="transition hover:text-zinc-900"
-              style={{
-                pointerEvents: showTestimonials ? "auto" : "none",
-                visibility: showTestimonials ? "visible" : "hidden",
-              }}
+              className={onHome ? "transition hover:text-white" : "transition hover:text-zinc-900"}
+              style={{ pointerEvents: showTestimonials ? "auto" : "none", visibility: showTestimonials ? "visible" : "hidden" }}
             >
               Depoimentos
             </a>
@@ -335,17 +371,48 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             data-testid="button-contact"
             style={{ zIndex: 10 }}
             onClick={onContact}
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/70 px-4 py-2 text-xs font-semibold text-zinc-700 ring-1 ring-zinc-200/70 backdrop-blur-xl transition hover:bg-white/80 hover:text-zinc-800 active:scale-[0.98]"
+            className={
+              onHome
+                ? "group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+                : "group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/70 px-4 py-2 text-xs font-semibold text-zinc-700 ring-1 ring-zinc-200/70 backdrop-blur-xl transition hover:bg-white/80 hover:text-zinc-800 active:scale-[0.98]"
+            }
           >
-            <span className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <span className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.18) 22%, rgba(255,255,255,0.00) 48%, rgba(255,255,255,0.16) 74%, rgba(255,255,255,0.00) 100%)" }} />
-            </span>
+            {!onHome ? (
+              <span className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <span
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.06) 25%, rgba(0,0,0,0.00) 52%, rgba(0,0,0,0.05) 78%, rgba(0,0,0,0.00) 100%)",
+                  }}
+                />
+              </span>
+            ) : null}
             <span className="relative">
-              <span className="absolute -inset-x-2 -inset-y-1 rounded-full bg-black/5 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100" />
+              <span
+                className={
+                  onHome
+                    ? "absolute -inset-x-2 -inset-y-1 rounded-full bg-white/18 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100"
+                    : "absolute -inset-x-2 -inset-y-1 rounded-full bg-black/5 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100"
+                }
+              />
               <span className="relative">Fale Conosco</span>
             </span>
-            <span className="relative grid h-7 w-7 place-items-center rounded-full bg-black/5 ring-1 ring-black/5 transition duration-300 group-hover:translate-x-0.5 group-hover:bg-black/8 group-active:translate-x-0">
-              <ArrowRight className="h-3.5 w-3.5 text-zinc-700 transition duration-300 group-hover:translate-x-[1px]" strokeWidth={2.25} />
+            <span
+              className={
+                onHome
+                  ? "relative grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/14 transition duration-300 group-hover:translate-x-0.5 group-hover:bg-white/14 group-active:translate-x-0"
+                  : "relative grid h-7 w-7 place-items-center rounded-full bg-black/5 ring-1 ring-black/5 transition duration-300 group-hover:translate-x-0.5 group-hover:bg-black/8 group-active:translate-x-0"
+              }
+            >
+              <ArrowRight
+                className={
+                  onHome
+                    ? "h-3.5 w-3.5 transition duration-300 group-hover:translate-x-[1px]"
+                    : "h-3.5 w-3.5 text-zinc-700 transition duration-300 group-hover:translate-x-[1px]"
+                }
+                strokeWidth={2.25}
+              />
             </span>
           </button>
         </div>
@@ -377,131 +444,69 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
               </div>
 
               <div className="mt-6 flex items-center gap-3 text-white/70">
-                {[
-                  { k: "fb", label: "Facebook" },
-                  { k: "ig", label: "Instagram" },
-                  { k: "in", label: "LinkedIn" },
-                ].map((s) => (
-                  <a
-                    data-testid={`link-social-${s.k}`}
-                    key={s.k}
-                    href="#"
-                    className="grid h-9 w-9 place-items-center rounded-full bg-white/8 ring-1 ring-white/10 transition hover:bg-white/12"
-                    aria-label={s.label}
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-white/55" />
-                  </a>
-                ))}
+                <a data-testid="link-footer-instagram" href="#" className="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/10 transition hover:bg-white/14">
+                  Instagram
+                </a>
+                <a data-testid="link-footer-linkedin" href="#" className="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/10 transition hover:bg-white/14">
+                  LinkedIn
+                </a>
               </div>
             </div>
 
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
+            <div className="grid gap-6 md:grid-cols-3">
               <div>
-                <h3
-                  data-testid="text-footer-title"
-                  className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-[46px]"
-                >
-                  Mude sua energia
-                  <br />
-                  e ilumine o futuro,
-                  <br />
-                  <span className="subtle-grad-dark">Energia limpa e confiável</span> feita
-                  <br />
-                  <span className="subtle-grad-dark">para</span> a vida moderna
-                </h3>
-
-                <p data-testid="text-footer-desc" className="mt-5 max-w-[620px] text-sm leading-6 text-white/60">
-                  Energize sua casa ou empresa com soluções de energia eficientes e acessíveis, feitas para gerar impacto real.
-                </p>
-
-                <div className="mt-7 flex flex-wrap items-center gap-3">
-                  <PrimaryButton testId="button-footer-explore" onClick={onContact}>
-                    Vamos conversar
-                  </PrimaryButton>
-                  <GhostButton
-                    testId="button-footer-services"
-                    onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}
-                  >
-                    Nossos Serviços
-                  </GhostButton>
+                <div className="text-xs font-semibold text-white">Conteúdo</div>
+                <div className="mt-3 grid gap-2 text-xs text-white/70">
+                  <a data-testid="link-footer-home" href="/" className="transition hover:text-white">
+                    Início
+                  </a>
+                  <a data-testid="link-footer-services" href="/servicos" className="transition hover:text-white">
+                    Serviços
+                  </a>
+                  <a data-testid="link-footer-contact" href="/contato" className="transition hover:text-white">
+                    Contato
+                  </a>
                 </div>
               </div>
 
               <div>
-                <div className="flex items-center justify-between gap-3">
-                  <div data-testid="text-footer-instagram-title" className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
-                    Instagram
-                  </div>
-                  <a data-testid="link-footer-instagram" href="#" className="text-xs font-medium text-white/70 transition hover:text-white">
-                    Ver mais
+                <div className="text-xs font-semibold text-white">Soluções</div>
+                <div className="mt-3 grid gap-2 text-xs text-white/70">
+                  <a data-testid="link-footer-efficiency" href="/servicos/eficiencia" className="transition hover:text-white">
+                    Eficiência
+                  </a>
+                  <a data-testid="link-footer-generation" href="/servicos/geracao" className="transition hover:text-white">
+                    Geração
+                  </a>
+                  <a data-testid="link-footer-storage" href="/servicos/armazenamento" className="transition hover:text-white">
+                    Armazenamento
                   </a>
                 </div>
+              </div>
 
-                <div className="mt-4 grid grid-cols-3 gap-2">
-                  {new Array(9).fill(0).map((_, i) => (
-                    <a
-                      data-testid={`card-footer-ig-${i}`}
-                      key={i}
-                      href="#"
-                      className="group relative aspect-square overflow-hidden rounded-xl bg-white/8 ring-1 ring-white/10 transition hover:bg-white/10"
-                      aria-label={`Post do Instagram ${i + 1}`}
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
-                      <div className="absolute inset-0 grid place-items-center">
-                        <div className="h-10 w-10 rounded-2xl bg-white/10 ring-1 ring-white/12" />
-                      </div>
-                      <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition group-hover:opacity-100" />
-                    </a>
-                  ))}
-                </div>
-
-                <div data-testid="text-footer-instagram-hint" className="mt-3 text-[11px] leading-5 text-white/55">
-                  Espaços reservados para 9 imagens quadradas (posts).
+              <div>
+                <div className="text-xs font-semibold text-white">Ação</div>
+                <div className="mt-3">
+                  <button
+                    data-testid="button-footer-contact"
+                    onClick={onContact}
+                    className="inline-flex w-full items-center justify-between rounded-[18px] bg-white px-4 py-3 text-left text-xs font-semibold text-zinc-950 shadow-lg shadow-black/20 ring-1 ring-white/20 transition hover:bg-zinc-50"
+                  >
+                    Fale com a Track
+                    <span className="grid h-9 w-9 place-items-center rounded-full bg-zinc-100 ring-1 ring-zinc-200">
+                      <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
+                    </span>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
-        <div className="flex flex-wrap items-center justify-between gap-3 py-6 text-[11px] text-zinc-500">
-          <div data-testid="text-footer-copyright">©2026 Track. Todos os direitos reservados</div>
-          <div className="flex items-center gap-4">
-            <a data-testid="link-footer-terms" href="#" className="transition hover:text-zinc-950">
-              Termos de uso
-            </a>
-            <a data-testid="link-footer-home" href="#top" className="transition hover:text-zinc-950">
-              Início
-            </a>
-            <a data-testid="link-footer-product" href="#product" className="transition hover:text-zinc-950">
-              Serviços
-            </a>
-            <a data-testid="link-footer-process" href="#process" className="transition hover:text-zinc-950">
-              Processo
-            </a>
-            <a data-testid="link-footer-testimonials" href="#testimonials" className="transition hover:text-zinc-950">
-              Depoimentos
-            </a>
+          <div className="border-t border-white/10 py-6 text-xs text-white/55">
+            <div data-testid="text-footer-copyright">© {new Date().getFullYear()} Track. Todos os direitos reservados.</div>
           </div>
         </div>
       </div>
     </footer>
-  );
-}
-
-export function SiteShell({ children }: { children: React.ReactNode }) {
-  const [location, setLocation] = useLocation() as unknown as [string, (path: string) => void];
-
-  const onContact = React.useCallback(() => {
-    setLocation("/contato");
-  }, [setLocation]);
-
-  return (
-    <div className="min-h-screen bg-white">
-      <SiteHeader onContact={onContact} />
-      {children}
-      <SiteFooter onContact={onContact} />
-    </div>
   );
 }
