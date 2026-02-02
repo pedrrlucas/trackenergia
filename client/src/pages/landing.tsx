@@ -295,6 +295,10 @@ function Nav({ onContact }: { onContact: () => void }) {
           ref={headerRef}
           data-testid="header-shell"
           className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/10 px-4 py-3 ring-1 ring-white/16 backdrop-blur-xl"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.08) 55%, rgba(255,255,255,0.10) 100%)",
+          }}
         >
           <div
             data-testid="bg-header-glass-sheen"
