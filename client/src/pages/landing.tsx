@@ -297,14 +297,39 @@ function Nav({ onContact }: { onContact: () => void }) {
           className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full px-4 py-3 ring-1 ring-white/18 backdrop-blur-xl"
           style={{
             background:
-              "linear-gradient(135deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.08) 35%, rgba(29,2,56,0.12) 70%, rgba(255,255,255,0.14) 100%)",
+              "linear-gradient(135deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.10) 35%, rgba(29,2,56,0.10) 68%, rgba(255,255,255,0.18) 100%)",
           }}
         >
-          <div data-testid="bg-header-glass-sheen" className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.10) 22%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.10) 78%, rgba(255,255,255,0.34) 100%)", opacity: 0.85, zIndex: 0 }} />
-          <div data-testid="bg-header-glass-vignette" className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(120% 120% at 50% 0%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 58%)", zIndex: 0 }} />
-          <div data-testid="bg-header-glass-noise" className="pointer-events-none absolute inset-0 noise opacity-[0.14]" />
-          <div data-testid="bg-header-glass-highlight" className="pointer-events-none absolute -left-14 top-1/2 h-10 w-[220px] -translate-y-1/2 rotate-[-12deg] rounded-full blur-md" style={{ background: "rgba(255,255,255,0.26)" }} />
-          <div data-testid="bg-header-glass-highlight-2" className="pointer-events-none absolute -right-14 top-1/2 h-10 w-[220px] -translate-y-1/2 rotate-[12deg] rounded-full blur-md" style={{ background: "rgba(255,255,255,0.18)" }} />
+          <div
+            data-testid="bg-header-glass-sheen"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.10) 22%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.10) 78%, rgba(255,255,255,0.34) 100%)",
+              opacity: 0.9,
+              zIndex: 0,
+            }}
+          />
+          <div
+            data-testid="bg-header-glass-vignette"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(120% 140% at 50% 0%, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0) 55%)",
+              zIndex: 0,
+            }}
+          />
+          <div data-testid="bg-header-glass-noise" className="pointer-events-none absolute inset-0 noise opacity-[0.10]" />
+          <div
+            data-testid="bg-header-glass-highlight"
+            className="pointer-events-none absolute -left-14 top-1/2 h-10 w-[220px] -translate-y-1/2 rotate-[-12deg] rounded-full blur-md"
+            style={{ background: "rgba(255,255,255,0.34)" }}
+          />
+          <div
+            data-testid="bg-header-glass-highlight-2"
+            className="pointer-events-none absolute -right-14 top-1/2 h-10 w-[220px] -translate-y-1/2 rotate-[12deg] rounded-full blur-md"
+            style={{ background: "rgba(255,255,255,0.22)" }}
+          />
           {/* Seta (imagem anexada) percorre todo o header até a logo e some ao chegar */}
           {!arrowGone ? (
             <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
