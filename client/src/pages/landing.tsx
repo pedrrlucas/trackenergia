@@ -1382,7 +1382,7 @@ function Testimonials() {
           </div>
         </motion.div>
 
-        <div className="grid gap-4">
+        <div className="hidden lg:grid gap-4">
           {items.map((t, i) => {
             const selected = t.id === activeItem.id;
             return (
@@ -1458,7 +1458,7 @@ function Testimonials() {
                 <div
                   data-testid={`text-testimonial-snippet-${t.id}`}
                   className={
-                    "mt-3 hidden text-sm leading-6 " + (selected ? "text-white/75" : "text-zinc-500")
+                    "mt-3 text-sm leading-6 " + (selected ? "text-white/75" : "text-zinc-500")
                   }
                 >
                   “{t.quote}”
@@ -1466,12 +1466,6 @@ function Testimonials() {
               </motion.button>
             );
           })}
-
-          <div className="flex items-center justify-between gap-3 sm:hidden">
-            <div data-testid="text-testimonials-proof-mobile" className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">
-              4,9/5 · 1.200+ instalações
-            </div>
-          </div>
         </div>
       </div>
     </section>
