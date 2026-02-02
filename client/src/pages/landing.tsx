@@ -1093,21 +1093,17 @@ function ProductGrid({ products }: { products: Product[] }) {
             style={{ scrollPaddingLeft: 16, scrollPaddingRight: 16 }}
           >
             {products.map((p, i) => (
-              <motion.button
+              <motion.div
                 data-testid={`card-service-mobile-${p.id}`}
                 data-service-card
                 key={`mobile-${p.id}`}
-                onHoverStart={() => setActiveMobile(p.id)}
-                onHoverEnd={() => setActiveMobile((cur) => (cur === p.id ? null : cur))}
-                onFocus={() => setActiveMobile(p.id)}
-                onBlur={() => setActiveMobile((cur) => (cur === p.id ? null : cur))}
-                className="group w-[86%] max-w-[420px] shrink-0 snap-start text-left"
+                className="group w-[86%] max-w-[420px] shrink-0 snap-start"
                 initial={reduced ? undefined : { opacity: 0, y: 10 }}
                 whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1], delay: i * 0.04 }}
               >
-                <div className="relative overflow-hidden rounded-[28px] bg-white ring-1 ring-zinc-200 shadow-[0_16px_40px_-26px_rgba(0,0,0,.25)]">
+                <div className="flex h-full flex-col overflow-hidden rounded-[28px] bg-white ring-1 ring-zinc-200 shadow-[0_16px_40px_-26px_rgba(0,0,0,.25)]">
                   <div className="relative">
                     <img
                       data-testid={`img-service-mobile-${p.id}`}
@@ -1126,53 +1122,72 @@ function ProductGrid({ products }: { products: Product[] }) {
                         {p.tag}
                       </div>
                     </div>
-
-                    <AnimatePresence>
-                      {activeMobile === p.id ? (
-                        <motion.div
-                          className="absolute inset-0 grid place-items-center"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.28, ease: [0.2, 0.8, 0.2, 1] }}
-                        >
-                          <motion.div
-                            className="glass inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold leading-none text-white"
-                            initial={{ opacity: 0, scale: 0.98 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.98 }}
-                            transition={{ duration: 0.28, ease: [0.2, 0.8, 0.2, 1] }}
-                          >
-                            Ver detalhes
-                            <span className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/14 ring-1 ring-white/16">
-                              <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-                            </span>
-                          </motion.div>
-                        </motion.div>
-                      ) : null}
-                    </AnimatePresence>
                   </div>
 
-                  <div className="p-5">
-                    <div data-testid={`text-service-mobile-title-${p.id}`} className="text-base font-semibold text-zinc-950">
-                      {p.title}
+                  <div className="flex flex-1 flex-col p-5">
+                    <div>
+                      <div data-testid={`text-service-mobile-title-${p.id}`} className="text-base font-semibold text-zinc-950">
+                        {p.title}
+                      </div>
+                      <div data-testid={`text-service-mobile-sub-${p.id}`} className="mt-1 text-sm text-zinc-600">
+                        {p.subtitle}
+                      </div>
+                      <p data-testid={`text-service-mobile-desc-${p.id}`} className="mt-3 text-sm leading-6 text-zinc-500">
+                        {p.desc || "Solução sob medida com diagnóstico, projeto e acompanhamento."}
+                      </p>
                     </div>
-                    <div data-testid={`text-service-mobile-sub-${p.id}`} className="mt-1 text-sm text-zinc-600">
-                      {p.subtitle}
-                    </div>
-                    <p data-testid={`text-service-mobile-desc-${p.id}`} className="mt-3 text-sm leading-6 text-zinc-500">
-                      {p.desc || "Solução sob medida com diagnóstico, projeto e acompanhamento."}
-                    </p>
 
-                    <div className="mt-4 flex items-center justify-end">
-                      <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-zinc-100 ring-1 ring-zinc-200">
-                        <ArrowRight className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
-                      </span>
+                    <div className="mt-4 flex items-center justify-between">
+                      <button
+                        type="button"
+                        data-testid={`button-service-details-${p.id}`}
+                        className="group/details inline-flex items-center gap-2 rounded-full bg-zinc-100 px-3.5 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+                      >
+                        Ver detalhes
+                        <span className="grid h-7 w-7 place-items-center rounded-full bg-white ring-1 ring-zinc-200 transition group-hover/details:translate-x-0.5">
+                          <ArrowRight className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
+                        </span>
+                      </button>
+
+                      <span className="text-[11px] font-medium text-zinc-500">{String(i + 1).padStart(2, "0")}/{String(products.length).padStart(2, "0")}</span>
                     </div>
                   </div>
                 </div>
-              </motion.button>
+              </motion.div>
             ))}
+          </div>
+
+          <div className="mt-4 flex items-center justify-end gap-2">
+            <button
+              data-testid="button-grid-prev-mobile"
+              onClick={() => {
+                const el = document.getElementById("services-mobile-scroll");
+                if (!el) return;
+                const card = el.querySelector<HTMLElement>("[data-service-card]");
+                const gap = 16;
+                const step = card ? card.offsetWidth + gap : el.clientWidth;
+                el.scrollBy({ left: -step, behavior: "smooth" });
+              }}
+              className="grid h-10 w-10 place-items-center rounded-full bg-zinc-100 text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+              aria-label="Serviço anterior"
+            >
+              <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
+            </button>
+            <button
+              data-testid="button-grid-next-mobile"
+              onClick={() => {
+                const el = document.getElementById("services-mobile-scroll");
+                if (!el) return;
+                const card = el.querySelector<HTMLElement>("[data-service-card]");
+                const gap = 16;
+                const step = card ? card.offsetWidth + gap : el.clientWidth;
+                el.scrollBy({ left: step, behavior: "smooth" });
+              }}
+              className="grid h-10 w-10 place-items-center rounded-full bg-zinc-100 text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+              aria-label="Próximo serviço"
+            >
+              <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
+            </button>
           </div>
         </div>
       </div>
