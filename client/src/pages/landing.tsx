@@ -1104,7 +1104,7 @@ function ProductGrid({ products }: { products: Product[] }) {
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1], delay: i * 0.04 }}
                 >
-                  <div className="flex h-full flex-col overflow-hidden rounded-[24px] bg-white ring-1 ring-zinc-200 shadow-[0_14px_36px_-26px_rgba(0,0,0,.28)]">
+                  <div className="flex h-full flex-col overflow-hidden rounded-[24px] bg-white ring-1 ring-zinc-200">
                     <div className="relative">
                       <img
                         data-testid={`img-service-mobile-${p.id}`}
