@@ -1271,32 +1271,7 @@ function Testimonials() {
                     Experiências reais de quem implementou soluções com a Track, do diagnóstico à operação, com acompanhamento e foco em resultado.
                   </p>
 
-                  <div className="flex items-center gap-2">
-                    <button
-                      data-testid="button-testimonials-prev-sub"
-                      onClick={() => {
-                        const idx = items.findIndex((i) => i.id === activeItem.id);
-                        const next = (idx - 1 + items.length) % items.length;
-                        setActive(items[next].id);
-                      }}
-                      className="grid h-10 w-10 place-items-center rounded-full bg-white/12 text-white ring-1 ring-white/16 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
-                      aria-label="Depoimento anterior"
-                    >
-                      <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
-                    </button>
-                    <button
-                      data-testid="button-testimonials-next-sub"
-                      onClick={() => {
-                        const idx = items.findIndex((i) => i.id === activeItem.id);
-                        const next = (idx + 1) % items.length;
-                        setActive(items[next].id);
-                      }}
-                      className="grid h-10 w-10 place-items-center rounded-full bg-white/12 text-white ring-1 ring-white/16 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
-                      aria-label="Próximo depoimento"
-                    >
-                      <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
-                    </button>
-                  </div>
+                  <div className="hidden" />
                 </div>
               </div>
 
@@ -1305,7 +1280,7 @@ function Testimonials() {
               </div>
             </div>
 
-            <div className="mt-7 rounded-[22px] bg-white/10 p-6 ring-1 ring-white/12 backdrop-blur">
+            <div className="relative mt-7 rounded-[22px] bg-white/10 p-6 ring-1 ring-white/12 backdrop-blur">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-3">
                   <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-white/10 ring-1 ring-white/12">
@@ -1358,6 +1333,33 @@ function Testimonials() {
                   “{activeItem.quote}”
                 </motion.p>
               </AnimatePresence>
+
+              <div className="absolute bottom-4 right-4 flex items-center gap-2">
+                <button
+                  data-testid="button-testimonials-prev-inside"
+                  onClick={() => {
+                    const idx = items.findIndex((i) => i.id === activeItem.id);
+                    const next = (idx - 1 + items.length) % items.length;
+                    setActive(items[next].id);
+                  }}
+                  className="grid h-10 w-10 place-items-center rounded-full bg-white/12 text-white ring-1 ring-white/16 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+                  aria-label="Depoimento anterior"
+                >
+                  <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
+                </button>
+                <button
+                  data-testid="button-testimonials-next-inside"
+                  onClick={() => {
+                    const idx = items.findIndex((i) => i.id === activeItem.id);
+                    const next = (idx + 1) % items.length;
+                    setActive(items[next].id);
+                  }}
+                  className="grid h-10 w-10 place-items-center rounded-full bg-white/12 text-white ring-1 ring-white/16 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+                  aria-label="Próximo depoimento"
+                >
+                  <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
+                </button>
+              </div>
             </div>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
