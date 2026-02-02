@@ -497,9 +497,11 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
     setLocation("/contato");
   }, [setLocation]);
 
+  const isHome = String(location) === "/";
+
   return (
     <div className="min-h-screen bg-white">
-      <SiteHeader onContact={onContact} />
+      {isHome ? <SiteHeader onContact={onContact} /> : null}
       {children}
       <SiteFooter onContact={onContact} />
     </div>
