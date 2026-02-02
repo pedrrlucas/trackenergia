@@ -75,7 +75,7 @@ export default function Contact() {
               <a
                 data-testid="link-back-home"
                 href="/"
-                className="inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950"
+                className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950 sm:mt-0"
               >
                 ← Voltar para a página inicial
               </a>
