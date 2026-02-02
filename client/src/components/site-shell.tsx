@@ -1,7 +1,20 @@
 import React from "react";
 import { useLocation } from "wouter";
 import { AnimatePresence } from "framer-motion";
-import { ArrowRight, ChevronLeft, ChevronRight, CirclePlay, MoveUpRight, Quote, Star } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  CirclePlay,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Mail,
+  MessageCircle,
+  MoveUpRight,
+  Quote,
+  Star,
+} from "lucide-react";
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = React.useState(false);
@@ -443,17 +456,62 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                 Brasil
               </div>
 
-              <div className="mt-6 flex items-center gap-3 text-white/70">
-                <a data-testid="link-footer-instagram" href="#" className="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/10 transition hover:bg-white/14">
-                  Instagram
+              <div className="mt-6 flex flex-wrap items-center gap-2 text-white/75">
+                <a
+                  data-testid="icon-whatsapp"
+                  href="#"
+                  className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/12 transition hover:bg-white/14"
+                  aria-label="WhatsApp"
+                >
+                  <MessageCircle className="h-5 w-5" strokeWidth={2.25} />
                 </a>
-                <a data-testid="link-footer-linkedin" href="#" className="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/10 transition hover:bg-white/14">
-                  LinkedIn
+                <a
+                  data-testid="icon-email"
+                  href="#"
+                  className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/12 transition hover:bg-white/14"
+                  aria-label="E-mail"
+                >
+                  <Mail className="h-5 w-5" strokeWidth={2.25} />
                 </a>
+                <a
+                  data-testid="icon-instagram"
+                  href="#"
+                  className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/12 transition hover:bg-white/14"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="h-5 w-5" strokeWidth={2.25} />
+                </a>
+                <a
+                  data-testid="icon-facebook"
+                  href="#"
+                  className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/12 transition hover:bg-white/14"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="h-5 w-5" strokeWidth={2.25} />
+                </a>
+                <a
+                  data-testid="icon-linkedin"
+                  href="#"
+                  className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/12 transition hover:bg-white/14"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="h-5 w-5" strokeWidth={2.25} />
+                </a>
+
+                <button
+                  data-testid="button-footer-contact"
+                  onClick={onContact}
+                  className="ml-1 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 shadow-lg shadow-black/20 ring-1 ring-white/25 transition hover:bg-zinc-50 active:scale-[0.99]"
+                >
+                  Fale com a Track
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-zinc-100 ring-1 ring-zinc-200">
+                    <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
+                  </span>
+                </button>
               </div>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_360px] md:items-start">
               <div>
                 <div className="text-xs font-semibold text-white">Conteúdo</div>
                 <div className="mt-3 grid gap-2 text-xs text-white/70">
@@ -467,10 +525,8 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                     Contato
                   </a>
                 </div>
-              </div>
 
-              <div>
-                <div className="text-xs font-semibold text-white">Soluções</div>
+                <div className="mt-7 text-xs font-semibold text-white">Soluções</div>
                 <div className="mt-3 grid gap-2 text-xs text-white/70">
                   <a data-testid="link-footer-efficiency" href="/servicos/eficiencia" className="transition hover:text-white">
                     Eficiência
@@ -485,18 +541,35 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
               </div>
 
               <div>
-                <div className="text-xs font-semibold text-white">Ação</div>
-                <div className="mt-3">
-                  <button
-                    data-testid="button-footer-contact"
-                    onClick={onContact}
-                    className="inline-flex w-full items-center justify-between rounded-[18px] bg-white px-4 py-3 text-left text-xs font-semibold text-zinc-950 shadow-lg shadow-black/20 ring-1 ring-white/20 transition hover:bg-zinc-50"
-                  >
-                    Fale com a Track
-                    <span className="grid h-9 w-9 place-items-center rounded-full bg-zinc-100 ring-1 ring-zinc-200">
-                      <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-                    </span>
-                  </button>
+                <div className="flex items-center justify-between gap-3">
+                  <div data-testid="text-footer-instagram-title" className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
+                    Instagram
+                  </div>
+                  <a data-testid="link-footer-instagram" href="#" className="text-xs font-medium text-white/70 transition hover:text-white">
+                    Ver mais
+                  </a>
+                </div>
+
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  {new Array(9).fill(0).map((_, i) => (
+                    <a
+                      data-testid={`card-footer-ig-${i}`}
+                      key={i}
+                      href="#"
+                      className="group relative aspect-square overflow-hidden rounded-xl bg-white/8 ring-1 ring-white/10 transition hover:bg-white/10"
+                      aria-label={`Post do Instagram ${i + 1}`}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
+                      <div className="absolute inset-0 grid place-items-center">
+                        <div className="h-10 w-10 rounded-2xl bg-white/10 ring-1 ring-white/12" />
+                      </div>
+                      <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition group-hover:opacity-100" />
+                    </a>
+                  ))}
+                </div>
+
+                <div data-testid="text-footer-instagram-hint" className="mt-3 text-[11px] leading-5 text-white/55">
+                  Espaços reservados para 9 imagens quadradas (posts).
                 </div>
               </div>
             </div>
