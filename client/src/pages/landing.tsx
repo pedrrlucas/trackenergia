@@ -1083,38 +1083,6 @@ function ProductGrid({ products }: { products: Product[] }) {
               <span className="subtle-grad">serviços em energia</span>
             </h3>
 
-            <div className="mt-4 flex items-center justify-end gap-2">
-              <button
-                data-testid="button-grid-prev-mobile"
-                onClick={() => {
-                  const el = document.getElementById("services-mobile-scroll");
-                  if (!el) return;
-                  const card = el.querySelector<HTMLElement>("[data-service-card]");
-                  const gap = 16;
-                  const step = card ? card.offsetWidth + gap : el.clientWidth;
-                  el.scrollBy({ left: -step, behavior: "smooth" });
-                }}
-                className="grid h-10 w-10 place-items-center rounded-full bg-zinc-100 text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
-                aria-label="Serviço anterior"
-              >
-                <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
-              </button>
-              <button
-                data-testid="button-grid-next-mobile"
-                onClick={() => {
-                  const el = document.getElementById("services-mobile-scroll");
-                  if (!el) return;
-                  const card = el.querySelector<HTMLElement>("[data-service-card]");
-                  const gap = 16;
-                  const step = card ? card.offsetWidth + gap : el.clientWidth;
-                  el.scrollBy({ left: step, behavior: "smooth" });
-                }}
-                className="grid h-10 w-10 place-items-center rounded-full bg-zinc-100 text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
-                aria-label="Próximo serviço"
-              >
-                <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
-              </button>
-            </div>
           </div>
 
 
@@ -1196,10 +1164,7 @@ function ProductGrid({ products }: { products: Product[] }) {
                       {p.desc || "Solução sob medida com diagnóstico, projeto e acompanhamento."}
                     </p>
 
-                    <div className="mt-4 flex items-center justify-between">
-                      <span data-testid={`status-service-mobile-${p.id}`} className="text-xs font-medium text-zinc-500">
-                        Deslize para o próximo
-                      </span>
+                    <div className="mt-4 flex items-center justify-end">
                       <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-zinc-100 ring-1 ring-zinc-200">
                         <ArrowRight className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
                       </span>
