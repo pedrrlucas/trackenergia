@@ -230,8 +230,8 @@ function Nav({ onContact }: { onContact: () => void }) {
       const arrow = arrowEl.getBoundingClientRect();
       const logo = logoEl.getBoundingClientRect();
 
-      const startX = header.right + 8; // bico começa fora no canto direito
-      const endX = logo.left + logo.width * 0.5 - arrow.width * 0.06; // para perto da bolinha
+      const startX = header.right + 8;
+      const endX = logo.left + logo.width * 0.5 - arrow.width * 0.06;
       const distance = Math.max(1, startX - endX);
 
       return { header, startX, endX, distance };
@@ -239,24 +239,19 @@ function Nav({ onContact }: { onContact: () => void }) {
 
     let raf = 0;
     const start = performance.now();
-    const total = 920; // rápido e elegante
+    const total = 920;
 
     let last = 0;
 
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / total);
-      // easeOutCubic
       const eased = 1 - Math.pow(1 - t, 3);
 
-      // Mantém a caminhada fluida: atualiza sempre o deslocamento (transform),
-      // e limita apenas o "progress" (reveal do menu) para não pesar.
       const m = measure();
       if (m) {
         const x = m.startX - eased * m.distance;
         const p = (m.startX - x) / m.distance;
 
-        // A seta encolhe ~10% nos instantes finais (mais perceptível)
-        // (do ~70% até ~100% do percurso)
         const shrinkStart = 0.7;
         const shrinkP = Math.max(0, Math.min(1, (p - shrinkStart) / (1 - shrinkStart)));
         const scale = 1 - 0.1 * shrinkP;
@@ -282,7 +277,6 @@ function Nav({ onContact }: { onContact: () => void }) {
     return () => cancelAnimationFrame(raf);
   }, [ready, reduced]);
 
-  // Ordem pedida: Depoimentos → Abordagem → Serviços → Início (a seta vem da direita)
   const showTestimonials = progress >= 0.26;
   const showProcess = progress >= 0.42;
   const showProduct = progress >= 0.58;
@@ -294,19 +288,15 @@ function Nav({ onContact }: { onContact: () => void }) {
         <div
           ref={headerRef}
           data-testid="header-shell"
-          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/10 px-4 py-3 ring-1 ring-white/16 backdrop-blur-xl"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.08) 55%, rgba(255,255,255,0.10) 100%)",
-          }}
+          className="relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white/10 px-4 py-3 ring-1 ring-white/16 backdrop-blur md:backdrop-blur-lg"
         >
           <div
             data-testid="bg-header-glass-sheen"
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(90deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.10) 22%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.10) 78%, rgba(255,255,255,0.32) 100%)",
-              opacity: 0.9,
+                "linear-gradient(90deg, rgba(255,255,255,0.36) 0%, rgba(255,255,255,0.12) 22%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.12) 78%, rgba(255,255,255,0.36) 100%)",
+              opacity: 0.95,
               zIndex: 0,
             }}
           />
@@ -315,22 +305,34 @@ function Nav({ onContact }: { onContact: () => void }) {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(120% 140% at 50% 0%, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 55%)",
+                "radial-gradient(120% 140% at 50% 0%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 56%)",
               zIndex: 0,
             }}
           />
-          <div data-testid="bg-header-glass-noise" className="pointer-events-none absolute inset-0 noise opacity-[0.12]" />
+          <div data-testid="bg-header-glass-noise" className="pointer-events-none absolute inset-0 noise opacity-[0.08]" />
+
+          <div
+            data-testid="bg-header-glass-edge"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 40%, rgba(0,0,0,0.10) 100%)",
+              opacity: 0.35,
+              zIndex: 0,
+            }}
+          />
+
           <div
             data-testid="bg-header-glass-highlight"
             className="pointer-events-none absolute -left-14 top-1/2 h-10 w-[220px] -translate-y-1/2 rotate-[-12deg] rounded-full blur-md"
-            style={{ background: "rgba(255,255,255,0.28)" }}
+            style={{ background: "rgba(255,255,255,0.30)" }}
           />
           <div
             data-testid="bg-header-glass-highlight-2"
             className="pointer-events-none absolute -right-14 top-1/2 h-10 w-[220px] -translate-y-1/2 rotate-[12deg] rounded-full blur-md"
-            style={{ background: "rgba(255,255,255,0.18)" }}
+            style={{ background: "rgba(255,255,255,0.20)" }}
           />
-          {/* Seta (imagem anexada) percorre todo o header até a logo e some ao chegar */}
+
           {!arrowGone ? (
             <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
               <div
@@ -372,11 +374,7 @@ function Nav({ onContact }: { onContact: () => void }) {
             <span data-testid="text-header-tagline" className="sr-only">
               Da análise à operação: eficiência, geração, armazenamento e gestão de energia com acompanhamento.
             </span>
-            <span
-              ref={logoRef}
-              data-testid="logo-mark"
-              className="grid h-10 w-10 place-items-center"
-            >
+            <span ref={logoRef} data-testid="logo-mark" className="grid h-10 w-10 place-items-center">
               {!logoSwap ? (
                 <img
                   data-testid="img-logo"
@@ -668,561 +666,126 @@ function About() {
               <span className="subtle-grad">vastidão</span> de possibilidades
             </h2>
             <p data-testid="text-about-desc" className="mt-4 w-full text-sm leading-6 text-zinc-500">
-              A Track nasceu em 2024 com um propósito diferente do mercado tradicional: não vendemos equipamentos.
-              Nosso foco é entregar <span className="font-medium text-zinc-800">soluções reais</span> para quem precisa, entendendo o setor com profundidade
-              e conectando cada cliente à solução energética ideal, sem excessos e sem soluções genéricas.
+              A Track nasceu em 2024 com um propósito diferente do mercado tradicional: não vendemos equipamentos. Nosso foco é entregar{" "}
+              <span className="font-medium text-zinc-800">soluções reais</span> para quem precisa, entendendo o setor com profundidade e conectando cada cliente à solução energética ideal, sem excessos e sem soluções genéricas.
             </p>
           </div>
-
         </motion.div>
       </div>
     </motion.section>
   );
 }
 
-function ProductFeature({ product }: { product: Product }) {
+export default function Landing() {
   const reduced = usePrefersReducedMotion();
+  const [videoOpen, setVideoOpen] = useState(false);
 
-  return (
-    <motion.section
-      id="product"
-      className="container-page pb-12 sm:pb-16 lg:pb-20"
-      initial={reduced ? undefined : { opacity: 0, y: 12 }}
-      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-90px" }}
-      transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
-    >
-      <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
-        <motion.div
-          className="rounded-[28px] bg-zinc-50 p-8 ring-1 ring-zinc-100"
-          initial={reduced ? undefined : { opacity: 0, y: 10 }}
-          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-110px" }}
-          transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
-        >
-          <Pill testId="pill-popular-product" muted={false}>
-            ( soluções )
-          </Pill>
-          <h3
-            data-testid="text-product-title"
-            className="mt-6 text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em]"
-          >
-            {product.title}
-            <br />
-            <span className="subtle-grad">{product.subtitle}</span>
-          </h3>
-          <p data-testid="text-product-desc" className="mt-3 max-w-[520px] text-sm leading-6 text-zinc-500">
-            {product.desc}
-          </p>
+  const onContact = () => {
+    window.location.href = "/contato";
+  };
 
-          <div className="mt-8 grid gap-6 rounded-2xl bg-white p-5 ring-1 ring-zinc-100">
-            <div className="text-sm font-semibold text-zinc-900" data-testid="text-spec-title">
-              Destaques da solução
-            </div>
-            <div className="grid gap-6 sm:grid-cols-2">
-              <ul className="space-y-2.5 text-sm text-zinc-600">
-                {product.specLeft.map((s, idx) => (
-                  <li data-testid={`text-spec-left-${idx}`} key={idx} className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#1d0238]" />
-                    {s}
-                  </li>
-                ))}
-              </ul>
-              <ul className="space-y-2.5 text-sm text-zinc-600">
-                {product.specRight.map((s, idx) => (
-                  <li data-testid={`text-spec-right-${idx}`} key={idx} className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#1d0238]" />
-                    {s}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <button
-              data-testid="button-lets-talk"
-              className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
-            >
-              <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
-                <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
-              </span>
-              Vamos conversar
-            </button>
-            <button
-              data-testid="button-explore-product"
-              className="inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#30045c] active:scale-[0.98]"
-            >
-              Ver serviços
-              <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-            </button>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="relative hidden overflow-hidden rounded-[28px] lg:block lg:rounded-[32px]"
-          initial={reduced ? undefined : { opacity: 0, scale: 0.985 }}
-          whileInView={reduced ? undefined : { opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-120px" }}
-          transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1], delay: 0.05 }}
-        >
-          <img
-            data-testid="img-product"
-            src={product.image}
-            alt="Produto"
-            className="h-full min-h-[420px] w-full object-cover lg:min-h-[540px]"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
-        </motion.div>
-      </div>
-    </motion.section>
-  );
-}
-
-function Process() {
-  const reduced = usePrefersReducedMotion();
-
-  const slides = useMemo(
+  const products = useMemo<Product[]>(
     () => [
       {
-        k: "01",
-        title: "Parceria: diagnóstico do setor",
-        desc: "Nos conectamos com empresas, grupos e cooperativas para entender os desafios mais comuns e impactantes do segmento e compor soluções que geram competitividade, segurança ou economia.",
-        img: processImg,
+        id: "eficiencia",
+        tag: "Eficiência",
+        title: "Eficiência energética",
+        subtitle: "Diagnóstico + roadmap + execução",
+        desc: "Corte desperdícios com dados, priorização e acompanhamento — sem promessas vagas.",
+        specLeft: ["Medição e mapa de perdas", "Roadmap de payback", "Gestão de demanda"],
+        specRight: ["KPIs e governança", "Plano em 30–60 dias", "Acompanhamento"],
+        image: product1,
       },
       {
-        k: "02",
-        title: "Cliente final: proposta sob medida",
-        desc: "Analisamos perfil, objetivos e necessidades para desenhar uma proposta personalizada, sem excessos e sem soluções genéricas.",
-        img: processImg,
+        id: "geracao",
+        tag: "Geração",
+        title: "Sistemas de geração própria",
+        subtitle: "Projeto + implantação + operação",
+        desc: "Dimensionamento sob medida, implantação segura e integração ao consumo real.",
+        specLeft: ["Projeto executivo", "Implantação e comissionamento", "Integração ao local"],
+        specRight: ["Monitoramento", "Relatórios", "Evolução contínua"],
+        image: product2,
       },
       {
-        k: "03",
-        title: "Execução completa e integração",
-        desc: "Fazemos a implementação com coordenação técnica e foco em resultado: eficiência, geração própria, armazenamento, eletromobilidade e acesso ao mercado livre quando fizer sentido.",
-        img: processImg,
+        id: "armazenamento",
+        tag: "Armazenamento",
+        title: "Armazenamento de energia",
+        subtitle: "Resiliência e estabilidade",
+        desc: "Arquitetura para peak shaving, back-up e continuidade — com segurança e integração.",
+        specLeft: ["Arquitetura e segurança", "Peak shaving", "Back-up"],
+        specRight: ["Integrações", "Operação", "Indicadores"],
+        image: product3,
       },
       {
-        k: "04",
-        title: "Monitoramento contínuo e melhorias",
-        desc: "Após a entrega, acompanhamos performance, operação e manutenção quando necessário, com radar ligado para otimizações ao longo do tempo.",
-        img: processImg,
+        id: "mercado-livre",
+        tag: "Mercado",
+        title: "Mercado livre de energia",
+        subtitle: "Migração + gestão + governança",
+        desc: "Estratégia, migração e acompanhamento para manter controle de risco e previsibilidade.",
+        specLeft: ["Viabilidade e modelagem", "Migração", "Gestão pós-migração"],
+        specRight: ["Relatórios", "Governança", "Risco controlado"],
+        image: product4,
+      },
+      {
+        id: "assinatura",
+        tag: "Assinatura",
+        title: "Assinatura de energia",
+        subtitle: "Economia previsível",
+        desc: "Modelo simples com condições claras, aderência ao perfil e acompanhamento constante.",
+        specLeft: ["Condições transparentes", "Aderência ao perfil", "Onboarding"],
+        specRight: ["Acompanhamento", "Ajustes", "Previsibilidade"],
+        image: product5,
+      },
+      {
+        id: "eletromobilidade",
+        tag: "Eletromobilidade",
+        title: "Eletromobilidade",
+        subtitle: "Infra e operação",
+        desc: "Projeto elétrico, seleção de hardware e implantação com rotina pronta para escalar.",
+        specLeft: ["Projeto elétrico", "Seleção de hardware", "Implantação"],
+        specRight: ["Operação", "Manutenção", "Escala"],
+        image: product6,
+      },
+      {
+        id: "om-fv",
+        tag: "O&M",
+        title: "O&M fotovoltaico",
+        subtitle: "Performance contínua",
+        desc: "Rotina, indicadores e manutenção para manter confiabilidade e performance no tempo.",
+        specLeft: ["Inspeções", "Limpeza", "Correções"],
+        specRight: ["Relatórios", "KPIs", "Plano de ação"],
+        image: product7,
       },
     ],
     [],
   );
 
-  const [idx, setIdx] = useState(2);
-
-  return (
-    <motion.section
-      id="process"
-      className="container-page pb-12 sm:pb-16 lg:pb-20"
-      initial={reduced ? undefined : { opacity: 0, y: 12 }}
-      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-90px" }}
-      transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
-    >
-      <motion.div
-        className="relative overflow-hidden rounded-[32px] bg-black lg:rounded-[38px]"
-        initial={reduced ? undefined : { scale: 0.995, opacity: 0 }}
-        whileInView={reduced ? undefined : { scale: 1, opacity: 1 }}
-        viewport={{ once: true, margin: "-120px" }}
-        transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
-      >
-        <img
-          data-testid="img-process"
-          src={slides[idx].img}
-          alt="Processo"
-          className="h-[560px] w-full object-cover sm:h-[520px] lg:h-[620px]"
-        />
-        <div className="absolute inset-0 hero-overlay" />
-
-        <div className="absolute inset-0 p-6 sm:p-8">
-          <div className="flex items-start justify-between">
-            <Pill testId="pill-process" muted>
-              ( como trabalhamos )
-            </Pill>
-          </div>
-
-          <div className="mt-24 grid gap-8 md:mt-28 md:grid-cols-[1fr_420px] md:items-start lg:mt-36 lg:grid-cols-[1fr_520px]">
-            <motion.div
-              className="flex items-end"
-              initial={reduced ? undefined : { opacity: 0, x: -10 }}
-              whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-120px" }}
-              transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
-            >
-              <div>
-                <div
-                  data-testid="text-process-counter"
-                  className="text-[56px] font-medium leading-none tracking-[-0.04em] text-white sm:text-[64px] lg:text-[72px]"
-                >
-                  <span className="text-white">({slides[idx].k}</span>
-                  <span className="text-white/55">/04)</span>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={reduced ? undefined : { opacity: 0, y: 12 }}
-              whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-120px" }}
-              transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1], delay: 0.04 }}
-            >
-              <h3
-                data-testid="text-process-title"
-                className="text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em] text-white lg:text-[40px]"
-              >
-                {slides[idx].title}
-              </h3>
-              <p data-testid="text-process-desc" className="mt-3 text-sm leading-6 text-white/70">
-                {slides[idx].desc}
-              </p>
-            </motion.div>
-          </div>
-
-          <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between gap-3">
-            <div data-testid="progress-process-track" className="h-[2px] flex-1 rounded-full bg-white/22">
-              <motion.div
-                data-testid="progress-process-fill"
-                className="h-full rounded-full bg-white"
-                initial={reduced ? undefined : { width: 0 }}
-                animate={{ width: `${((idx + 1) / slides.length) * 100}%` }}
-                transition={reduced ? undefined : { duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
-              />
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                data-testid="button-process-prev"
-                onClick={() => setIdx((p) => (p - 1 + slides.length) % slides.length)}
-                className="grid h-10 w-10 place-items-center rounded-full bg-white/12 ring-1 ring-white/15 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
-              >
-                <ChevronLeft className="h-4 w-4 text-white" strokeWidth={2.25} />
-              </button>
-              <button
-                data-testid="button-process-next"
-                onClick={() => setIdx((p) => (p + 1) % slides.length)}
-                className="grid h-10 w-10 place-items-center rounded-full bg-white/12 ring-1 ring-white/15 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
-              >
-                <ChevronRight className="h-4 w-4 text-white" strokeWidth={2.25} />
-              </button>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </motion.section>
-  );
-}
-
-function ProductGrid({ products }: { products: Product[] }) {
-  const reduced = usePrefersReducedMotion();
-
-  const [activeTop, setActiveTop] = useState<string | null>(null);
-  const [activeBottom, setActiveBottom] = useState<string | null>(null);
-  const [activeMobile, setActiveMobile] = useState<string | null>(null);
-
-  const desktopFirstRow = useMemo(() => products.slice(0, 3), [products]);
-  const desktopSecondRow = useMemo(() => products.slice(0, 4), [products]);
-
-  return (
-    <section className="container-page pb-12 sm:pb-16 lg:pb-20">
-      <div className="flex items-start justify-between gap-6">
-        <Pill testId="pill-our-product">( serviços )</Pill>
-      </div>
-
-      <div className="mt-6">
-        <div className="hidden lg:block">
-          <div className="grid grid-cols-4 gap-6">
-            <div className="flex flex-col justify-between rounded-[28px] bg-white p-6 ring-1 ring-zinc-200">
-              <div>
-                <h3
-                  data-testid="text-grid-title"
-                  className="text-balance text-[40px] font-medium leading-[1.06] tracking-[-0.03em]"
-                >
-                  Explore nossos
-                  <br />
-                  <span className="subtle-grad">serviços em energia</span>
-                </h3>
-                <p data-testid="text-grid-sub" className="mt-4 text-sm leading-6 text-zinc-500">
-                  Do diagnóstico à operação: eficiência, geração própria, armazenamento, mercado livre e manutenção, sempre com proposta sob medida.
-                </p>
-              </div>
-
-              <div className="mt-6">
-                <button
-                  data-testid="button-grid-explore"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#30045c] active:scale-[0.98]"
-                >
-                  Ver serviços
-                  <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-                </button>
-              </div>
-            </div>
-
-            {desktopFirstRow.map((p) => (
-              <motion.button
-                data-testid={`card-product-top-${p.id}`}
-                key={`top-${p.id}`}
-                onHoverStart={() => setActiveTop(p.id)}
-                onHoverEnd={() => setActiveTop((cur) => (cur === p.id ? null : cur))}
-                onFocus={() => setActiveTop(p.id)}
-                onBlur={() => setActiveTop((cur) => (cur === p.id ? null : cur))}
-                className="group text-left"
-                initial={reduced ? undefined : { opacity: 0, y: 10 }}
-                whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1] }}
-              >
-                <div className="relative overflow-hidden rounded-[28px] bg-zinc-100 ring-1 ring-zinc-200">
-                  <img
-                    data-testid={`img-product-top-${p.id}`}
-                    src={p.image}
-                    alt={p.title}
-                    className="h-[248px] w-full object-cover transition duration-700 group-hover:scale-[1.03]"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/28 to-transparent opacity-90" />
-
-                  <AnimatePresence>
-                    {activeTop === p.id ? (
-                      <motion.div
-                        className="absolute inset-0 grid place-items-center"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
-                      >
-                        <motion.div
-                          className="glass inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold leading-none text-white"
-                          initial={{ opacity: 0, scale: 0.98 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.98 }}
-                          transition={{ duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
-                        >
-                          Ver detalhes
-                          <span className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/14 ring-1 ring-white/16">
-                            <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-                          </span>
-                        </motion.div>
-                      </motion.div>
-                    ) : null}
-                  </AnimatePresence>
-                </div>
-
-                <div className="mt-4">
-                  <div
-                    data-testid={`text-product-top-tag-${p.id}`}
-                    className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500"
-                  >
-                    {p.tag}
-                  </div>
-                  <div data-testid={`text-product-top-title-${p.id}`} className="mt-2 text-sm font-semibold text-zinc-950">
-                    {p.title}
-                  </div>
-                  <div data-testid={`text-product-top-sub-${p.id}`} className="mt-1 text-sm text-zinc-500">
-                    {p.subtitle}
-                  </div>
-                </div>
-              </motion.button>
-            ))}
-          </div>
-
-          <div className="mt-8 grid grid-cols-4 gap-6">
-            {desktopSecondRow.map((p) => (
-              <motion.button
-                data-testid={`card-product-${p.id}`}
-                key={`grid-${p.id}`}
-                onHoverStart={() => setActiveBottom(p.id)}
-                onHoverEnd={() => setActiveBottom((cur) => (cur === p.id ? null : cur))}
-                onFocus={() => setActiveBottom(p.id)}
-                onBlur={() => setActiveBottom((cur) => (cur === p.id ? null : cur))}
-                className="group text-left"
-                initial={reduced ? undefined : { opacity: 0, y: 10 }}
-                whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1] }}
-              >
-                <div className="relative overflow-hidden rounded-[26px] bg-zinc-100 ring-1 ring-zinc-200">
-                  <img
-                    data-testid={`img-product-grid-${p.id}`}
-                    src={p.image}
-                    alt={p.title}
-                    className="h-[248px] w-full object-cover transition duration-700 group-hover:scale-[1.03]"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-80" />
-
-                  <AnimatePresence>
-                    {activeBottom === p.id ? (
-                      <motion.div
-                        className="absolute inset-0 grid place-items-center"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
-                      >
-                        <motion.div
-                          className="glass inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold leading-none text-white"
-                          initial={{ opacity: 0, scale: 0.98 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.98 }}
-                          transition={{ duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
-                        >
-                          Ver detalhes
-                          <span className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/14 ring-1 ring-white/16">
-                            <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-                          </span>
-                        </motion.div>
-                      </motion.div>
-                    ) : null}
-                  </AnimatePresence>
-                </div>
-
-                <div className="mt-4">
-                  <div
-                    data-testid={`text-product-grid-tag-${p.id}`}
-                    className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500"
-                  >
-                    {p.tag}
-                  </div>
-                  <div data-testid={`text-product-grid-title-${p.id}`} className="mt-2 text-sm font-semibold text-zinc-950">
-                    {p.title}
-                  </div>
-                  <div data-testid={`text-product-grid-sub-${p.id}`} className="mt-1 text-sm text-zinc-500">
-                    {p.subtitle}
-                  </div>
-                </div>
-              </motion.button>
-            ))}
-          </div>
-        </div>
-
-        <div className="lg:hidden">
-
-          <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
-            <h3
-              data-testid="text-grid-title-mobile"
-              className="text-balance text-[38px] font-medium leading-[1.06] tracking-[-0.03em]"
-            >
-              Explore nossos
-              <br />
-              <span className="subtle-grad">serviços em energia</span>
-            </h3>
-            <button
-              data-testid="button-grid-explore-mobile"
-              className="rounded-full bg-zinc-100 px-4 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
-            >
-              Ver serviços
-            </button>
-          </div>
-
-          <div className="mt-8 grid gap-5 sm:grid-cols-2">
-            {products.map((p, i) => (
-              <motion.button
-                data-testid={`card-product-mobile-${p.id}`}
-                key={`mobile-${p.id}`}
-                onHoverStart={() => setActiveMobile(p.id)}
-                onHoverEnd={() => setActiveMobile((cur) => (cur === p.id ? null : cur))}
-                onFocus={() => setActiveMobile(p.id)}
-                onBlur={() => setActiveMobile((cur) => (cur === p.id ? null : cur))}
-                className="group text-left"
-                initial={reduced ? undefined : { opacity: 0, y: 10 }}
-                whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1], delay: i * 0.04 }}
-              >
-                <div className="relative overflow-hidden rounded-[26px] bg-zinc-100 ring-1 ring-zinc-200">
-                  <img
-                    data-testid={`img-product-grid-mobile-${p.id}`}
-                    src={p.image}
-                    alt={p.title}
-                    className="h-[220px] w-full object-cover transition duration-700 group-hover:scale-[1.03]"
-                  />
-
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-80" />
-
-                  <AnimatePresence>
-                    {activeMobile === p.id ? (
-                      <motion.div
-                        className="absolute inset-0 grid place-items-center"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
-                      >
-                        <motion.div
-                          className="glass inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold leading-none text-white"
-                          initial={{ opacity: 0, scale: 0.98 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.98 }}
-                          transition={{ duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
-                        >
-                          Ver detalhes
-                          <span className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/14 ring-1 ring-white/16">
-                            <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-                          </span>
-                        </motion.div>
-                      </motion.div>
-                    ) : null}
-                  </AnimatePresence>
-                </div>
-
-                <div className="mt-4">
-                  <div
-                    data-testid={`text-product-grid-mobile-tag-${p.id}`}
-                    className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500"
-                  >
-                    {p.tag}
-                  </div>
-                  <div data-testid={`text-product-grid-mobile-title-${p.id}`} className="mt-2 text-sm font-semibold text-zinc-950">
-                    {p.title}
-                  </div>
-                  <div data-testid={`text-product-grid-mobile-sub-${p.id}`} className="mt-1 text-sm text-zinc-500">
-                    {p.subtitle}
-                  </div>
-                </div>
-              </motion.button>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Testimonials() {
-  const reduced = usePrefersReducedMotion();
-  const [active, setActive] = useState<string | null>("t-2");
-
-  const items: Testimonial[] = useMemo(
+  const testimonials = useMemo<Testimonial[]>(
     () => [
       {
-        id: "t-1",
-        name: "Mariana Alves",
-        role: "Proprietária",
-        city: "Campinas, SP",
-        quote:
-          "A implementação foi rápida e muito bem explicada. Em poucos dias já estávamos vendo resultado e a conta de luz caiu de verdade, sem burocracia e com um acabamento impecável.",
+        id: "1",
+        name: "Cliente A",
+        role: "Operações",
+        city: "São Paulo",
+        quote: "A Track trouxe clareza e governança. O plano virou rotina e os números apareceram rápido.",
         rating: 5,
         avatar: t1,
       },
       {
-        id: "t-2",
-        name: "Ricardo Nogueira",
-        role: "Gestor industrial",
-        city: "Joinville, SC",
-        quote:
-          "O que mais me surpreendeu foi o cuidado no projeto e o acompanhamento pós-instalação. O monitoramento é simples e o suporte responde rápido. Sensação de produto premium.",
+        id: "2",
+        name: "Cliente B",
+        role: "Financeiro",
+        city: "Campinas",
+        quote: "A proposta foi objetiva, com acompanhamento de verdade. Sem ruído e sem promessas vagas.",
         rating: 5,
         avatar: t2,
       },
       {
-        id: "t-3",
-        name: "Patrícia Moura",
-        role: "Empreendedora",
-        city: "Belo Horizonte, MG",
-        quote:
-          "Queríamos previsibilidade e clareza de custos. A Track entregou uma estratégia sólida e executou com acompanhamento pós-implantação. Valeu cada centavo.",
+        id: "3",
+        name: "Cliente C",
+        role: "Engenharia",
+        city: "Curitiba",
+        quote: "Execução bem feita, checklist e transparência. A operação ficou muito mais previsível.",
         rating: 5,
         avatar: t3,
       },
@@ -1230,523 +793,363 @@ function Testimonials() {
     [],
   );
 
-  const activeItem = items.find((i) => i.id === active) ?? items[0];
+  usePreloadImages([heroImg, processImg, productImg, ...products.map((p) => p.image), t1, t2, t3]);
 
   return (
-    <section id="testimonials" className="container-page pb-12 sm:pb-16 lg:pb-20">
-      <div className="flex items-start justify-between gap-6">
-        <Pill testId="pill-testimonials">( depoimentos )</Pill>
+    <div data-testid="page-landing" className="min-h-screen bg-white">
+      <main data-testid="main-landing" className="relative">
+        <Hero onPlay={() => setVideoOpen(true)} onContact={onContact} />
+        <About />
 
-        <div className="flex items-center gap-2 sm:hidden">
-          <button
-            data-testid="button-testimonials-prev-mobile-top"
-            onClick={() => {
-              const idx = items.findIndex((i) => i.id === activeItem.id);
-              const next = (idx - 1 + items.length) % items.length;
-              setActive(items[next].id);
-            }}
-            className="grid h-9 w-9 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
-            aria-label="Depoimento anterior"
-          >
-            <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
-          </button>
-          <button
-            data-testid="button-testimonials-next-mobile-top"
-            onClick={() => {
-              const idx = items.findIndex((i) => i.id === activeItem.id);
-              const next = (idx + 1) % items.length;
-              setActive(items[next].id);
-            }}
-            className="grid h-9 w-9 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
-            aria-label="Próximo depoimento"
-          >
-            <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
-          </button>
-        </div>
-
-        <div className="hidden items-center gap-2 sm:flex">
-          <button
-            data-testid="button-testimonials-prev"
-            onClick={() => {
-              const idx = items.findIndex((i) => i.id === activeItem.id);
-              const next = (idx - 1 + items.length) % items.length;
-              setActive(items[next].id);
-            }}
-            className="grid h-10 w-10 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
-          >
-            <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
-          </button>
-          <button
-            data-testid="button-testimonials-next"
-            onClick={() => {
-              const idx = items.findIndex((i) => i.id === activeItem.id);
-              const next = (idx + 1) % items.length;
-              setActive(items[next].id);
-            }}
-            className="grid h-10 w-10 place-items-center rounded-full bg-[#1d0238] text-white ring-1 ring-[#1d0238]/18 transition hover:bg-[#30045c] active:scale-[0.98]"
-          >
-            <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
-          </button>
-        </div>
-      </div>
-
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
-        <motion.div
-          className="relative overflow-hidden rounded-[30px] bg-gradient-to-r from-black via-[#12001f] to-[#1d0238] ring-1 ring-white/10"
-          initial={reduced ? undefined : { opacity: 0, y: 10 }}
-          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
-        >
-          <div className="absolute inset-0 hero-overlay opacity-60" />
-          <div className="absolute inset-0 noise opacity-[0.22]" />
-
-          <div className="relative p-7 sm:p-8">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <div data-testid="text-testimonials-title" className="text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em] text-white">
-                  O que nossos clientes
-                  <br />
-                  <span className="subtle-grad-dark">falam sobre a Track</span>
-                </div>
-                <p data-testid="text-testimonials-sub" className="mt-3 max-w-[520px] text-sm leading-6 text-white/70">
-                  Experiências reais de quem implementou soluções com a Track, do diagnóstico à operação, com acompanhamento e foco em resultado.
-                </p>
-              </div>
-
-              <div className="hidden sm:grid h-11 w-11 place-items-center rounded-2xl bg-white/10 ring-1 ring-white/12">
-                <Quote className="h-5 w-5 text-white" strokeWidth={2.25} />
-              </div>
-            </div>
-
-            <div className="mt-7 rounded-[22px] bg-white/10 p-6 ring-1 ring-white/12 backdrop-blur">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-white/10 ring-1 ring-white/12">
-                    <img
-                      data-testid="img-testimonial-active-avatar"
-                      src={activeItem.avatar}
-                      alt={activeItem.name}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div>
-                    <div data-testid="text-testimonial-active-name" className="text-sm font-semibold text-white">
-                      {activeItem.name}
-                    </div>
-                    <div
-                      data-testid="text-testimonial-active-role"
-                      className="mt-0.5 text-[12px] text-white/65 sm:whitespace-nowrap"
-                    >
-                      <span className="hidden sm:inline">{activeItem.role} · {activeItem.city}</span>
-                      <span className="sm:hidden">{activeItem.role}</span>
-                      <br className="sm:hidden" />
-                      <span className="sm:hidden">{activeItem.city}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-1 sm:justify-end" aria-label="Avaliação">
-                  {new Array(5).fill(0).map((_, i) => (
-                    <Star
-                      data-testid={`icon-testimonial-active-star-${i}`}
-                      key={i}
-                      className={"h-4 w-4 " + (i < activeItem.rating ? "text-white" : "text-white/25")}
-                      fill={i < activeItem.rating ? "currentColor" : "none"}
-                      strokeWidth={2}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={activeItem.id}
-                  data-testid="text-testimonial-active-quote"
-                  className="mt-4 text-sm leading-6 text-white/78"
-                  initial={reduced ? undefined : { opacity: 0, y: 8 }}
-                  animate={reduced ? undefined : { opacity: 1, y: 0 }}
-                  exit={reduced ? undefined : { opacity: 0, y: -8 }}
-                  transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
-                >
-                  “{activeItem.quote}”
-                </motion.p>
-              </AnimatePresence>
-            </div>
-
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <button
-                data-testid="button-testimonials-cta"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]"
-                onClick={() => {
-                  window.location.href = "/contato";
-                }}
+        <section id="product" className="container-page py-12 sm:py-16 lg:py-20">
+          <div className="grid gap-10 md:grid-cols-[360px_1fr] md:items-center lg:grid-cols-[420px_1fr] lg:gap-14">
+            <div>
+              <Pill testId="pill-product" muted={false}>
+                ( serviços )
+              </Pill>
+              <h2
+                data-testid="text-product-title"
+                className="mt-5 text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-zinc-950 sm:text-[46px] lg:text-[56px]"
               >
-                Converse com a gente
-                <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
-                  <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
-                </span>
-              </button>
-              <div data-testid="text-testimonials-proof" className="text-[11px] font-semibold uppercase tracking-wide text-white/55">
-                4,9/5 · 1.200+ instalações
+                Da análise à operação,
+                <br />
+                com acompanhamento.
+              </h2>
+              <p data-testid="text-product-desc" className="mt-4 max-w-[520px] text-sm leading-6 text-zinc-600">
+                Eficiência, geração, armazenamento e gestão de energia com método. Cada serviço tem escopo claro, entregáveis e um próximo passo.
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  data-testid="button-see-services"
+                  href="/servicos"
+                  className="group inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#30045c] active:scale-[0.98]"
+                >
+                  Ver serviços
+                  <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/10 transition group-hover:translate-x-0.5">
+                    <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
+                  </span>
+                </a>
+
+                <a
+                  data-testid="button-contact-product"
+                  href="/contato"
+                  className="inline-flex items-center gap-2 rounded-full bg-zinc-50 px-4 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-white active:scale-[0.98]"
+                >
+                  Fale com a Track
+                </a>
               </div>
+            </div>
+
+            <ProductCarousel products={products} reduced={reduced} />
+          </div>
+        </section>
+
+        <Process reduced={reduced} />
+        <Testimonials testimonials={testimonials} reduced={reduced} />
+      </main>
+
+      <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} />
+    </div>
+  );
+}
+
+function ProductCarousel({
+  products,
+  reduced,
+}: {
+  products: Product[];
+  reduced: boolean;
+}) {
+  const [active, setActive] = useState(0);
+
+  const activeProduct = products[active];
+
+  const reveal = useScrollReveal(reduced, { y: 16 });
+
+  return (
+    <div data-testid="section-product-carousel" className="relative">
+      <div className="relative overflow-hidden rounded-[34px] bg-white ring-1 ring-zinc-200">
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-zinc-50" />
+        <div className="absolute inset-0 noise opacity-[0.06]" />
+
+        <div className="relative p-6 sm:p-7">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <div data-testid="text-product-tag" className="inline-flex items-center gap-2 rounded-full bg-[#1d0238]/7 px-3 py-1 text-[11px] font-medium tracking-wide text-zinc-700 ring-1 ring-[#1d0238]/18">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#30045c]" />
+                {activeProduct.tag}
+              </div>
+              <div data-testid="text-product-title" className="mt-4 text-balance text-[30px] font-medium leading-[1.06] tracking-[-0.03em] text-zinc-950 sm:text-[34px]">
+                {activeProduct.title}
+              </div>
+              <div data-testid="text-product-subtitle" className="mt-2 max-w-[560px] text-sm leading-6 text-zinc-600">
+                {activeProduct.subtitle}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                data-testid="button-product-prev"
+                onClick={() => setActive((a) => (a - 1 + products.length) % products.length)}
+                className="grid h-10 w-10 place-items-center rounded-full bg-zinc-50 ring-1 ring-zinc-200 transition hover:bg-white active:scale-[0.98]"
+              >
+                <ChevronLeft className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
+              </button>
+              <button
+                data-testid="button-product-next"
+                onClick={() => setActive((a) => (a + 1) % products.length)}
+                className="grid h-10 w-10 place-items-center rounded-full bg-zinc-50 ring-1 ring-zinc-200 transition hover:bg-white active:scale-[0.98]"
+              >
+                <ChevronRight className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
+              </button>
             </div>
           </div>
-        </motion.div>
 
-        <div className="grid gap-4">
-          {items.map((t, i) => {
-            const selected = t.id === activeItem.id;
-            return (
-              <motion.button
-                data-testid={`card-testimonial-${t.id}`}
-                key={t.id}
-                onClick={() => setActive(t.id)}
-                onFocus={() => setActive(t.id)}
-                className={
-                  "group text-left rounded-[26px] p-5 ring-1 transition " +
-                  (selected
-                    ? "bg-[#1d0238] text-white ring-[#1d0238]/18"
-                    : "bg-white text-zinc-950 ring-zinc-200 hover:bg-zinc-50")
-                }
-                initial={reduced ? undefined : { opacity: 0, y: 10 }}
-                whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1], delay: i * 0.04 }}
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
+          <div className="mt-6 grid gap-5 lg:grid-cols-[1fr_1fr] lg:gap-7">
+            <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-r from-black via-[#12001f] to-[#1d0238] ring-1 ring-black/10">
+              <div className="absolute inset-0 hero-overlay opacity-60" />
+              <div className="absolute inset-0 noise opacity-[0.18]" />
+
+              <div className="relative p-6">
+                <div data-testid="text-product-desc" className="text-sm leading-6 text-white/75">
+                  {activeProduct.desc}
+                </div>
+
+                <div className="mt-6 grid gap-2">
+                  {[...activeProduct.specLeft, ...activeProduct.specRight].slice(0, 6).map((s, i) => (
                     <div
-                      className={
-                        "h-11 w-11 shrink-0 overflow-hidden rounded-full ring-1 " +
-                        (selected ? "bg-white/10 ring-white/12" : "bg-zinc-100 ring-zinc-200")
-                      }
+                      key={s}
+                      data-testid={`text-product-spec-${activeProduct.id}-${i}`}
+                      className="flex items-center gap-2 text-[12px] text-white/70"
                     >
-                      <img
-                        data-testid={`img-testimonial-avatar-${t.id}`}
-                        src={t.avatar}
-                        alt={t.name}
-                        className="h-full w-full object-cover"
-                      />
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
+                      {s}
                     </div>
-                    <div>
-                      <div
-                        data-testid={`text-testimonial-name-${t.id}`}
-                        className={"text-sm font-semibold " + (selected ? "text-white" : "text-zinc-950")}
-                      >
-                        {t.name}
-                      </div>
-                      <div
-                        data-testid={`text-testimonial-meta-${t.id}`}
-                        className={"mt-0.5 text-[12px] " + (selected ? "text-white/65" : "text-zinc-500")}
-                      >
-                        {t.role} · {t.city}
-                      </div>
-                    </div>
-                  </div>
+                  ))}
+                </div>
 
-                  <div className="flex items-center gap-1">
-                    {new Array(5).fill(0).map((_, s) => (
-                      <Star
-                        data-testid={`icon-testimonial-star-${t.id}-${s}`}
+                <a
+                  data-testid="link-product-detail"
+                  href={`/servicos/${activeProduct.id}`}
+                  className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 shadow-lg shadow-black/15 transition hover:bg-zinc-50 active:scale-[0.99]"
+                >
+                  Ver detalhes
+                  <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
+                    <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
+                  </span>
+                </a>
+              </div>
+            </div>
+
+            <motion.div {...reveal} className="relative overflow-hidden rounded-[28px] bg-white ring-1 ring-zinc-200">
+              <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-zinc-50" />
+              <div className="absolute inset-0 noise opacity-[0.06]" />
+
+              <img
+                data-testid="img-product"
+                src={activeProduct.image}
+                alt={activeProduct.title}
+                className="relative h-[260px] w-full object-cover sm:h-[320px]"
+              />
+              <div className="relative p-6">
+                <div className="grid gap-2 sm:grid-cols-2">
+                  <div className="grid gap-2">
+                    {activeProduct.specLeft.map((s, i) => (
+                      <div
                         key={s}
-                        className={
-                          "h-3.5 w-3.5 " +
-                          (selected
-                            ? s < t.rating
-                              ? "text-white"
-                              : "text-white/25"
-                            : s < t.rating
-                              ? "text-zinc-950"
-                              : "text-zinc-950/20")
-                        }
-                        fill={s < t.rating ? "currentColor" : "none"}
-                        strokeWidth={2}
-                      />
+                        data-testid={`text-product-left-${activeProduct.id}-${i}`}
+                        className="flex items-center gap-2 text-[12px] text-zinc-700"
+                      >
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#30045c]" />
+                        {s}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid gap-2">
+                    {activeProduct.specRight.map((s, i) => (
+                      <div
+                        key={s}
+                        data-testid={`text-product-right-${activeProduct.id}-${i}`}
+                        className="flex items-center gap-2 text-[12px] text-zinc-700"
+                      >
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#30045c]" />
+                        {s}
+                      </div>
                     ))}
                   </div>
                 </div>
-
-                <div
-                  data-testid={`text-testimonial-snippet-${t.id}`}
-                  className={
-                    "mt-3 line-clamp-3 text-sm leading-6 " + (selected ? "text-white/75" : "text-zinc-500")
-                  }
-                >
-                  “{t.quote}”
-                </div>
-              </motion.button>
-            );
-          })}
-
-          <div className="flex items-center justify-between gap-3 sm:hidden">
-            <div data-testid="text-testimonials-proof-mobile" className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">
-              4,9/5 · 1.200+ instalações
-            </div>
+              </div>
+            </motion.div>
           </div>
+        </div>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {products.map((p, idx) => (
+          <button
+            key={p.id}
+            data-testid={`button-product-tab-${p.id}`}
+            onClick={() => setActive(idx)}
+            className={
+              "inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-medium ring-1 transition " +
+              (idx === active
+                ? "bg-[#1d0238] text-white ring-[#1d0238]"
+                : "bg-zinc-50 text-zinc-700 ring-zinc-200 hover:bg-white")
+            }
+          >
+            <span className={"h-1.5 w-1.5 rounded-full " + (idx === active ? "bg-white" : "bg-[#30045c]")} />
+            {p.tag}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Process({ reduced }: { reduced: boolean }) {
+  const reveal = useScrollReveal(reduced, { y: 18 });
+
+  return (
+    <section id="process" className="relative overflow-hidden bg-white">
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-zinc-50" />
+        <div className="absolute inset-0 opacity-[0.08] noise" />
+        <div className="absolute -top-24 left-1/2 h-[420px] w-[920px] -translate-x-1/2 rounded-full bg-gradient-to-r from-[#30045c]/16 via-[#1d0238]/10 to-transparent blur-3xl" />
+      </div>
+
+      <div className="container-page relative py-12 sm:py-16 lg:py-20">
+        <div className="grid gap-10 md:grid-cols-[360px_1fr] md:items-center lg:grid-cols-[420px_1fr] lg:gap-14">
+          <div>
+            <Pill testId="pill-process" muted={false}>
+              ( abordagem )
+            </Pill>
+            <h2
+              data-testid="text-process-title"
+              className="mt-5 text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-zinc-950 sm:text-[46px] lg:text-[56px]"
+            >
+              Um método
+              <br />
+              simples e executável.
+            </h2>
+            <p data-testid="text-process-desc" className="mt-4 max-w-[520px] text-sm leading-6 text-zinc-600">
+              Diagnóstico, plano e operação com acompanhamento. A Track entra para reduzir ruído e deixar o caminho claro.
+            </p>
+          </div>
+
+          <motion.div {...reveal} className="relative overflow-hidden rounded-[34px] bg-white ring-1 ring-zinc-200">
+            <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-zinc-50" />
+            <div className="absolute inset-0 noise opacity-[0.06]" />
+
+            <img data-testid="img-process" src={processImg} alt="Processo" className="relative h-[320px] w-full object-cover sm:h-[360px]" />
+
+            <div className="relative p-6 sm:p-7">
+              <div className="grid gap-3 sm:grid-cols-3">
+                {["Análise", "Proposta", "Acompanhamento"].map((t, i) => (
+                  <div
+                    key={t}
+                    data-testid={`card-process-${i}`}
+                    className="rounded-[20px] bg-zinc-50 p-4 ring-1 ring-zinc-200"
+                  >
+                    <div data-testid={`text-process-title-${i}`} className="text-xs font-semibold text-zinc-950">
+                      {t}
+                    </div>
+                    <div data-testid={`text-process-desc-${i}`} className="mt-2 text-[11px] leading-5 text-zinc-600">
+                      {i === 0
+                        ? "Entendemos consumo, perdas e oportunidades com dados."
+                        : i === 1
+                          ? "Plano claro com escopo, cronograma e retorno esperado."
+                          : "Acompanhamos indicadores e ajustes para virar rotina."}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
   );
 }
 
-function Footer({ onPlay }: { onPlay: () => void }) {
+function Testimonials({ testimonials, reduced }: { testimonials: Testimonial[]; reduced: boolean }) {
+  const reveal = useScrollReveal(reduced, { y: 16 });
+
   return (
-    <footer id="footer" className="w-full bg-white">
-      <div className="w-full bg-gradient-to-r from-black via-[#12001f] to-[#1d0238]">
-        <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
-          <div className="grid gap-12 py-10 md:grid-cols-[360px_minmax(0,1fr)] md:items-start md:gap-16 md:py-12">
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/10">
-                  <span className="h-4 w-4 rotate-12 rounded-sm bg-white" />
-                </span>
-                <span data-testid="text-footer-brand" className="text-sm font-semibold text-white">
-                  Track
-                </span>
-              </div>
+    <section id="testimonials" className="container-page py-12 sm:py-16 lg:py-20">
+      <div className="grid gap-10 md:grid-cols-[360px_1fr] md:items-start lg:grid-cols-[420px_1fr] lg:gap-14">
+        <div>
+          <Pill testId="pill-testimonials" muted={false}>
+            ( depoimentos )
+          </Pill>
+          <h2
+            data-testid="text-testimonials-title"
+            className="mt-5 text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-zinc-950 sm:text-[46px] lg:text-[56px]"
+          >
+            Quem já passou
+            <br />
+            por aqui
+            <br />
+            <span className="subtle-grad">falam sobre a Track</span>
+          </h2>
+          <p data-testid="text-testimonials-desc" className="mt-4 max-w-[520px] text-sm leading-6 text-zinc-600">
+            Credibilidade vem com rotina, não com promessa. A gente entra para trazer clareza, executar e acompanhar.
+          </p>
+        </div>
 
-              <div data-testid="text-footer-address" className="mt-5 text-xs leading-5 text-white/60">
-                Track, Soluções em energia
-                <br />
-                Brasil
-              </div>
+        <motion.div {...reveal} className="grid gap-4 sm:grid-cols-2">
+          {testimonials.map((t, idx) => (
+            <div
+              key={t.id}
+              data-testid={`card-testimonial-${t.id}`}
+              className="relative overflow-hidden rounded-[28px] bg-white ring-1 ring-zinc-200"
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-zinc-50" />
+              <div className="absolute inset-0 noise opacity-[0.06]" />
 
-              <div className="mt-6 flex items-center gap-3 text-white/70">
-                {[
-                  { k: "ig", label: "Instagram" },
-                  { k: "x", label: "X" },
-                  { k: "in", label: "LinkedIn" },
-                  { k: "yt", label: "YouTube" },
-                ].map((s) => (
-                  <a
-                    data-testid={`link-social-${s.k}`}
-                    key={s.k}
-                    href="#"
-                    className="grid h-9 w-9 place-items-center rounded-full bg-white/8 ring-1 ring-white/10 transition hover:bg-white/12"
-                    aria-label={s.label}
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-white/55" />
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
-              <div>
-                <h3
-                  data-testid="text-footer-title"
-                  className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-[46px]"
-                >
-                  Mude sua energia
-                  <br />
-                  e ilumine o futuro,
-                  <br />
-                  <span className="subtle-grad-dark">Energia limpa e confiável</span> feita
-                  <br />
-                  <span className="subtle-grad-dark">para</span> a vida moderna
-                </h3>
-
-                <p data-testid="text-footer-desc" className="mt-5 max-w-[620px] text-sm leading-6 text-white/60">
-                  Energize sua casa ou empresa com soluções de energia eficientes e acessíveis, feitas para gerar impacto real.
-                </p>
-
-                <div className="mt-7 flex flex-wrap items-center gap-3">
-                  <PrimaryButton
-                    testId="button-footer-explore"
-                    onClick={() => {
-                      window.location.href = "/contato";
-                    }}
-                  >
-                    Vamos conversar
-                  </PrimaryButton>
-                  <GhostButton
-                    testId="button-footer-services"
-                    onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}
-                  >
-                    Nossos Serviços
-                  </GhostButton>
-                </div>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between gap-3">
-                  <div data-testid="text-footer-instagram-title" className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
-                    Instagram
-                  </div>
-                  <a
-                    data-testid="link-footer-instagram"
-                    href="#"
-                    className="text-xs font-medium text-white/70 transition hover:text-white"
-                  >
-                    Ver mais
-                  </a>
-                </div>
-
-                <div className="mt-4 grid grid-cols-3 gap-2">
-                  {new Array(9).fill(0).map((_, i) => (
-                    <a
-                      data-testid={`card-footer-ig-${i}`}
-                      key={i}
-                      href="#"
-                      className="group relative aspect-square overflow-hidden rounded-xl bg-white/8 ring-1 ring-white/10 transition hover:bg-white/10"
-                      aria-label={`Post do Instagram ${i + 1}`}
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
-                      <div className="absolute inset-0 grid place-items-center">
-                        <div className="h-10 w-10 rounded-2xl bg-white/10 ring-1 ring-white/12" />
+              <div className="relative p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <img
+                      data-testid={`img-testimonial-${t.id}`}
+                      src={t.avatar}
+                      alt={t.name}
+                      className="h-11 w-11 rounded-2xl bg-zinc-100 object-cover ring-1 ring-zinc-200"
+                    />
+                    <div>
+                      <div data-testid={`text-testimonial-name-${t.id}`} className="text-xs font-semibold text-zinc-950">
+                        {t.name}
                       </div>
-                      <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition group-hover:opacity-100" />
-                    </a>
-                  ))}
+                      <div data-testid={`text-testimonial-role-${t.id}`} className="mt-0.5 text-[11px] text-zinc-600">
+                        {t.role} · {t.city}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className={"h-4 w-4 " + (i < t.rating ? "text-[#30045c]" : "text-zinc-200")}
+                        strokeWidth={2.25}
+                      />
+                    ))}
+                  </div>
                 </div>
 
-                <div data-testid="text-footer-instagram-hint" className="mt-3 text-[11px] leading-5 text-white/55">
-                  Espaços reservados para 9 imagens quadradas (posts).
+                <div className="mt-5 flex items-start gap-3">
+                  <div className="grid h-9 w-9 place-items-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200">
+                    <Quote className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
+                  </div>
+                  <div data-testid={`text-testimonial-quote-${t.id}`} className="text-sm leading-6 text-zinc-700">
+                    {t.quote}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          ))}
+        </motion.div>
       </div>
-
-      <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
-        <div className="flex flex-wrap items-center justify-between gap-3 py-6 text-[11px] text-zinc-500">
-          <div data-testid="text-footer-copyright">©2026 Track. Todos os direitos reservados</div>
-          <div className="flex items-center gap-4">
-            <a data-testid="link-footer-terms" href="#" className="transition hover:text-zinc-950">
-              Termos de uso
-            </a>
-            <a data-testid="link-footer-home" href="#top" className="transition hover:text-zinc-950">
-              Início
-            </a>
-            <a data-testid="link-footer-product" href="#product" className="transition hover:text-zinc-950">
-              Serviços
-            </a>
-            <a data-testid="link-footer-process" href="#process" className="transition hover:text-zinc-950">
-              Processo
-            </a>
-            <a data-testid="link-footer-testimonials" href="#testimonials" className="transition hover:text-zinc-950">
-              Depoimentos
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-export default function Landing() {
-  const [videoOpen, setVideoOpen] = useState(false);
-
-  const primaryProduct: Product = useMemo(
-    () => ({
-      id: "solucoes-track",
-      tag: "SOLUÇÕES TRACK",
-      title: "Energia sob medida",
-      subtitle: "Da estratégia à operação",
-      desc: "Analisamos oportunidades, desenhamos a proposta ideal e executamos com monitoramento após a implementação, sempre com o radar ligado para melhorias.",
-      specLeft: ["Eficiência energética", "Geração própria", "Armazenamento"],
-      specRight: ["Mercado livre", "Assinatura de energia", "O&M fotovoltaico"],
-      image: productImg,
-    }),
-    [],
-  );
-
-  const products: Product[] = useMemo(
-    () => [
-      {
-        id: "eficiencia",
-        tag: "ANÁLISE",
-        title: "Eficiência energética",
-        subtitle: "Análise de oportunidades e plano de ação",
-        desc: "",
-        specLeft: [],
-        specRight: [],
-        image: product1,
-      },
-      {
-        id: "geracao",
-        tag: "GERAÇÃO PRÓPRIA",
-        title: "Sistemas de geração própria",
-        subtitle: "Projeto, execução e integração",
-        desc: "",
-        specLeft: [],
-        specRight: [],
-        image: product2,
-      },
-      {
-        id: "armazenamento",
-        tag: "ARMAZENAMENTO",
-        title: "Armazenamento de energia",
-        subtitle: "Resiliência, estabilidade e autonomia",
-        desc: "",
-        specLeft: [],
-        specRight: [],
-        image: product3,
-      },
-      {
-        id: "mercado-livre",
-        tag: "ESTRATÉGIA",
-        title: "Mercado livre de energia",
-        subtitle: "Análise de viabilidade e migração",
-        desc: "",
-        specLeft: [],
-        specRight: [],
-        image: product4,
-      },
-      {
-        id: "assinatura",
-        tag: "ASSINATURA",
-        title: "Assinatura de energia",
-        subtitle: "Modelo simples para economia previsível",
-        desc: "",
-        specLeft: [],
-        specRight: [],
-        image: product5,
-      },
-      {
-        id: "eletromobilidade",
-        tag: "INFRAESTRUTURA",
-        title: "Eletromobilidade",
-        subtitle: "Infraestrutura para recarga e operação",
-        desc: "",
-        specLeft: [],
-        specRight: [],
-        image: product6,
-      },
-      {
-        id: "om-fv",
-        tag: "OPERAÇÃO",
-        title: "O&M fotovoltaico",
-        subtitle: "Operação e manutenção com monitoramento",
-        desc: "",
-        specLeft: [],
-        specRight: [],
-        image: product7,
-      },
-    ],
-    [],
-  );
-
-  return (
-    <div className="min-h-screen bg-white">
-      <section className="w-full">
-        <Hero
-          onPlay={() => setVideoOpen(true)}
-          onContact={() => {
-            window.location.href = "/contato";
-          }}
-        />
-      </section>
-
-      <About />
-      <ProductFeature product={primaryProduct} />
-      <Process />
-      <ProductGrid products={products} />
-      <Testimonials />
-
-      <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} />
-    </div>
+    </section>
   );
 }
