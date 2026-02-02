@@ -259,7 +259,7 @@ export default function ServiceDetailPage() {
           </div>
 
           <div className="relative mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
-            <div className="pt-20 sm:pt-24 lg:pt-28">
+            <div className="pt-24 sm:pt-24 lg:pt-28">
               <a
                 data-testid="link-back-services"
                 href="/servicos"

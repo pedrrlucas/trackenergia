@@ -66,7 +66,7 @@ export default function Contact() {
         </div>
 
         <div className="relative mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12 overflow-x-hidden">
-          <div className="pt-20 sm:pt-24 lg:pt-28">
+          <div className="pt-24 sm:pt-24 lg:pt-28">
             <motion.div
               initial={reduced ? undefined : { opacity: 0, y: 14 }}
               animate={reduced ? undefined : { opacity: 1, y: 0 }}
