@@ -557,7 +557,7 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                         data-testid={`card-footer-ig-${i}`}
                         key={i}
                         href="#"
-                        className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-white/7 ring-1 ring-white/10 transition hover:bg-white/10"
+                        className="group relative aspect-square overflow-hidden rounded-lg bg-white/7 ring-1 ring-white/10 transition hover:bg-white/10"
                         aria-label={`Post do Instagram ${i + 1}`}
                       >
                         <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
@@ -570,9 +570,6 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                   </div>
                 </div>
 
-                <div data-testid="text-footer-instagram-hint" className="mt-2 text-[11px] leading-5 text-white/50">
-                  3 posts em destaque
-                </div>
               </div>
             </div>
           </div>
