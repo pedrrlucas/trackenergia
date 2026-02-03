@@ -749,11 +749,17 @@ function ProductFeature({ product }: { product: Product }) {
             alt="Produto"
             className="h-full min-h-[420px] w-full object-cover lg:min-h-[540px]"
           />
-          <div className="absolute inset-y-0 right-0 w-[15%] min-w-[60px] max-w-[120px] overflow-hidden mix-blend-soft-light">
+          <div
+            className="absolute inset-y-0 right-0 w-[18%] min-w-[70px] max-w-[140px] overflow-hidden mix-blend-overlay"
+            style={{
+              maskImage: "linear-gradient(to bottom, transparent, black 15%, black 45%, rgba(0,0,0,0.4) 50%, black 55%, black 85%, transparent)",
+              WebkitMaskImage: "linear-gradient(to bottom, transparent, black 15%, black 45%, rgba(0,0,0,0.4) 50%, black 55%, black 85%, transparent)",
+            }}
+          >
             <img
               src={marginTrack}
               alt=""
-              className="absolute left-1/2 top-1/2 h-auto w-[120vh] max-w-none -translate-x-1/2 -translate-y-1/2 rotate-90 object-cover opacity-60"
+              className="absolute left-1/2 top-1/2 h-auto w-[120vh] max-w-none -translate-x-1/2 -translate-y-1/2 rotate-90 object-cover opacity-80 brightness-125 contrast-125 saturate-150 filter"
             />
           </div>
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
