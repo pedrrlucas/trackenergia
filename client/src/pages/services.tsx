@@ -9,6 +9,7 @@ import {
   Factory,
   Leaf,
   LineChart,
+  Search,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
@@ -51,6 +52,7 @@ type Service = {
 
 export default function Services() {
   const reduced = usePrefersReducedMotion();
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   const services = useMemo<Service[]>(
     () => [
@@ -114,6 +116,17 @@ export default function Services() {
     [],
   );
 
+  const filteredServices = useMemo(() => {
+    if (!searchQuery) return services;
+    const lowerQuery = searchQuery.toLowerCase();
+    return services.filter(
+      (s) =>
+        s.title.toLowerCase().includes(lowerQuery) ||
+        s.subtitle.toLowerCase().includes(lowerQuery) ||
+        s.bullets.some((b) => b.toLowerCase().includes(lowerQuery))
+    );
+  }, [searchQuery, services]);
+
   return (
     <div data-testid="page-services" className="min-h-screen bg-white">
       <main data-testid="main-services" className="relative">
@@ -159,12 +172,36 @@ export default function Services() {
                 </div>
 
               </div>
+
+              <div className="mt-10 max-w-lg">
+                <div className="group relative flex items-center gap-3 overflow-hidden rounded-full bg-white px-4 py-3.5 shadow-sm ring-1 ring-zinc-200 transition-all focus-within:ring-2 focus-within:ring-[#30045c]/20 hover:ring-zinc-300">
+                  <Search className="h-5 w-5 text-zinc-400 transition group-focus-within:text-[#30045c]" />
+                  <input
+                    data-testid="input-search-services"
+                    type="text"
+                    placeholder="Buscar por serviço, termo ou palavra-chave..."
+                    className="flex-1 bg-transparent text-sm text-zinc-900 placeholder-zinc-400 outline-none"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery("")}
+                      className="text-xs font-medium text-zinc-400 hover:text-zinc-600"
+                    >
+                      Limpar
+                    </button>
+                  )}
+                  <div className="absolute inset-0 -z-10 bg-gradient-to-r from-zinc-50 to-white opacity-50" />
+                </div>
+              </div>
             </motion.div>
 
             <div className="mt-10 overflow-hidden rounded-[32px] bg-white ring-1 ring-zinc-200">
               <div className="grid divide-y divide-zinc-200">
-                {services.map((s, index) => (
-                  <motion.a
+                {filteredServices.length > 0 ? (
+                  filteredServices.map((s, index) => (
+                    <motion.a
                     key={s.id}
                     data-testid={`row-service-${s.id}`}
                     href={`/servicos/${s.id}`}
@@ -213,7 +250,18 @@ export default function Services() {
                       </div>
                     </div>
                   </motion.a>
-                ))}
+                  ))
+                ) : (
+                  <div className="py-20 text-center">
+                    <div className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-full bg-zinc-50 text-zinc-400">
+                      <Search className="h-5 w-5" />
+                    </div>
+                    <p className="text-sm font-medium text-zinc-900">Nenhum serviço encontrado</p>
+                    <p className="text-sm text-zinc-500">
+                      Tente buscar por outros termos ou palavras-chave.
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
