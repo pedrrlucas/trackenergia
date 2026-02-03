@@ -247,17 +247,17 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
           ) : (
             <>
               <div data-testid="bg-header-badge-sheen" className="pointer-events-none absolute inset-0">
-                <div className="absolute inset-0 bg-gradient-to-r from-zinc-100 via-white to-zinc-100" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#1d0238] via-[#30045c] to-[#1d0238]" />
                 <div
                   data-testid="bg-header-badge-center-lift"
-                  className="absolute inset-x-10 top-1/2 h-10 -translate-y-1/2 rounded-full blur-xl"
-                  style={{ background: "rgba(255,255,255,0.80)" }}
+                  className="absolute inset-x-10 top-1/2 h-10 -translate-y-1/2 rounded-full blur-xl opacity-30"
+                  style={{ background: "rgba(255,255,255,0.15)" }}
                 />
                 <div
                   className="absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(90deg, rgba(0,0,0,0.08) 0%, rgba(255,255,255,0.00) 22%, rgba(255,255,255,0.14) 50%, rgba(255,255,255,0.00) 78%, rgba(0,0,0,0.08) 100%)",
+                      "linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(255,255,255,0.00) 22%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.00) 78%, rgba(0,0,0,0.2) 100%)",
                     opacity: 1,
                   }}
                 />
