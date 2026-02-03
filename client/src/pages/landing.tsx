@@ -767,8 +767,8 @@ function ProductFeature({ product }: { product: Product }) {
             {/* Shimmer/Light effect moving through the glass */}
             <motion.div
               className="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-transparent mix-blend-overlay"
-              initial={{ translateY: "-100%" }}
-              animate={{ translateY: "100%" }}
+              initial={{ translateY: "100%" }}
+              animate={{ translateY: "-100%" }}
               transition={{
                 duration: 3,
                 repeat: Infinity,
