@@ -66,6 +66,7 @@ import product7 from "@/assets/images/product-7.jpg";
 import t1 from "@/assets/images/testimonial-1.png";
 import t2 from "@/assets/images/testimonial-2.png";
 import t3 from "@/assets/images/testimonial-3.png";
+import marginTrack from "@/assets/images/margin-track.png";
 
 type Product = {
   id: string;
@@ -748,6 +749,13 @@ function ProductFeature({ product }: { product: Product }) {
             alt="Produto"
             className="h-full min-h-[420px] w-full object-cover lg:min-h-[540px]"
           />
+          <div className="absolute inset-y-0 right-0 w-[15%] min-w-[60px] max-w-[120px] overflow-hidden mix-blend-soft-light">
+            <img
+              src={marginTrack}
+              alt=""
+              className="absolute left-1/2 top-1/2 h-[150%] w-auto min-w-full -translate-x-1/2 -translate-y-1/2 rotate-90 object-cover opacity-60"
+            />
+          </div>
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
         </motion.div>
       </div>
