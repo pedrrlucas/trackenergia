@@ -289,7 +289,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
                     data-testid="img-header-arrow"
                     src="/attached_assets/arrow.png"
                     alt="Seta"
-                    className="h-[46px] w-auto origin-left opacity-[0.98] md:h-[52px]"
+                    className={`h-[46px] w-auto origin-left opacity-[0.98] md:h-[52px] ${!onHome ? "brightness-0 invert" : ""}`}
                     style={{
                       transform: `scale(${arrowScale})`,
                       willChange: "transform",
@@ -323,7 +323,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
                   data-testid="img-logo"
                   src="/attached_assets/logo.png"
                   alt="Track"
-                  className="h-10 w-10 object-contain"
+                  className={`h-10 w-10 object-contain ${!onHome ? "brightness-0 invert" : ""}`}
                   style={{ pointerEvents: "none", userSelect: "none" }}
                 />
               ) : (
@@ -331,7 +331,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
                   data-testid="img-logo-final"
                   src="/attached_assets/official-logo.png"
                   alt="Track"
-                  className="h-10 w-10 object-contain animate-[logoBoop_520ms_cubic-bezier(0.22,1,0.36,1)_both]"
+                  className={`h-10 w-10 object-contain animate-[logoBoop_520ms_cubic-bezier(0.22,1,0.36,1)_both] ${!onHome ? "brightness-0 invert" : ""}`}
                   style={{ pointerEvents: "none", userSelect: "none" }}
                 />
               )}
