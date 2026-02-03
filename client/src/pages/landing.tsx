@@ -308,24 +308,24 @@ function Nav({ onContact }: { onContact: () => void }) {
           <div data-testid="bg-header-glass-highlight" className="pointer-events-none absolute -left-14 top-1/2 h-10 w-[220px] -translate-y-1/2 rotate-[-12deg] rounded-full blur-md" style={{ background: "rgba(255,255,255,0.26)" }} />
           <div data-testid="bg-header-glass-highlight-2" className="pointer-events-none absolute -right-14 top-1/2 h-10 w-[220px] -translate-y-1/2 rotate-[12deg] rounded-full blur-md" style={{ background: "rgba(255,255,255,0.18)" }} />
           {/* Seta (imagem anexada) percorre todo o header até a logo e some ao chegar */}
-          {!arrowGone ? (
-            <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
+          <div data-testid="anim-arrow-layer" className="pointer-events-none absolute inset-0">
+            <div
+              data-testid="anim-arrow-track"
+              className="absolute left-0 top-1/2 -translate-y-1/2"
+              style={{
+                transform: `translate3d(${travelPx}px, 0, 0)`,
+                willChange: "transform",
+              }}
+            >
               <div
-                data-testid="anim-arrow-track"
-                className="absolute left-0 top-1/2 -translate-y-1/2"
+                data-testid="anim-arrow-mask"
+                className="relative overflow-hidden"
                 style={{
-                  transform: `translate3d(${travelPx}px, 0, 0)`,
-                  willChange: "transform",
+                  width: `${Math.max(1, Math.round(progress * 100))}%`,
+                  willChange: "width",
                 }}
               >
-                <div
-                  data-testid="anim-arrow-mask"
-                  className="relative overflow-hidden"
-                  style={{
-                    width: `${Math.max(1, Math.round(progress * 100))}%`,
-                    willChange: "width",
-                  }}
-                >
+                {!arrowGone ? (
                   <img
                     ref={arrowRef}
                     data-testid="img-header-arrow"
@@ -340,10 +340,20 @@ function Nav({ onContact }: { onContact: () => void }) {
                       userSelect: "none",
                     }}
                   />
-                </div>
+                ) : (
+                  // Arrow disappears with a quick fade/scale out instead of disappearing instantly
+                  <img
+                    src="/attached_assets/arrow.png"
+                    alt=""
+                    className="h-[46px] w-auto origin-left opacity-0 transition-all duration-300 md:h-[52px]"
+                    style={{
+                      transform: `scale(0.8) translate(10px, 10px)`,
+                    }}
+                  />
+                )}
               </div>
             </div>
-          ) : null}
+          </div>
 
           <a data-testid="link-logo" href="#top" className="relative flex items-center gap-3">
             <span data-testid="text-header-tagline" className="sr-only">
@@ -352,22 +362,32 @@ function Nav({ onContact }: { onContact: () => void }) {
             <span
               ref={logoRef}
               data-testid="logo-mark"
-              className="grid h-10 w-10 place-items-center"
+              className="grid h-10 w-10 place-items-center relative"
             >
+              {logoSwap && (
+                <div className="absolute inset-0 pointer-events-none grid place-items-center">
+                   <div className="h-4 w-4 rounded-full bg-white animate-rippleExpand" />
+                </div>
+              )}
               {!logoSwap ? (
                 <img
                   data-testid="img-logo"
                   src="/attached_assets/logo.png"
                   alt="Track"
-                  className="h-10 w-10 object-contain"
-                  style={{ pointerEvents: "none", userSelect: "none" }}
+                  className="h-10 w-10 object-contain transition-all duration-200"
+                  style={{
+                    pointerEvents: "none",
+                    userSelect: "none",
+                    transform: arrowGone ? "scale(0.9)" : "scale(1)",
+                    opacity: arrowGone ? 0 : 1
+                  }}
                 />
               ) : (
                 <img
                   data-testid="img-logo-final"
                   src="/attached_assets/official-logo.png"
                   alt="Track"
-                  className="h-10 w-10 object-contain animate-[logoBoop_520ms_cubic-bezier(0.22,1,0.36,1)_both]"
+                  className="h-10 w-10 object-contain animate-logoSpring"
                   style={{ pointerEvents: "none", userSelect: "none" }}
                 />
               )}
