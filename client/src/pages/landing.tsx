@@ -749,35 +749,35 @@ function ProductFeature({ product }: { product: Product }) {
             alt="Produto"
             className="h-full min-h-[420px] w-full object-cover lg:min-h-[540px]"
           />
-          <div className="absolute inset-y-0 right-0 w-[15%] min-w-[60px] max-w-[120px] overflow-hidden mix-blend-soft-light">
+          <div className="absolute inset-y-0 right-0 w-[15%] min-w-[60px] max-w-[120px] overflow-hidden">
             <motion.img
               src={marginTrack}
               alt=""
-              className="absolute left-1/2 top-1/2 h-auto w-[120vh] max-w-none -translate-x-1/2 -translate-y-1/2 rotate-90 object-cover"
+              className="absolute left-1/2 top-1/2 h-auto w-[120vh] max-w-none -translate-x-1/2 -translate-y-1/2 rotate-90 object-cover mix-blend-soft-light"
               animate={{
-                opacity: [0.5, 0.65, 0.5],
-                filter: ["brightness(1)", "brightness(1.2)", "brightness(1)"],
+                opacity: [0.6, 0.9, 0.6],
+                filter: ["brightness(1)", "brightness(1.3)", "brightness(1)"],
               }}
               transition={{
-                duration: 5,
+                duration: 4,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
             />
             {/* Shimmer/Light effect moving through the glass */}
             <motion.div
-              className="absolute inset-0 bg-gradient-to-b from-transparent via-white/15 to-transparent"
+              className="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-transparent mix-blend-overlay"
               initial={{ translateY: "-100%" }}
               animate={{ translateY: "100%" }}
               transition={{
-                duration: 3.5,
+                duration: 3,
                 repeat: Infinity,
                 ease: "linear",
-                repeatDelay: 2,
+                repeatDelay: 1.5,
               }}
             />
             {/* Static highlight for depth */}
-            <div className="absolute inset-0 bg-gradient-to-l from-white/5 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-l from-white/10 to-transparent mix-blend-overlay" />
           </div>
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
         </motion.div>
