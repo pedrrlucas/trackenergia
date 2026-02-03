@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
+import marginTrack from "@/assets/images/margin-track.png";
 import {
   Mail,
   Phone,
@@ -102,6 +103,15 @@ export default function Contact() {
               >
                 <div className="absolute inset-0 hero-overlay opacity-65" />
                 <div className="absolute inset-0 noise opacity-[0.20]" />
+
+                {/* Vertical Margin Image (Background) */}
+                <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-full max-w-[400px] overflow-visible opacity-15 mix-blend-luminosity">
+                  <img
+                    src={marginTrack}
+                    alt=""
+                    className="absolute left-0 top-1/2 h-auto w-[160vh] max-w-none -translate-x-[45%] -translate-y-1/2 rotate-90 object-cover grayscale invert brightness-75"
+                  />
+                </div>
 
                 <div className="relative">
                   <div className="flex flex-wrap items-start justify-between gap-4">
