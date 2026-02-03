@@ -67,6 +67,7 @@ import t1 from "@/assets/images/testimonial-1.png";
 import t2 from "@/assets/images/testimonial-2.png";
 import t3 from "@/assets/images/testimonial-3.png";
 import marginTrack from "@/assets/images/margin-track.png";
+import trackName from "@/assets/images/track-name.png";
 
 type Product = {
   id: string;
@@ -392,9 +393,12 @@ function Nav({ onContact }: { onContact: () => void }) {
                 />
               )}
             </span>
-            <span data-testid="text-logo" className="text-sm font-semibold text-white">
-              Track
-            </span>
+            <img
+              src={trackName}
+              alt="Track"
+              data-testid="text-logo"
+              className="h-[14px] w-auto object-contain brightness-0 invert"
+            />
           </a>
 
           <div data-testid="nav-desktop" className="hidden items-center gap-7 text-xs font-medium text-white/78 md:flex">
