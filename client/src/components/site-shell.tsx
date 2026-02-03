@@ -200,7 +200,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
           className={
             onHome
               ? "relative mt-4 flex items-center justify-between overflow-hidden rounded-full px-4 py-3 ring-1 ring-white/20 backdrop-blur-xl"
-              : "relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-white px-4 py-3 ring-1 ring-zinc-200"
+              : "relative mt-4 flex items-center justify-between overflow-hidden rounded-full bg-[#1d0238] px-4 py-3 ring-1 ring-[#30045c]"
           }
           style={
             onHome
@@ -336,8 +336,12 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
                 />
               )}
             </span>
-            <span data-testid="text-logo" className={onHome ? "text-sm font-semibold text-white" : "text-sm font-semibold text-zinc-700"}>
-              Track
+            <span data-testid="text-logo" className={onHome ? "text-sm font-semibold text-white" : "text-sm font-semibold text-white"}>
+              <img
+                src={footerLogoText}
+                alt="Track"
+                className="h-[14px] w-auto object-contain brightness-0 invert"
+              />
             </span>
           </a>
 
@@ -346,13 +350,13 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             className={
               onHome
                 ? "relative z-10 hidden items-center gap-7 text-xs font-medium text-white/85 md:flex"
-                : "relative z-10 hidden items-center gap-7 text-xs font-medium text-zinc-700 md:flex"
+                : "relative z-10 hidden items-center gap-7 text-xs font-medium text-white/85 md:flex"
             }
           >
             <a
               data-testid="link-nav-home"
               href="#top"
-              className={onHome ? "transition hover:text-white" : "transition hover:text-zinc-900"}
+              className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
               style={{ pointerEvents: showHome ? "auto" : "none", visibility: showHome ? "visible" : "hidden" }}
             >
               Início
@@ -360,7 +364,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             <a
               data-testid="link-nav-product"
               href="#product"
-              className={onHome ? "transition hover:text-white" : "transition hover:text-zinc-900"}
+              className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
               style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
             >
               Serviços
@@ -368,7 +372,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             <a
               data-testid="link-nav-process"
               href="#process"
-              className={onHome ? "transition hover:text-white" : "transition hover:text-zinc-900"}
+              className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
               style={{ pointerEvents: showProcess ? "auto" : "none", visibility: showProcess ? "visible" : "hidden" }}
             >
               Abordagem
@@ -376,7 +380,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             <a
               data-testid="link-nav-testimonials"
               href="#testimonials"
-              className={onHome ? "transition hover:text-white" : "transition hover:text-zinc-900"}
+              className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
               style={{ pointerEvents: showTestimonials ? "auto" : "none", visibility: showTestimonials ? "visible" : "hidden" }}
             >
               Depoimentos
@@ -390,7 +394,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             className={
               onHome
                 ? "group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
-                : "group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/70 px-4 py-2 text-xs font-semibold text-zinc-700 ring-1 ring-zinc-200/70 backdrop-blur-xl transition hover:bg-white/80 hover:text-zinc-800 active:scale-[0.98]"
+                : "group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
             }
           >
             {!onHome ? (
@@ -409,7 +413,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
                 className={
                   onHome
                     ? "absolute -inset-x-2 -inset-y-1 rounded-full bg-white/18 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100"
-                    : "absolute -inset-x-2 -inset-y-1 rounded-full bg-black/5 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100"
+                    : "absolute -inset-x-2 -inset-y-1 rounded-full bg-white/18 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100"
                 }
               />
               <span className="relative">Fale Conosco</span>
@@ -418,14 +422,14 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
               className={
                 onHome
                   ? "relative grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/14 transition duration-300 group-hover:translate-x-0.5 group-hover:bg-white/14 group-active:translate-x-0"
-                  : "relative grid h-7 w-7 place-items-center rounded-full bg-black/5 ring-1 ring-black/5 transition duration-300 group-hover:translate-x-0.5 group-hover:bg-black/8 group-active:translate-x-0"
+                  : "relative grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/14 transition duration-300 group-hover:translate-x-0.5 group-hover:bg-white/14 group-active:translate-x-0"
               }
             >
               <ArrowRight
                 className={
                   onHome
                     ? "h-3.5 w-3.5 transition duration-300 group-hover:translate-x-[1px]"
-                    : "h-3.5 w-3.5 text-zinc-700 transition duration-300 group-hover:translate-x-[1px]"
+                    : "h-3.5 w-3.5 transition duration-300 group-hover:translate-x-[1px]"
                 }
                 strokeWidth={2.25}
               />
