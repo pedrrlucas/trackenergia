@@ -1328,11 +1328,11 @@ function Testimonials() {
           <div className="absolute inset-0 noise opacity-[0.22]" />
 
           {/* Vertical Margin Image (Background) */}
-          <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-[240px] overflow-hidden opacity-10 mix-blend-overlay">
+          <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-[240px] overflow-hidden opacity-30 mix-blend-luminosity">
             <img
               src={marginTrack}
               alt=""
-              className="absolute left-0 top-1/2 h-auto w-[160vh] max-w-none -translate-x-[25%] -translate-y-1/2 rotate-90 object-cover grayscale brightness-125"
+              className="absolute left-0 top-1/2 h-auto w-[160vh] max-w-none -translate-x-[25%] -translate-y-1/2 rotate-90 object-cover grayscale invert brightness-75"
             />
           </div>
 
