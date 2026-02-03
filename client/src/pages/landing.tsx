@@ -753,7 +753,7 @@ function ProductFeature({ product }: { product: Product }) {
             <img
               src={marginTrack}
               alt=""
-              className="absolute left-1/2 top-1/2 h-[150%] w-auto min-w-full -translate-x-1/2 -translate-y-1/2 rotate-90 object-cover opacity-60"
+              className="absolute left-1/2 top-1/2 h-auto w-[120vh] max-w-none -translate-x-1/2 -translate-y-1/2 rotate-90 object-cover opacity-60"
             />
           </div>
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
