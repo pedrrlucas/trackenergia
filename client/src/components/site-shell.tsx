@@ -16,6 +16,9 @@ import {
   Star,
 } from "lucide-react";
 
+import footerLogoMark from "@/assets/images/footer-logo-mark.png";
+import footerLogoText from "@/assets/images/footer-logo-text.png";
+
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = React.useState(false);
   React.useEffect(() => {
@@ -455,11 +458,14 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
             <div className="min-w-0">
               <div className="flex items-center gap-2">
                 <span className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/10">
-                  <span className="h-4 w-4 rotate-12 rounded-sm bg-white" />
+                  <img src={footerLogoMark} alt="" className="h-5 w-5 object-contain" />
                 </span>
-                <span data-testid="text-footer-brand" className="text-sm font-semibold text-white">
-                  Track
-                </span>
+                <img
+                  src={footerLogoText}
+                  alt="Track"
+                  data-testid="text-footer-brand"
+                  className="h-3.5 w-auto object-contain brightness-0 invert"
+                />
               </div>
 
               <div data-testid="text-footer-address" className="mt-5 text-xs leading-5 text-white/60">
