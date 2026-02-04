@@ -695,7 +695,6 @@ function ProductFeature({ products }: { products: Product[] }) {
   const [activeId, setActiveId] = useState(products[0].id);
 
   const activeProduct = products.find((p) => p.id === activeId) || products[0];
-  const otherProducts = products.filter((p) => p.id !== activeId);
 
   return (
     <motion.section
@@ -710,8 +709,8 @@ function ProductFeature({ products }: { products: Product[] }) {
         <motion.div
           key={activeProduct.id}
           className="rounded-[28px] bg-zinc-50 p-8 ring-1 ring-zinc-100"
-          initial={reduced ? undefined : { opacity: 0, y: 10 }}
-          animate={reduced ? undefined : { opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
           <Pill testId="pill-services" muted={false}>
@@ -780,16 +779,16 @@ function ProductFeature({ products }: { products: Product[] }) {
         <div className="relative">
           <motion.div
             key={`img-${activeProduct.id}`}
-            className="relative hidden h-[580px] overflow-hidden rounded-[28px] lg:block lg:rounded-[32px]"
-            initial={reduced ? undefined : { opacity: 0, scale: 0.985 }}
-            animate={reduced ? undefined : { opacity: 1, scale: 1 }}
+            className="relative hidden overflow-hidden rounded-[28px] lg:block lg:rounded-[32px]"
+            initial={{ opacity: 0, scale: 0.985 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
           >
             <img
               data-testid="img-product"
               src={activeProduct.image}
               alt="Produto"
-              className="h-full w-full object-cover"
+              className="h-full min-h-[420px] w-full object-cover lg:min-h-[540px]"
             />
             <div className="absolute inset-y-0 right-0 w-[15%] min-w-[60px] max-w-[120px] overflow-hidden">
               <motion.img
@@ -824,32 +823,57 @@ function ProductFeature({ products }: { products: Product[] }) {
         </div>
       </div>
 
-      <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-3">
-        {otherProducts.map((p) => (
-          <motion.button
-            key={p.id}
-            layoutId={`card-${p.id}`}
-            onClick={() => setActiveId(p.id)}
-            className="group relative flex flex-col gap-3 overflow-hidden rounded-[24px] bg-white p-5 text-left ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="absolute inset-0 opacity-0 transition group-hover:opacity-100">
-              <div className={`absolute inset-0 bg-gradient-to-r ${p.gradient} opacity-[0.05]`} />
-            </div>
-            
-            <div className="grid h-10 w-10 place-items-center rounded-xl bg-zinc-50 ring-1 ring-zinc-200 transition group-hover:bg-white">
-              <span className="text-zinc-900">{p.icon}</span>
-            </div>
-            <div>
-              <div className="text-sm font-semibold text-zinc-950">{p.title}</div>
-              <div className="mt-1 line-clamp-2 text-xs leading-5 text-zinc-500">
-                {p.subtitle}
-              </div>
-            </div>
-          </motion.button>
-        ))}
+      <div className="mt-12">
+        <h3 className="mb-6 text-2xl font-medium tracking-tight text-zinc-950">
+          Explore nossos serviços
+        </h3>
+        
+        <div 
+          className="scrollbar-hide -mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-4 sm:mx-0 sm:px-0"
+        >
+          {products.map((p) => {
+            const isActive = activeId === p.id;
+            return (
+              <motion.button
+                key={p.id}
+                onClick={() => setActiveId(p.id)}
+                className={`group relative min-w-[280px] max-w-[280px] snap-start rounded-[26px] text-left transition-all sm:min-w-[calc(25%-18px)] sm:max-w-[calc(25%-18px)] ${isActive ? "ring-2 ring-[#30045c]" : "ring-1 ring-zinc-200 hover:bg-zinc-50"}`}
+                initial={reduced ? undefined : { opacity: 0, y: 10 }}
+                whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className={`relative h-[200px] overflow-hidden rounded-t-[26px] bg-zinc-100 ${isActive ? "opacity-100" : "opacity-90 grayscale transition-all group-hover:grayscale-0 group-hover:opacity-100"}`}>
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  
+                  {isActive && (
+                    <div className="absolute inset-0 grid place-items-center bg-black/10">
+                      <div className="rounded-full bg-white/20 p-2 backdrop-blur-sm">
+                        <div className="h-2 w-2 rounded-full bg-white" />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className={`p-5 ${isActive ? "bg-zinc-50 rounded-b-[26px]" : "bg-white rounded-b-[26px]"}`}>
+                  <div className="text-[10px] font-bold uppercase tracking-wide text-zinc-400">
+                    {p.tag}
+                  </div>
+                  <div className={`mt-1 text-sm font-semibold ${isActive ? "text-[#30045c]" : "text-zinc-950"}`}>
+                    {p.title}
+                  </div>
+                  <div className="mt-1 line-clamp-2 text-xs leading-5 text-zinc-500">
+                    {p.subtitle}
+                  </div>
+                </div>
+              </motion.button>
+            );
+          })}
+        </div>
       </div>
     </motion.section>
   );
