@@ -681,8 +681,28 @@ function About() {
   );
 }
 
-function ProductFeature({ product }: { product: Product }) {
+function ProductFeature({ product, products }: { product: Product; products: Product[] }) {
   const reduced = usePrefersReducedMotion();
+  const [activeId, setActiveId] = useState<string>(products[0].id);
+  const [scrollIndex, setScrollIndex] = useState(0);
+
+  const activeProduct = useMemo(
+    () => products.find((p) => p.id === activeId) || products[0],
+    [activeId, products],
+  );
+
+  const handleNext = () => {
+    setScrollIndex((prev) => Math.min(prev + 1, products.length - 4));
+  };
+
+  const handlePrev = () => {
+    setScrollIndex((prev) => Math.max(prev - 1, 0));
+  };
+
+  const visibleProducts = useMemo(() => {
+    // For desktop carousel logic
+    return products; 
+  }, [products]);
 
   return (
     <motion.section
@@ -750,13 +770,6 @@ function ProductFeature({ product }: { product: Product }) {
               </span>
               Vamos conversar
             </button>
-            <button
-              data-testid="button-explore-product"
-              className="inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#30045c] active:scale-[0.98]"
-            >
-              Ver serviços
-              <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-            </button>
           </div>
         </motion.div>
 
@@ -767,13 +780,46 @@ function ProductFeature({ product }: { product: Product }) {
           viewport={{ once: true, margin: "-120px" }}
           transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1], delay: 0.05 }}
         >
-          <img
-            data-testid="img-product"
-            src={product.image}
-            alt="Produto"
-            className="h-full min-h-[420px] w-full object-cover lg:min-h-[540px]"
-          />
-          <div className="absolute inset-y-0 right-0 w-[15%] min-w-[60px] max-w-[120px] overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeProduct.id}
+              className="absolute inset-0 z-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              <img
+                data-testid="img-product"
+                src={activeProduct.image}
+                alt={activeProduct.title}
+                className="h-full min-h-[420px] w-full object-cover lg:min-h-[540px]"
+              />
+               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90" />
+               
+               <div className="absolute bottom-0 left-0 right-0 p-8">
+                  <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur-md">
+                    <div className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
+                      {activeProduct.tag}
+                    </div>
+                    <div className="mt-2 text-2xl font-semibold text-white">
+                      {activeProduct.title}
+                    </div>
+                    <div className="mt-1 text-sm text-white/80">
+                      {activeProduct.subtitle}
+                    </div>
+                    <div className="mt-4 flex items-center gap-3">
+                         <a href={`/servicos/${activeProduct.id}`} className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]">
+                            Saiba mais
+                            <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" strokeWidth={2.25} />
+                         </a>
+                    </div>
+                  </div>
+               </div>
+            </motion.div>
+          </AnimatePresence>
+          
+          <div className="absolute inset-y-0 right-0 w-[15%] min-w-[60px] max-w-[120px] overflow-hidden z-20 pointer-events-none">
             <motion.img
               src={marginTrack}
               alt=""
@@ -788,7 +834,7 @@ function ProductFeature({ product }: { product: Product }) {
                 ease: "easeInOut",
               }}
             />
-            {/* Shimmer/Light effect moving through the glass */}
+             {/* Shimmer/Light effect moving through the glass */}
             <motion.div
               className="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-transparent mix-blend-overlay"
               initial={{ translateY: "100%" }}
@@ -803,8 +849,130 @@ function ProductFeature({ product }: { product: Product }) {
             {/* Static highlight for depth */}
             <div className="absolute inset-0 bg-gradient-to-l from-white/10 to-transparent mix-blend-overlay" />
           </div>
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
         </motion.div>
+      </div>
+
+      {/* Carousel Section */}
+      <div className="mt-12">
+          <div className="hidden lg:block">
+            <div className="relative">
+                <div className="overflow-hidden">
+                    <motion.div 
+                        className="flex gap-6"
+                        animate={{ x: `-${scrollIndex * (25 + 1.5)}%` }} // Approx percentage based width + gap
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    >
+                        {products.map((p) => (
+                            <motion.button
+                                key={p.id}
+                                onClick={() => setActiveId(p.id)}
+                                className={`group relative w-[23%] shrink-0 text-left rounded-[26px] bg-zinc-100 ring-1 transition-all duration-300 ${activeId === p.id ? 'ring-[#1d0238] ring-2 ring-offset-2' : 'ring-zinc-200'}`}
+                                whileHover={{ y: -4 }}
+                            >
+                                <div className="relative overflow-hidden rounded-[26px] h-[200px]">
+                                    <img
+                                        src={p.image}
+                                        alt={p.title}
+                                        className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                                    />
+                                    <div className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent transition duration-300 ${activeId === p.id ? 'opacity-40' : 'opacity-80 group-hover:opacity-60'}`} />
+                                    
+                                    {activeId === p.id && (
+                                         <div className="absolute inset-0 grid place-items-center">
+                                            <div className="h-10 w-10 rounded-full bg-white/20 backdrop-blur-md grid place-items-center">
+                                                <div className="h-3 w-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
+                                            </div>
+                                         </div>
+                                    )}
+                                </div>
+                                <div className="p-4">
+                                    <div className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
+                                        {p.tag}
+                                    </div>
+                                    <div className="mt-1 text-sm font-semibold text-zinc-950 leading-tight">
+                                        {p.title}
+                                    </div>
+                                </div>
+                            </motion.button>
+                        ))}
+                    </motion.div>
+                </div>
+
+                <div className="absolute -left-4 -right-4 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none px-2">
+                    <button 
+                         onClick={handlePrev}
+                         disabled={scrollIndex === 0}
+                         className="pointer-events-auto grid h-10 w-10 place-items-center rounded-full bg-white shadow-lg text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-0"
+                    >
+                        <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
+                    </button>
+                    <button 
+                         onClick={handleNext}
+                         disabled={scrollIndex >= products.length - 4}
+                         className="pointer-events-auto grid h-10 w-10 place-items-center rounded-full bg-white shadow-lg text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-0"
+                    >
+                        <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
+                    </button>
+                </div>
+            </div>
+          </div>
+
+          {/* Mobile Scroll */}
+          <div className="lg:hidden">
+            <div
+              className="scrollbar-none flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-2"
+              style={{ scrollPaddingLeft: 16, scrollPaddingRight: 16 }}
+            >
+              {products.map((p, i) => (
+                <motion.div
+                  key={`mobile-${p.id}`}
+                  className="group w-[86%] max-w-[320px] shrink-0 snap-start"
+                  initial={reduced ? undefined : { opacity: 0, y: 10 }}
+                  whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1], delay: i * 0.04 }}
+                  onClick={() => setActiveId(p.id)}
+                >
+                   <div className={`flex h-full flex-col overflow-hidden rounded-[24px] bg-white ring-1 transition-all duration-300 ${activeId === p.id ? 'ring-[#1d0238] ring-2' : 'ring-zinc-200'}`}>
+                    <div className="relative h-[200px]">
+                      <img
+                        src={p.image}
+                        alt={p.title}
+                        className="h-full w-full object-cover"
+                      />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
+                      <div className="absolute left-4 top-4">
+                        <div className="glass inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
+                          <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
+                          {p.tag}
+                        </div>
+                      </div>
+                      
+                      {activeId === p.id && (
+                             <div className="absolute inset-0 grid place-items-center">
+                                <div className="h-10 w-10 rounded-full bg-white/20 backdrop-blur-md grid place-items-center">
+                                    <div className="h-3 w-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
+                                </div>
+                             </div>
+                        )}
+                    </div>
+
+                    <div className="p-5">
+                        <div className="text-base font-semibold text-zinc-950">
+                          {p.title}
+                        </div>
+                        <div className="mt-1 text-sm text-zinc-600">
+                          {p.subtitle}
+                        </div>
+                        <button className="mt-4 text-xs font-semibold text-[#1d0238] underline">
+                            Ver detalhes
+                        </button>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
       </div>
     </motion.section>
   );
@@ -947,322 +1115,6 @@ function Process() {
   );
 }
 
-function ProductGrid({ products }: { products: Product[] }) {
-  const reduced = usePrefersReducedMotion();
-
-  const [activeTop, setActiveTop] = useState<string | null>(null);
-  const [activeBottom, setActiveBottom] = useState<string | null>(null);
-  const [activeMobile, setActiveMobile] = useState<string | null>(null);
-
-  const desktopFirstRow = useMemo(() => products.slice(0, 3), [products]);
-  const desktopSecondRow = useMemo(() => products.slice(0, 4), [products]);
-
-  return (
-    <section className="container-page pb-12 sm:pb-16 lg:pb-20">
-      <div className="flex items-start justify-between gap-6">
-        <Pill testId="pill-our-product">( serviços )</Pill>
-      </div>
-
-      <div className="mt-6">
-        <div className="hidden lg:block">
-          <div className="grid grid-cols-4 gap-6">
-            <div className="flex flex-col justify-between rounded-[28px] bg-white p-6 ring-1 ring-zinc-200">
-              <div>
-                <h3
-                  data-testid="text-grid-title"
-                  className="text-balance text-[40px] font-medium leading-[1.06] tracking-[-0.03em]"
-                >
-                  Explore nossos
-                  <br />
-                  <span className="subtle-grad">serviços em energia</span>
-                </h3>
-                <p data-testid="text-grid-sub" className="mt-4 text-sm leading-6 text-zinc-500">
-                  Do diagnóstico à operação: eficiência, geração própria, armazenamento, mercado livre e manutenção, sempre com proposta sob medida.
-                </p>
-              </div>
-
-              <div className="mt-6">
-                <button
-                  data-testid="button-grid-explore"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#30045c] active:scale-[0.98]"
-                >
-                  Ver serviços
-                  <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-                </button>
-              </div>
-            </div>
-
-            {desktopFirstRow.map((p) => (
-              <motion.button
-                data-testid={`card-product-top-${p.id}`}
-                key={`top-${p.id}`}
-                onHoverStart={() => setActiveTop(p.id)}
-                onHoverEnd={() => setActiveTop((cur) => (cur === p.id ? null : cur))}
-                onFocus={() => setActiveTop(p.id)}
-                onBlur={() => setActiveTop((cur) => (cur === p.id ? null : cur))}
-                className="group text-left"
-                initial={reduced ? undefined : { opacity: 0, y: 10 }}
-                whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1] }}
-              >
-                <div className="relative overflow-hidden rounded-[28px] bg-zinc-100 ring-1 ring-zinc-200">
-                  <img
-                    data-testid={`img-product-top-${p.id}`}
-                    src={p.image}
-                    alt={p.title}
-                    className="h-[248px] w-full object-cover transition duration-700 group-hover:scale-[1.03]"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/28 to-transparent opacity-90" />
-
-                  <AnimatePresence>
-                    {activeTop === p.id ? (
-                      <motion.div
-                        className="absolute inset-0 grid place-items-center"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
-                      >
-                        <motion.div
-                          className="glass inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold leading-none text-white"
-                          initial={{ opacity: 0, scale: 0.98 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.98 }}
-                          transition={{ duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
-                        >
-                          Saiba mais
-                          <span className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/14 ring-1 ring-white/16">
-                            <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-                          </span>
-                        </motion.div>
-                      </motion.div>
-                    ) : null}
-                  </AnimatePresence>
-                </div>
-
-                <div className="mt-4">
-                  <div
-                    data-testid={`text-product-top-tag-${p.id}`}
-                    className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500"
-                  >
-                    {p.tag}
-                  </div>
-                  <div data-testid={`text-product-top-title-${p.id}`} className="mt-2 text-sm font-semibold text-zinc-950">
-                    {p.title}
-                  </div>
-                  <div data-testid={`text-product-top-sub-${p.id}`} className="mt-1 text-sm text-zinc-500">
-                    {p.subtitle}
-                  </div>
-                </div>
-              </motion.button>
-            ))}
-          </div>
-
-          <div className="mt-8 grid grid-cols-4 gap-6">
-            {desktopSecondRow.map((p) => (
-              <motion.button
-                data-testid={`card-product-${p.id}`}
-                key={`grid-${p.id}`}
-                onHoverStart={() => setActiveBottom(p.id)}
-                onHoverEnd={() => setActiveBottom((cur) => (cur === p.id ? null : cur))}
-                onFocus={() => setActiveBottom(p.id)}
-                onBlur={() => setActiveBottom((cur) => (cur === p.id ? null : cur))}
-                className="group text-left"
-                initial={reduced ? undefined : { opacity: 0, y: 10 }}
-                whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1] }}
-              >
-                <div className="relative overflow-hidden rounded-[26px] bg-zinc-100 ring-1 ring-zinc-200">
-                  <img
-                    data-testid={`img-product-grid-${p.id}`}
-                    src={p.image}
-                    alt={p.title}
-                    className="h-[248px] w-full object-cover transition duration-700 group-hover:scale-[1.03]"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-80" />
-
-                  <AnimatePresence>
-                    {activeBottom === p.id ? (
-                      <motion.div
-                        className="absolute inset-0 grid place-items-center"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
-                      >
-                        <motion.div
-                          className="glass inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold leading-none text-white"
-                          initial={{ opacity: 0, scale: 0.98 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.98 }}
-                          transition={{ duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
-                        >
-                          Saiba mais
-                          <span className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/14 ring-1 ring-white/16">
-                            <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-                          </span>
-                        </motion.div>
-                      </motion.div>
-                    ) : null}
-                  </AnimatePresence>
-                </div>
-
-                <div className="mt-4">
-                  <div
-                    data-testid={`text-product-grid-tag-${p.id}`}
-                    className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500"
-                  >
-                    {p.tag}
-                  </div>
-                  <div data-testid={`text-product-grid-title-${p.id}`} className="mt-2 text-sm font-semibold text-zinc-950">
-                    {p.title}
-                  </div>
-                  <div data-testid={`text-product-grid-sub-${p.id}`} className="mt-1 text-sm text-zinc-500">
-                    {p.subtitle}
-                  </div>
-                </div>
-              </motion.button>
-            ))}
-          </div>
-        </div>
-
-        <div className="lg:hidden">
-          <div className="mt-4">
-            <h3
-              data-testid="text-grid-title-mobile"
-              className="text-balance text-[38px] font-medium leading-[1.06] tracking-[-0.03em]"
-            >
-              Explore nossos
-              <br />
-              <span className="subtle-grad">serviços em energia</span>
-            </h3>
-
-          </div>
-
-
-          <div className="mt-6 overflow-hidden rounded-[28px] bg-zinc-50 p-4 ring-1 ring-zinc-200">
-            <div
-              id="services-mobile-scroll"
-              data-testid="carousel-services-mobile"
-              className="scrollbar-none flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-2"
-              style={{ scrollPaddingLeft: 16, scrollPaddingRight: 16 }}
-            >
-              {products.map((p, i) => (
-                <motion.div
-                  data-testid={`card-service-mobile-${p.id}`}
-                  data-service-card
-                  key={`mobile-${p.id}`}
-                  className="group w-[86%] max-w-[420px] shrink-0 snap-start"
-                  initial={reduced ? undefined : { opacity: 0, y: 10 }}
-                  whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1], delay: i * 0.04 }}
-                >
-                  <div className="flex h-full flex-col overflow-hidden rounded-[24px] bg-white ring-1 ring-zinc-200">
-                    <div className="relative">
-                      <img
-                        data-testid={`img-service-mobile-${p.id}`}
-                        src={p.image}
-                        alt={p.title}
-                        className="h-[240px] w-full object-cover transition duration-700 group-hover:scale-[1.03]"
-                      />
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
-
-                      <div className="absolute left-4 top-4">
-                        <div
-                          data-testid={`pill-service-mobile-${p.id}`}
-                          className="glass inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white"
-                        >
-                          <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
-                          {p.tag}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-1 flex-col p-5">
-                      <div>
-                        <div data-testid={`text-service-mobile-title-${p.id}`} className="text-base font-semibold text-zinc-950">
-                          {p.title}
-                        </div>
-                        <div data-testid={`text-service-mobile-sub-${p.id}`} className="mt-1 text-sm text-zinc-600">
-                          {p.subtitle}
-                        </div>
-                        <p data-testid={`text-service-mobile-desc-${p.id}`} className="mt-3 text-sm leading-6 text-zinc-500">
-                          {p.desc || "Solução sob medida com diagnóstico, projeto e acompanhamento."}
-                        </p>
-                      </div>
-
-                      <div className="mt-4 flex items-center justify-between">
-                        <button
-                          type="button"
-                          data-testid={`button-service-details-${p.id}`}
-                          className="group/details inline-flex items-center gap-2 rounded-full bg-zinc-100 px-3.5 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
-                        >
-                          Saiba mais
-                          <span className="grid h-7 w-7 place-items-center rounded-full bg-white ring-1 ring-zinc-200 transition group-hover/details:translate-x-0.5">
-                            <ArrowRight className="h-4 w-4 text-zinc-900" strokeWidth={2.25} />
-                          </span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="mt-4 flex items-center justify-between gap-3">
-              <a
-                data-testid="link-services-view-all"
-                href="/servicos"
-                className="inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/10 transition hover:bg-[#30045c] active:scale-[0.98]"
-              >
-                Ver todos os serviços
-                <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/10">
-                  <ArrowUpRight className="h-4 w-4" strokeWidth={2.25} />
-                </span>
-              </a>
-
-              <div className="flex items-center justify-end gap-2">
-                <button
-                  data-testid="button-grid-prev-mobile"
-                  onClick={() => {
-                    const el = document.getElementById("services-mobile-scroll");
-                    if (!el) return;
-                    const card = el.querySelector<HTMLElement>("[data-service-card]");
-                    const gap = 16;
-                    const step = card ? card.offsetWidth + gap : el.clientWidth;
-                    el.scrollBy({ left: -step, behavior: "smooth" });
-                  }}
-                  className="grid h-10 w-10 place-items-center rounded-full bg-white text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
-                  aria-label="Serviço anterior"
-                >
-                  <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
-                </button>
-                <button
-                  data-testid="button-grid-next-mobile"
-                  onClick={() => {
-                    const el = document.getElementById("services-mobile-scroll");
-                    if (!el) return;
-                    const card = el.querySelector<HTMLElement>("[data-service-card]");
-                    const gap = 16;
-                    const step = card ? card.offsetWidth + gap : el.clientWidth;
-                    el.scrollBy({ left: step, behavior: "smooth" });
-                  }}
-                  className="grid h-10 w-10 place-items-center rounded-full bg-white text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
-                  aria-label="Próximo serviço"
-                >
-                  <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function Testimonials() {
   const reduced = usePrefersReducedMotion();
@@ -1801,9 +1653,8 @@ export default function Landing() {
       </section>
 
       <About />
-      <ProductFeature product={primaryProduct} />
+      <ProductFeature product={primaryProduct} products={products} />
       <Process />
-      <ProductGrid products={products} />
       <Testimonials />
 
       <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} />
