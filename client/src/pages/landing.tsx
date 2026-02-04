@@ -837,7 +837,7 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                             <motion.button
                                 key={p.id}
                                 onClick={() => setActiveId(p.id)}
-                                className={`group relative w-[23%] shrink-0 text-left rounded-[26px] bg-zinc-100 ring-1 transition-all duration-300 ${activeId === p.id ? 'ring-[#1d0238] ring-2 ring-offset-2 scale-[1.02] shadow-lg z-10' : 'ring-zinc-200 hover:ring-zinc-300 hover:scale-[1.01]'}`}
+                                className={`group relative w-[23%] shrink-0 text-left rounded-[26px] bg-zinc-100 transition-all duration-300 ${activeId === p.id ? 'ring-2 ring-[#1d0238] ring-inset shadow-xl scale-[1.02] z-10' : 'ring-1 ring-zinc-200 hover:ring-zinc-300 hover:scale-[1.01]'}`}
                                 whileHover={{ y: -4 }}
                             >
                                 <div className="relative overflow-hidden rounded-[26px] h-[200px]">
@@ -846,15 +846,7 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                                         alt={p.title}
                                         className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
                                     />
-                                    <div className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent transition duration-300 ${activeId === p.id ? 'opacity-30' : 'opacity-80 group-hover:opacity-60'}`} />
-                                    
-                                    {activeId === p.id && (
-                                         <div className="absolute inset-0 grid place-items-center">
-                                            <div className="h-10 w-10 rounded-full bg-white/20 backdrop-blur-md grid place-items-center border border-white/30">
-                                                <div className="h-3 w-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
-                                            </div>
-                                         </div>
-                                    )}
+                                    <div className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent transition duration-300 ${activeId === p.id ? 'opacity-0' : 'opacity-80 group-hover:opacity-60'}`} />
                                 </div>
                                 <div className={`p-4 transition-colors duration-300 ${activeId === p.id ? 'bg-[#f8f5fa]' : ''} rounded-b-[26px]`}>
                                     <div className={`text-[10px] font-semibold uppercase tracking-wide transition-colors ${activeId === p.id ? 'text-[#1d0238]' : 'text-zinc-500'}`}>
@@ -904,28 +896,20 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                   transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1], delay: i * 0.04 }}
                   onClick={() => setActiveId(p.id)}
                 >
-                   <div className={`flex h-full flex-col overflow-hidden rounded-[24px] bg-white ring-1 transition-all duration-300 ${activeId === p.id ? 'ring-[#1d0238] ring-2 shadow-lg scale-[1.02]' : 'ring-zinc-200'}`}>
+                   <div className={`flex h-full flex-col overflow-hidden rounded-[24px] bg-white transition-all duration-300 ${activeId === p.id ? 'ring-2 ring-[#1d0238] ring-inset shadow-xl scale-[1.02]' : 'ring-1 ring-zinc-200'}`}>
                     <div className="relative h-[200px]">
                       <img
                         src={p.image}
                         alt={p.title}
                         className="h-full w-full object-cover"
                       />
-                      <div className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent transition-opacity duration-300 ${activeId === p.id ? 'opacity-60' : 'opacity-100'}`} />
+                      <div className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent transition-opacity duration-300 ${activeId === p.id ? 'opacity-0' : 'opacity-100'}`} />
                       <div className="absolute left-4 top-4">
                         <div className="glass inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
                           <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
                           {p.tag}
                         </div>
                       </div>
-                      
-                      {activeId === p.id && (
-                             <div className="absolute inset-0 grid place-items-center">
-                                <div className="h-10 w-10 rounded-full bg-white/20 backdrop-blur-md grid place-items-center border border-white/30">
-                                    <div className="h-3 w-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
-                                </div>
-                             </div>
-                        )}
                     </div>
 
                     <div className={`p-5 transition-colors duration-300 ${activeId === p.id ? 'bg-[#f8f5fa]' : ''}`}>
