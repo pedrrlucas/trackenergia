@@ -694,7 +694,7 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
         const next = (idx + 1) % products.length;
         return products[next].id;
       });
-    }, 5000);
+    }, 8000);
     return () => clearInterval(interval);
   }, [products, activeId]);
 
@@ -792,14 +792,14 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
           viewport={{ once: true, margin: "-120px" }}
           transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1], delay: 0.05 }}
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             <motion.div
               key={activeProduct.id}
               className="absolute inset-0 z-10"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
             >
               <img
                 data-testid="img-product"
