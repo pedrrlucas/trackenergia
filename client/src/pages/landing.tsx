@@ -824,10 +824,10 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
       </div>
 
       {/* Carousel Section */}
-      <div className="mt-12">
+      <div className="mt-6">
           <div className="hidden lg:block">
             <div className="relative">
-                <div className="overflow-hidden">
+                <div className="overflow-hidden py-10 -my-10 px-4 -mx-4">
                     <motion.div 
                         className="flex gap-6"
                         animate={{ x: `-${scrollIndex * (25 + 1.5)}%` }} // Approx percentage based width + gap
@@ -837,7 +837,7 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                             <motion.button
                                 key={p.id}
                                 onClick={() => setActiveId(p.id)}
-                                className={`group relative w-[23%] shrink-0 text-left rounded-[26px] bg-zinc-100 transition-all duration-300 ${activeId === p.id ? 'ring-2 ring-[#1d0238] ring-inset shadow-xl scale-[1.02] z-10' : 'ring-1 ring-zinc-200 hover:ring-zinc-300 hover:scale-[1.01]'}`}
+                                className={`group relative w-[23%] shrink-0 text-left rounded-[26px] bg-zinc-100 transition-all duration-300 ${activeId === p.id ? 'ring-2 ring-[#1d0238] ring-inset shadow-2xl scale-[1.02] z-10' : 'ring-1 ring-zinc-200 hover:ring-zinc-300 hover:scale-[1.01]'}`}
                                 whileHover={{ y: -4 }}
                             >
                                 <div className="relative overflow-hidden rounded-[26px] h-[200px]">
@@ -861,20 +861,20 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                     </motion.div>
                 </div>
 
-                <div className="absolute -left-4 -right-4 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none px-2">
+                <div className="absolute -left-6 -right-6 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none px-2 z-20">
                     <button 
                          onClick={handlePrev}
                          disabled={scrollIndex === 0}
-                         className="pointer-events-auto grid h-10 w-10 place-items-center rounded-full bg-white shadow-lg text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-0"
+                         className="pointer-events-auto grid h-12 w-12 place-items-center rounded-full bg-white shadow-xl text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-0 disabled:pointer-events-none"
                     >
-                        <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
+                        <ChevronLeft className="h-5 w-5" strokeWidth={2.25} />
                     </button>
                     <button 
                          onClick={handleNext}
                          disabled={scrollIndex >= products.length - 4}
-                         className="pointer-events-auto grid h-10 w-10 place-items-center rounded-full bg-white shadow-lg text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-0"
+                         className="pointer-events-auto grid h-12 w-12 place-items-center rounded-full bg-white shadow-xl text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-0 disabled:pointer-events-none"
                     >
-                        <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
+                        <ChevronRight className="h-5 w-5" strokeWidth={2.25} />
                     </button>
                 </div>
             </div>
