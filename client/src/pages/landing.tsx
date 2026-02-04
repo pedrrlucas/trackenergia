@@ -397,7 +397,7 @@ function Nav({ onContact }: { onContact: () => void }) {
               src={trackName}
               alt="Track"
               data-testid="text-logo"
-              className="h-[14px] w-auto object-contain brightness-0 invert"
+              className="h-[14px] w-auto object-contain brightness-0"
             />
           </a>
 
