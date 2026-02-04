@@ -9,6 +9,13 @@ import {
   MoveUpRight,
   Quote,
   Star,
+  LineChart,
+  Leaf,
+  BatteryCharging,
+  Building2,
+  ShieldCheck,
+  Cable,
+  Factory,
 } from "lucide-react";
 
 const revealViewport = { once: true, amount: 0.22 } as const;
@@ -78,6 +85,8 @@ type Product = {
   specLeft: string[];
   specRight: string[];
   image: string;
+  icon: React.ReactNode;
+  gradient: string;
 };
 
 type Testimonial = {
@@ -681,8 +690,12 @@ function About() {
   );
 }
 
-function ProductFeature({ product }: { product: Product }) {
+function ProductFeature({ products }: { products: Product[] }) {
   const reduced = usePrefersReducedMotion();
+  const [activeId, setActiveId] = useState(products[0].id);
+
+  const activeProduct = products.find((p) => p.id === activeId) || products[0];
+  const otherProducts = products.filter((p) => p.id !== activeId);
 
   return (
     <motion.section
@@ -695,25 +708,25 @@ function ProductFeature({ product }: { product: Product }) {
     >
       <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
         <motion.div
+          key={activeProduct.id}
           className="rounded-[28px] bg-zinc-50 p-8 ring-1 ring-zinc-100"
           initial={reduced ? undefined : { opacity: 0, y: 10 }}
-          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-110px" }}
-          transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+          animate={reduced ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
         >
-          <Pill testId="pill-popular-product" muted={false}>
-            ( soluções )
+          <Pill testId="pill-services" muted={false}>
+            ( serviços )
           </Pill>
           <h3
             data-testid="text-product-title"
             className="mt-6 text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em]"
           >
-            {product.title}
+            {activeProduct.title}
             <br />
-            <span className="subtle-grad">{product.subtitle}</span>
+            <span className="subtle-grad">{activeProduct.subtitle}</span>
           </h3>
           <p data-testid="text-product-desc" className="mt-3 max-w-[520px] text-sm leading-6 text-zinc-500">
-            {product.desc}
+            {activeProduct.desc}
           </p>
 
           <div className="mt-8 grid gap-6 rounded-2xl bg-white p-5 ring-1 ring-zinc-100">
@@ -722,7 +735,7 @@ function ProductFeature({ product }: { product: Product }) {
             </div>
             <div className="grid gap-6 sm:grid-cols-2">
               <ul className="space-y-2.5 text-sm text-zinc-600">
-                {product.specLeft.map((s, idx) => (
+                {activeProduct.specLeft.map((s, idx) => (
                   <li data-testid={`text-spec-left-${idx}`} key={idx} className="flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#1d0238]" />
                     {s}
@@ -730,7 +743,7 @@ function ProductFeature({ product }: { product: Product }) {
                 ))}
               </ul>
               <ul className="space-y-2.5 text-sm text-zinc-600">
-                {product.specRight.map((s, idx) => (
+                {activeProduct.specRight.map((s, idx) => (
                   <li data-testid={`text-spec-right-${idx}`} key={idx} className="flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#1d0238]" />
                     {s}
@@ -743,6 +756,9 @@ function ProductFeature({ product }: { product: Product }) {
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <button
               data-testid="button-lets-talk"
+              onClick={() => {
+                window.location.href = "/contato";
+              }}
               className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
             >
               <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
@@ -750,61 +766,90 @@ function ProductFeature({ product }: { product: Product }) {
               </span>
               Vamos conversar
             </button>
-            <button
+            <a
+              href={`/servicos/${activeProduct.id}`}
               data-testid="button-explore-product"
               className="inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#30045c] active:scale-[0.98]"
             >
-              Ver serviços
+              Ver detalhes
               <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-            </button>
+            </a>
           </div>
         </motion.div>
 
-        <motion.div
-          className="relative hidden overflow-hidden rounded-[28px] lg:block lg:rounded-[32px]"
-          initial={reduced ? undefined : { opacity: 0, scale: 0.985 }}
-          whileInView={reduced ? undefined : { opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-120px" }}
-          transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1], delay: 0.05 }}
-        >
-          <img
-            data-testid="img-product"
-            src={product.image}
-            alt="Produto"
-            className="h-full min-h-[420px] w-full object-cover lg:min-h-[540px]"
-          />
-          <div className="absolute inset-y-0 right-0 w-[15%] min-w-[60px] max-w-[120px] overflow-hidden">
-            <motion.img
-              src={marginTrack}
-              alt=""
-              className="absolute left-1/2 top-1/2 h-auto w-[120vh] max-w-none -translate-x-1/2 -translate-y-1/2 rotate-90 object-cover mix-blend-soft-light"
-              animate={{
-                opacity: [0.6, 0.9, 0.6],
-                filter: ["brightness(1)", "brightness(1.3)", "brightness(1)"],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
+        <div className="relative">
+          <motion.div
+            key={`img-${activeProduct.id}`}
+            className="relative hidden h-[580px] overflow-hidden rounded-[28px] lg:block lg:rounded-[32px]"
+            initial={reduced ? undefined : { opacity: 0, scale: 0.985 }}
+            animate={reduced ? undefined : { opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <img
+              data-testid="img-product"
+              src={activeProduct.image}
+              alt="Produto"
+              className="h-full w-full object-cover"
             />
-            {/* Shimmer/Light effect moving through the glass */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-transparent mix-blend-overlay"
-              initial={{ translateY: "100%" }}
-              animate={{ translateY: "-100%" }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "linear",
-                repeatDelay: 1.5,
-              }}
-            />
-            {/* Static highlight for depth */}
-            <div className="absolute inset-0 bg-gradient-to-l from-white/10 to-transparent mix-blend-overlay" />
-          </div>
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
-        </motion.div>
+            <div className="absolute inset-y-0 right-0 w-[15%] min-w-[60px] max-w-[120px] overflow-hidden">
+              <motion.img
+                src={marginTrack}
+                alt=""
+                className="absolute left-1/2 top-1/2 h-auto w-[120vh] max-w-none -translate-x-1/2 -translate-y-1/2 rotate-90 object-cover mix-blend-soft-light"
+                animate={{
+                  opacity: [0.6, 0.9, 0.6],
+                  filter: ["brightness(1)", "brightness(1.3)", "brightness(1)"],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-transparent mix-blend-overlay"
+                initial={{ translateY: "100%" }}
+                animate={{ translateY: "-100%" }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "linear",
+                  repeatDelay: 1.5,
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-l from-white/10 to-transparent mix-blend-overlay" />
+            </div>
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
+          </motion.div>
+        </div>
+      </div>
+
+      <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-3">
+        {otherProducts.map((p) => (
+          <motion.button
+            key={p.id}
+            layoutId={`card-${p.id}`}
+            onClick={() => setActiveId(p.id)}
+            className="group relative flex flex-col gap-3 overflow-hidden rounded-[24px] bg-white p-5 text-left ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="absolute inset-0 opacity-0 transition group-hover:opacity-100">
+              <div className={`absolute inset-0 bg-gradient-to-r ${p.gradient} opacity-[0.05]`} />
+            </div>
+            
+            <div className="grid h-10 w-10 place-items-center rounded-xl bg-zinc-50 ring-1 ring-zinc-200 transition group-hover:bg-white">
+              <span className="text-zinc-900">{p.icon}</span>
+            </div>
+            <div>
+              <div className="text-sm font-semibold text-zinc-950">{p.title}</div>
+              <div className="mt-1 line-clamp-2 text-xs leading-5 text-zinc-500">
+                {p.subtitle}
+              </div>
+            </div>
+          </motion.button>
+        ))}
       </div>
     </motion.section>
   );
@@ -1699,20 +1744,6 @@ function Footer({ onPlay }: { onPlay: () => void }) {
 export default function Landing() {
   const [videoOpen, setVideoOpen] = useState(false);
 
-  const primaryProduct: Product = useMemo(
-    () => ({
-      id: "solucoes-track",
-      tag: "SOLUÇÕES TRACK",
-      title: "Energia sob medida",
-      subtitle: "Da estratégia à operação",
-      desc: "Analisamos oportunidades, desenhamos a proposta ideal e executamos com monitoramento após a implementação, sempre com o radar ligado para melhorias.",
-      specLeft: ["Eficiência energética", "Geração própria", "Armazenamento"],
-      specRight: ["Mercado livre", "Assinatura de energia", "O&M fotovoltaico"],
-      image: productImg,
-    }),
-    [],
-  );
-
   const products: Product[] = useMemo(
     () => [
       {
@@ -1801,9 +1832,8 @@ export default function Landing() {
       </section>
 
       <About />
-      <ProductFeature product={primaryProduct} />
+      <ProductFeature products={products} />
       <Process />
-      <ProductGrid products={products} />
       <Testimonials />
 
       <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} />
