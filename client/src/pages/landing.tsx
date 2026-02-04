@@ -9,13 +9,6 @@ import {
   MoveUpRight,
   Quote,
   Star,
-  LineChart,
-  Leaf,
-  BatteryCharging,
-  Building2,
-  ShieldCheck,
-  Cable,
-  Factory,
 } from "lucide-react";
 
 const revealViewport = { once: true, amount: 0.22 } as const;
@@ -85,8 +78,6 @@ type Product = {
   specLeft: string[];
   specRight: string[];
   image: string;
-  icon: React.ReactNode;
-  gradient: string;
 };
 
 type Testimonial = {
@@ -690,11 +681,8 @@ function About() {
   );
 }
 
-function ProductFeature({ products }: { products: Product[] }) {
+function ProductFeature({ product }: { product: Product }) {
   const reduced = usePrefersReducedMotion();
-  const [activeId, setActiveId] = useState(products[0].id);
-
-  const activeProduct = products.find((p) => p.id === activeId) || products[0];
 
   return (
     <motion.section
@@ -707,25 +695,25 @@ function ProductFeature({ products }: { products: Product[] }) {
     >
       <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
         <motion.div
-          key={activeProduct.id}
           className="rounded-[28px] bg-zinc-50 p-8 ring-1 ring-zinc-100"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          initial={reduced ? undefined : { opacity: 0, y: 10 }}
+          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-110px" }}
+          transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
         >
-          <Pill testId="pill-services" muted={false}>
-            ( serviços )
+          <Pill testId="pill-popular-product" muted={false}>
+            ( soluções )
           </Pill>
           <h3
             data-testid="text-product-title"
             className="mt-6 text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em]"
           >
-            {activeProduct.title}
+            {product.title}
             <br />
-            <span className="subtle-grad">{activeProduct.subtitle}</span>
+            <span className="subtle-grad">{product.subtitle}</span>
           </h3>
           <p data-testid="text-product-desc" className="mt-3 max-w-[520px] text-sm leading-6 text-zinc-500">
-            {activeProduct.desc}
+            {product.desc}
           </p>
 
           <div className="mt-8 grid gap-6 rounded-2xl bg-white p-5 ring-1 ring-zinc-100">
@@ -734,7 +722,7 @@ function ProductFeature({ products }: { products: Product[] }) {
             </div>
             <div className="grid gap-6 sm:grid-cols-2">
               <ul className="space-y-2.5 text-sm text-zinc-600">
-                {activeProduct.specLeft.map((s, idx) => (
+                {product.specLeft.map((s, idx) => (
                   <li data-testid={`text-spec-left-${idx}`} key={idx} className="flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#1d0238]" />
                     {s}
@@ -742,7 +730,7 @@ function ProductFeature({ products }: { products: Product[] }) {
                 ))}
               </ul>
               <ul className="space-y-2.5 text-sm text-zinc-600">
-                {activeProduct.specRight.map((s, idx) => (
+                {product.specRight.map((s, idx) => (
                   <li data-testid={`text-spec-right-${idx}`} key={idx} className="flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#1d0238]" />
                     {s}
@@ -755,9 +743,6 @@ function ProductFeature({ products }: { products: Product[] }) {
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <button
               data-testid="button-lets-talk"
-              onClick={() => {
-                window.location.href = "/contato";
-              }}
               className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
             >
               <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
@@ -765,115 +750,61 @@ function ProductFeature({ products }: { products: Product[] }) {
               </span>
               Vamos conversar
             </button>
-            <a
-              href={`/servicos/${activeProduct.id}`}
+            <button
               data-testid="button-explore-product"
               className="inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#30045c] active:scale-[0.98]"
             >
-              Ver detalhes
+              Ver serviços
               <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-            </a>
+            </button>
           </div>
         </motion.div>
 
-        <div className="relative">
-          <motion.div
-            key={`img-${activeProduct.id}`}
-            className="relative hidden overflow-hidden rounded-[28px] lg:block lg:rounded-[32px]"
-            initial={{ opacity: 0, scale: 0.985 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <img
-              data-testid="img-product"
-              src={activeProduct.image}
-              alt="Produto"
-              className="h-full min-h-[420px] w-full object-cover lg:min-h-[540px]"
-            />
-            <div className="absolute inset-y-0 right-0 w-[15%] min-w-[60px] max-w-[120px] overflow-hidden">
-              <motion.img
-                src={marginTrack}
-                alt=""
-                className="absolute left-1/2 top-1/2 h-auto w-[120vh] max-w-none -translate-x-1/2 -translate-y-1/2 rotate-90 object-cover mix-blend-soft-light"
-                animate={{
-                  opacity: [0.6, 0.9, 0.6],
-                  filter: ["brightness(1)", "brightness(1.3)", "brightness(1)"],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-transparent mix-blend-overlay"
-                initial={{ translateY: "100%" }}
-                animate={{ translateY: "-100%" }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "linear",
-                  repeatDelay: 1.5,
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-l from-white/10 to-transparent mix-blend-overlay" />
-            </div>
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
-          </motion.div>
-        </div>
-      </div>
-
-      <div className="mt-12">
-        <h3 className="mb-6 text-2xl font-medium tracking-tight text-zinc-950">
-          Explore nossos serviços
-        </h3>
-        
-        <div 
-          className="scrollbar-hide -mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-4 sm:mx-0 sm:px-0"
+        <motion.div
+          className="relative hidden overflow-hidden rounded-[28px] lg:block lg:rounded-[32px]"
+          initial={reduced ? undefined : { opacity: 0, scale: 0.985 }}
+          whileInView={reduced ? undefined : { opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-120px" }}
+          transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1], delay: 0.05 }}
         >
-          {products.map((p) => {
-            const isActive = activeId === p.id;
-            return (
-              <motion.button
-                key={p.id}
-                onClick={() => setActiveId(p.id)}
-                className={`group relative min-w-[280px] max-w-[280px] snap-start rounded-[26px] text-left transition-all sm:min-w-[calc(25%-18px)] sm:max-w-[calc(25%-18px)] ${isActive ? "ring-2 ring-[#30045c]" : "ring-1 ring-zinc-200 hover:bg-zinc-50"}`}
-                initial={reduced ? undefined : { opacity: 0, y: 10 }}
-                whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-              >
-                <div className={`relative h-[200px] overflow-hidden rounded-t-[26px] bg-zinc-100 ${isActive ? "opacity-100" : "opacity-90 grayscale transition-all group-hover:grayscale-0 group-hover:opacity-100"}`}>
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  
-                  {isActive && (
-                    <div className="absolute inset-0 grid place-items-center bg-black/10">
-                      <div className="rounded-full bg-white/20 p-2 backdrop-blur-sm">
-                        <div className="h-2 w-2 rounded-full bg-white" />
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div className={`p-5 ${isActive ? "bg-zinc-50 rounded-b-[26px]" : "bg-white rounded-b-[26px]"}`}>
-                  <div className="text-[10px] font-bold uppercase tracking-wide text-zinc-400">
-                    {p.tag}
-                  </div>
-                  <div className={`mt-1 text-sm font-semibold ${isActive ? "text-[#30045c]" : "text-zinc-950"}`}>
-                    {p.title}
-                  </div>
-                  <div className="mt-1 line-clamp-2 text-xs leading-5 text-zinc-500">
-                    {p.subtitle}
-                  </div>
-                </div>
-              </motion.button>
-            );
-          })}
-        </div>
+          <img
+            data-testid="img-product"
+            src={product.image}
+            alt="Produto"
+            className="h-full min-h-[420px] w-full object-cover lg:min-h-[540px]"
+          />
+          <div className="absolute inset-y-0 right-0 w-[15%] min-w-[60px] max-w-[120px] overflow-hidden">
+            <motion.img
+              src={marginTrack}
+              alt=""
+              className="absolute left-1/2 top-1/2 h-auto w-[120vh] max-w-none -translate-x-1/2 -translate-y-1/2 rotate-90 object-cover mix-blend-soft-light"
+              animate={{
+                opacity: [0.6, 0.9, 0.6],
+                filter: ["brightness(1)", "brightness(1.3)", "brightness(1)"],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            {/* Shimmer/Light effect moving through the glass */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-transparent mix-blend-overlay"
+              initial={{ translateY: "100%" }}
+              animate={{ translateY: "-100%" }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear",
+                repeatDelay: 1.5,
+              }}
+            />
+            {/* Static highlight for depth */}
+            <div className="absolute inset-0 bg-gradient-to-l from-white/10 to-transparent mix-blend-overlay" />
+          </div>
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
+        </motion.div>
       </div>
     </motion.section>
   );
@@ -1768,6 +1699,20 @@ function Footer({ onPlay }: { onPlay: () => void }) {
 export default function Landing() {
   const [videoOpen, setVideoOpen] = useState(false);
 
+  const primaryProduct: Product = useMemo(
+    () => ({
+      id: "solucoes-track",
+      tag: "SOLUÇÕES TRACK",
+      title: "Energia sob medida",
+      subtitle: "Da estratégia à operação",
+      desc: "Analisamos oportunidades, desenhamos a proposta ideal e executamos com monitoramento após a implementação, sempre com o radar ligado para melhorias.",
+      specLeft: ["Eficiência energética", "Geração própria", "Armazenamento"],
+      specRight: ["Mercado livre", "Assinatura de energia", "O&M fotovoltaico"],
+      image: productImg,
+    }),
+    [],
+  );
+
   const products: Product[] = useMemo(
     () => [
       {
@@ -1856,8 +1801,9 @@ export default function Landing() {
       </section>
 
       <About />
-      <ProductFeature products={products} />
+      <ProductFeature product={primaryProduct} />
       <Process />
+      <ProductGrid products={products} />
       <Testimonials />
 
       <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} />
