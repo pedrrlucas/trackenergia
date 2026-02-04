@@ -848,26 +848,12 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                                     />
                                     <div className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent transition duration-300 ${activeId === p.id ? 'opacity-0' : 'opacity-80 group-hover:opacity-60'}`} />
                                 </div>
-                                <div className={`relative p-4 pb-12 transition-colors duration-300 ${activeId === p.id ? 'bg-[#f8f5fa]' : ''} rounded-b-[26px]`}>
+                                <div className={`p-4 transition-colors duration-300 ${activeId === p.id ? 'bg-[#f8f5fa]' : ''} rounded-b-[26px]`}>
                                     <div className={`text-[10px] font-semibold uppercase tracking-wide transition-colors ${activeId === p.id ? 'text-[#1d0238]' : 'text-zinc-500'}`}>
                                         {p.tag}
                                     </div>
                                     <div className={`mt-1 text-sm font-semibold leading-tight transition-colors ${activeId === p.id ? 'text-[#1d0238]' : 'text-zinc-950'}`}>
                                         {p.title}
-                                    </div>
-                                    
-                                    <div className="absolute bottom-3 right-3">
-                                        <motion.div
-                                            whileHover={{ scale: 1.1 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                window.location.href = `/servicos/${p.id}`;
-                                            }}
-                                            className="grid h-8 w-8 place-items-center rounded-full bg-[#1d0238] text-white shadow-lg transition-colors hover:bg-[#30045c]"
-                                        >
-                                            <ArrowUpRight className="h-4 w-4" strokeWidth={2.25} />
-                                        </motion.div>
                                     </div>
                                 </div>
                             </motion.button>
