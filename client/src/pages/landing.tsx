@@ -848,12 +848,26 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                                     />
                                     <div className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent transition duration-300 ${activeId === p.id ? 'opacity-0' : 'opacity-80 group-hover:opacity-60'}`} />
                                 </div>
-                                <div className={`p-4 transition-colors duration-300 ${activeId === p.id ? 'bg-[#f8f5fa]' : ''} rounded-b-[26px]`}>
+                                <div className={`relative p-4 pb-12 transition-colors duration-300 ${activeId === p.id ? 'bg-[#f8f5fa]' : ''} rounded-b-[26px]`}>
                                     <div className={`text-[10px] font-semibold uppercase tracking-wide transition-colors ${activeId === p.id ? 'text-[#1d0238]' : 'text-zinc-500'}`}>
                                         {p.tag}
                                     </div>
                                     <div className={`mt-1 text-sm font-semibold leading-tight transition-colors ${activeId === p.id ? 'text-[#1d0238]' : 'text-zinc-950'}`}>
                                         {p.title}
+                                    </div>
+                                    
+                                    <div className="absolute bottom-3 right-3">
+                                        <motion.div
+                                            whileHover={{ scale: 1.1 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                window.location.href = `/servicos/${p.id}`;
+                                            }}
+                                            className="grid h-8 w-8 place-items-center rounded-full bg-[#1d0238] text-white shadow-lg transition-colors hover:bg-[#30045c]"
+                                        >
+                                            <ArrowUpRight className="h-4 w-4" strokeWidth={2.25} />
+                                        </motion.div>
                                     </div>
                                 </div>
                             </motion.button>
@@ -878,6 +892,16 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                     </button>
                 </div>
             </div>
+            
+            <div className="mt-8 flex justify-center">
+                <a
+                  href="/servicos"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-[#30045c] active:scale-[0.98] shadow-lg shadow-[#1d0238]/20"
+                >
+                  Ver todos os serviços
+                  <ArrowUpRight className="h-4 w-4" strokeWidth={2.25} />
+                </a>
+            </div>
           </div>
 
           {/* Mobile Scroll */}
@@ -896,14 +920,14 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                   transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1], delay: i * 0.04 }}
                   onClick={() => setActiveId(p.id)}
                 >
-                   <div className={`flex h-full flex-col overflow-hidden rounded-[24px] bg-white transition-all duration-300 ${activeId === p.id ? 'ring-1 ring-[#1d0238] ring-inset shadow-md scale-[1.01]' : 'ring-1 ring-zinc-200'}`}>
+                   <div className="flex h-full flex-col overflow-hidden rounded-[24px] bg-white ring-1 ring-zinc-200 shadow-sm">
                     <div className="relative h-[200px]">
                       <img
                         src={p.image}
                         alt={p.title}
                         className="h-full w-full object-cover"
                       />
-                      <div className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent transition-opacity duration-300 ${activeId === p.id ? 'opacity-0' : 'opacity-100'}`} />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-100" />
                       <div className="absolute left-4 top-4">
                         <div className="glass inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
                           <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
@@ -912,16 +936,16 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                       </div>
                     </div>
 
-                    <div className={`p-5 transition-colors duration-300 ${activeId === p.id ? 'bg-[#f8f5fa]' : ''}`}>
-                        <div className={`text-base font-semibold transition-colors ${activeId === p.id ? 'text-[#1d0238]' : 'text-zinc-950'}`}>
+                    <div className="p-5">
+                        <div className="text-base font-semibold text-zinc-950">
                           {p.title}
                         </div>
                         <div className="mt-1 text-sm text-zinc-600">
                           {p.subtitle}
                         </div>
-                        <button className={`mt-4 text-xs font-semibold underline transition-colors ${activeId === p.id ? 'text-[#1d0238]' : 'text-zinc-400 group-hover:text-[#1d0238]'}`}>
+                        <a href={`/servicos/${p.id}`} className="mt-4 inline-block text-xs font-semibold underline text-[#1d0238]">
                             Ver detalhes
-                        </button>
+                        </a>
                     </div>
                   </div>
                 </motion.div>
