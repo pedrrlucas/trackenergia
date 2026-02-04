@@ -686,6 +686,18 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
   const [activeId, setActiveId] = useState<string>(products[0].id);
   const [scrollIndex, setScrollIndex] = useState(0);
 
+  // Auto-rotate active product every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveId((current) => {
+        const idx = products.findIndex((p) => p.id === current);
+        const next = (idx + 1) % products.length;
+        return products[next].id;
+      });
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [products, activeId]);
+
   const activeProduct = useMemo(
     () => products.find((p) => p.id === activeId) || products[0],
     [activeId, products],
