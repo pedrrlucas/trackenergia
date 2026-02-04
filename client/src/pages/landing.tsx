@@ -837,10 +837,10 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                             <motion.button
                                 key={p.id}
                                 onClick={() => setActiveId(p.id)}
-                                className={`group relative w-[23%] shrink-0 text-left rounded-[26px] bg-zinc-100 transition-all duration-300 ${activeId === p.id ? 'ring-1 ring-[#1d0238] ring-inset shadow-lg scale-[1.01] z-10' : 'ring-1 ring-zinc-200 hover:ring-zinc-300 hover:scale-[1.005]'}`}
+                                className={`group relative w-[23%] shrink-0 text-left rounded-[26px] bg-zinc-100 transition-all duration-300 ${activeId === p.id ? 'ring-1 ring-[#1d0238] ring-inset shadow-md scale-[1.01] z-10' : 'ring-1 ring-zinc-200 hover:ring-zinc-300 hover:scale-[1.005]'}`}
                                 whileHover={{ y: -4 }}
                             >
-                                <div className="relative overflow-hidden rounded-[26px] h-[200px]">
+                                <div className="relative overflow-hidden rounded-t-[26px] h-[200px]">
                                     <img
                                         src={p.image}
                                         alt={p.title}
@@ -896,7 +896,7 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                   transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1], delay: i * 0.04 }}
                   onClick={() => setActiveId(p.id)}
                 >
-                   <div className={`flex h-full flex-col overflow-hidden rounded-[24px] bg-white transition-all duration-300 ${activeId === p.id ? 'ring-1 ring-[#1d0238] ring-inset shadow-lg scale-[1.01]' : 'ring-1 ring-zinc-200'}`}>
+                   <div className={`flex h-full flex-col overflow-hidden rounded-[24px] bg-white transition-all duration-300 ${activeId === p.id ? 'ring-1 ring-[#1d0238] ring-inset shadow-md scale-[1.01]' : 'ring-1 ring-zinc-200'}`}>
                     <div className="relative h-[200px]">
                       <img
                         src={p.image}
