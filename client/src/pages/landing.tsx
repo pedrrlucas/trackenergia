@@ -807,47 +807,47 @@ function Editorial() {
         </div>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
+      <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
         {/* Featured Post (Left) */}
         <motion.div
-           className="group relative flex flex-col gap-6"
+           className="group relative flex flex-col gap-5"
            initial={reduced ? undefined : { opacity: 0, x: -10 }}
            whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
            viewport={{ once: true, margin: "-80px" }}
            transition={{ duration: 0.5 }}
         >
-             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[28px] lg:aspect-[4/3]">
+             <div className="relative h-[280px] w-full overflow-hidden rounded-[24px]">
                 <img 
                     src={featured.image} 
                     alt={featured.title}
                     className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
-                <div className="absolute top-6 left-6">
-                    <span className="inline-block rounded-full bg-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-[#1d0238] backdrop-blur-md">
+                <div className="absolute top-5 left-5">
+                    <span className="inline-block rounded-full bg-white/90 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#1d0238] backdrop-blur-md">
                         Destaque
                     </span>
                 </div>
              </div>
              
-             <div className="flex flex-col gap-3">
+             <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-3 text-xs font-medium text-zinc-500">
                     <span className="text-[#1d0238]">{featured.category}</span>
-                    <span className="h-1 w-1 rounded-full bg-zinc-300" />
+                    <span className="h-0.5 w-0.5 rounded-full bg-zinc-300" />
                     <span>{featured.date}</span>
-                    <span className="h-1 w-1 rounded-full bg-zinc-300" />
+                    <span className="h-0.5 w-0.5 rounded-full bg-zinc-300" />
                     <span>{featured.readTime} leitura</span>
                 </div>
                 
-                <h3 className="text-2xl font-semibold leading-tight text-zinc-950 md:text-3xl lg:text-4xl">
+                <h3 className="text-2xl font-semibold leading-tight text-zinc-950 md:text-3xl">
                     {featured.title}
                 </h3>
                 
-                <p className="text-sm leading-relaxed text-zinc-600 md:text-base max-w-[90%]">
+                <p className="text-sm leading-relaxed text-zinc-600 max-w-[95%]">
                     {featured.excerpt}
                 </p>
                 
-                <div className="mt-2">
+                <div className="mt-1">
                     <a href="#" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#1d0238] transition hover:gap-3">
                         Ler artigo completo
                         <ArrowRight className="h-3.5 w-3.5" />
@@ -857,19 +857,19 @@ function Editorial() {
         </motion.div>
 
         {/* List Posts (Right) */}
-        <div className="flex flex-col gap-8 lg:justify-center">
+        <div className="flex flex-col gap-6 lg:justify-start">
             <AnimatePresence mode="wait">
                 <motion.div
                     key={page}
-                    className="flex flex-col gap-8"
+                    className="flex flex-col gap-6"
                     initial={{ opacity: 0, x: 10 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -10 }}
                     transition={{ duration: 0.3 }}
                 >
                     {currentList.map((post) => (
-                        <div key={post.id} className="group flex gap-5 items-start">
-                            <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl bg-zinc-100 sm:h-28 sm:w-28">
+                        <div key={post.id} className="group flex gap-4 items-start">
+                            <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-zinc-100">
                                 <img 
                                     src={post.image} 
                                     alt={post.title}
@@ -877,22 +877,18 @@ function Editorial() {
                                 />
                             </div>
                             
-                            <div className="flex flex-col gap-2">
+                            <div className="flex flex-col gap-1">
                                 <div className="flex items-center gap-2 text-[10px] font-medium text-zinc-500">
                                     <span className="text-[#1d0238] uppercase tracking-wide">{post.category}</span>
                                     <span>·</span>
                                     <span>{post.date}</span>
                                 </div>
                                 
-                                <h4 className="text-base font-semibold leading-snug text-zinc-900 group-hover:text-[#1d0238] transition-colors">
+                                <h4 className="text-sm font-semibold leading-snug text-zinc-900 group-hover:text-[#1d0238] transition-colors line-clamp-2">
                                     {post.title}
                                 </h4>
                                 
-                                <p className="text-xs leading-relaxed text-zinc-500 line-clamp-2">
-                                    {post.excerpt}
-                                </p>
-                                
-                                <a href="#" className="mt-1 text-[10px] font-bold uppercase tracking-wide text-zinc-400 transition hover:text-[#1d0238]">
+                                <a href="#" className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-zinc-400 transition hover:text-[#1d0238]">
                                     Ler mais
                                 </a>
                             </div>
