@@ -8,6 +8,7 @@ import Landing from "./pages/landing";
 import Contact from "./pages/contact";
 import Services from "./pages/services";
 import ServiceDetailPage from "./pages/service-detail";
+import PostPage from "./pages/post";
 import { SiteShell } from "@/components/site-shell";
 
 function Router() {
@@ -16,6 +17,7 @@ function Router() {
       <Route path="/" component={Landing} />
       <Route path="/servicos" component={Services} />
       <Route path="/servicos/:id" component={ServiceDetailPage} />
+      <Route path="/editorial/:id" component={PostPage} />
       <Route path="/contato" component={Contact} />
       <Route component={NotFound} />
     </Switch>

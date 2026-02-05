@@ -855,6 +855,7 @@ function Editorial() {
                         <span className="text-xs font-bold uppercase tracking-wide text-zinc-400 transition-colors group-hover/btn:text-[#1d0238]">
                             Ler artigo completo
                         </span>
+                        <a href={`/editorial/${featured.id}`} className="absolute inset-0 z-10" aria-label="Ler artigo"></a>
                         <div className="grid h-8 w-8 place-items-center rounded-full bg-zinc-50 text-[#1d0238] transition-all group-hover/btn:bg-[#1d0238] group-hover/btn:text-white">
                             <ArrowRight className="h-4 w-4" />
                         </div>
@@ -876,7 +877,7 @@ function Editorial() {
                         {currentList.map((post) => (
                             <a 
                                 key={post.id} 
-                                href="#"
+                                href={`/editorial/${post.id}`}
                                 className="group flex gap-4 items-start p-3 rounded-2xl transition-all hover:bg-white hover:shadow-md ring-1 ring-transparent hover:ring-zinc-100"
                             >
                                 <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-zinc-100 ring-1 ring-zinc-100/50">
