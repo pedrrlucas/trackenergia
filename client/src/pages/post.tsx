@@ -179,7 +179,7 @@ export default function PostPage() {
           </header>
 
           {/* Featured Image */}
-          <div className="relative mb-12 lg:mb-16 aspect-[16/9] w-full overflow-hidden rounded-[32px] ring-1 ring-zinc-100 shadow-lg">
+          <div className="relative mb-12 lg:mb-16 aspect-[16/9] lg:aspect-[21/9] w-full overflow-hidden rounded-[32px] ring-1 ring-zinc-100 shadow-lg">
              <img 
                src={post.image} 
                alt={post.title}
