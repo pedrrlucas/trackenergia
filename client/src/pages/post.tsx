@@ -8,6 +8,7 @@ import blog1 from "@/assets/images/blog-tech_1.jpg";
 import blog2 from "@/assets/images/blog-tech_2.jpg";
 import blog3 from "@/assets/images/blog-tech_3.jpg";
 import blog4 from "@/assets/images/blog-tech_4.jpg";
+import authorAvatar from "@/assets/images/testimonial-1.png";
 
 // Mock data (duplicated from landing.tsx for independence)
 const posts = [
@@ -135,9 +136,11 @@ export default function PostPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header Navigation */}
-      <div className="container-page py-6 lg:py-8">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-zinc-500 transition-colors hover:text-[#1d0238]">
-          <ArrowLeft className="h-4 w-4" />
+      <div className="container-page pt-8 pb-4 lg:pt-12 lg:pb-8">
+        <Link href="/" className="group inline-flex items-center gap-2 text-sm font-medium text-zinc-500 transition-colors hover:text-[#1d0238]">
+          <div className="grid h-8 w-8 place-items-center rounded-full bg-zinc-50 group-hover:bg-[#1d0238]/5 transition-colors">
+            <ArrowLeft className="h-4 w-4" />
+          </div>
           Voltar para Home
         </Link>
       </div>
@@ -145,7 +148,7 @@ export default function PostPage() {
       <main>
         {/* Article Header */}
         <article className="container-page max-w-[960px] mx-auto pb-16 lg:pb-24">
-          <header className="flex flex-col gap-8 mb-10">
+          <header className="flex flex-col gap-6 mb-12 lg:mb-16">
             <div className="flex flex-wrap items-center gap-4 text-sm font-medium text-zinc-500">
                <Pill>{post.category}</Pill>
                <div className="flex items-center gap-2">
@@ -162,6 +165,17 @@ export default function PostPage() {
             <h1 className="text-3xl font-bold leading-[1.1] tracking-tight text-zinc-950 sm:text-4xl md:text-5xl lg:text-[56px] text-balance">
               {post.title}
             </h1>
+
+            {/* Author Info */}
+            <div className="flex items-center gap-4 pt-6 border-t border-zinc-100">
+                <div className="relative h-12 w-12 overflow-hidden rounded-full ring-2 ring-white shadow-sm">
+                    <img src={authorAvatar} alt="Roberto Mendes" className="h-full w-full object-cover" />
+                </div>
+                <div className="flex flex-col">
+                    <span className="text-sm font-bold text-zinc-900">Roberto Mendes</span>
+                    <span className="text-xs text-zinc-500">Engenheiro Especialista em Renováveis</span>
+                </div>
+            </div>
           </header>
 
           {/* Featured Image */}
