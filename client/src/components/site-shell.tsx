@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "wouter";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   ChevronLeft,
@@ -14,8 +14,6 @@ import {
   MoveUpRight,
   Quote,
   Star,
-  Menu,
-  X,
 } from "lucide-react";
 
 import footerLogoMark from "@/assets/images/footer-logo-mark.png";
@@ -86,7 +84,6 @@ export function GhostButton({
 export function SiteHeader({ onContact }: { onContact: () => void }) {
   const reduced = usePrefersReducedMotion();
   const [ready, setReady] = React.useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [progress, setProgress] = React.useState(0);
   const [travelPx, setTravelPx] = React.useState(0);
   const [arrowScale, setArrowScale] = React.useState(1);
@@ -348,19 +345,6 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             </span>
           </a>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setMobileMenuOpen(true)}
-            className={
-              onHome
-                ? "group relative z-10 grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white ring-1 ring-white/20 backdrop-blur transition hover:bg-white/20 md:hidden"
-                : "group relative z-10 grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white ring-1 ring-white/20 backdrop-blur transition hover:bg-white/20 md:hidden"
-            }
-          >
-            <Menu className="h-5 w-5" />
-          </button>
-
-          {/* Desktop Nav */}
           <div
             data-testid="nav-desktop"
             className={
@@ -409,8 +393,8 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             onClick={onContact}
             className={
               onHome
-                ? "group relative hidden items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98] md:inline-flex"
-                : "group relative hidden items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98] md:inline-flex"
+                ? "group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+                : "group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
             }
           >
             {!onHome ? (
@@ -453,92 +437,6 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
           </button>
         </div>
       </div>
-
-      {/* Mobile Sidebar */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="pointer-events-auto fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
-            />
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="pointer-events-auto fixed inset-y-0 right-0 z-50 w-full max-w-[320px] bg-[#1d0238] p-6 shadow-2xl ring-1 ring-white/10"
-            >
-              <div className="flex items-center justify-between mb-10">
-                <div className="flex items-center gap-2">
-                    <span className="grid h-8 w-8 place-items-center rounded-full bg-white/10 ring-1 ring-white/10">
-                        <img src={footerLogoMark} alt="" className="h-4 w-4 object-contain" />
-                    </span>
-                    <img
-                        src={footerLogoText}
-                        alt="Track"
-                        className="h-3 w-auto object-contain brightness-0 invert"
-                    />
-                </div>
-                <button
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-
-              <nav className="flex flex-col gap-6">
-                {[
-                    { label: "Início", href: "/" },
-                    { label: "Serviços", href: "/servicos" },
-                    { label: "Abordagem", href: "/#process" },
-                    { label: "Depoimentos", href: "/#testimonials" },
-                ].map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-2xl font-medium text-white/90 transition hover:text-white hover:translate-x-2"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </nav>
-
-              <div className="mt-12 pt-12 border-t border-white/10">
-                <button
-                  onClick={() => {
-                    onContact();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="group flex w-full items-center justify-between rounded-2xl bg-white p-4 text-zinc-950 transition active:scale-[0.98]"
-                >
-                    <span className="font-semibold">Fale Conosco</span>
-                    <span className="grid h-8 w-8 place-items-center rounded-full bg-[#1d0238] text-white transition group-hover:bg-[#30045c]">
-                        <ArrowRight className="h-4 w-4" />
-                    </span>
-                </button>
-
-                <div className="mt-8 flex gap-4 justify-center">
-                    <a href="#" className="grid h-10 w-10 place-items-center rounded-full bg-white/5 text-white/70 hover:bg-white/10 hover:text-white transition">
-                        <Linkedin className="h-5 w-5" />
-                    </a>
-                    <a href="#" className="grid h-10 w-10 place-items-center rounded-full bg-white/5 text-white/70 hover:bg-white/10 hover:text-white transition">
-                        <Instagram className="h-5 w-5" />
-                    </a>
-                    <a href="#" className="grid h-10 w-10 place-items-center rounded-full bg-white/5 text-white/70 hover:bg-white/10 hover:text-white transition">
-                        <Facebook className="h-5 w-5" />
-                    </a>
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
