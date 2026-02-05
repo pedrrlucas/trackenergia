@@ -68,6 +68,10 @@ import t2 from "@/assets/images/testimonial-2.png";
 import t3 from "@/assets/images/testimonial-3.png";
 import marginTrack from "@/assets/images/margin-track.png";
 import trackName from "@/assets/images/track-name.png";
+import blog1 from "@/assets/images/blog-tech_1.jpg";
+import blog2 from "@/assets/images/blog-tech_2.jpg";
+import blog3 from "@/assets/images/blog-tech_3.jpg";
+import blog4 from "@/assets/images/blog-tech_4.jpg";
 
 type Product = {
   id: string;
@@ -676,6 +680,248 @@ function About() {
           </div>
 
         </motion.div>
+      </div>
+    </motion.section>
+  );
+}
+
+function Editorial() {
+  const reduced = usePrefersReducedMotion();
+  const [page, setPage] = useState(0);
+
+  const posts = useMemo(
+    () => [
+      {
+        id: "1",
+        category: "Tendências",
+        title: "O futuro da energia solar no Brasil: o que esperar para 2026",
+        excerpt: "Com novas regulamentações e avanços tecnológicos, o cenário para geração distribuída promete grandes oportunidades.",
+        date: "05 Fev 2026",
+        readTime: "5 min",
+        image: blog1,
+      },
+      {
+        id: "2",
+        category: "Tecnologia",
+        title: "Armazenamento inteligente: a revolução das baterias",
+        excerpt: "Como sistemas de storage estão mudando a forma como indústrias consomem energia.",
+        date: "02 Fev 2026",
+        readTime: "4 min",
+        image: blog2,
+      },
+      {
+        id: "3",
+        category: "Sustentabilidade",
+        title: "ESG na prática: reduzindo a pegada de carbono",
+        excerpt: "Estratégias reais para empresas que buscam impacto ambiental positivo e economia.",
+        date: "28 Jan 2026",
+        readTime: "6 min",
+        image: blog3,
+      },
+      {
+        id: "4",
+        category: "Mercado",
+        title: "Mercado Livre de Energia: vale a pena migrar?",
+        excerpt: "Uma análise detalhada sobre custos, benefícios e o momento certo para a transição.",
+        date: "20 Jan 2026",
+        readTime: "7 min",
+        image: blog4,
+      },
+      {
+        id: "5",
+        category: "Inovação",
+        title: "Hidrogênio Verde: o combustível do futuro",
+        excerpt: "Entenda o potencial do H2V e como o Brasil pode liderar essa transformação global.",
+        date: "15 Jan 2026",
+        readTime: "5 min",
+        image: blog2,
+      },
+      {
+        id: "6",
+        category: "Eficiência",
+        title: "Gestão energética industrial 4.0",
+        excerpt: "Sensores, IoT e IA aplicados para otimização de consumo em tempo real.",
+        date: "10 Jan 2026",
+        readTime: "4 min",
+        image: blog3,
+      },
+      {
+        id: "7",
+        category: "Regulação",
+        title: "Novas tarifas de energia e impacto no setor",
+        excerpt: "O que muda com as bandeiras tarifárias e como se proteger da volatilidade.",
+        date: "05 Jan 2026",
+        readTime: "6 min",
+        image: blog1,
+      },
+    ],
+    []
+  );
+
+  const featured = posts[0];
+  const listPosts = posts.slice(1);
+  const totalPages = Math.ceil(listPosts.length / 3);
+  
+  const currentList = listPosts.slice(page * 3, (page + 1) * 3);
+
+  const handleNext = () => {
+    setPage((p) => (p + 1) % totalPages);
+  };
+
+  const handlePrev = () => {
+    setPage((p) => (p - 1 + totalPages) % totalPages);
+  };
+
+  return (
+    <motion.section
+      id="editorial"
+      className="container-page pb-12 sm:pb-16 lg:pb-20"
+      initial={reduced ? undefined : { opacity: 0, y: 12 }}
+      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-90px" }}
+      transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+    >
+      <div className="flex items-center justify-between mb-8 lg:mb-12">
+        <Pill testId="pill-editorial" muted={false}>
+          ( editorial )
+        </Pill>
+        
+        <div className="hidden lg:flex items-center gap-2">
+            <span className="text-xs font-medium text-zinc-500 mr-2">
+                 Mais recentes
+            </span>
+             <div className="flex gap-2">
+                <button 
+                    onClick={handlePrev}
+                    className="grid h-8 w-8 place-items-center rounded-full ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+                >
+                    <ChevronLeft className="h-4 w-4 text-zinc-600" />
+                </button>
+                <button 
+                    onClick={handleNext}
+                    className="grid h-8 w-8 place-items-center rounded-full ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+                >
+                    <ChevronRight className="h-4 w-4 text-zinc-600" />
+                </button>
+             </div>
+        </div>
+      </div>
+
+      <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
+        {/* Featured Post (Left) */}
+        <motion.div
+           className="group relative flex flex-col gap-6"
+           initial={reduced ? undefined : { opacity: 0, x: -10 }}
+           whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
+           viewport={{ once: true, margin: "-80px" }}
+           transition={{ duration: 0.5 }}
+        >
+             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[28px] lg:aspect-[4/3]">
+                <img 
+                    src={featured.image} 
+                    alt={featured.title}
+                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
+                <div className="absolute top-6 left-6">
+                    <span className="inline-block rounded-full bg-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-[#1d0238] backdrop-blur-md">
+                        Destaque
+                    </span>
+                </div>
+             </div>
+             
+             <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-3 text-xs font-medium text-zinc-500">
+                    <span className="text-[#1d0238]">{featured.category}</span>
+                    <span className="h-1 w-1 rounded-full bg-zinc-300" />
+                    <span>{featured.date}</span>
+                    <span className="h-1 w-1 rounded-full bg-zinc-300" />
+                    <span>{featured.readTime} leitura</span>
+                </div>
+                
+                <h3 className="text-2xl font-semibold leading-tight text-zinc-950 md:text-3xl lg:text-4xl">
+                    {featured.title}
+                </h3>
+                
+                <p className="text-sm leading-relaxed text-zinc-600 md:text-base max-w-[90%]">
+                    {featured.excerpt}
+                </p>
+                
+                <div className="mt-2">
+                    <a href="#" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#1d0238] transition hover:gap-3">
+                        Ler artigo completo
+                        <ArrowRight className="h-3.5 w-3.5" />
+                    </a>
+                </div>
+             </div>
+        </motion.div>
+
+        {/* List Posts (Right) */}
+        <div className="flex flex-col gap-8 lg:justify-center">
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={page}
+                    className="flex flex-col gap-8"
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
+                    transition={{ duration: 0.3 }}
+                >
+                    {currentList.map((post) => (
+                        <div key={post.id} className="group flex gap-5 items-start">
+                            <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl bg-zinc-100 sm:h-28 sm:w-28">
+                                <img 
+                                    src={post.image} 
+                                    alt={post.title}
+                                    className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+                                />
+                            </div>
+                            
+                            <div className="flex flex-col gap-2">
+                                <div className="flex items-center gap-2 text-[10px] font-medium text-zinc-500">
+                                    <span className="text-[#1d0238] uppercase tracking-wide">{post.category}</span>
+                                    <span>·</span>
+                                    <span>{post.date}</span>
+                                </div>
+                                
+                                <h4 className="text-base font-semibold leading-snug text-zinc-900 group-hover:text-[#1d0238] transition-colors">
+                                    {post.title}
+                                </h4>
+                                
+                                <p className="text-xs leading-relaxed text-zinc-500 line-clamp-2">
+                                    {post.excerpt}
+                                </p>
+                                
+                                <a href="#" className="mt-1 text-[10px] font-bold uppercase tracking-wide text-zinc-400 transition hover:text-[#1d0238]">
+                                    Ler mais
+                                </a>
+                            </div>
+                        </div>
+                    ))}
+                </motion.div>
+            </AnimatePresence>
+            
+            {/* Mobile Pagination */}
+            <div className="flex lg:hidden items-center justify-between pt-4 border-t border-zinc-100 mt-4">
+                 <span className="text-xs font-medium text-zinc-500">
+                     Página {page + 1} de {totalPages}
+                 </span>
+                 <div className="flex gap-2">
+                    <button 
+                        onClick={handlePrev}
+                        className="grid h-10 w-10 place-items-center rounded-full ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+                    >
+                        <ChevronLeft className="h-5 w-5 text-zinc-600" />
+                    </button>
+                    <button 
+                        onClick={handleNext}
+                        className="grid h-10 w-10 place-items-center rounded-full ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+                    >
+                        <ChevronRight className="h-5 w-5 text-zinc-600" />
+                    </button>
+                 </div>
+            </div>
+        </div>
       </div>
     </motion.section>
   );
@@ -1630,6 +1876,7 @@ export default function Landing() {
       </section>
 
       <About />
+      <Editorial />
       <ProductFeature product={primaryProduct} products={products} />
       <Process />
       <Testimonials />
