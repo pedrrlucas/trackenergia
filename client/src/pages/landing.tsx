@@ -856,39 +856,38 @@ function Editorial() {
         </motion.div>
 
         {/* List Posts (Right) */}
-        <div className="flex flex-col gap-6 lg:justify-start">
+        <div className="flex flex-col gap-5 lg:justify-start h-full">
             <AnimatePresence mode="wait">
                 <motion.div
                     key={page}
-                    className="flex flex-col gap-6"
+                    className="flex flex-col gap-4 h-full"
                     initial={{ opacity: 0, x: 10 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -10 }}
                     transition={{ duration: 0.3 }}
                 >
                     {currentList.map((post) => (
-                        <div key={post.id} className="group flex gap-4 items-start">
-                            <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-zinc-100">
-                                <img 
-                                    src={post.image} 
-                                    alt={post.title}
-                                    className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
-                                />
-                            </div>
+                        <div key={post.id} className="group relative h-[120px] w-full overflow-hidden rounded-[20px] ring-1 ring-zinc-100">
+                            <img 
+                                src={post.image} 
+                                alt={post.title}
+                                className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-black/60 transition duration-300 group-hover:bg-black/50" />
                             
-                            <div className="flex flex-col gap-1">
-                                <div className="flex items-center gap-2 text-[10px] font-medium text-zinc-500">
-                                    <span className="text-[#1d0238] uppercase tracking-wide">{post.category}</span>
-                                    <span>·</span>
+                            <div className="absolute inset-0 p-5 flex flex-col justify-center gap-1.5">
+                                <div className="flex items-center gap-2 text-[10px] font-medium text-white/70">
+                                    <span className="text-white uppercase tracking-wide font-bold">{post.category}</span>
+                                    <span className="h-0.5 w-0.5 rounded-full bg-white/50" />
                                     <span>{post.date}</span>
                                 </div>
                                 
-                                <h4 className="text-sm font-semibold leading-snug text-zinc-900 group-hover:text-[#1d0238] transition-colors line-clamp-2">
+                                <h4 className="text-sm font-semibold leading-snug text-white line-clamp-2 pr-4">
                                     {post.title}
                                 </h4>
                                 
-                                <a href="#" className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-zinc-400 transition hover:text-[#1d0238]">
-                                    Ler mais
+                                <a href="#" className="absolute bottom-4 right-4 grid h-6 w-6 place-items-center rounded-full bg-white/20 text-white backdrop-blur-sm transition hover:bg-white hover:text-[#1d0238]">
+                                     <ArrowRight className="h-3 w-3" />
                                 </a>
                             </div>
                         </div>
