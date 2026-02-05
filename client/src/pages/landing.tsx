@@ -807,7 +807,7 @@ function Editorial() {
         </div>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10 items-start">
+      <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10 items-stretch">
         {/* Featured Post (Left) - Card Style */}
         <motion.div
            className="group relative flex flex-col sm:flex-row gap-6 overflow-hidden rounded-[32px] bg-zinc-50 p-6 sm:p-8 ring-1 ring-zinc-100 transition-all hover:ring-zinc-200 hover:shadow-lg"
@@ -820,7 +820,7 @@ function Editorial() {
                 <img 
                     src={featured.image} 
                     alt={featured.title}
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
+                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
                 <div className="absolute top-2 left-2">
                      <span className="inline-block rounded-full bg-white/90 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#1d0238] backdrop-blur-md shadow-sm ring-1 ring-zinc-100">
@@ -829,7 +829,7 @@ function Editorial() {
                 </div>
              </div>
              
-             <div className="flex flex-1 flex-col justify-between gap-4">
+             <div className="flex flex-1 flex-col justify-between gap-2 sm:gap-4">
                 <div className="flex flex-col gap-3">
                     <div className="flex items-center gap-3 text-xs font-medium text-zinc-500">
                         <span className="text-[#1d0238] font-bold uppercase tracking-wide">{featured.category}</span>
@@ -843,7 +843,7 @@ function Editorial() {
                         {featured.title}
                     </h3>
                     
-                    <p className="text-sm leading-relaxed text-zinc-600 line-clamp-2">
+                    <p className="text-sm leading-relaxed text-zinc-600 line-clamp-3">
                         {featured.excerpt}
                     </p>
                 </div>
@@ -878,7 +878,7 @@ function Editorial() {
                                 <img 
                                     src={post.image} 
                                     alt={post.title}
-                                    className="h-full w-full object-cover transition duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                                    className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
                                 />
                             </div>
                             
