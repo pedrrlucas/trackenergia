@@ -781,146 +781,148 @@ function Editorial() {
       viewport={{ once: true, margin: "-90px" }}
       transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
     >
-      <div className="flex items-center justify-between mb-8 lg:mb-12">
-        <Pill testId="pill-editorial" muted={false}>
-          ( editorial )
-        </Pill>
-        
-        <div className="hidden lg:flex items-center gap-2">
-            <span className="text-xs font-medium text-zinc-500 mr-2">
-                 Mais antigos
-            </span>
-             <div className="flex gap-2">
-                <button 
-                    onClick={handlePrev}
-                    className="grid h-8 w-8 place-items-center rounded-full ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
-                >
-                    <ChevronLeft className="h-4 w-4 text-zinc-600" />
-                </button>
-                <button 
-                    onClick={handleNext}
-                    className="grid h-8 w-8 place-items-center rounded-full ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
-                >
-                    <ChevronRight className="h-4 w-4 text-zinc-600" />
-                </button>
-             </div>
-        </div>
-      </div>
-
-      <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10 items-stretch">
-        {/* Featured Post (Left) - Card Style */}
-        <motion.div
-           className="group relative flex flex-col sm:flex-row gap-6 overflow-hidden rounded-[32px] bg-zinc-50 p-6 sm:p-8 ring-1 ring-zinc-100 transition-all hover:ring-zinc-200 hover:shadow-lg"
-           initial={reduced ? undefined : { opacity: 0, x: -10 }}
-           whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
-           viewport={{ once: true, margin: "-80px" }}
-           transition={{ duration: 0.5 }}
-        >
-             <div className="relative h-24 w-24 sm:h-32 sm:w-32 shrink-0 overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-100/50">
-                <img 
-                    src={featured.image} 
-                    alt={featured.title}
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                />
-                <div className="absolute top-2 left-2">
-                     <span className="inline-block rounded-full bg-white/90 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#1d0238] backdrop-blur-md shadow-sm ring-1 ring-zinc-100">
-                        Destaque
-                     </span>
-                </div>
-             </div>
-             
-             <div className="flex flex-1 flex-col justify-between gap-6">
-                <div className="flex flex-col gap-4">
-                    <div className="flex items-center gap-3 text-xs font-medium text-zinc-500">
-                        <span className="text-[#1d0238] font-bold uppercase tracking-wide">{featured.category}</span>
-                        <span className="h-1 w-1 rounded-full bg-zinc-300" />
-                        <span>{featured.date}</span>
-                        <span className="h-1 w-1 rounded-full bg-zinc-300" />
-                        <span>{featured.readTime} leitura</span>
-                    </div>
-                    
-                    <h3 className="text-xl font-semibold leading-tight text-zinc-950 sm:text-2xl md:text-3xl text-balance group-hover:text-[#1d0238] transition-colors">
-                        {featured.title}
-                    </h3>
-                    
-                    <p className="text-sm leading-relaxed text-zinc-600 line-clamp-4 lg:line-clamp-5">
-                        {featured.excerpt}
-                    </p>
-                </div>
-                
-                <div className="mt-auto pt-4">
-                    <a href="#" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#1d0238] transition hover:gap-3">
-                        Ler artigo completo
-                        <ArrowRight className="h-3.5 w-3.5" />
-                    </a>
-                </div>
-             </div>
-        </motion.div>
-
-        {/* List Posts (Right) */}
-        <div className="flex flex-col gap-6 h-full justify-between">
-            <AnimatePresence mode="wait">
-                <motion.div
-                    key={page}
-                    className="flex flex-col gap-4"
-                    initial={{ opacity: 0, x: 10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -10 }}
-                    transition={{ duration: 0.3 }}
-                >
-                    {currentList.map((post) => (
-                        <a 
-                            key={post.id} 
-                            href="#"
-                            className="group flex gap-4 items-start p-3 rounded-2xl transition-all hover:bg-zinc-50 hover:shadow-sm ring-1 ring-transparent hover:ring-zinc-100"
-                        >
-                            <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-zinc-100 ring-1 ring-zinc-100/50">
-                                <img 
-                                    src={post.image} 
-                                    alt={post.title}
-                                    className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
-                                />
-                            </div>
-                            
-                            <div className="flex flex-col gap-1 py-0.5">
-                                <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wide text-zinc-400 group-hover:text-zinc-500">
-                                    <span className="text-[#1d0238]">{post.category}</span>
-                                    <span className="h-0.5 w-0.5 rounded-full bg-zinc-300" />
-                                    <span>{post.date}</span>
-                                </div>
-                                
-                                <h4 className="text-sm font-semibold leading-snug text-zinc-900 group-hover:text-[#1d0238] transition-colors line-clamp-2">
-                                    {post.title}
-                                </h4>
-                                
-                                <div className="mt-1 flex items-center text-[10px] font-bold uppercase tracking-wide text-zinc-400 transition group-hover:text-[#1d0238]">
-                                    Ler mais
-                                </div>
-                            </div>
-                        </a>
-                    ))}
-                </motion.div>
-            </AnimatePresence>
+      <div className="rounded-[40px] bg-zinc-50/80 p-6 sm:p-10 lg:p-12 ring-1 ring-zinc-100">
+        <div className="flex items-center justify-between mb-8 lg:mb-10">
+            <Pill testId="pill-editorial" muted={false}>
+            ( editorial )
+            </Pill>
             
-            {/* Mobile Pagination */}
-            <div className="flex lg:hidden items-center justify-between pt-4 border-t border-zinc-100 mt-2">
-                 <span className="text-xs font-medium text-zinc-500">
-                     Página {page + 1} de {totalPages}
-                 </span>
-                  <div className="flex gap-2">
+            <div className="hidden lg:flex items-center gap-2">
+                <span className="text-xs font-medium text-zinc-500 mr-2">
+                    Mais antigos
+                </span>
+                <div className="flex gap-2">
                     <button 
                         onClick={handlePrev}
-                        className="grid h-10 w-10 place-items-center rounded-full ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+                        className="grid h-8 w-8 place-items-center rounded-full bg-white ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
                     >
-                        <ChevronLeft className="h-5 w-5 text-zinc-600" />
+                        <ChevronLeft className="h-4 w-4 text-zinc-600" />
                     </button>
                     <button 
                         onClick={handleNext}
-                        className="grid h-10 w-10 place-items-center rounded-full ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+                        className="grid h-8 w-8 place-items-center rounded-full bg-white ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
                     >
-                        <ChevronRight className="h-5 w-5 text-zinc-600" />
+                        <ChevronRight className="h-4 w-4 text-zinc-600" />
                     </button>
-                 </div>
+                </div>
+            </div>
+        </div>
+
+        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10 items-stretch">
+            {/* Featured Post (Left) - Card Style */}
+            <motion.div
+            className="group relative flex flex-col sm:flex-row gap-6 overflow-hidden rounded-[32px] bg-white p-6 sm:p-8 ring-1 ring-zinc-100 transition-all hover:ring-zinc-200 hover:shadow-lg"
+            initial={reduced ? undefined : { opacity: 0, x: -10 }}
+            whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5 }}
+            >
+                <div className="relative h-24 w-24 sm:h-32 sm:w-32 shrink-0 overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-100/50">
+                    <img 
+                        src={featured.image} 
+                        alt={featured.title}
+                        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute top-2 left-2">
+                        <span className="inline-block rounded-full bg-white/90 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#1d0238] backdrop-blur-md shadow-sm ring-1 ring-zinc-100">
+                            Destaque
+                        </span>
+                    </div>
+                </div>
+                
+                <div className="flex flex-1 flex-col justify-between gap-6">
+                    <div className="flex flex-col gap-4">
+                        <div className="flex items-center gap-3 text-xs font-medium text-zinc-500">
+                            <span className="text-[#1d0238] font-bold uppercase tracking-wide">{featured.category}</span>
+                            <span className="h-1 w-1 rounded-full bg-zinc-300" />
+                            <span>{featured.date}</span>
+                            <span className="h-1 w-1 rounded-full bg-zinc-300" />
+                            <span>{featured.readTime} leitura</span>
+                        </div>
+                        
+                        <h3 className="text-xl font-semibold leading-tight text-zinc-950 sm:text-2xl md:text-3xl text-balance group-hover:text-[#1d0238] transition-colors">
+                            {featured.title}
+                        </h3>
+                        
+                        <p className="text-sm leading-relaxed text-zinc-600 line-clamp-4 lg:line-clamp-5">
+                            {featured.excerpt}
+                        </p>
+                    </div>
+                    
+                    <div className="mt-auto pt-4">
+                        <a href="#" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#1d0238] transition hover:gap-3">
+                            Ler artigo completo
+                            <ArrowRight className="h-3.5 w-3.5" />
+                        </a>
+                    </div>
+                </div>
+            </motion.div>
+
+            {/* List Posts (Right) */}
+            <div className="flex flex-col gap-6 h-full justify-between">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={page}
+                        className="flex flex-col gap-4"
+                        initial={{ opacity: 0, x: 10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -10 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        {currentList.map((post) => (
+                            <a 
+                                key={post.id} 
+                                href="#"
+                                className="group flex gap-4 items-start p-3 rounded-2xl transition-all hover:bg-white hover:shadow-md ring-1 ring-transparent hover:ring-zinc-100"
+                            >
+                                <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-zinc-100 ring-1 ring-zinc-100/50">
+                                    <img 
+                                        src={post.image} 
+                                        alt={post.title}
+                                        className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+                                    />
+                                </div>
+                                
+                                <div className="flex flex-col gap-1 py-0.5">
+                                    <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wide text-zinc-400 group-hover:text-zinc-500">
+                                        <span className="text-[#1d0238]">{post.category}</span>
+                                        <span className="h-0.5 w-0.5 rounded-full bg-zinc-300" />
+                                        <span>{post.date}</span>
+                                    </div>
+                                    
+                                    <h4 className="text-sm font-semibold leading-snug text-zinc-900 group-hover:text-[#1d0238] transition-colors line-clamp-2">
+                                        {post.title}
+                                    </h4>
+                                    
+                                    <div className="mt-1 flex items-center text-[10px] font-bold uppercase tracking-wide text-zinc-400 transition group-hover:text-[#1d0238]">
+                                        Ler mais
+                                    </div>
+                                </div>
+                            </a>
+                        ))}
+                    </motion.div>
+                </AnimatePresence>
+                
+                {/* Mobile Pagination */}
+                <div className="flex lg:hidden items-center justify-between pt-4 border-t border-zinc-200 mt-2">
+                    <span className="text-xs font-medium text-zinc-500">
+                        Página {page + 1} de {totalPages}
+                    </span>
+                    <div className="flex gap-2">
+                        <button 
+                            onClick={handlePrev}
+                            className="grid h-10 w-10 place-items-center rounded-full bg-white ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+                        >
+                            <ChevronLeft className="h-5 w-5 text-zinc-600" />
+                        </button>
+                        <button 
+                            onClick={handleNext}
+                            className="grid h-10 w-10 place-items-center rounded-full bg-white ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+                        >
+                            <ChevronRight className="h-5 w-5 text-zinc-600" />
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
       </div>
