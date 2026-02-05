@@ -811,28 +811,30 @@ function Editorial() {
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10 items-stretch">
             {/* Featured Post (Left) - Card Style */}
             <motion.div
-            className="group relative flex flex-col sm:flex-row gap-6 overflow-hidden rounded-[32px] bg-white p-6 sm:p-8 ring-1 ring-zinc-100 transition-all hover:ring-zinc-200 hover:shadow-lg"
+            className="group relative flex flex-col sm:flex-row gap-6 lg:gap-8 overflow-hidden rounded-[32px] bg-white p-6 sm:p-8 ring-1 ring-zinc-100 transition-all hover:ring-zinc-200 hover:shadow-lg"
             initial={reduced ? undefined : { opacity: 0, x: -10 }}
             whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5 }}
             >
-                <div className="relative h-24 w-24 sm:h-32 sm:w-32 shrink-0 overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-100/50">
-                    <img 
-                        src={featured.image} 
-                        alt={featured.title}
-                        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute top-2 left-2">
-                        <span className="inline-block rounded-full bg-white/90 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#1d0238] backdrop-blur-md shadow-sm ring-1 ring-zinc-100">
-                            Destaque
-                        </span>
+                <div className="shrink-0">
+                    <div className="relative h-28 w-28 sm:h-36 sm:w-36 overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-100/50 shadow-sm">
+                        <img 
+                            src={featured.image} 
+                            alt={featured.title}
+                            className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute top-2 left-2">
+                            <span className="inline-block rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[#1d0238] backdrop-blur-md shadow-sm ring-1 ring-zinc-100">
+                                Destaque
+                            </span>
+                        </div>
                     </div>
                 </div>
                 
-                <div className="flex flex-1 flex-col justify-between gap-6">
-                    <div className="flex flex-col gap-4">
-                        <div className="flex items-center gap-3 text-xs font-medium text-zinc-500">
+                <div className="flex flex-1 flex-col justify-between h-full gap-4">
+                    <div className="flex flex-col gap-3">
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium text-zinc-500">
                             <span className="text-[#1d0238] font-bold uppercase tracking-wide">{featured.category}</span>
                             <span className="h-1 w-1 rounded-full bg-zinc-300" />
                             <span>{featured.date}</span>
@@ -840,20 +842,22 @@ function Editorial() {
                             <span>{featured.readTime} leitura</span>
                         </div>
                         
-                        <h3 className="text-xl font-semibold leading-tight text-zinc-950 sm:text-2xl md:text-3xl text-balance group-hover:text-[#1d0238] transition-colors">
+                        <h3 className="text-xl font-bold leading-tight text-zinc-950 sm:text-2xl md:text-[28px] lg:text-3xl text-balance group-hover:text-[#1d0238] transition-colors">
                             {featured.title}
                         </h3>
                         
-                        <p className="text-sm leading-relaxed text-zinc-600 line-clamp-4 lg:line-clamp-5">
+                        <p className="text-sm leading-relaxed text-zinc-600 line-clamp-3 lg:line-clamp-4">
                             {featured.excerpt}
                         </p>
                     </div>
                     
-                    <div className="mt-auto pt-4">
-                        <a href="#" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#1d0238] transition hover:gap-3">
+                    <div className="mt-auto pt-4 border-t border-zinc-100/80 flex items-center justify-between group/btn">
+                        <span className="text-xs font-bold uppercase tracking-wide text-zinc-400 transition-colors group-hover/btn:text-[#1d0238]">
                             Ler artigo completo
-                            <ArrowRight className="h-3.5 w-3.5" />
-                        </a>
+                        </span>
+                        <div className="grid h-8 w-8 place-items-center rounded-full bg-zinc-50 text-[#1d0238] transition-all group-hover/btn:bg-[#1d0238] group-hover/btn:text-white">
+                            <ArrowRight className="h-4 w-4" />
+                        </div>
                     </div>
                 </div>
             </motion.div>
