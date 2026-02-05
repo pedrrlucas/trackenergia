@@ -146,11 +146,7 @@ export default function PostPage() {
                Voltar para a página inicial
           </Link>
           
-          <div className="mt-3 mb-8 sm:mb-12">
-            <Pill muted={false}>( editorial )</Pill>
-          </div>
-
-          <header className="flex flex-col gap-6 mb-12 lg:mb-16">
+          <header className="flex flex-col gap-6 mb-12 lg:mb-16 mt-8 sm:mt-12">
             <div className="flex flex-wrap items-center gap-4 text-sm font-medium text-zinc-500">
                <div className="inline-flex items-center rounded-full bg-zinc-100 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-zinc-500">
                   {post.category}
