@@ -829,8 +829,8 @@ function Editorial() {
                 </div>
              </div>
              
-             <div className="flex flex-1 flex-col justify-between gap-2 sm:gap-4">
-                <div className="flex flex-col gap-3">
+             <div className="flex flex-1 flex-col justify-between gap-6">
+                <div className="flex flex-col gap-4">
                     <div className="flex items-center gap-3 text-xs font-medium text-zinc-500">
                         <span className="text-[#1d0238] font-bold uppercase tracking-wide">{featured.category}</span>
                         <span className="h-1 w-1 rounded-full bg-zinc-300" />
@@ -843,12 +843,12 @@ function Editorial() {
                         {featured.title}
                     </h3>
                     
-                    <p className="text-sm leading-relaxed text-zinc-600 line-clamp-3">
+                    <p className="text-sm leading-relaxed text-zinc-600 line-clamp-4 lg:line-clamp-5">
                         {featured.excerpt}
                     </p>
                 </div>
                 
-                <div className="mt-2">
+                <div className="mt-auto pt-4">
                     <a href="#" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#1d0238] transition hover:gap-3">
                         Ler artigo completo
                         <ArrowRight className="h-3.5 w-3.5" />
