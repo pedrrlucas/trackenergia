@@ -811,20 +811,20 @@ function Editorial() {
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10 items-stretch">
             {/* Featured Post (Left) - Card Style */}
             <motion.div
-            className="group relative flex flex-col sm:flex-row gap-6 overflow-hidden rounded-[32px] bg-white p-6 sm:p-8 ring-1 ring-zinc-100 transition-all hover:ring-zinc-200 hover:shadow-lg"
+            className="group relative flex flex-col gap-8 overflow-hidden rounded-[32px] bg-white p-8 ring-1 ring-zinc-100 transition-all hover:ring-zinc-200 hover:shadow-lg"
             initial={reduced ? undefined : { opacity: 0, x: -10 }}
             whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5 }}
             >
-                <div className="relative h-24 w-24 sm:h-32 sm:w-32 shrink-0 overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-100/50">
+                <div className="relative w-full aspect-[16/9] overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-100/50">
                     <img 
                         src={featured.image} 
                         alt={featured.title}
                         className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute top-2 left-2">
-                        <span className="inline-block rounded-full bg-white/90 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#1d0238] backdrop-blur-md shadow-sm ring-1 ring-zinc-100">
+                    <div className="absolute top-4 left-4">
+                        <span className="inline-block rounded-full bg-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-[#1d0238] backdrop-blur-md shadow-sm ring-1 ring-zinc-100">
                             Destaque
                         </span>
                     </div>
@@ -840,16 +840,16 @@ function Editorial() {
                             <span>{featured.readTime} leitura</span>
                         </div>
                         
-                        <h3 className="text-xl font-semibold leading-tight text-zinc-950 sm:text-2xl md:text-3xl text-balance group-hover:text-[#1d0238] transition-colors">
+                        <h3 className="text-2xl font-semibold leading-tight text-zinc-950 md:text-3xl text-balance group-hover:text-[#1d0238] transition-colors">
                             {featured.title}
                         </h3>
                         
-                        <p className="text-sm leading-relaxed text-zinc-600 line-clamp-4 lg:line-clamp-5">
+                        <p className="text-sm leading-relaxed text-zinc-600 line-clamp-3">
                             {featured.excerpt}
                         </p>
                     </div>
                     
-                    <div className="mt-auto pt-4">
+                    <div className="mt-auto pt-4 border-t border-zinc-100">
                         <a href="#" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#1d0238] transition hover:gap-3">
                             Ler artigo completo
                             <ArrowRight className="h-3.5 w-3.5" />
