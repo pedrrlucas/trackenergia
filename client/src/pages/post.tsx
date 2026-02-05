@@ -107,10 +107,11 @@ const posts = [
 function Pill({ children, muted }: { children: React.ReactNode; muted?: boolean }) {
   return (
     <div
-      className={`inline-flex items-center rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide ${
-        muted ? "bg-zinc-100 text-zinc-500" : "bg-[#1d0238]/5 text-[#1d0238]"
+      className={`inline-flex items-center rounded-full px-3 py-1 text-[11px] font-medium tracking-wide ${
+        muted ? "bg-zinc-100 text-zinc-500 font-bold uppercase" : "bg-[#1d0238]/7 text-zinc-700 ring-1 ring-[#1d0238]/18"
       }`}
     >
+      {!muted && <span className="mr-2 h-1.5 w-1.5 rounded-full bg-[#30045c]" />}
       {children}
     </div>
   );
@@ -140,14 +141,20 @@ export default function PostPage() {
       <main>
         {/* Article Header */}
         <article className="container-page max-w-[960px] mx-auto pb-16 lg:pb-24 pt-24 sm:pt-32 lg:pt-36">
-          <Link href="/" className="inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950 mb-8 sm:mb-12">
+          <Link href="/" className="inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950">
                <ArrowLeft className="h-4 w-4" strokeWidth={2.25} />
                Voltar para home
           </Link>
+          
+          <div className="mt-3 mb-8 sm:mb-12">
+            <Pill muted={false}>( editorial )</Pill>
+          </div>
 
           <header className="flex flex-col gap-6 mb-12 lg:mb-16">
             <div className="flex flex-wrap items-center gap-4 text-sm font-medium text-zinc-500">
-               <Pill>{post.category}</Pill>
+               <div className="inline-flex items-center rounded-full bg-zinc-100 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-zinc-500">
+                  {post.category}
+               </div>
                <div className="flex items-center gap-2">
                  <Calendar className="h-4 w-4 text-zinc-400" />
                  <span>{post.date}</span>
