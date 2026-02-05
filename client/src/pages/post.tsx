@@ -135,18 +135,20 @@ export default function PostPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Header Navigation */}
+      <div className="container-page pt-8 pb-4 lg:pt-12 lg:pb-8">
+        <Link href="/" className="group inline-flex items-center gap-2 text-sm font-medium text-zinc-500 transition-colors hover:text-[#1d0238]">
+          <div className="grid h-8 w-8 place-items-center rounded-full bg-zinc-50 group-hover:bg-[#1d0238]/5 transition-colors">
+            <ArrowLeft className="h-4 w-4" />
+          </div>
+          Voltar para Home
+        </Link>
+      </div>
+
       <main>
         {/* Article Header */}
-        <article className="container-page max-w-[960px] mx-auto pb-16 lg:pb-24 pt-8 lg:pt-12">
+        <article className="container-page max-w-[960px] mx-auto pb-16 lg:pb-24">
           <header className="flex flex-col gap-6 mb-12 lg:mb-16">
-            
-            <Link href="/" className="group inline-flex items-center gap-2 text-sm font-medium text-zinc-500 transition-colors hover:text-[#1d0238] mb-4">
-              <div className="grid h-8 w-8 place-items-center rounded-full bg-zinc-50 group-hover:bg-[#1d0238]/5 transition-colors">
-                <ArrowLeft className="h-4 w-4" />
-              </div>
-              Voltar para Home
-            </Link>
-
             <div className="flex flex-wrap items-center gap-4 text-sm font-medium text-zinc-500">
                <Pill>{post.category}</Pill>
                <div className="flex items-center gap-2">
