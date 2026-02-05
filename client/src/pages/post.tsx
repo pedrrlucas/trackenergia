@@ -139,16 +139,17 @@ export default function PostPage() {
       
       <main>
         {/* Article Header */}
-        <article className="container-page max-w-[960px] mx-auto pb-16 lg:pb-24">
-          <header className="flex flex-col gap-6 mb-12 lg:mb-16">
-            <Link href="/" className="inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950 mb-4">
-               <ArrowLeft className="h-4 w-4" strokeWidth={2.25} />
-               Voltar para home
-            </Link>
+        <div className="pt-24 sm:pt-28 lg:pt-32">
+            <article className="container-page max-w-[960px] mx-auto pb-16 lg:pb-24">
+                <header className="flex flex-col gap-6 mb-12 lg:mb-16">
+                    <Link href="/" className="inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950 mb-6">
+                        <ArrowLeft className="h-4 w-4" strokeWidth={2.25} />
+                        Voltar para home
+                    </Link>
 
-            <div className="flex flex-wrap items-center gap-4 text-sm font-medium text-zinc-500">
-               <Pill>{post.category}</Pill>
-               <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-4 text-sm font-medium text-zinc-500">
+                        <Pill>{post.category}</Pill>
+                        <div className="flex items-center gap-2">
                  <Calendar className="h-4 w-4 text-zinc-400" />
                  <span>{post.date}</span>
                </div>
