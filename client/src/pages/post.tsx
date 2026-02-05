@@ -143,7 +143,7 @@ export default function PostPage() {
         <article className="container-page max-w-[960px] mx-auto pb-16 lg:pb-24 pt-24 sm:pt-32 lg:pt-36">
           <Link href="/" className="inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950">
                <ArrowLeft className="h-4 w-4" strokeWidth={2.25} />
-               Voltar para home
+               Voltar para a página inicial
           </Link>
           
           <div className="mt-3 mb-8 sm:mb-12">
