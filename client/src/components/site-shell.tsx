@@ -1,6 +1,6 @@
-import React from "react";
-import { useLocation } from "wouter";
-import { AnimatePresence } from "framer-motion";
+import React, { useEffect } from "react";
+import { useLocation, Link } from "wouter";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
   ChevronLeft,
@@ -10,10 +10,12 @@ import {
   Instagram,
   Linkedin,
   Mail,
+  Menu,
   MessageCircle,
   MoveUpRight,
   Quote,
   Star,
+  X,
 } from "lucide-react";
 
 import footerLogoMark from "@/assets/images/footer-logo-mark.png";
@@ -89,6 +91,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
   const [arrowScale, setArrowScale] = React.useState(1);
   const [arrowGone, setArrowGone] = React.useState(false);
   const [logoSwap, setLogoSwap] = React.useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const swappedRef = React.useRef(false);
   const headerRef = React.useRef<HTMLDivElement | null>(null);
   const arrowRef = React.useRef<HTMLImageElement | null>(null);
@@ -392,9 +395,9 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             style={{ zIndex: 10 }}
             onClick={onContact}
             className={
-              onHome
-                ? "group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
-                : "group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+              (onHome
+                ? "group relative hidden md:inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+                : "group relative hidden md:inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/12 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]")
             }
           >
             {!onHome ? (
@@ -435,8 +438,88 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
               />
             </span>
           </button>
+
+          {/* Mobile Menu Button */}
+          <button
+            data-testid="button-mobile-menu"
+            style={{ zIndex: 10 }}
+            onClick={() => setMobileMenuOpen(true)}
+            className="group relative inline-flex md:hidden items-center justify-center h-9 w-9 overflow-hidden rounded-full bg-white/12 text-white ring-1 ring-white/18 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+          >
+             <Menu className="h-4 w-4" strokeWidth={2.5} />
+          </button>
         </div>
       </div>
+
+      {/* Mobile Sidebar */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="pointer-events-auto fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="pointer-events-auto fixed inset-y-0 right-0 z-[101] w-full max-w-xs bg-[#1d0238] p-6 shadow-2xl ring-1 ring-white/10"
+            >
+              <div className="flex items-center justify-between mb-8">
+                 <span className="text-sm font-semibold text-white">Menu</span>
+                 <button 
+                   onClick={() => setMobileMenuOpen(false)}
+                   className="grid h-8 w-8 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+                 >
+                    <X className="h-4 w-4" />
+                 </button>
+              </div>
+
+              <nav className="flex flex-col gap-2">
+                 {[
+                   { label: "Início", href: "/" },
+                   { label: "Serviços", href: "/servicos" },
+                   { label: "Abordagem", href: "/#process" },
+                   { label: "Depoimentos", href: "/#testimonials" },
+                 ].map((link) => (
+                    <Link key={link.href} href={link.href}>
+                       <a 
+                         className="block rounded-xl px-4 py-3 text-base font-medium text-white/90 transition hover:bg-white/10 hover:text-white"
+                         onClick={() => setMobileMenuOpen(false)}
+                       >
+                         {link.label}
+                       </a>
+                    </Link>
+                 ))}
+                 
+                 <button 
+                    onClick={() => {
+                        setMobileMenuOpen(false);
+                        onContact();
+                    }}
+                    className="mt-4 flex w-full items-center justify-between rounded-xl bg-white px-4 py-3 text-sm font-semibold text-[#1d0238] shadow-lg active:scale-[0.98]"
+                 >
+                    <span>Fale Conosco</span>
+                    <ArrowRight className="h-4 w-4" />
+                 </button>
+              </nav>
+
+              <div className="absolute bottom-8 left-6 right-6">
+                  <div className="h-px w-full bg-white/10 mb-6" />
+                  <div className="flex items-center gap-4 text-white/60">
+                      <a href="#" className="hover:text-white transition"><Instagram className="h-5 w-5" /></a>
+                      <a href="#" className="hover:text-white transition"><Linkedin className="h-5 w-5" /></a>
+                      <a href="#" className="hover:text-white transition"><Facebook className="h-5 w-5" /></a>
+                  </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
