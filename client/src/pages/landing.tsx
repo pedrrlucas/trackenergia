@@ -1187,10 +1187,11 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     >
                         {products.map((p) => (
-                            <motion.button
+                            <motion.a
                                 key={p.id}
-                                onClick={() => setActiveId(p.id)}
-                                className={`group relative w-[23%] shrink-0 text-left rounded-[26px] bg-zinc-100 transition-all duration-300 ${activeId === p.id ? 'ring-1 ring-[#1d0238] ring-inset shadow-md scale-[1.01] z-10' : 'ring-1 ring-zinc-200 hover:ring-zinc-300 hover:scale-[1.005]'}`}
+                                href={`/servicos/${p.id}`}
+                                onMouseEnter={() => setActiveId(p.id)}
+                                className={`group relative block w-[23%] shrink-0 text-left rounded-[26px] bg-zinc-100 transition-all duration-300 ${activeId === p.id ? 'ring-1 ring-[#1d0238] ring-inset shadow-md scale-[1.01] z-10' : 'ring-1 ring-zinc-200 hover:ring-zinc-300 hover:scale-[1.005]'}`}
                                 whileHover={{ y: -4 }}
                             >
                                 <div className="relative overflow-hidden rounded-t-[26px] h-[200px]">
@@ -1209,7 +1210,7 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                                         {p.title}
                                     </div>
                                 </div>
-                            </motion.button>
+                            </motion.a>
                         ))}
                     </motion.div>
                 </div>
