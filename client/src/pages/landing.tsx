@@ -296,10 +296,10 @@ function Nav({ onContact }: { onContact: () => void }) {
     return () => cancelAnimationFrame(raf);
   }, [ready, reduced]);
 
-  // Ordem pedida: Depoimentos → Abordagem → Serviços → Início (a seta vem da direita)
+  // Ordem pedida: Depoimentos → Serviços → Editorial → Início (a seta vem da direita)
   const showTestimonials = progress >= 0.26;
-  const showProcess = progress >= 0.42;
-  const showProduct = progress >= 0.58;
+  const showProduct = progress >= 0.42;
+  const showEditorial = progress >= 0.58;
   const showHome = progress >= 0.74;
 
   return (
@@ -425,6 +425,17 @@ function Nav({ onContact }: { onContact: () => void }) {
               Início
             </motion.a>
             <motion.a
+              data-testid="link-nav-editorial"
+              href="#editorial"
+              className="transition hover:text-white"
+              initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              style={{ pointerEvents: showEditorial ? "auto" : "none", visibility: showEditorial ? "visible" : "hidden" }}
+            >
+              Editorial
+            </motion.a>
+            <motion.a
               data-testid="link-nav-product"
               href="#product"
               className="transition hover:text-white"
@@ -434,17 +445,6 @@ function Nav({ onContact }: { onContact: () => void }) {
               style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
             >
               Serviços
-            </motion.a>
-            <motion.a
-              data-testid="link-nav-process"
-              href="#process"
-              className="transition hover:text-white"
-              initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
-              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              style={{ pointerEvents: showProcess ? "auto" : "none", visibility: showProcess ? "visible" : "hidden" }}
-            >
-              Abordagem
             </motion.a>
             <motion.a
               data-testid="link-nav-testimonials"
@@ -516,8 +516,8 @@ function Nav({ onContact }: { onContact: () => void }) {
               <nav className="flex flex-col gap-2">
                  {[
                    { label: "Início", href: "#top" },
+                   { label: "Editorial", href: "#editorial" },
                    { label: "Serviços", href: "#product" },
-                   { label: "Abordagem", href: "#process" },
                    { label: "Depoimentos", href: "#testimonials" },
                  ].map((link) => (
                     <a 
@@ -1297,143 +1297,7 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
   );
 }
 
-function Process() {
-  const reduced = usePrefersReducedMotion();
-
-  const slides = useMemo(
-    () => [
-      {
-        k: "01",
-        title: "Parceria: diagnóstico do setor",
-        desc: "Nos conectamos com empresas, grupos e cooperativas para entender os desafios mais comuns e impactantes do segmento e compor soluções que geram competitividade, segurança ou economia.",
-        img: processImg,
-      },
-      {
-        k: "02",
-        title: "Cliente final: proposta sob medida",
-        desc: "Analisamos perfil, objetivos e necessidades para desenhar uma proposta personalizada, sem excessos e sem soluções genéricas.",
-        img: processImg,
-      },
-      {
-        k: "03",
-        title: "Execução completa e integração",
-        desc: "Fazemos a implementação com coordenação técnica e foco em resultado: eficiência, geração própria, armazenamento, eletromobilidade e acesso ao mercado livre quando fizer sentido.",
-        img: processImg,
-      },
-      {
-        k: "04",
-        title: "Monitoramento contínuo e melhorias",
-        desc: "Após a entrega, acompanhamos performance, operação e manutenção quando necessário, com radar ligado para otimizações ao longo do tempo.",
-        img: processImg,
-      },
-    ],
-    [],
-  );
-
-  const [idx, setIdx] = useState(2);
-
-  return (
-    <motion.section
-      id="process"
-      className="container-page pb-12 sm:pb-16 lg:pb-20"
-      initial={reduced ? undefined : { opacity: 0, y: 12 }}
-      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-90px" }}
-      transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
-    >
-      <motion.div
-        className="relative overflow-hidden rounded-[32px] bg-black lg:rounded-[38px]"
-        initial={reduced ? undefined : { scale: 0.995, opacity: 0 }}
-        whileInView={reduced ? undefined : { scale: 1, opacity: 1 }}
-        viewport={{ once: true, margin: "-120px" }}
-        transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
-      >
-        <img
-          data-testid="img-process"
-          src={slides[idx].img}
-          alt="Processo"
-          className="h-[560px] w-full object-cover sm:h-[520px] lg:h-[620px]"
-        />
-        <div className="absolute inset-0 hero-overlay" />
-
-        <div className="absolute inset-0 p-6 sm:p-8">
-          <div className="flex items-start justify-between">
-            <Pill testId="pill-process" muted>
-              ( como trabalhamos )
-            </Pill>
-          </div>
-
-          <div className="mt-24 grid gap-8 md:mt-28 md:grid-cols-[1fr_420px] md:items-start lg:mt-36 lg:grid-cols-[1fr_520px]">
-            <motion.div
-              className="flex items-end"
-              initial={reduced ? undefined : { opacity: 0, x: -10 }}
-              whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-120px" }}
-              transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
-            >
-              <div>
-                <div
-                  data-testid="text-process-counter"
-                  className="text-[56px] font-medium leading-none tracking-[-0.04em] text-white sm:text-[64px] lg:text-[72px]"
-                >
-                  <span className="text-white">({slides[idx].k}</span>
-                  <span className="text-white/55">/04)</span>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={reduced ? undefined : { opacity: 0, y: 12 }}
-              whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-120px" }}
-              transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1], delay: 0.04 }}
-            >
-              <h3
-                data-testid="text-process-title"
-                className="text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em] text-white lg:text-[40px]"
-              >
-                {slides[idx].title}
-              </h3>
-              <p data-testid="text-process-desc" className="mt-3 text-sm leading-6 text-white/70">
-                {slides[idx].desc}
-              </p>
-            </motion.div>
-          </div>
-
-          <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between gap-3">
-            <div data-testid="progress-process-track" className="h-[2px] flex-1 rounded-full bg-white/22">
-              <motion.div
-                data-testid="progress-process-fill"
-                className="h-full rounded-full bg-white"
-                initial={reduced ? undefined : { width: 0 }}
-                animate={{ width: `${((idx + 1) / slides.length) * 100}%` }}
-                transition={reduced ? undefined : { duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
-              />
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                data-testid="button-process-prev"
-                onClick={() => setIdx((p) => (p - 1 + slides.length) % slides.length)}
-                className="grid h-10 w-10 place-items-center rounded-full bg-white/12 ring-1 ring-white/15 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
-              >
-                <ChevronLeft className="h-4 w-4 text-white" strokeWidth={2.25} />
-              </button>
-              <button
-                data-testid="button-process-next"
-                onClick={() => setIdx((p) => (p + 1) % slides.length)}
-                className="grid h-10 w-10 place-items-center rounded-full bg-white/12 ring-1 ring-white/15 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
-              >
-                <ChevronRight className="h-4 w-4 text-white" strokeWidth={2.25} />
-              </button>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </motion.section>
-  );
-}
-
+// Process component removed
 
 function Testimonials() {
   const reduced = usePrefersReducedMotion();
@@ -1974,7 +1838,6 @@ export default function Landing() {
       <About />
       <Editorial />
       <ProductFeature product={primaryProduct} products={products} />
-      <Process />
       <Testimonials />
 
       <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} />

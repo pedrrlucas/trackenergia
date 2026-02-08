@@ -365,20 +365,20 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
               Início
             </a>
             <a
+              data-testid="link-nav-editorial"
+              href="#editorial"
+              className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
+              style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
+            >
+              Editorial
+            </a>
+            <a
               data-testid="link-nav-product"
               href="#product"
               className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
               style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
             >
               Serviços
-            </a>
-            <a
-              data-testid="link-nav-process"
-              href="#process"
-              className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
-              style={{ pointerEvents: showProcess ? "auto" : "none", visibility: showProcess ? "visible" : "hidden" }}
-            >
-              Abordagem
             </a>
             <a
               data-testid="link-nav-testimonials"
@@ -482,8 +482,8 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
               <nav className="flex flex-col gap-2">
                  {[
                    { label: "Início", href: "/" },
-                   { label: "Serviços", href: "/servicos" },
-                   { label: "Abordagem", href: "/#process" },
+                   { label: "Editorial", href: "/#editorial" },
+                   { label: "Serviços", href: "/#product" },
                    { label: "Depoimentos", href: "/#testimonials" },
                  ].map((link) => (
                     <Link key={link.href} href={link.href}>
