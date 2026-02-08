@@ -899,13 +899,13 @@ function Editorial() {
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10 items-stretch">
             {/* Featured Post (Left) - Card Style */}
             <motion.div
-            className="group relative flex flex-col sm:flex-row gap-6 lg:gap-8 overflow-hidden rounded-[32px] bg-white p-6 sm:p-8 ring-1 ring-zinc-100 transition-all hover:ring-zinc-200 hover:shadow-lg"
+            className="group relative flex flex-col sm:flex-row gap-6 lg:gap-8 overflow-hidden rounded-[32px] bg-white p-5 sm:p-8 ring-1 ring-zinc-100 transition-all hover:ring-zinc-200 hover:shadow-lg"
             initial={reduced ? undefined : { opacity: 0, x: -10 }}
             whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5 }}
             >
-                <div className="shrink-0">
+                <div className="hidden sm:block shrink-0">
                     <div className="relative h-28 w-28 sm:h-36 sm:w-36 overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-100/50 shadow-sm">
                         <img 
                             src={featured.image} 
@@ -921,8 +921,37 @@ function Editorial() {
                 </div>
                 
                 <div className="flex flex-1 flex-col justify-between h-full gap-4">
+                    {/* Mobile Header: Image + Title/Meta side-by-side */}
+                    <div className="flex sm:hidden gap-4 items-start">
+                        <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-zinc-100 ring-1 ring-zinc-100/50 shadow-sm">
+                            <img 
+                                src={featured.image} 
+                                alt={featured.title}
+                                className="h-full w-full object-cover"
+                            />
+                             <div className="absolute top-1.5 left-1.5">
+                                <span className="inline-block rounded-full bg-white/95 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#1d0238] backdrop-blur-md shadow-sm ring-1 ring-zinc-100">
+                                    Destaque
+                                </span>
+                            </div>
+                        </div>
+                        <div className="flex flex-col gap-1.5 min-w-0">
+                             <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide text-zinc-400 whitespace-nowrap overflow-hidden text-ellipsis">
+                                <span className="text-[#1d0238]">{featured.category}</span>
+                                <span className="h-0.5 w-0.5 rounded-full bg-zinc-300" />
+                                <span>{featured.date}</span>
+                                <span className="h-0.5 w-0.5 rounded-full bg-zinc-300" />
+                                <span>{featured.readTime}</span>
+                             </div>
+                             <h3 className="text-base font-bold leading-tight text-zinc-950 line-clamp-3">
+                                {featured.title}
+                             </h3>
+                        </div>
+                    </div>
+
                     <div className="flex flex-col gap-3">
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium text-zinc-500">
+                        {/* Desktop Meta & Title */}
+                        <div className="hidden sm:flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium text-zinc-500">
                             <span className="text-[#1d0238] font-bold uppercase tracking-wide">{featured.category}</span>
                             <span className="h-1 w-1 rounded-full bg-zinc-300" />
                             <span>{featured.date}</span>
@@ -930,7 +959,7 @@ function Editorial() {
                             <span>{featured.readTime} leitura</span>
                         </div>
                         
-                        <h3 className="text-xl font-bold leading-tight text-zinc-950 sm:text-2xl md:text-[28px] lg:text-3xl text-balance group-hover:text-[#1d0238] transition-colors">
+                        <h3 className="hidden sm:block text-xl font-bold leading-tight text-zinc-950 sm:text-2xl md:text-[28px] lg:text-3xl text-balance group-hover:text-[#1d0238] transition-colors">
                             {featured.title}
                         </h3>
                         
