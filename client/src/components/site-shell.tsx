@@ -540,10 +540,10 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
   return (
     <footer id="footer" className="w-full bg-white">
       <div className="w-full bg-gradient-to-r from-black via-[#12001f] to-[#1d0238]">
-        <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12">
-          <div className="grid gap-10 py-10 md:grid-cols-4 md:items-start md:gap-10 md:py-12">
-            <div className="min-w-0">
-              <div className="flex items-center gap-2">
+        <div className="mx-auto w-full max-w-[1560px] px-6 sm:px-8 lg:px-10 2xl:px-12">
+          <div className="flex flex-col gap-12 py-12 lg:grid lg:grid-cols-4 lg:items-start lg:gap-10 lg:py-16">
+            <div className="min-w-0 max-w-sm">
+              <div className="flex items-center gap-3">
                 <span className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/10">
                   <img src={footerLogoMark} alt="" className="h-5 w-5 object-contain" />
                 </span>
@@ -555,139 +555,140 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                 />
               </div>
 
-              <div data-testid="text-footer-address" className="mt-5 text-xs leading-5 text-white/60">
-                Track, Soluções em energia · Brasil
+              <div data-testid="text-footer-address" className="mt-6 text-sm leading-6 text-white/60">
+                Track, Soluções em energia<br/>
+                São Paulo, Brasil
               </div>
 
-              <div className="mt-6 flex flex-wrap items-center gap-2 text-white/75">
+              <div className="mt-8 flex flex-wrap items-center gap-3 text-white/75">
                 <a
                   data-testid="icon-whatsapp"
                   href="#"
-                  className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/12 transition hover:bg-white/14"
+                  className="grid h-11 w-11 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white hover:scale-105 active:scale-95"
                   aria-label="WhatsApp"
                 >
-                  <MessageCircle className="h-5 w-5" strokeWidth={2.25} />
+                  <MessageCircle className="h-5 w-5" strokeWidth={2} />
                 </a>
                 <a
                   data-testid="icon-email"
                   href="#"
-                  className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/12 transition hover:bg-white/14"
+                  className="grid h-11 w-11 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white hover:scale-105 active:scale-95"
                   aria-label="E-mail"
                 >
-                  <Mail className="h-5 w-5" strokeWidth={2.25} />
+                  <Mail className="h-5 w-5" strokeWidth={2} />
                 </a>
                 <a
                   data-testid="icon-instagram"
                   href="#"
-                  className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/12 transition hover:bg-white/14"
+                  className="grid h-11 w-11 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white hover:scale-105 active:scale-95"
                   aria-label="Instagram"
                 >
-                  <Instagram className="h-5 w-5" strokeWidth={2.25} />
+                  <Instagram className="h-5 w-5" strokeWidth={2} />
                 </a>
                 <a
                   data-testid="icon-facebook"
                   href="#"
-                  className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/12 transition hover:bg-white/14"
+                  className="grid h-11 w-11 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white hover:scale-105 active:scale-95"
                   aria-label="Facebook"
                 >
-                  <Facebook className="h-5 w-5" strokeWidth={2.25} />
+                  <Facebook className="h-5 w-5" strokeWidth={2} />
                 </a>
                 <a
                   data-testid="icon-linkedin"
                   href="#"
-                  className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/12 transition hover:bg-white/14"
+                  className="grid h-11 w-11 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white hover:scale-105 active:scale-95"
                   aria-label="LinkedIn"
                 >
-                  <Linkedin className="h-5 w-5" strokeWidth={2.25} />
+                  <Linkedin className="h-5 w-5" strokeWidth={2} />
                 </a>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-3">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:col-span-3">
               <div>
-                <div data-testid="text-footer-nav-title" className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
+                <div data-testid="text-footer-nav-title" className="text-[11px] font-bold uppercase tracking-wider text-white/40">
                   Navegação
                 </div>
-                <div className="mt-3 grid gap-2 text-xs font-medium text-white/65">
+                <div className="mt-6 flex flex-col gap-3 text-[13px] font-medium text-white/80">
                   <a
                     data-testid="link-footer-home"
                     href="/"
-                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                    className="transition hover:text-white"
                   >
-                    <span>Início</span>
+                    Início
                   </a>
                   <a
                     data-testid="link-footer-editorial"
                     href="/#editorial"
-                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                    className="transition hover:text-white"
                   >
-                    <span>Editorial</span>
+                    Editorial
                   </a>
                   <a
                     data-testid="link-footer-testimonials"
                     href="/#testimonials"
-                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                    className="transition hover:text-white"
                   >
-                    <span>Depoimentos</span>
+                    Depoimentos
                   </a>
                   <a
                     data-testid="link-footer-contact"
                     href="/contato"
-                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                    className="transition hover:text-white"
                   >
-                    <span>Contato</span>
+                    Contato
                   </a>
                 </div>
               </div>
 
               <div>
-                <div data-testid="text-footer-solutions-title" className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
+                <div data-testid="text-footer-solutions-title" className="text-[11px] font-bold uppercase tracking-wider text-white/40">
                   Soluções
                 </div>
-                <div className="mt-3 grid gap-2 text-xs font-medium text-white/65">
+                <div className="mt-6 flex flex-col gap-3 text-[13px] font-medium text-white/80">
                   <a
                     data-testid="link-footer-services"
                     href="/servicos"
-                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                    className="flex items-center gap-2 transition hover:text-white group"
                   >
-                    <span>Ver todos os serviços</span>
-                    <ArrowRight className="h-3 w-3 opacity-50" />
+                    Ver todos
+                    <ArrowRight className="h-3 w-3 opacity-50 transition-transform group-hover:translate-x-0.5" />
                   </a>
                   <a
                     data-testid="link-footer-efficiency"
                     href="/servicos/eficiencia"
-                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                    className="transition hover:text-white"
                   >
-                    <span>Eficiência energética</span>
+                    Eficiência
                   </a>
                   <a
                     data-testid="link-footer-generation"
                     href="/servicos/geracao"
-                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                    className="transition hover:text-white"
                   >
-                    <span>Geração própria</span>
+                    Geração própria
                   </a>
                   <a
                     data-testid="link-footer-storage"
                     href="/servicos/armazenamento"
-                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                    className="transition hover:text-white"
                   >
-                    <span>Armazenamento</span>
+                    Armazenamento
                   </a>
                 </div>
               </div>
 
-              <div className="col-span-2 sm:col-span-1">
-                <div className="flex items-center justify-between gap-3">
-                  <div data-testid="text-footer-instagram-title" className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
+              <div className="col-span-2 sm:col-span-1 pt-4 sm:pt-0 border-t border-white/5 sm:border-0">
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div data-testid="text-footer-instagram-title" className="text-[11px] font-bold uppercase tracking-wider text-white/40">
                     Instagram
                   </div>
                   <a
                     data-testid="link-footer-instagram"
                     href="#"
-                    className="text-xs font-medium text-white/70 transition hover:text-white"
+                    className="text-[11px] font-semibold text-white/60 transition hover:text-white"
                   >
-                    Ver mais
+                    @track.energia
                   </a>
                 </div>
 
