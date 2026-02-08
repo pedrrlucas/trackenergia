@@ -603,10 +603,10 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
               </div>
             </div>
 
-            <div className="contents">
+            <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-3">
               <div>
-                <div data-testid="text-footer-content-title" className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
-                  Conteúdo
+                <div data-testid="text-footer-nav-title" className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
+                  Navegação
                 </div>
                 <div className="mt-3 grid gap-2 text-xs font-medium text-white/65">
                   <a
@@ -615,15 +615,20 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                     className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
                   >
                     <span>Início</span>
-                    <span className="text-white/35">/</span>
                   </a>
                   <a
-                    data-testid="link-footer-services"
-                    href="/servicos"
+                    data-testid="link-footer-editorial"
+                    href="/#editorial"
                     className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
                   >
-                    <span>Serviços</span>
-                    <span className="text-white/35">/</span>
+                    <span>Editorial</span>
+                  </a>
+                  <a
+                    data-testid="link-footer-testimonials"
+                    href="/#testimonials"
+                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                  >
+                    <span>Depoimentos</span>
                   </a>
                   <a
                     data-testid="link-footer-contact"
@@ -631,7 +636,6 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                     className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
                   >
                     <span>Contato</span>
-                    <span className="text-white/35">/</span>
                   </a>
                 </div>
               </div>
@@ -642,20 +646,26 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                 </div>
                 <div className="mt-3 grid gap-2 text-xs font-medium text-white/65">
                   <a
+                    data-testid="link-footer-services"
+                    href="/servicos"
+                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                  >
+                    <span>Ver todos os serviços</span>
+                    <ArrowRight className="h-3 w-3 opacity-50" />
+                  </a>
+                  <a
                     data-testid="link-footer-efficiency"
                     href="/servicos/eficiencia"
                     className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
                   >
-                    <span>Eficiência</span>
-                    <span className="text-white/35">/</span>
+                    <span>Eficiência energética</span>
                   </a>
                   <a
                     data-testid="link-footer-generation"
                     href="/servicos/geracao"
                     className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
                   >
-                    <span>Geração</span>
-                    <span className="text-white/35">/</span>
+                    <span>Geração própria</span>
                   </a>
                   <a
                     data-testid="link-footer-storage"
@@ -663,7 +673,13 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                     className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
                   >
                     <span>Armazenamento</span>
-                    <span className="text-white/35">/</span>
+                  </a>
+                  <a
+                    data-testid="link-footer-market"
+                    href="/servicos/mercado-livre"
+                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
+                  >
+                    <span>Mercado livre</span>
                   </a>
                 </div>
               </div>
