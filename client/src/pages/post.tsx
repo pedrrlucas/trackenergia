@@ -23,22 +23,22 @@ const posts = [
     content: `
       <p class="lead">O setor de energia solar no Brasil vive um momento de transformação acelerada. Com a consolidação da geração distribuída e a abertura do mercado livre, 2026 promete ser um ano divisor de águas para consumidores e empresas.</p>
       
-      <h3>Novas fronteiras tecnológicas</h3>
+      <h2>Novas fronteiras tecnológicas</h2>
       <p>A evolução dos painéis fotovoltaicos tem permitido uma eficiência cada vez maior, mesmo em áreas com menor incidência solar. Tecnologias como células de perovskita e módulos bifaciais estão se tornando mais acessíveis, aumentando o ROI (Retorno sobre Investimento) dos projetos.</p>
       
       <p>Além disso, a integração com sistemas de armazenamento (baterias) está permitindo que empresas se tornem praticamente independentes da rede elétrica tradicional durante horários de pico, quando a tarifa é mais cara.</p>
 
-      <h3>O papel da regulação</h3>
+      <h2>O papel da regulação</h2>
       <p>As recentes atualizações no marco legal da geração distribuída trouxeram mais segurança jurídica para investidores. Embora algumas taxas tenham sido implementadas, a transparência nas regras do jogo atraiu capital estrangeiro e fomentou a profissionalização do setor.</p>
 
       <blockquote>
         "A energia solar não é mais apenas uma alternativa sustentável, é uma estratégia financeira indispensável para a competitividade industrial."
       </blockquote>
 
-      <h3>Mercado Livre de Energia</h3>
+      <h2>Mercado Livre de Energia</h2>
       <p>A migração para o Mercado Livre de Energia continua sendo uma tendência forte. Para 2026, espera-se que consumidores de média tensão tenham acesso facilitado a esse ambiente, permitindo a negociação direta com geradores e a escolha de fontes renováveis com certificação.</p>
 
-      <h3>Conclusão</h3>
+      <h2>Conclusão</h2>
       <p>Preparar-se para esse novo cenário exige planejamento e parceiros estratégicos. A transição energética não é apenas sobre trocar a fonte de energia, mas sobre inteligência no consumo e gestão eficiente de recursos.</p>
     `
   },
