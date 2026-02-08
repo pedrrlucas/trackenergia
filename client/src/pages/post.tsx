@@ -21,25 +21,46 @@ const posts = [
     readTime: "5 min",
     image: blog1,
     content: `
-      <p class="lead">O setor de energia solar no Brasil vive um momento de transformação acelerada. Com a consolidação da geração distribuída e a abertura do mercado livre, 2026 promete ser um ano divisor de águas para consumidores e empresas.</p>
+      <p class="lead text-xl text-zinc-600 font-medium leading-relaxed mb-10 border-b border-zinc-100 pb-10">O setor de energia solar no Brasil vive um momento de transformação acelerada. Com a consolidação da geração distribuída e a abertura do mercado livre, 2026 promete ser um ano divisor de águas para consumidores e empresas.</p>
       
-      <h3>Novas fronteiras tecnológicas</h3>
-      <p>A evolução dos painéis fotovoltaicos tem permitido uma eficiência cada vez maior, mesmo em áreas com menor incidência solar. Tecnologias como células de perovskita e módulos bifaciais estão se tornando mais acessíveis, aumentando o ROI (Retorno sobre Investimento) dos projetos.</p>
-      
-      <p>Além disso, a integração com sistemas de armazenamento (baterias) está permitindo que empresas se tornem praticamente independentes da rede elétrica tradicional durante horários de pico, quando a tarifa é mais cara.</p>
+      <div class="space-y-12">
+        <section>
+           <h3 class="text-2xl font-bold text-zinc-900 mb-4 flex items-center gap-3">
+              <span class="h-8 w-1 bg-[#1d0238] rounded-full"></span>
+              Novas fronteiras tecnológicas
+           </h3>
+           <p class="text-zinc-600 leading-relaxed mb-6">A evolução dos painéis fotovoltaicos tem permitido uma eficiência cada vez maior, mesmo em áreas com menor incidência solar. Tecnologias como células de perovskita e módulos bifaciais estão se tornando mais acessíveis, aumentando o ROI (Retorno sobre Investimento) dos projetos.</p>
+           <p class="text-zinc-600 leading-relaxed">Além disso, a integração com sistemas de armazenamento (baterias) está permitindo que empresas se tornem praticamente independentes da rede elétrica tradicional durante horários de pico, quando a tarifa é mais cara.</p>
+        </section>
 
-      <h3>O papel da regulação</h3>
-      <p>As recentes atualizações no marco legal da geração distribuída trouxeram mais segurança jurídica para investidores. Embora algumas taxas tenham sido implementadas, a transparência nas regras do jogo atraiu capital estrangeiro e fomentou a profissionalização do setor.</p>
+        <section>
+          <h3 class="text-2xl font-bold text-zinc-900 mb-4 flex items-center gap-3">
+              <span class="h-8 w-1 bg-[#1d0238] rounded-full"></span>
+              O papel da regulação
+          </h3>
+          <p class="text-zinc-600 leading-relaxed mb-8">As recentes atualizações no marco legal da geração distribuída trouxeram mais segurança jurídica para investidores. Embora algumas taxas tenham sido implementadas, a transparência nas regras do jogo atraiu capital estrangeiro e fomentou a profissionalização do setor.</p>
 
-      <blockquote>
-        "A energia solar não é mais apenas uma alternativa sustentável, é uma estratégia financeira indispensável para a competitividade industrial."
-      </blockquote>
+          <blockquote class="border-l-4 border-[#1d0238] pl-6 py-2 my-8 italic text-lg text-zinc-800 bg-zinc-50 rounded-r-lg pr-4">
+            "A energia solar não é mais apenas uma alternativa sustentável, é uma estratégia financeira indispensável para a competitividade industrial."
+          </blockquote>
+        </section>
 
-      <h3>Mercado Livre de Energia</h3>
-      <p>A migração para o Mercado Livre de Energia continua sendo uma tendência forte. Para 2026, espera-se que consumidores de média tensão tenham acesso facilitado a esse ambiente, permitindo a negociação direta com geradores e a escolha de fontes renováveis com certificação.</p>
+        <section>
+          <h3 class="text-2xl font-bold text-zinc-900 mb-4 flex items-center gap-3">
+              <span class="h-8 w-1 bg-[#1d0238] rounded-full"></span>
+              Mercado Livre de Energia
+          </h3>
+          <p class="text-zinc-600 leading-relaxed">A migração para o Mercado Livre de Energia continua sendo uma tendência forte. Para 2026, espera-se que consumidores de média tensão tenham acesso facilitado a esse ambiente, permitindo a negociação direta com geradores e a escolha de fontes renováveis com certificação.</p>
+        </section>
 
-      <h3>Conclusão</h3>
-      <p>Preparar-se para esse novo cenário exige planejamento e parceiros estratégicos. A transição energética não é apenas sobre trocar a fonte de energia, mas sobre inteligência no consumo e gestão eficiente de recursos.</p>
+        <section>
+          <h3 class="text-2xl font-bold text-zinc-900 mb-4 flex items-center gap-3">
+              <span class="h-8 w-1 bg-[#1d0238] rounded-full"></span>
+              Conclusão
+          </h3>
+          <p class="text-zinc-600 leading-relaxed">Preparar-se para esse novo cenário exige planejamento e parceiros estratégicos. A transição energética não é apenas sobre trocar a fonte de energia, mas sobre inteligência no consumo e gestão eficiente de recursos.</p>
+        </section>
+      </div>
     `
   },
   {
@@ -50,7 +71,18 @@ const posts = [
     date: "02 Fev 2026",
     readTime: "4 min",
     image: blog2,
-    content: "Conteúdo do artigo..."
+    content: `
+       <p class="lead text-xl text-zinc-600 font-medium leading-relaxed mb-10 border-b border-zinc-100 pb-10">Baterias não são mais apenas backup. Elas se tornaram ferramentas ativas de gestão energética, permitindo arbitragem de preços e estabilidade operacional em larga escala.</p>
+       <div class="space-y-12">
+          <section>
+            <h3 class="text-2xl font-bold text-zinc-900 mb-4 flex items-center gap-3">
+               <span class="h-8 w-1 bg-[#1d0238] rounded-full"></span>
+               Além do backup
+            </h3>
+            <p class="text-zinc-600 leading-relaxed">O conceito de BESS (Battery Energy Storage Systems) evoluiu. Hoje, indústrias utilizam armazenamento para 'peak shaving' - reduzindo a demanda contratada nos horários de ponta e economizando milhões anualmente.</p>
+          </section>
+       </div>
+    `
   },
   {
     id: "3",
@@ -247,7 +279,7 @@ export default function PostPage() {
                     {relatedPosts.map(post => (
                         <Link key={post.id} href={`/editorial/${post.id}`}>
                             <article className="group flex flex-col gap-4 cursor-pointer">
-                                <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-100/50">
+                                <div className="aspect-[16/9] w-full overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-100/50">
                                     <img 
                                         src={post.image} 
                                         alt={post.title}
