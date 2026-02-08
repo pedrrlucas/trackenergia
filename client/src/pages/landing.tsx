@@ -1029,7 +1029,7 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
   const [scrollIndex, setScrollIndex] = useState(0);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
+    loop: false,
     align: "center",
     skipSnaps: false,
     containScroll: false,
