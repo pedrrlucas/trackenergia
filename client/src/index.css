@@ -84,6 +84,12 @@
   body {
     overflow-x: hidden;
   }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href] {
+    cursor: pointer;
+  }
 }
 
 @keyframes accordionDown {

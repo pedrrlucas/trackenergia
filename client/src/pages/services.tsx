@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
+import { getServiceSearchContent, isSearchStopword } from "./service-detail";
 
 const revealViewport = { once: true, amount: 0.22 } as const;
 const revealTransition = { duration: 0.65, ease: [0.22, 1, 0.36, 1] } as const;
@@ -53,6 +54,10 @@ type Service = {
 export default function Services() {
   const reduced = usePrefersReducedMotion();
   const [searchQuery, setSearchQuery] = React.useState("");
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const services = useMemo<Service[]>(
     () => [
@@ -116,16 +121,56 @@ export default function Services() {
     [],
   );
 
+  const searchContentById = useMemo(() => getServiceSearchContent(), []);
+
   const filteredServices = useMemo(() => {
-    if (!searchQuery) return services;
-    const lowerQuery = searchQuery.toLowerCase();
-    return services.filter(
-      (s) =>
-        s.title.toLowerCase().includes(lowerQuery) ||
-        s.subtitle.toLowerCase().includes(lowerQuery) ||
-        s.bullets.some((b) => b.toLowerCase().includes(lowerQuery))
-    );
-  }, [searchQuery, services]);
+    if (!searchQuery.trim()) return services;
+
+    const normalize = (s: string) =>
+      s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const lowerQuery = normalize(searchQuery.trim());
+    const terms = lowerQuery.split(/\s+/).filter((t) => t.length > 0);
+    const significantTerms = terms.filter((t) => !isSearchStopword(t));
+
+    if (significantTerms.length === 0) return [];
+
+    const scored = services
+      .map((s) => {
+        const titleNorm = normalize(s.title);
+        const subtitleNorm = normalize(s.subtitle);
+        const bulletsNorm = s.bullets.map((b) => normalize(b));
+        const pageContent = searchContentById[s.id] ?? "";
+
+        let score = 0;
+        let termsMatched = 0;
+
+        for (const term of significantTerms) {
+          let termScore = 0;
+          if (titleNorm.includes(term)) termScore = Math.max(termScore, 15);
+          if (subtitleNorm.includes(term)) termScore = Math.max(termScore, 8);
+          if (bulletsNorm.some((b) => b.includes(term))) termScore = Math.max(termScore, 5);
+          if (pageContent.includes(term)) termScore = Math.max(termScore, 1);
+
+          if (termScore > 0) {
+            score += termScore;
+            termsMatched += 1;
+          }
+        }
+
+        if (termsMatched === 0) return { service: s, score: 0, termsMatched: 0 };
+
+        if (titleNorm.includes(lowerQuery) || subtitleNorm.includes(lowerQuery) || bulletsNorm.some((b) => b.includes(lowerQuery))) {
+          score += 12;
+        }
+        score += termsMatched * 2;
+
+        return { service: s, score, termsMatched };
+      })
+      .filter((x) => x.score > 0)
+      .sort((a, b) => b.score - a.score);
+
+    return scored.map((x) => x.service);
+  }, [searchQuery, services, searchContentById]);
 
   return (
     <div data-testid="page-services" className="min-h-screen bg-white">

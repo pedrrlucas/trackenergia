@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation, Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
@@ -308,14 +309,8 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
 
           <a
             data-testid="link-logo"
-            href={onHome ? "#top" : "/"}
+            href="/#inicio"
             className="relative z-10 flex items-center gap-3"
-            onClick={(e) => {
-              if (!onHome) {
-                e.preventDefault();
-                window.location.href = "/";
-              }
-            }}
           >
             <span data-testid="text-header-tagline" className="sr-only">
               Da análise à operação: eficiência, geração, armazenamento e gestão de energia com acompanhamento.
@@ -358,7 +353,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
           >
             <a
               data-testid="link-nav-home"
-              href="#top"
+              href="/#inicio"
               className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
               style={{ pointerEvents: showHome ? "auto" : "none", visibility: showHome ? "visible" : "hidden" }}
             >
@@ -366,7 +361,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             </a>
             <a
               data-testid="link-nav-editorial"
-              href="#editorial"
+              href="/#editorial"
               className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
               style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
             >
@@ -374,7 +369,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             </a>
             <a
               data-testid="link-nav-product"
-              href="#product"
+              href="/#servicos"
               className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
               style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
             >
@@ -382,7 +377,7 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
             </a>
             <a
               data-testid="link-nav-testimonials"
-              href="#testimonials"
+              href="/#depoimentos"
               className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
               style={{ pointerEvents: showTestimonials ? "auto" : "none", visibility: showTestimonials ? "visible" : "hidden" }}
             >
@@ -481,19 +476,19 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
 
               <nav className="flex flex-col gap-2">
                  {[
-                   { label: "Início", href: "/" },
+                   { label: "Início", href: "/#inicio" },
                    { label: "Editorial", href: "/#editorial" },
-                   { label: "Serviços", href: "/#product" },
-                   { label: "Depoimentos", href: "/#testimonials" },
+                   { label: "Serviços", href: "/#servicos" },
+                   { label: "Depoimentos", href: "/#depoimentos" },
                  ].map((link) => (
-                    <Link key={link.href} href={link.href}>
-                       <a 
-                         className="block rounded-xl px-4 py-3 text-base font-medium text-white/90 transition hover:bg-white/10 hover:text-white"
-                         onClick={() => setMobileMenuOpen(false)}
-                       >
-                         {link.label}
-                       </a>
-                    </Link>
+                    <a 
+                      key={link.href}
+                      href={link.href}
+                      className="block rounded-xl px-4 py-3 text-base font-medium text-white/90 transition hover:bg-white/10 hover:text-white"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {link.label}
+                    </a>
                  ))}
                  
                  <button 
@@ -524,8 +519,16 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
   );
 }
 
+const INSTAGRAM_USERNAME = "track.energia";
+const INSTAGRAM_PROFILE_URL = `https://www.instagram.com/${INSTAGRAM_USERNAME}/`;
+
 export function SiteFooter({ onContact }: { onContact: () => void }) {
   const scrollRef = React.useRef<HTMLDivElement | null>(null);
+  const { data, isLoading } = useQuery<{ posts: Array<{ id: string; media_url: string; thumbnail_url?: string; permalink: string }> }>({
+    queryKey: ["/api/instagram/posts"],
+    staleTime: 60 * 60 * 1000, // 1h - server já faz cache
+  });
+  const posts = data?.posts ?? [];
 
   const scrollBy = (dir: -1 | 1) => {
     const el = scrollRef.current;
@@ -557,13 +560,15 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
 
               <div data-testid="text-footer-address" className="mt-6 text-sm leading-6 text-white/60">
                 Track, Soluções em energia<br/>
-                São Paulo, Brasil
+                Uberlândia, Minas Gerais
               </div>
 
               <div className="mt-8 flex flex-wrap items-center gap-3 text-white/75">
                 <a
                   data-testid="icon-whatsapp"
-                  href="#"
+                  href={`${WHATSAPP_LINK}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`}
+                  target="_blank"
+                  rel="noreferrer"
                   className="grid h-11 w-11 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white hover:scale-105 active:scale-95"
                   aria-label="WhatsApp"
                 >
@@ -579,7 +584,9 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                 </a>
                 <a
                   data-testid="icon-instagram"
-                  href="#"
+                  href={INSTAGRAM_PROFILE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="grid h-11 w-11 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white hover:scale-105 active:scale-95"
                   aria-label="Instagram"
                 >
@@ -612,7 +619,7 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                 <div className="mt-6 flex flex-col gap-3 text-[13px] font-medium text-white/80">
                   <a
                     data-testid="link-footer-home"
-                    href="/"
+                    href="/#inicio"
                     className="transition hover:text-white"
                   >
                     Início
@@ -625,19 +632,26 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                     Editorial
                   </a>
                   <a
+                    data-testid="link-footer-servicos"
+                    href="/#servicos"
+                    className="transition hover:text-white"
+                  >
+                    Serviços
+                  </a>
+                  <a
                     data-testid="link-footer-testimonials"
-                    href="/#testimonials"
+                    href="/#depoimentos"
                     className="transition hover:text-white"
                   >
                     Depoimentos
                   </a>
-                  <a
+                  <Link
                     data-testid="link-footer-contact"
                     href="/contato"
                     className="transition hover:text-white"
                   >
                     Contato
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -646,35 +660,35 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                   Soluções
                 </div>
                 <div className="mt-6 flex flex-col gap-3 text-[13px] font-medium text-white/80">
-                  <a
+                  <Link
                     data-testid="link-footer-services"
                     href="/servicos"
                     className="flex items-center gap-2 transition hover:text-white group"
                   >
                     Ver todos
                     <ArrowRight className="h-3 w-3 opacity-50 transition-transform group-hover:translate-x-0.5" />
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     data-testid="link-footer-efficiency"
                     href="/servicos/eficiencia"
                     className="transition hover:text-white"
                   >
                     Eficiência
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     data-testid="link-footer-generation"
                     href="/servicos/geracao"
                     className="transition hover:text-white"
                   >
                     Geração própria
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     data-testid="link-footer-storage"
                     href="/servicos/armazenamento"
                     className="transition hover:text-white"
                   >
                     Armazenamento
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -685,10 +699,12 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                   </div>
                   <a
                     data-testid="link-footer-instagram"
-                    href="#"
+                    href={INSTAGRAM_PROFILE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-[11px] font-semibold text-white/60 transition hover:text-white"
                   >
-                    @track.energia
+                    @{INSTAGRAM_USERNAME}
                   </a>
                 </div>
 
@@ -698,22 +714,42 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                     className="scrollbar-none flex snap-x snap-mandatory gap-1.5 overflow-x-auto overscroll-x-contain"
                     style={{ scrollPaddingLeft: 8, scrollPaddingRight: 8 }}
                   >
-                    {new Array(9).fill(0).map((_, i) => (
-                      <a
-                        data-testid={`card-footer-ig-${i}`}
-                        data-ig-card
-                        key={i}
-                        href="#"
-                        className="relative aspect-square w-[calc((100%-12px)/3)] shrink-0 snap-start overflow-hidden rounded-lg bg-white/7 ring-1 ring-white/10 transition hover:bg-white/10"
-                        aria-label={`Post do Instagram ${i + 1}`}
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
-                        <div className="absolute inset-0 grid place-items-center">
-                          <div className="h-7 w-7 rounded-xl bg-white/10 ring-1 ring-white/12" />
-                        </div>
-                        <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-black/45 to-transparent opacity-0 transition group-hover:opacity-100" />
-                      </a>
-                    ))}
+                    {isLoading || posts.length === 0
+                      ? new Array(9).fill(0).map((_, i) => (
+                          <div
+                            data-testid={`card-footer-ig-${i}`}
+                            data-ig-card
+                            key={i}
+                            className="relative aspect-square w-[calc((100%-12px)/3)] shrink-0 snap-start overflow-hidden rounded-lg bg-white/7 ring-1 ring-white/10"
+                            aria-hidden
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
+                            <div className="absolute inset-0 grid place-items-center">
+                              <div className="h-7 w-7 rounded-xl bg-white/10 ring-1 ring-white/12" />
+                            </div>
+                          </div>
+                        ))
+                      : posts.map((post, i) => (
+                          <a
+                            data-testid={`card-footer-ig-${i}`}
+                            data-ig-card
+                            key={post.id}
+                            href={post.permalink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="relative aspect-square w-[calc((100%-12px)/3)] shrink-0 snap-start overflow-hidden rounded-lg bg-white/7 ring-1 ring-white/10 transition hover:bg-white/10"
+                            aria-label={`Post do Instagram ${i + 1}`}
+                          >
+                            <img
+                              src={post.thumbnail_url || post.media_url}
+                              alt=""
+                              className="absolute inset-0 h-full w-full object-cover"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
+                            <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-black/45 to-transparent opacity-0 transition group-hover:opacity-100" />
+                          </a>
+                        ))}
                   </div>
 
                   <button
@@ -748,18 +784,53 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
   );
 }
 
-export function SiteShell({ children }: { children: React.ReactNode }) {
-  const [location] = useLocation();
+const WHATSAPP_LINK = "https://wa.me/5511999999999";
+const WHATSAPP_MESSAGE = "Oi! Vim pelo site da Track e gostaria de conversar sobre soluções de energia.";
 
-  const onContact = () => {
-    const path = String(location);
-    if (path === "/") {
-      const el = document.getElementById("footer");
-      el?.scrollIntoView({ behavior: "smooth", block: "start" });
-      return;
-    }
-    window.location.href = "/contato";
-  };
+export function SiteShell({ children }: { children: React.ReactNode }) {
+  const [location, setLocation] = useLocation();
+  const reduced = usePrefersReducedMotion();
+  const onHome = String(location) === "/" || String(location) === "";
+
+  // Na home: ao carregar com hash (/#servicos etc), rolar até a seção após o conteúdo estar no DOM
+  React.useEffect(() => {
+    if (!onHome) return;
+    const hash = typeof window !== "undefined" ? window.location.hash.slice(1) : "";
+    if (!hash) return;
+    const id = hash.split("?")[0];
+    const timer = window.setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+    }, 100);
+    return () => window.clearTimeout(timer);
+  }, [onHome, reduced]);
+
+  // Na home: links âncora (/#inicio, /#servicos, etc.) fazem scroll suave em vez de recarregar
+  React.useEffect(() => {
+    if (!onHome) return;
+
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a[href^="#"], a[href^="/#"]') as HTMLAnchorElement | null;
+      if (!anchor) return;
+
+      const href = anchor.getAttribute("href");
+      if (!href || href === "#") return;
+
+      const id = href.startsWith("/#") ? href.slice(2).split("?")[0] : href.slice(1).split("?")[0];
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      e.preventDefault();
+      el.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+      if (href.startsWith("/#")) window.history.replaceState(null, "", href);
+    };
+
+    document.addEventListener("click", handleClick, true);
+    return () => document.removeEventListener("click", handleClick, true);
+  }, [onHome, reduced]);
+
+  const onContact = () => setLocation("/contato");
 
   return (
     <div data-testid="site-shell" className="min-h-screen w-full">

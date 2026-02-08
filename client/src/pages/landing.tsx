@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
@@ -75,10 +75,7 @@ import t2 from "@/assets/images/testimonial-2.png";
 import t3 from "@/assets/images/testimonial-3.png";
 import marginTrack from "@/assets/images/margin-track.png";
 import trackName from "@/assets/images/track-name.png";
-import blog1 from "@/assets/images/blog-tech_1.jpg";
-import blog2 from "@/assets/images/blog-tech_2.jpg";
-import blog3 from "@/assets/images/blog-tech_3.jpg";
-import blog4 from "@/assets/images/blog-tech_4.jpg";
+import editorialPosts from "@/data/editorial";
 
 type Product = {
   id: string;
@@ -368,7 +365,7 @@ function Nav({ onContact }: { onContact: () => void }) {
             </div>
           </div>
 
-          <a data-testid="link-logo" href="#top" className="relative flex items-center gap-3">
+          <a data-testid="link-logo" href="/#inicio" className="relative flex items-center gap-3">
             <span data-testid="text-header-tagline" className="sr-only">
               Da análise à operação: eficiência, geração, armazenamento e gestão de energia com acompanhamento.
             </span>
@@ -416,7 +413,7 @@ function Nav({ onContact }: { onContact: () => void }) {
           <div data-testid="nav-desktop" className="hidden items-center gap-7 text-xs font-medium text-white/78 md:flex">
             <motion.a
               data-testid="link-nav-home"
-              href="#top"
+              href="/#inicio"
               className="transition hover:text-white"
               initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
               animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
@@ -427,7 +424,7 @@ function Nav({ onContact }: { onContact: () => void }) {
             </motion.a>
             <motion.a
               data-testid="link-nav-editorial"
-              href="#editorial"
+              href="/#editorial"
               className="transition hover:text-white"
               initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
               animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
@@ -438,7 +435,7 @@ function Nav({ onContact }: { onContact: () => void }) {
             </motion.a>
             <motion.a
               data-testid="link-nav-product"
-              href="#product"
+              href="/#servicos"
               className="transition hover:text-white"
               initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
               animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
@@ -449,7 +446,7 @@ function Nav({ onContact }: { onContact: () => void }) {
             </motion.a>
             <motion.a
               data-testid="link-nav-testimonials"
-              href="#testimonials"
+              href="/#depoimentos"
               className="transition hover:text-white"
               initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
               animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
@@ -516,10 +513,10 @@ function Nav({ onContact }: { onContact: () => void }) {
 
               <nav className="flex flex-col gap-2">
                  {[
-                   { label: "Início", href: "#top" },
-                   { label: "Editorial", href: "#editorial" },
-                   { label: "Serviços", href: "#product" },
-                   { label: "Depoimentos", href: "#testimonials" },
+                   { label: "Início", href: "/#inicio" },
+                   { label: "Editorial", href: "/#editorial" },
+                   { label: "Serviços", href: "/#servicos" },
+                   { label: "Depoimentos", href: "/#depoimentos" },
                  ].map((link) => (
                     <a 
                       key={link.href}
@@ -608,11 +605,17 @@ function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
 
 function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void }) {
   return (
-    <section id="top" className="relative min-h-screen w-full overflow-hidden bg-black">
+    <section
+      id="inicio"
+      className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#0d0115] via-[#150120] to-black"
+    >
       <img
         data-testid="img-hero"
         src={heroImg}
         alt="Energia e infraestrutura"
+        fetchPriority="high"
+        decoding="async"
+        loading="eager"
         className="h-screen w-full object-cover brightness-[0.78]"
       />
       <div className="absolute inset-0 hero-overlay noise" />
@@ -727,7 +730,8 @@ function About() {
                 </div>
               </div>
 
-              <button
+              <Link
+                href="/servicos"
                 data-testid="button-about-how-we-work"
                 className="group absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#30045c] active:scale-[0.98]"
               >
@@ -735,7 +739,7 @@ function About() {
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/10 transition group-hover:translate-x-0.5">
                   <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
                 </span>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -777,80 +781,13 @@ function Editorial() {
   const reduced = usePrefersReducedMotion();
   const [page, setPage] = useState(0);
 
-  const posts = useMemo(
-    () => [
-      {
-        id: "1",
-        category: "Tendências",
-        title: "O futuro da energia solar no Brasil: o que esperar para 2026",
-        excerpt: "Com novas regulamentações e avanços tecnológicos, o cenário para geração distribuída promete grandes oportunidades.",
-        date: "05 Fev 2026",
-        readTime: "5 min",
-        image: blog1,
-      },
-      {
-        id: "2",
-        category: "Tecnologia",
-        title: "Armazenamento inteligente: a revolução das baterias",
-        excerpt: "Como sistemas de storage estão mudando a forma como indústrias consomem energia.",
-        date: "02 Fev 2026",
-        readTime: "4 min",
-        image: blog2,
-      },
-      {
-        id: "3",
-        category: "Sustentabilidade",
-        title: "ESG na prática: reduzindo a pegada de carbono",
-        excerpt: "Estratégias reais para empresas que buscam impacto ambiental positivo e economia.",
-        date: "28 Jan 2026",
-        readTime: "6 min",
-        image: blog3,
-      },
-      {
-        id: "4",
-        category: "Mercado",
-        title: "Mercado Livre de Energia: vale a pena migrar?",
-        excerpt: "Uma análise detalhada sobre custos, benefícios e o momento certo para a transição.",
-        date: "20 Jan 2026",
-        readTime: "7 min",
-        image: blog4,
-      },
-      {
-        id: "5",
-        category: "Inovação",
-        title: "Hidrogênio Verde: o combustível do futuro",
-        excerpt: "Entenda o potencial do H2V e como o Brasil pode liderar essa transformação global.",
-        date: "15 Jan 2026",
-        readTime: "5 min",
-        image: blog2,
-      },
-      {
-        id: "6",
-        category: "Eficiência",
-        title: "Gestão energética industrial 4.0",
-        excerpt: "Sensores, IoT e IA aplicados para otimização de consumo em tempo real.",
-        date: "10 Jan 2026",
-        readTime: "4 min",
-        image: blog3,
-      },
-      {
-        id: "7",
-        category: "Regulação",
-        title: "Novas tarifas de energia e impacto no setor",
-        excerpt: "O que muda com as bandeiras tarifárias e como se proteger da volatilidade.",
-        date: "05 Jan 2026",
-        readTime: "6 min",
-        image: blog1,
-      },
-    ],
-    []
-  );
-
+  const posts = editorialPosts;
   const featured = posts[0];
-  const listPosts = posts.slice(1);
-  const totalPages = Math.ceil(listPosts.length / 3);
-  
-  const currentList = listPosts.slice(page * 3, (page + 1) * 3);
+  const listPosts = posts.slice(1); // Artigos "mais antigos" → laterais (sem "Novo")
+  const totalPages = Math.max(1, Math.ceil(listPosts.length / 3));
+  const safePage = totalPages > 1 ? Math.min(page, totalPages - 1) : 0;
+  const currentList = listPosts.slice(safePage * 3, (safePage + 1) * 3);
+  const hasMultiplePages = listPosts.length > 3;
 
   const handleNext = () => {
     setPage((p) => (p + 1) % totalPages);
@@ -875,29 +812,31 @@ function Editorial() {
             ( editorial )
             </Pill>
             
-            <div className="hidden lg:flex items-center gap-2">
-                <span className="text-xs font-medium text-zinc-500 mr-2">
-                    Mais antigos
-                </span>
-                <div className="flex gap-2">
-                    <button 
-                        onClick={handlePrev}
-                        className="grid h-8 w-8 place-items-center rounded-full bg-white ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
-                    >
-                        <ChevronLeft className="h-4 w-4 text-zinc-600" />
-                    </button>
-                    <button 
-                        onClick={handleNext}
-                        className="grid h-8 w-8 place-items-center rounded-full bg-white ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
-                    >
-                        <ChevronRight className="h-4 w-4 text-zinc-600" />
-                    </button>
+            {hasMultiplePages && (
+                <div className="hidden lg:flex items-center gap-2">
+                    <span className="text-xs font-medium text-zinc-500 mr-2">
+                        Mais artigos
+                    </span>
+                    <div className="flex gap-2">
+                        <button 
+                            onClick={handlePrev}
+                            className="grid h-8 w-8 place-items-center rounded-full bg-white ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+                        >
+                            <ChevronLeft className="h-4 w-4 text-zinc-600" />
+                        </button>
+                        <button 
+                            onClick={handleNext}
+                            className="grid h-8 w-8 place-items-center rounded-full bg-white ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
+                        >
+                            <ChevronRight className="h-4 w-4 text-zinc-600" />
+                        </button>
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10 items-stretch">
-            {/* Featured Post (Left) - Card Style */}
+        <div className={`grid gap-8 ${listPosts.length > 0 ? "lg:grid-cols-[1.2fr_0.8fr]" : ""} lg:gap-10 items-stretch`}>
+            {/* Featured Post (Left) - sempre o primeiro do array = "Novo"; os demais vão para os laterais */}
             <motion.div
             className="group relative flex flex-col sm:flex-row gap-6 lg:gap-8 overflow-hidden rounded-[32px] bg-white p-5 sm:p-8 ring-1 ring-zinc-100 transition-all hover:ring-zinc-200 hover:shadow-lg"
             initial={reduced ? undefined : { opacity: 0, x: -10 }}
@@ -914,7 +853,7 @@ function Editorial() {
                         />
                         <div className="absolute top-2 left-2">
                             <span className="inline-block rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[#1d0238] backdrop-blur-md shadow-sm ring-1 ring-zinc-100">
-                                Destaque
+                                Novo
                             </span>
                         </div>
                     </div>
@@ -931,7 +870,7 @@ function Editorial() {
                             />
                              <div className="absolute top-1.5 left-1.5">
                                 <span className="inline-block rounded-full bg-white/95 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#1d0238] backdrop-blur-md shadow-sm ring-1 ring-zinc-100">
-                                    Destaque
+                                    Novo
                                 </span>
                             </div>
                         </div>
@@ -972,7 +911,7 @@ function Editorial() {
                         <span className="text-xs font-bold uppercase tracking-wide text-zinc-400 transition-colors group-hover/btn:text-[#1d0238]">
                             Ler artigo completo
                         </span>
-                        <a href={`/editorial/${featured.id}`} className="absolute inset-0 z-10" aria-label="Ler artigo"></a>
+                        <Link href={`/editorial/${featured.id}`} className="absolute inset-0 z-10" aria-label="Ler artigo"></Link>
                         <div className="grid h-8 w-8 place-items-center rounded-full bg-zinc-50 text-[#1d0238] transition-all group-hover/btn:bg-[#1d0238] group-hover/btn:text-white">
                             <ArrowRight className="h-4 w-4" />
                         </div>
@@ -980,11 +919,12 @@ function Editorial() {
                 </div>
             </motion.div>
 
-            {/* List Posts (Right) */}
+            {/* List Posts (Right) - artigos mais antigos; paginação aumenta conforme há mais itens */}
+            {listPosts.length > 0 && (
             <div className="flex flex-col gap-6 h-full justify-between">
                 <AnimatePresence mode="wait">
                     <motion.div
-                        key={page}
+                        key={safePage}
                         className="flex flex-col gap-4"
                         initial={{ opacity: 0, x: 10 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -992,7 +932,7 @@ function Editorial() {
                         transition={{ duration: 0.3 }}
                     >
                         {currentList.map((post) => (
-                            <a 
+                            <Link 
                                 key={post.id} 
                                 href={`/editorial/${post.id}`}
                                 className="group flex gap-4 items-start p-3 rounded-2xl transition-all hover:bg-white hover:shadow-md ring-1 ring-transparent hover:ring-zinc-100"
@@ -1020,15 +960,16 @@ function Editorial() {
                                         Ler mais
                                     </div>
                                 </div>
-                            </a>
+                            </Link>
                         ))}
                     </motion.div>
                 </AnimatePresence>
                 
-                {/* Mobile Pagination */}
+                {/* Mobile Pagination - só aparece quando há mais de uma página */}
+                {hasMultiplePages && (
                 <div className="flex lg:hidden items-center justify-between pt-4 border-t border-zinc-200 mt-2">
                     <span className="text-xs font-medium text-zinc-500">
-                        Página {page + 1} de {totalPages}
+                        Página {safePage + 1} de {totalPages}
                     </span>
                     <div className="flex gap-2">
                         <button 
@@ -1045,17 +986,48 @@ function Editorial() {
                         </button>
                     </div>
                 </div>
+                )}
             </div>
+            )}
         </div>
       </div>
     </motion.section>
   );
 }
 
-function ProductFeature({ product, products }: { product: Product; products: Product[] }) {
+function ProductFeature({ product, products, onContact }: { product: Product; products: Product[]; onContact: () => void }) {
   const reduced = usePrefersReducedMotion();
   const [activeId, setActiveId] = useState<string>(products[0].id);
   const [scrollIndex, setScrollIndex] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [timerKey, setTimerKey] = useState(0);
+
+  // Detectar viewport desktop (lg = 1024px) para ativar rotação automática só no desktop
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  // Rotação automática da imagem principal apenas em desktop (8s). Hover no card reinicia o cronômetro.
+  useEffect(() => {
+    if (!isDesktop || products.length === 0) return;
+    const interval = setInterval(() => {
+      setActiveId((currentId) => {
+        const idx = products.findIndex((p) => p.id === currentId);
+        const nextIdx = (idx + 1) % products.length;
+        return products[nextIdx].id;
+      });
+    }, 8000);
+    return () => clearInterval(interval);
+  }, [isDesktop, products, timerKey]);
+
+  const handleProductHover = useCallback((id: string) => {
+    setActiveId(id);
+    setTimerKey((k) => k + 1);
+  }, []);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
@@ -1106,14 +1078,17 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
 
   return (
     <motion.section
-      id="product"
+      id="servicos"
       className="container-page pb-12 sm:pb-16 lg:pb-20"
       initial={reduced ? undefined : { opacity: 0, y: 12 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-90px" }}
       transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
     >
-      <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
+      <Pill testId="pill-servicos" muted={false}>
+        ( serviços )
+      </Pill>
+      <div className="mt-6 grid gap-6 md:grid-cols-2 lg:gap-8">
         <motion.div
           className="rounded-[28px] bg-zinc-50 p-8 ring-1 ring-zinc-100"
           initial={reduced ? undefined : { opacity: 0, y: 10 }}
@@ -1121,9 +1096,6 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
           viewport={{ once: true, margin: "-110px" }}
           transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
         >
-          <Pill testId="pill-popular-product" muted={false}>
-            ( soluções )
-          </Pill>
           <h3
             data-testid="text-product-title"
             className="mt-6 text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em]"
@@ -1163,6 +1135,7 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <button
               data-testid="button-lets-talk"
+              onClick={onContact}
               className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
             >
               <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
@@ -1209,10 +1182,10 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                       {activeProduct.subtitle}
                     </div>
                     <div className="mt-4 flex items-center gap-3">
-                         <a href={`/servicos/${activeProduct.id}`} className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]">
+                         <Link href={`/servicos/${activeProduct.id}`} className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]">
                             Saiba mais
                             <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" strokeWidth={2.25} />
-                         </a>
+                         </Link>
                     </div>
                   </div>
                </div>
@@ -1234,12 +1207,11 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     >
                         {products.map((p) => (
-                            <motion.a
+                            <Link
                                 key={p.id}
                                 href={`/servicos/${p.id}`}
-                                onMouseEnter={() => setActiveId(p.id)}
+                                onMouseEnter={() => handleProductHover(p.id)}
                                 className={`group relative block w-[23%] shrink-0 text-left rounded-[26px] bg-zinc-100 transition-all duration-300 ${activeId === p.id ? 'ring-1 ring-[#1d0238] ring-inset shadow-md scale-[1.01] z-10' : 'ring-1 ring-zinc-200 hover:ring-zinc-300 hover:scale-[1.005]'}`}
-                                whileHover={{ y: -4 }}
                             >
                                 <div className="relative overflow-hidden rounded-t-[26px] h-[200px]">
                                     <img
@@ -1257,7 +1229,7 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                                         {p.title}
                                     </div>
                                 </div>
-                            </motion.a>
+                            </Link>
                         ))}
                     </motion.div>
                 </div>
@@ -1281,13 +1253,13 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
             </div>
             
             <div className="mt-8 flex justify-center">
-                <a
+                <Link
                   href="/servicos"
                   className="inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-[#30045c] active:scale-[0.98] shadow-lg shadow-[#1d0238]/20"
                 >
                   Ver todos os serviços
                   <ArrowUpRight className="h-4 w-4" strokeWidth={2.25} />
-                </a>
+                </Link>
             </div>
           </div>
 
@@ -1337,10 +1309,10 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                             animate={{ height: isActive ? "auto" : 0, opacity: isActive ? 1 : 0 }}
                             transition={{ duration: 0.3 }}
                           >
-                            <a href={`/servicos/${p.id}`} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#1d0238]">
+                            <Link href={`/servicos/${p.id}`} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#1d0238]">
                                 Ver detalhes
                                 <ArrowRight className="h-3.5 w-3.5" />
-                            </a>
+                            </Link>
                           </motion.div>
                       </div>
                     </div>
@@ -1357,7 +1329,7 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
 
 // Process component removed
 
-function Testimonials() {
+function Testimonials({ onContact }: { onContact: () => void }) {
   const reduced = usePrefersReducedMotion();
   const [active, setActive] = useState<string | null>("t-2");
 
@@ -1400,7 +1372,7 @@ function Testimonials() {
   const activeItem = items.find((i) => i.id === active) ?? items[0];
 
   return (
-    <section id="testimonials" className="container-page pb-12 sm:pb-16 lg:pb-20">
+    <section id="depoimentos" className="container-page pb-12 sm:pb-16 lg:pb-20">
       <div className="flex items-start justify-between gap-6">
         <Pill testId="pill-testimonials">( depoimentos )</Pill>
 
@@ -1537,9 +1509,7 @@ function Testimonials() {
               <button
                 data-testid="button-testimonials-cta"
                 className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]"
-                onClick={() => {
-                  window.location.href = "/contato";
-                }}
+                onClick={onContact}
               >
                 Converse com a gente
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
@@ -1643,7 +1613,7 @@ function Testimonials() {
   );
 }
 
-function Footer({ onPlay }: { onPlay: () => void }) {
+function Footer({ onPlay, onContact }: { onPlay: () => void; onContact: () => void }) {
   return (
     <footer id="footer" className="w-full bg-white">
       <div className="w-full bg-gradient-to-r from-black via-[#12001f] to-[#1d0238]">
@@ -1707,15 +1677,13 @@ function Footer({ onPlay }: { onPlay: () => void }) {
                 <div className="mt-7 flex flex-wrap items-center gap-3">
                   <PrimaryButton
                     testId="button-footer-explore"
-                    onClick={() => {
-                      window.location.href = "/contato";
-                    }}
+                    onClick={onContact}
                   >
                     Vamos conversar
                   </PrimaryButton>
                   <GhostButton
                     testId="button-footer-services"
-                    onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}
+                    onClick={() => document.getElementById("servicos")?.scrollIntoView({ behavior: "smooth" })}
                   >
                     Nossos Serviços
                   </GhostButton>
@@ -1770,16 +1738,16 @@ function Footer({ onPlay }: { onPlay: () => void }) {
             <a data-testid="link-footer-terms" href="#" className="transition hover:text-zinc-950">
               Termos de uso
             </a>
-            <a data-testid="link-footer-home" href="#top" className="transition hover:text-zinc-950">
+            <a data-testid="link-footer-home" href="/#inicio" className="transition hover:text-zinc-950">
               Início
             </a>
-            <a data-testid="link-footer-product" href="#product" className="transition hover:text-zinc-950">
+            <a data-testid="link-footer-product" href="/#servicos" className="transition hover:text-zinc-950">
               Serviços
             </a>
-            <a data-testid="link-footer-process" href="#process" className="transition hover:text-zinc-950">
+            <a data-testid="link-footer-process" href="/#processo" className="transition hover:text-zinc-950">
               Processo
             </a>
-            <a data-testid="link-footer-testimonials" href="#testimonials" className="transition hover:text-zinc-950">
+            <a data-testid="link-footer-testimonials" href="/#depoimentos" className="transition hover:text-zinc-950">
               Depoimentos
             </a>
           </div>
@@ -1791,6 +1759,11 @@ function Footer({ onPlay }: { onPlay: () => void }) {
 
 export default function Landing() {
   const [videoOpen, setVideoOpen] = useState(false);
+  const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const primaryProduct: Product = useMemo(
     () => ({
@@ -1887,16 +1860,14 @@ export default function Landing() {
       <section className="w-full">
         <Hero
           onPlay={() => setVideoOpen(true)}
-          onContact={() => {
-            window.location.href = "/contato";
-          }}
+          onContact={() => setLocation("/contato")}
         />
       </section>
 
       <About />
       <Editorial />
-      <ProductFeature product={primaryProduct} products={products} />
-      <Testimonials />
+      <ProductFeature product={primaryProduct} products={products} onContact={() => setLocation("/contato")} />
+      <Testimonials onContact={() => setLocation("/contato")} />
 
       <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} />
     </div>

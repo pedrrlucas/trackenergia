@@ -1,163 +1,75 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useRoute, Link } from "wouter";
-import { motion } from "framer-motion";
-import { ArrowLeft, Clock, Calendar, ArrowRight, Share2, Facebook, Twitter, Linkedin, ChevronRight } from "lucide-react";
-import { SiteShell } from "@/components/site-shell";
+import { ArrowLeft, Clock, Calendar, ArrowRight, Copy, Facebook, Linkedin } from "lucide-react";
 
-import blog1 from "@/assets/images/blog-tech_1.jpg";
-import blog2 from "@/assets/images/blog-tech_2.jpg";
-import blog3 from "@/assets/images/blog-tech_3.jpg";
-import blog4 from "@/assets/images/blog-tech_4.jpg";
 import authorAvatar from "@/assets/images/testimonial-1.png";
+import editorialPosts from "@/data/editorial";
+import { toast } from "@/hooks/use-toast";
 
-// Mock data (duplicated from landing.tsx for independence)
-const posts = [
-  {
-    id: "1",
-    category: "Tendências",
-    title: "O futuro da energia solar no Brasil: o que esperar para 2026",
-    excerpt: "Com novas regulamentações e avanços tecnológicos, o cenário para geração distribuída promete grandes oportunidades.",
-    date: "05 Fev 2026",
-    readTime: "5 min",
-    image: blog1,
-    content: `
-      <p class="lead text-xl text-zinc-600 font-medium leading-relaxed mb-10 border-b border-zinc-100 pb-10">O setor de energia solar no Brasil vive um momento de transformação acelerada. Com a consolidação da geração distribuída e a abertura do mercado livre, 2026 promete ser um ano divisor de águas para consumidores e empresas.</p>
-      
-      <div class="space-y-12">
-        <section>
-           <h3 class="text-2xl font-bold text-zinc-900 mb-4 flex items-center gap-3">
-              <span class="h-8 w-1 bg-[#1d0238] rounded-full"></span>
-              Novas fronteiras tecnológicas
-           </h3>
-           <p class="text-zinc-600 leading-relaxed mb-6">A evolução dos painéis fotovoltaicos tem permitido uma eficiência cada vez maior, mesmo em áreas com menor incidência solar. Tecnologias como células de perovskita e módulos bifaciais estão se tornando mais acessíveis, aumentando o ROI (Retorno sobre Investimento) dos projetos.</p>
-           <p class="text-zinc-600 leading-relaxed">Além disso, a integração com sistemas de armazenamento (baterias) está permitindo que empresas se tornem praticamente independentes da rede elétrica tradicional durante horários de pico, quando a tarifa é mais cara.</p>
-        </section>
+const SHARE_TEXT = "Confira esse artigo que li na Track";
 
-        <section>
-          <h3 class="text-2xl font-bold text-zinc-900 mb-4 flex items-center gap-3">
-              <span class="h-8 w-1 bg-[#1d0238] rounded-full"></span>
-              O papel da regulação
-          </h3>
-          <p class="text-zinc-600 leading-relaxed mb-8">As recentes atualizações no marco legal da geração distribuída trouxeram mais segurança jurídica para investidores. Embora algumas taxas tenham sido implementadas, a transparência nas regras do jogo atraiu capital estrangeiro e fomentou a profissionalização do setor.</p>
-
-          <blockquote class="border-l-4 border-[#1d0238] pl-6 py-2 my-8 italic text-lg text-zinc-800 bg-zinc-50 rounded-r-lg pr-4">
-            "A energia solar não é mais apenas uma alternativa sustentável, é uma estratégia financeira indispensável para a competitividade industrial."
-          </blockquote>
-        </section>
-
-        <section>
-          <h3 class="text-2xl font-bold text-zinc-900 mb-4 flex items-center gap-3">
-              <span class="h-8 w-1 bg-[#1d0238] rounded-full"></span>
-              Mercado Livre de Energia
-          </h3>
-          <p class="text-zinc-600 leading-relaxed">A migração para o Mercado Livre de Energia continua sendo uma tendência forte. Para 2026, espera-se que consumidores de média tensão tenham acesso facilitado a esse ambiente, permitindo a negociação direta com geradores e a escolha de fontes renováveis com certificação.</p>
-        </section>
-
-        <section>
-          <h3 class="text-2xl font-bold text-zinc-900 mb-4 flex items-center gap-3">
-              <span class="h-8 w-1 bg-[#1d0238] rounded-full"></span>
-              Conclusão
-          </h3>
-          <p class="text-zinc-600 leading-relaxed">Preparar-se para esse novo cenário exige planejamento e parceiros estratégicos. A transição energética não é apenas sobre trocar a fonte de energia, mas sobre inteligência no consumo e gestão eficiente de recursos.</p>
-        </section>
-      </div>
-    `
-  },
-  {
-    id: "2",
-    category: "Tecnologia",
-    title: "Armazenamento inteligente: a revolução das baterias",
-    excerpt: "Como sistemas de storage estão mudando a forma como indústrias consomem energia.",
-    date: "02 Fev 2026",
-    readTime: "4 min",
-    image: blog2,
-    content: `
-       <p class="lead text-xl text-zinc-600 font-medium leading-relaxed mb-10 border-b border-zinc-100 pb-10">Baterias não são mais apenas backup. Elas se tornaram ferramentas ativas de gestão energética, permitindo arbitragem de preços e estabilidade operacional em larga escala.</p>
-       <div class="space-y-12">
-          <section>
-            <h3 class="text-2xl font-bold text-zinc-900 mb-4 flex items-center gap-3">
-               <span class="h-8 w-1 bg-[#1d0238] rounded-full"></span>
-               Além do backup
-            </h3>
-            <p class="text-zinc-600 leading-relaxed">O conceito de BESS (Battery Energy Storage Systems) evoluiu. Hoje, indústrias utilizam armazenamento para 'peak shaving' - reduzindo a demanda contratada nos horários de ponta e economizando milhões anualmente.</p>
-          </section>
-       </div>
-    `
-  },
-  {
-    id: "3",
-    category: "Sustentabilidade",
-    title: "ESG na prática: reduzindo a pegada de carbono",
-    excerpt: "Estratégias reais para empresas que buscam impacto ambiental positivo e economia.",
-    date: "28 Jan 2026",
-    readTime: "6 min",
-    image: blog3,
-    content: "Conteúdo do artigo..."
-  },
-  {
-    id: "4",
-    category: "Mercado",
-    title: "Mercado Livre de Energia: vale a pena migrar?",
-    excerpt: "Uma análise detalhada sobre custos, benefícios e o momento certo para a transição.",
-    date: "20 Jan 2026",
-    readTime: "7 min",
-    image: blog4,
-    content: "Conteúdo do artigo..."
-  },
-  {
-    id: "5",
-    category: "Inovação",
-    title: "Hidrogênio Verde: o combustível do futuro",
-    excerpt: "Entenda o potencial do H2V e como o Brasil pode liderar essa transformação global.",
-    date: "15 Jan 2026",
-    readTime: "5 min",
-    image: blog2,
-    content: "Conteúdo do artigo..."
-  },
-  {
-    id: "6",
-    category: "Eficiência",
-    title: "Gestão energética industrial 4.0",
-    excerpt: "Sensores, IoT e IA aplicados para otimização de consumo em tempo real.",
-    date: "10 Jan 2026",
-    readTime: "4 min",
-    image: blog3,
-    content: "Conteúdo do artigo..."
-  },
-  {
-    id: "7",
-    category: "Regulação",
-    title: "Novas tarifas de energia e impacto no setor",
-    excerpt: "O que muda com as bandeiras tarifárias e como se proteger da volatilidade.",
-    date: "05 Jan 2026",
-    readTime: "6 min",
-    image: blog1,
-    content: "Conteúdo do artigo..."
-  },
-];
-
-function Pill({ children, muted }: { children: React.ReactNode; muted?: boolean }) {
+function WhatsAppIcon({ className }: { className?: string }) {
   return (
-    <div
-      className={`inline-flex items-center rounded-full px-3 py-1 text-[11px] font-medium tracking-wide ${
-        muted ? "bg-zinc-100 text-zinc-500 font-bold uppercase" : "bg-[#1d0238]/7 text-zinc-700 ring-1 ring-[#1d0238]/18"
-      }`}
-    >
-      {!muted && <span className="mr-2 h-1.5 w-1.5 rounded-full bg-[#30045c]" />}
-      {children}
-    </div>
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
+  );
+}
+
+function XIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
   );
 }
 
 export default function PostPage() {
   const [match, params] = useRoute("/editorial/:id");
   const id = params?.id;
-  
-  // Find post or fallback
-  const post = posts.find(p => p.id === id) || posts[0];
-  
-  // Suggested posts (exclude current)
-  const relatedPosts = posts.filter(p => p.id !== post.id).slice(0, 3);
+
+  const post = editorialPosts.find((p) => p.id === id) || editorialPosts[0];
+  const relatedPosts = editorialPosts.filter((p) => p.id !== post.id).slice(0, 3);
+
+  const authorName = post.authorName ?? "Roberto Mendes";
+  const authorRole = post.authorRole ?? "Engenheiro Especialista em Renováveis";
+  const tags = post.tags ?? ["Energia", "Inovação", "Futuro", "Brasil"];
+
+  const shareUrl = typeof window !== "undefined" ? `${window.location.origin}/editorial/${post.id}` : "";
+  const shareMessage = `${SHARE_TEXT}: ${shareUrl}`;
+  const canShare = typeof navigator !== "undefined" && "share" in navigator;
+
+  const handleShare = useCallback(
+    (fallbackUrl?: string) => async (e: React.MouseEvent) => {
+      e.preventDefault();
+      if (canShare) {
+        try {
+          await navigator.share({
+            title: post.title,
+            text: shareMessage,
+            url: shareUrl,
+          });
+          toast({ title: "Compartilhado", description: "Obrigado por compartilhar!" });
+        } catch (err) {
+          if ((err as Error).name !== "AbortError" && fallbackUrl) {
+            window.open(fallbackUrl, "_blank", "noopener,noreferrer");
+          }
+        }
+      } else if (fallbackUrl) {
+        window.open(fallbackUrl, "_blank", "noopener,noreferrer");
+      }
+    },
+    [canShare, shareUrl, shareMessage, post.title]
+  );
+
+  const copyLink = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      toast({ title: "Link copiado", description: "O link foi copiado para a área de transferência." });
+    } catch {
+      toast({ title: "Erro", description: "Não foi possível copiar o link.", variant: "destructive" });
+    }
+  }, [shareUrl]);
 
   // Scroll to top
   useEffect(() => {
@@ -201,11 +113,11 @@ export default function PostPage() {
             {/* Author Info */}
             <div className="flex items-center gap-4 pt-6 border-t border-zinc-100">
                 <div className="relative h-12 w-12 overflow-hidden rounded-full ring-2 ring-white shadow-sm">
-                    <img src={authorAvatar} alt="Roberto Mendes" className="h-full w-full object-cover" />
+                    <img src={authorAvatar} alt={authorName} className="h-full w-full object-cover" />
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-sm font-bold text-zinc-900">Roberto Mendes</span>
-                    <span className="text-xs text-zinc-500">Engenheiro Especialista em Renováveis</span>
+                    <span className="text-sm font-bold text-zinc-900">{authorName}</span>
+                    <span className="text-xs text-zinc-500">{authorRole}</span>
                 </div>
             </div>
           </header>
@@ -231,18 +143,46 @@ export default function PostPage() {
                 <div className="sticky top-24 flex flex-col gap-8">
                     <div>
                         <h4 className="text-xs font-bold uppercase tracking-wide text-zinc-400 mb-4">Compartilhar</h4>
-                        <div className="flex gap-2">
-                             <button className="grid h-10 w-10 place-items-center rounded-full bg-zinc-50 text-zinc-600 transition hover:bg-[#1d0238] hover:text-white">
+                        <div className="flex flex-wrap gap-2">
+                             <button
+                               type="button"
+                               onClick={handleShare(`https://wa.me/?text=${encodeURIComponent(shareMessage)}`)}
+                               className="grid h-10 w-10 place-items-center rounded-full bg-zinc-50 text-zinc-600 transition hover:bg-[#25D366] hover:text-white"
+                               aria-label="Compartilhar no WhatsApp"
+                             >
+                                <WhatsAppIcon className="h-4 w-4" />
+                             </button>
+                             <button
+                               type="button"
+                               onClick={handleShare(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`)}
+                               className="grid h-10 w-10 place-items-center rounded-full bg-zinc-50 text-zinc-600 transition hover:bg-[#0A66C2] hover:text-white"
+                               aria-label="Compartilhar no LinkedIn"
+                             >
                                 <Linkedin className="h-4 w-4" />
                              </button>
-                             <button className="grid h-10 w-10 place-items-center rounded-full bg-zinc-50 text-zinc-600 transition hover:bg-[#1d0238] hover:text-white">
-                                <Twitter className="h-4 w-4" />
+                             <button
+                               type="button"
+                               onClick={handleShare(`https://x.com/intent/tweet?text=${encodeURIComponent(shareMessage)}`)}
+                               className="grid h-10 w-10 place-items-center rounded-full bg-zinc-50 text-zinc-600 transition hover:bg-black hover:text-white"
+                               aria-label="Compartilhar no X"
+                             >
+                                <XIcon className="h-4 w-4" />
                              </button>
-                             <button className="grid h-10 w-10 place-items-center rounded-full bg-zinc-50 text-zinc-600 transition hover:bg-[#1d0238] hover:text-white">
+                             <button
+                               type="button"
+                               onClick={handleShare(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`)}
+                               className="grid h-10 w-10 place-items-center rounded-full bg-zinc-50 text-zinc-600 transition hover:bg-[#1877F2] hover:text-white"
+                               aria-label="Compartilhar no Facebook"
+                             >
                                 <Facebook className="h-4 w-4" />
                              </button>
-                             <button className="grid h-10 w-10 place-items-center rounded-full bg-zinc-50 text-zinc-600 transition hover:bg-[#1d0238] hover:text-white">
-                                <Share2 className="h-4 w-4" />
+                             <button
+                               type="button"
+                               onClick={copyLink}
+                               className="grid h-10 w-10 place-items-center rounded-full bg-zinc-50 text-zinc-600 transition hover:bg-[#1d0238] hover:text-white"
+                               aria-label="Copiar link de compartilhamento"
+                             >
+                                <Copy className="h-4 w-4" />
                              </button>
                         </div>
                     </div>
@@ -252,7 +192,7 @@ export default function PostPage() {
                     <div>
                          <h4 className="text-xs font-bold uppercase tracking-wide text-zinc-400 mb-4">Tags</h4>
                          <div className="flex flex-wrap gap-2">
-                            {['Energia', 'Inovação', 'Futuro', 'Brasil'].map(tag => (
+                            {tags.map((tag) => (
                                 <span key={tag} className="inline-block rounded-lg bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-600">
                                     #{tag}
                                 </span>
@@ -276,27 +216,27 @@ export default function PostPage() {
                 </div>
                 
                 <div className="grid gap-6 md:grid-cols-3">
-                    {relatedPosts.map(post => (
-                        <Link key={post.id} href={`/editorial/${post.id}`}>
+                    {relatedPosts.map((relatedPost) => (
+                        <Link key={relatedPost.id} href={`/editorial/${relatedPost.id}`}>
                             <article className="group flex flex-col gap-4 cursor-pointer">
                                 <div className="aspect-[16/9] w-full overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-100/50">
-                                    <img 
-                                        src={post.image} 
-                                        alt={post.title}
+                                    <img
+                                        src={relatedPost.image}
+                                        alt={relatedPost.title}
                                         className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                                     />
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wide text-zinc-400">
-                                        <span className="text-[#1d0238]">{post.category}</span>
+                                        <span className="text-[#1d0238]">{relatedPost.category}</span>
                                         <span className="h-0.5 w-0.5 rounded-full bg-zinc-300" />
-                                        <span>{post.date}</span>
+                                        <span>{relatedPost.date}</span>
                                     </div>
                                     <h3 className="text-lg font-bold leading-snug text-zinc-950 group-hover:text-[#1d0238] transition-colors line-clamp-2">
-                                        {post.title}
+                                        {relatedPost.title}
                                     </h3>
                                     <p className="text-sm text-zinc-500 line-clamp-2">
-                                        {post.excerpt}
+                                        {relatedPost.excerpt}
                                     </p>
                                 </div>
                             </article>

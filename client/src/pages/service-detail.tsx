@@ -1,8 +1,8 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import * as Accordion from "@radix-ui/react-accordion";
 import { useLocation } from "wouter";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Check, ChevronRight, Sparkles, Zap, Leaf, Shield, Wrench, LineChart, BatteryCharging, Cable } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check, ChevronRight, Zap, Leaf, Shield, Wrench, LineChart, BatteryCharging, Cable } from "lucide-react";
 
 const revealViewport = { once: true, amount: 0.22 } as const;
 const revealTransition = { duration: 0.65, ease: [0.22, 1, 0.36, 1] } as const;
@@ -239,9 +239,44 @@ const SERVICES: Record<string, ServiceDetail> = {
   },
 };
 
+/** Termos comuns que não devem fazer um serviço ser encontrado sozinhos (ex.: whatsapp, contato) */
+const SEARCH_STOPWORDS = new Set([
+  "whatsapp", "track", "contato", "chamar", "falar", "clicar", "abrir", "expandir",
+  "detalhes", "ver", "etc", "para", "com", "uma", "um", "que", "como", "sobre", "sobre",
+  "mais", "nos", "nas", "pelo", "pela", "todo", "todos", "toda", "todas",
+]);
+
+/**
+ * Conteúdo buscável de cada serviço (texto das páginas de detalhe) para melhorar o filtro.
+ * Inclui summary, longText, outcomes, scope e títulos/descrições das seções.
+ */
+export function getServiceSearchContent(): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const [id, s] of Object.entries(SERVICES)) {
+    const parts: string[] = [
+      s.summary,
+      s.longText,
+      ...s.outcomes,
+      ...s.scope,
+      ...s.sections.flatMap((sec) => [sec.title, sec.description]),
+    ];
+    out[id] = parts.join(" ").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+  return out;
+}
+
+export function isSearchStopword(term: string): boolean {
+  const t = term.toLowerCase().trim();
+  return t.length <= 2 || SEARCH_STOPWORDS.has(t);
+}
+
 export default function ServiceDetailPage() {
   const reduced = usePrefersReducedMotion();
   const [location] = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const { service, serviceId } = useMemo(() => {
     const path = String(location);
@@ -435,17 +470,12 @@ export default function ServiceDetailPage() {
 
             <section data-testid="section-service-sections" className="mt-6 overflow-hidden rounded-[32px] bg-white ring-1 ring-zinc-200">
               <div className="px-7 pt-7">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div data-testid="text-sections-title" className="text-sm font-semibold text-zinc-950">
-                      Tópicos do serviço
-                    </div>
-                    <div data-testid="text-sections-sub" className="mt-1 text-sm text-zinc-600">
-                      Clique para expandir. Ao abrir, você tem um atalho para chamar no WhatsApp.
-                    </div>
+                <div>
+                  <div data-testid="text-sections-title" className="text-sm font-semibold text-zinc-950">
+                    Tópicos do serviço
                   </div>
-                  <div className="grid h-10 w-10 place-items-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200">
-                    <Sparkles className="h-5 w-5 text-zinc-900" strokeWidth={2.25} />
+                  <div data-testid="text-sections-sub" className="mt-1 text-sm text-zinc-600">
+                    Clique para expandir. Ao abrir, você tem um atalho para chamar no WhatsApp.
                   </div>
                 </div>
               </div>

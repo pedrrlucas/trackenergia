@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
+import { Link } from "wouter";
 import { motion } from "framer-motion";
 import marginTrack from "@/assets/images/margin-track.png";
 import {
@@ -11,6 +12,7 @@ import {
   ShieldCheck,
   Clock,
   Sparkles,
+  Zap,
 } from "lucide-react";
 
 const revealViewport = { once: true, amount: 0.22 } as const;
@@ -40,8 +42,12 @@ function Pill({ children, testId }: { children: React.ReactNode; testId: string 
 }
 
 
-export default function Contact() {
+function ContactPage() {
   const reduced = usePrefersReducedMotion();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const whatsapp = useMemo(
     () => ({
@@ -73,13 +79,13 @@ export default function Contact() {
               animate={reduced ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <a
+              <Link
                 data-testid="link-back-home"
                 href="/"
                 className="inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950"
               >
                 ← Voltar para a página inicial
-              </a>
+              </Link>
 
               <div className="mt-3">
                 <Pill testId="pill-contact">( contato )</Pill>
@@ -126,7 +132,7 @@ export default function Contact() {
                     </div>
 
                     <div className="grid h-11 w-11 place-items-center rounded-2xl bg-white/10 ring-1 ring-white/12">
-                      <Sparkles className="h-5 w-5 text-white" strokeWidth={2.25} />
+                      <Zap className="h-5 w-5 text-white" strokeWidth={2.25} />
                     </div>
                   </div>
 
@@ -188,17 +194,12 @@ export default function Contact() {
                 viewport={revealViewport}
                 transition={revealTransition}
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div data-testid="text-options-title" className="text-lg font-semibold tracking-tight text-zinc-950">
-                      Outras formas
-                    </div>
-                    <div data-testid="text-options-sub" className="mt-1 text-sm text-zinc-600">
-                      Prefere e-mail, telefone ou redes sociais? Sem problema.
-                    </div>
+                <div>
+                  <div data-testid="text-options-title" className="text-lg font-semibold tracking-tight text-zinc-950">
+                    Outras formas
                   </div>
-                  <div className="grid h-10 w-10 place-items-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200">
-                    <Sparkles className="h-5 w-5 text-zinc-800" strokeWidth={2.25} />
+                  <div data-testid="text-options-sub" className="mt-1 text-sm text-zinc-600">
+                    Prefere e-mail, telefone ou redes sociais? Sem problema.
                   </div>
                 </div>
 
@@ -250,33 +251,33 @@ export default function Contact() {
                   <div data-testid="text-social-title" className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
                     Redes sociais
                   </div>
-                  <div className="mt-3 grid grid-cols-3 gap-3">
+                  <div className="mt-3 flex flex-nowrap justify-center gap-3 sm:grid sm:grid-cols-3">
                     <a
                       data-testid="button-social-facebook"
                       href="#"
-                      className="group flex items-center justify-center gap-2 rounded-[18px] bg-white px-3 py-3 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50"
+                      className="group flex items-center justify-center gap-2 rounded-[18px] bg-white px-3 py-3 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 sm:min-w-0 sm:justify-center"
                       aria-label="Facebook"
                     >
-                      <Facebook className="h-4 w-4" strokeWidth={2.25} />
-                      Facebook
+                      <Facebook className="h-4 w-4 shrink-0" strokeWidth={2.25} />
+                      <span className="hidden truncate sm:inline">Facebook</span>
                     </a>
                     <a
                       data-testid="button-social-instagram"
                       href="#"
-                      className="group flex items-center justify-center gap-2 rounded-[18px] bg-white px-3 py-3 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50"
+                      className="group flex items-center justify-center gap-2 rounded-[18px] bg-white px-3 py-3 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 sm:min-w-0 sm:justify-center"
                       aria-label="Instagram"
                     >
-                      <Instagram className="h-4 w-4" strokeWidth={2.25} />
-                      Instagram
+                      <Instagram className="h-4 w-4 shrink-0" strokeWidth={2.25} />
+                      <span className="hidden truncate sm:inline">Instagram</span>
                     </a>
                     <a
                       data-testid="button-social-linkedin"
                       href="#"
-                      className="group flex items-center justify-center gap-2 rounded-[18px] bg-white px-3 py-3 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50"
+                      className="group flex items-center justify-center gap-2 rounded-[18px] bg-white px-3 py-3 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 sm:min-w-0 sm:justify-center"
                       aria-label="LinkedIn"
                     >
-                      <Linkedin className="h-4 w-4" strokeWidth={2.25} />
-                      LinkedIn
+                      <Linkedin className="h-4 w-4 shrink-0" strokeWidth={2.25} />
+                      <span className="hidden truncate sm:inline">LinkedIn</span>
                     </a>
                   </div>
 
@@ -292,3 +293,5 @@ export default function Contact() {
     </div>
   );
 }
+
+export default ContactPage;
