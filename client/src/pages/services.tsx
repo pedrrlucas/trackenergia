@@ -125,6 +125,8 @@ export default function Services() {
 
   const filteredServices = useMemo(() => {
     if (!searchQuery.trim()) return services;
+    // Até 2 caracteres: mostrar tudo (sem filtro)
+    if (searchQuery.trim().length <= 2) return services;
 
     const normalize = (s: string) =>
       s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");

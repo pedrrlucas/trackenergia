@@ -484,7 +484,7 @@ function Nav({ onContact }: { onContact: () => void }) {
         </div>
       </div>
 
-      {/* Mobile Sidebar: renderizado em portal para não ser cortado pelo overflow-hidden do Hero */}
+      {/* Mobile Sidebar: portal em body + 100dvh evita corte e barra branca/transparente no mobile */}
       {typeof document !== "undefined" &&
         createPortal(
           <AnimatePresence>
@@ -495,14 +495,14 @@ function Nav({ onContact }: { onContact: () => void }) {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="pointer-events-auto fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm"
+                  className="pointer-events-auto fixed inset-0 z-[100] min-h-screen-dynamic bg-black/60 backdrop-blur-sm"
                 />
                 <motion.div
                   initial={{ x: "100%" }}
                   animate={{ x: 0 }}
                   exit={{ x: "100%" }}
                   transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                  className="pointer-events-auto fixed inset-y-0 right-0 z-[101] w-full max-w-xs bg-[#1d0238] p-6 shadow-2xl ring-1 ring-white/10"
+                  className="pointer-events-auto fixed inset-y-0 right-0 bottom-0 z-[101] w-full max-w-xs min-h-screen-dynamic bg-[#1d0238] p-6 shadow-2xl ring-1 ring-white/10"
                 >
                   <div className="flex items-center justify-between mb-8">
                     <span className="text-sm font-semibold text-white">Menu</span>

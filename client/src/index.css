@@ -170,6 +170,13 @@
     @apply mx-auto w-full max-w-[1560px] px-4 sm:px-6 lg:px-10 2xl:px-12;
   }
 
+  /* Overlay/sidebar em tela cheia no mobile: 100dvh evita barra branca/transparente e corte */
+  .min-h-screen-dynamic {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    min-height: 100dvh;
+  }
+
   .subtle-grad {
     background: linear-gradient(90deg, #12001f 0%, #30045c 52%, #1d0238 100%);
     -webkit-background-clip: text;
