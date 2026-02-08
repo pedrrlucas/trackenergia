@@ -1763,7 +1763,7 @@ export default function Landing() {
       subtitle: "Da estratégia à operação",
       desc: "Analisamos oportunidades, desenhamos a proposta ideal e executamos com monitoramento após a implementação, sempre com o radar ligado para melhorias.",
       specLeft: ["Eficiência energética", "Geração própria", "Armazenamento"],
-      specRight: ["Mercado livre", "Assinatura de energia", "O&M fotovoltaico"],
+      specRight: ["Mercado livre", "Assinatura de energia", "Eletromobilidade", "O&M fotovoltaico"],
       image: productImg,
     }),
     [],
