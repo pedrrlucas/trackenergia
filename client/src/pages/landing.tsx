@@ -612,9 +612,8 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
   return (
     <section
       id="inicio"
-      className="relative min-h-screen w-full bg-gradient-to-b from-[#0d0115] via-[#150120] to-black"
+      className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#0d0115] via-[#150120] to-black"
     >
-      {/* overflow só no fundo para não criar contexto que corta o sidebar ao arrastar a página */}
       <div className="absolute inset-0 overflow-hidden">
         <img
           data-testid="img-hero"
@@ -623,21 +622,22 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
           fetchPriority="high"
           decoding="async"
           loading="eager"
-          className="h-screen w-full object-cover brightness-[0.78]"
+          className="h-full min-h-screen w-full object-cover brightness-[0.78]"
         />
         <div className="absolute inset-0 hero-overlay noise" />
       </div>
 
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 flex flex-col">
         <Nav onContact={onContact} />
 
-        <div className="container-page pt-4 sm:pt-6">
-          <div className="pt-[104px] sm:pt-[112px] lg:pt-[132px]">
-            <div className="flex flex-col min-h-[calc(100vh-140px)] justify-center">
-              <div className="max-w-[580px] lg:max-w-[720px]">
+        <div className="container-page flex flex-1 flex-col pt-4 sm:pt-6">
+          <div className="flex min-h-0 flex-1 flex-col pt-[104px] sm:pt-[112px] lg:pt-[132px]">
+            {/* 100svh evita “pulo” no mobile quando a barra do browser aparece/desaparece */}
+            <div className="flex min-h-[calc(100vh-140px)] min-h-[calc(100svh-140px)] flex-col justify-center pb-6 sm:pb-8">
+              <div className="max-w-[580px] shrink-0 lg:max-w-[720px]">
                 <h1
                   data-testid="text-hero-title"
-                  className="text-balance text-[48px] font-medium leading-[1] tracking-[-0.03em] text-white sm:text-[64px] lg:text-[76px]"
+                  className="text-balance text-[40px] font-medium leading-[1.08] tracking-[-0.03em] text-white sm:text-[48px] sm:leading-[1] md:text-[64px] lg:text-[76px]"
                 >
                   Soluções de energia
                   <br />
@@ -648,12 +648,12 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
 
                 <p
                   data-testid="text-hero-subtitle"
-                  className="mt-6 max-w-[480px] text-sm leading-6 text-white/70 sm:text-base sm:leading-7"
+                  className="mt-4 max-w-[480px] text-sm leading-6 text-white/70 sm:mt-6 sm:text-base sm:leading-7"
                 >
                   A Track entrega soluções reais em energia: da eficiência à geração, armazenamento e mercado livre, com proposta sob medida, execução e monitoramento contínuo.
                 </p>
 
-                <div className="mt-8 flex flex-wrap items-center gap-4">
+                <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4">
                   <PrimaryButton testId="button-explore-now" onClick={onContact}>
                     Vamos conversar
                   </PrimaryButton>
