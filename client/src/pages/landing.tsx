@@ -1084,11 +1084,25 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
             {product.desc}
           </p>
 
-          <div className="mt-8 grid gap-6 rounded-2xl bg-white p-5 ring-1 ring-zinc-100">
+          <div className="mt-8 rounded-2xl bg-white p-5 ring-1 ring-zinc-100">
             <div className="text-sm font-semibold text-zinc-900" data-testid="text-spec-title">
               Destaques da solução
             </div>
-            <div className="grid gap-6 sm:grid-cols-2">
+            {/* Mobile: lista única com todas as soluções, sem gap entre blocos */}
+            <ul className="mt-3 flex flex-col gap-0 space-y-2.5 text-sm text-zinc-600 sm:hidden">
+              {[...(product.specLeft ?? []), ...(product.specRight ?? [])].map((s, idx) => (
+                <li
+                  data-testid={idx < (product.specLeft?.length ?? 0) ? `text-spec-left-${idx}` : `text-spec-right-${idx - (product.specLeft?.length ?? 0)}`}
+                  key={idx}
+                  className="flex items-center gap-2"
+                >
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#1d0238]" />
+                  {s}
+                </li>
+              ))}
+            </ul>
+            {/* sm+: grid em 2 colunas */}
+            <div className="mt-3 hidden gap-6 sm:grid sm:grid-cols-2">
               <ul className="space-y-2.5 text-sm text-zinc-600">
                 {product.specLeft.map((s, idx) => (
                   <li data-testid={`text-spec-left-${idx}`} key={idx} className="flex items-center gap-2">

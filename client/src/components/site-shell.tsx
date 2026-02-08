@@ -665,7 +665,7 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                     href="/servicos"
                     className="flex items-center gap-2 transition hover:text-white group"
                   >
-                    Ver todos
+                    Ver todas
                     <ArrowRight className="h-3 w-3 opacity-50 transition-transform group-hover:translate-x-0.5" />
                   </Link>
                   <Link
