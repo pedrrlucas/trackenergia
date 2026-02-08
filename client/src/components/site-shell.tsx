@@ -674,13 +674,6 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                   >
                     <span>Armazenamento</span>
                   </a>
-                  <a
-                    data-testid="link-footer-market"
-                    href="/servicos/mercado-livre"
-                    className="inline-flex items-center justify-between rounded-lg px-2 py-1.5 transition hover:bg-white/8 hover:text-white"
-                  >
-                    <span>Mercado livre</span>
-                  </a>
                 </div>
               </div>
 
