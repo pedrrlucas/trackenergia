@@ -1244,52 +1244,69 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
             </div>
           </div>
 
-          {/* Mobile Scroll */}
-          <div className="lg:hidden">
+          {/* Mobile Scroll (Cover Flow Style) */}
+          <div className="lg:hidden relative pb-8">
             <div
-              className="scrollbar-none flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-2"
-              style={{ scrollPaddingLeft: 16, scrollPaddingRight: 16 }}
+              className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-8 pb-8 pt-4 scrollbar-none"
+              style={{ scrollPaddingLeft: "50%", scrollPaddingRight: "50%" }}
             >
-              {products.map((p, i) => (
-                <motion.div
-                  key={`mobile-${p.id}`}
-                  className="group w-[86%] max-w-[320px] shrink-0 snap-start"
-                  initial={reduced ? undefined : { opacity: 0, y: 10 }}
-                  whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1], delay: i * 0.04 }}
-                  onClick={() => setActiveId(p.id)}
-                >
-                   <div className="flex h-full flex-col overflow-hidden rounded-[24px] bg-white ring-1 ring-zinc-200 shadow-sm">
-                    <div className="relative h-[200px]">
-                      <img
-                        src={p.image}
-                        alt={p.title}
-                        className="h-full w-full object-cover"
-                      />
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-100" />
-                      <div className="absolute left-4 top-4">
-                        <div className="glass inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
-                          <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
-                          {p.tag}
+              {/* Spacer to center first item */}
+              <div className="shrink-0 w-[calc(50%-140px)]" />
+              
+              {products.map((p, i) => {
+                const isActive = activeId === p.id;
+                return (
+                  <motion.div
+                    key={`mobile-${p.id}`}
+                    className={`relative shrink-0 w-[280px] snap-center transition-all duration-500 ease-out ${isActive ? 'scale-100 z-10' : 'scale-90 opacity-60 z-0'}`}
+                    initial={reduced ? undefined : { opacity: 0, y: 10 }}
+                    whileInView={reduced ? undefined : { opacity: isActive ? 1 : 0.6, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    onClick={() => setActiveId(p.id)}
+                  >
+                     <div className={`flex h-full flex-col overflow-hidden rounded-[24px] bg-white ring-1 shadow-sm transition-all duration-500 ${isActive ? 'ring-zinc-300 shadow-xl' : 'ring-zinc-200'}`}>
+                      <div className="relative h-[180px]">
+                        <img
+                          src={p.image}
+                          alt={p.title}
+                          className="h-full w-full object-cover"
+                        />
+                        <div className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent transition-opacity duration-500 ${isActive ? 'opacity-80' : 'opacity-100'}`} />
+                        <div className="absolute left-4 top-4">
+                          <div className={`glass inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white transition-transform duration-500 ${isActive ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0'}`}>
+                            <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
+                            {p.tag}
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="p-5">
-                        <div className="text-base font-semibold text-zinc-950">
-                          {p.title}
-                        </div>
-                        <div className="mt-1 text-sm text-zinc-600">
-                          {p.subtitle}
-                        </div>
-                        <a href={`/servicos/${p.id}`} className="mt-4 inline-block text-xs font-semibold underline text-[#1d0238]">
-                            Ver detalhes
-                        </a>
+                      <div className="p-5">
+                          <div className={`text-lg font-bold text-zinc-950 transition-colors duration-300 ${isActive ? 'text-[#1d0238]' : ''}`}>
+                            {p.title}
+                          </div>
+                          <div className="mt-2 text-sm text-zinc-600 line-clamp-2">
+                            {p.subtitle}
+                          </div>
+                          
+                          <motion.div 
+                            className="mt-4 overflow-hidden"
+                            initial={false}
+                            animate={{ height: isActive ? "auto" : 0, opacity: isActive ? 1 : 0 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <a href={`/servicos/${p.id}`} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#1d0238]">
+                                Ver detalhes
+                                <ArrowRight className="h-3.5 w-3.5" />
+                            </a>
+                          </motion.div>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
+              
+              {/* Spacer to center last item */}
+              <div className="shrink-0 w-[calc(50%-140px)]" />
             </div>
           </div>
       </div>
