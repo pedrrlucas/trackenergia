@@ -677,7 +677,7 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                 </div>
               </div>
 
-              <div>
+              <div className="col-span-2 sm:col-span-1">
                 <div className="flex items-center justify-between gap-3">
                   <div data-testid="text-footer-instagram-title" className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
                     Instagram
