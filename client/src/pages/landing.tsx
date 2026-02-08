@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import { Link, useLocation } from "wouter";
 import { AnimatePresence, motion } from "framer-motion";
@@ -483,75 +484,79 @@ function Nav({ onContact }: { onContact: () => void }) {
         </div>
       </div>
 
-      {/* Mobile Sidebar */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="pointer-events-auto fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm"
-            />
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="pointer-events-auto fixed inset-y-0 right-0 z-[101] w-full max-w-xs bg-[#1d0238] p-6 shadow-2xl ring-1 ring-white/10"
-            >
-              <div className="flex items-center justify-between mb-8">
-                 <span className="text-sm font-semibold text-white">Menu</span>
-                 <button 
-                   onClick={() => setMobileMenuOpen(false)}
-                   className="grid h-8 w-8 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
-                 >
-                    <X className="h-4 w-4" />
-                 </button>
-              </div>
-
-              <nav className="flex flex-col gap-2">
-                 {[
-                   { label: "Início", href: "/#inicio" },
-                   { label: "Editorial", href: "/#editorial" },
-                   { label: "Serviços", href: "/#servicos" },
-                   { label: "Depoimentos", href: "/#depoimentos" },
-                 ].map((link) => (
-                    <a 
-                      key={link.href}
-                      href={link.href}
-                      className="block rounded-xl px-4 py-3 text-base font-medium text-white/90 transition hover:bg-white/10 hover:text-white"
+      {/* Mobile Sidebar: renderizado em portal para não ser cortado pelo overflow-hidden do Hero */}
+      {typeof document !== "undefined" &&
+        createPortal(
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="pointer-events-auto fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm"
+                />
+                <motion.div
+                  initial={{ x: "100%" }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "100%" }}
+                  transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                  className="pointer-events-auto fixed inset-y-0 right-0 z-[101] w-full max-w-xs bg-[#1d0238] p-6 shadow-2xl ring-1 ring-white/10"
+                >
+                  <div className="flex items-center justify-between mb-8">
+                    <span className="text-sm font-semibold text-white">Menu</span>
+                    <button
                       onClick={() => setMobileMenuOpen(false)}
+                      className="grid h-8 w-8 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
                     >
-                      {link.label}
-                    </a>
-                 ))}
-                 
-                 <button 
-                    onClick={() => {
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+
+                  <nav className="flex flex-col gap-2">
+                    {[
+                      { label: "Início", href: "/#inicio" },
+                      { label: "Editorial", href: "/#editorial" },
+                      { label: "Serviços", href: "/#servicos" },
+                      { label: "Depoimentos", href: "/#depoimentos" },
+                    ].map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        className="block rounded-xl px-4 py-3 text-base font-medium text-white/90 transition hover:bg-white/10 hover:text-white"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+
+                    <button
+                      onClick={() => {
                         setMobileMenuOpen(false);
                         onContact();
-                    }}
-                    className="mt-4 flex w-full items-center justify-between rounded-xl bg-white px-4 py-3 text-sm font-semibold text-[#1d0238] shadow-lg active:scale-[0.98]"
-                 >
-                    <span>Fale Conosco</span>
-                    <ArrowRight className="h-4 w-4" />
-                 </button>
-              </nav>
+                      }}
+                      className="mt-4 flex w-full items-center justify-between rounded-xl bg-white px-4 py-3 text-sm font-semibold text-[#1d0238] shadow-lg active:scale-[0.98]"
+                    >
+                      <span>Fale Conosco</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </button>
+                  </nav>
 
-              <div className="absolute bottom-8 left-6 right-6">
-                  <div className="h-px w-full bg-white/10 mb-6" />
-                  <div className="flex items-center gap-4 text-white/60">
+                  <div className="absolute bottom-8 left-6 right-6">
+                    <div className="h-px w-full bg-white/10 mb-6" />
+                    <div className="flex items-center gap-4 text-white/60">
                       <a href="#" className="hover:text-white transition"><Instagram className="h-5 w-5" /></a>
                       <a href="#" className="hover:text-white transition"><Linkedin className="h-5 w-5" /></a>
                       <a href="#" className="hover:text-white transition"><Facebook className="h-5 w-5" /></a>
+                    </div>
                   </div>
-              </div>
-            </motion.div>
-          </>
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
     </div>
   );
 }
@@ -607,25 +612,28 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
   return (
     <section
       id="inicio"
-      className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#0d0115] via-[#150120] to-black"
+      className="relative min-h-screen w-full bg-gradient-to-b from-[#0d0115] via-[#150120] to-black"
     >
-      <img
-        data-testid="img-hero"
-        src={heroImg}
-        alt="Energia e infraestrutura"
-        fetchPriority="high"
-        decoding="async"
-        loading="eager"
-        className="h-screen w-full object-cover brightness-[0.78]"
-      />
-      <div className="absolute inset-0 hero-overlay noise" />
+      {/* overflow só no fundo para não criar contexto que corta o sidebar ao arrastar a página */}
+      <div className="absolute inset-0 overflow-hidden">
+        <img
+          data-testid="img-hero"
+          src={heroImg}
+          alt="Energia e infraestrutura"
+          fetchPriority="high"
+          decoding="async"
+          loading="eager"
+          className="h-screen w-full object-cover brightness-[0.78]"
+        />
+        <div className="absolute inset-0 hero-overlay noise" />
+      </div>
 
       <div className="absolute inset-0">
         <Nav onContact={onContact} />
 
         <div className="container-page pt-4 sm:pt-6">
           <div className="pt-[104px] sm:pt-[112px] lg:pt-[132px]">
-            <div className="flex flex-col h-[calc(100vh-140px)] justify-center">
+            <div className="flex flex-col min-h-[calc(100vh-140px)] justify-center">
               <div className="max-w-[580px] lg:max-w-[720px]">
                 <h1
                   data-testid="text-hero-title"
