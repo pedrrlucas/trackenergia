@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 import { Link } from "wouter";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -1027,17 +1028,34 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
   const [activeId, setActiveId] = useState<string>(products[0].id);
   const [scrollIndex, setScrollIndex] = useState(0);
 
-  // Auto-rotate active product every 5 seconds
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: "center",
+    skipSnaps: false,
+    containScroll: false,
+  });
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    const index = emblaApi.selectedScrollSnap();
+    if (products[index]) {
+       setActiveId(products[index].id);
+    }
+  }, [emblaApi, products]);
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveId((current) => {
-        const idx = products.findIndex((p) => p.id === current);
-        const next = (idx + 1) % products.length;
-        return products[next].id;
-      });
-    }, 8000);
-    return () => clearInterval(interval);
-  }, [products, activeId]);
+    if (!emblaApi) return;
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+    // Sync initial state
+    const index = products.findIndex(p => p.id === activeId);
+    if (index !== -1) emblaApi.scrollTo(index, true);
+
+    return () => {
+        emblaApi.off("select", onSelect);
+        emblaApi.off("reInit", onSelect);
+    };
+  }, [emblaApi, onSelect]); // Removed activeId from deps to avoid loop
 
   const activeProduct = useMemo(
     () => products.find((p) => p.id === activeId) || products[0],
@@ -1244,26 +1262,22 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
             </div>
           </div>
 
-          {/* Mobile Scroll (Cover Flow Style) */}
+          {/* Mobile Scroll (Cover Flow Style with Embla) */}
           <div className="lg:hidden relative pb-8">
-            <div
-              className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-8 pb-8 pt-4 scrollbar-none"
-              style={{ scrollPaddingLeft: "50%", scrollPaddingRight: "50%" }}
-            >
-              {/* Spacer to center first item */}
-              <div className="shrink-0 w-[calc(50%-140px)]" />
-              
-              {products.map((p, i) => {
-                const isActive = activeId === p.id;
-                return (
-                  <motion.div
-                    key={`mobile-${p.id}`}
-                    className={`relative shrink-0 w-[280px] snap-center transition-all duration-500 ease-out ${isActive ? 'scale-100 z-10' : 'scale-90 opacity-60 z-0'}`}
-                    initial={reduced ? undefined : { opacity: 0, y: 10 }}
-                    whileInView={reduced ? undefined : { opacity: isActive ? 1 : 0.6, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    onClick={() => setActiveId(p.id)}
-                  >
+            <div className="overflow-hidden px-4 pb-8 pt-4" ref={emblaRef}>
+              <div className="flex gap-4 touch-pan-y" style={{ backfaceVisibility: 'hidden' }}>
+                {products.map((p, i) => {
+                  const isActive = activeId === p.id;
+                  return (
+                    <div
+                      key={`mobile-${p.id}`}
+                      className={`relative shrink-0 w-[280px] transition-all duration-500 ease-out ${isActive ? 'scale-100 z-10' : 'scale-90 opacity-60 z-0'}`}
+                      style={{ backfaceVisibility: 'hidden' }}
+                      onClick={() => {
+                        setActiveId(p.id);
+                        emblaApi?.scrollTo(i);
+                      }}
+                    >
                      <div className={`flex h-full flex-col overflow-hidden rounded-[24px] bg-white ring-1 shadow-sm transition-all duration-500 ${isActive ? 'ring-zinc-300 shadow-xl' : 'ring-zinc-200'}`}>
                       <div className="relative h-[180px]">
                         <img
@@ -1301,12 +1315,10 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
                           </motion.div>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 );
               })}
-              
-              {/* Spacer to center last item */}
-              <div className="shrink-0 w-[calc(50%-140px)]" />
+              </div>
             </div>
           </div>
       </div>
