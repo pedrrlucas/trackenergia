@@ -1249,6 +1249,47 @@ function ProductFeature({ product, products }: { product: Product; products: Pro
             <div
               className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-8 pb-8 pt-4 scrollbar-none"
               style={{ scrollPaddingLeft: "50%", scrollPaddingRight: "50%" }}
+              onScroll={(e) => {
+                const container = e.currentTarget;
+                const center = container.scrollLeft + container.clientWidth / 2;
+                
+                // Find the element closest to the center
+                let closest = null;
+                let minDistance = Infinity;
+
+                // We need to query the child elements. Since they are rendered by React, 
+                // we can assume the children in the DOM follow the order of `products`.
+                // The structure is: Spacer -> Product Divs -> Spacer
+                // The products start at index 1 (after the first spacer)
+                
+                const children = Array.from(container.children);
+                // Filter out spacers (first and last elements are spacers)
+                const productElements = children.slice(1, -1);
+                
+                productElements.forEach((child, index) => {
+                  if (child instanceof HTMLElement) {
+                    const rect = child.getBoundingClientRect();
+                    // Calculate center of the element relative to the viewport, 
+                    // but we can also use offsetLeft relative to container for simpler logic if we account for scroll
+                    
+                    // Actually, getting center relative to container is safer
+                    const childCenter = child.offsetLeft + child.offsetWidth / 2;
+                    const distance = Math.abs(childCenter - center);
+                    
+                    if (distance < minDistance) {
+                      minDistance = distance;
+                      closest = index;
+                    }
+                  }
+                });
+
+                if (closest !== null && products[closest]) {
+                   // Only update if different to avoid excessive re-renders
+                   if (activeId !== products[closest].id) {
+                     setActiveId(products[closest].id);
+                   }
+                }
+              }}
             >
               {/* Spacer to center first item */}
               <div className="shrink-0 w-[calc(50%-140px)]" />
