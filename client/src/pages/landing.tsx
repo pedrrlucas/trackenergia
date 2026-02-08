@@ -406,7 +406,7 @@ function Nav({ onContact }: { onContact: () => void }) {
               src={trackName}
               alt="Track"
               data-testid="text-logo"
-              className="h-[14px] w-auto object-contain brightness-0"
+              className="h-[14px] w-auto object-contain brightness-0 invert sm:invert-0"
             />
           </a>
 
@@ -625,70 +625,38 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
 
         <div className="container-page pt-4 sm:pt-6">
           <div className="pt-[104px] sm:pt-[112px] lg:pt-[132px]">
-            <div className="max-w-[520px] lg:max-w-[640px]">
-              <h1
-                data-testid="text-hero-title"
-                className="text-balance text-[44px] font-medium leading-[1.02] tracking-[-0.02em] text-white sm:text-[56px] lg:text-[66px]"
-              >
-                Soluções de energia
-                <br />
-                com visão crítica
-                <br />
-                e execução completa
-              </h1>
-
-              <p
-                data-testid="text-hero-subtitle"
-                className="mt-4 max-w-[460px] text-xs leading-5 text-white/72 sm:text-sm sm:leading-6"
-              >
-                A Track entrega soluções reais em energia: da eficiência à geração, armazenamento e mercado livre, com proposta sob medida, execução e monitoramento contínuo.
-              </p>
-
-              <div className="mt-6 flex flex-wrap items-center gap-3">
-                <PrimaryButton testId="button-explore-now" onClick={onContact}>
-                  Vamos conversar
-                </PrimaryButton>
-
-                <GhostButton
-                  testId="button-play-video"
-                  onClick={onPlay}
-                  icon={<CirclePlay className="h-4 w-4" strokeWidth={2.25} />}
+            <div className="flex flex-col h-[calc(100vh-140px)] justify-center">
+              <div className="max-w-[580px] lg:max-w-[720px]">
+                <h1
+                  data-testid="text-hero-title"
+                  className="text-balance text-[48px] font-medium leading-[1] tracking-[-0.03em] text-white sm:text-[64px] lg:text-[76px]"
                 >
-                  Ver vídeo
-                </GhostButton>
-              </div>
-            </div>
+                  Soluções de energia
+                  <br />
+                  com visão crítica
+                  <br />
+                  e execução completa
+                </h1>
 
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between lg:mt-14">
-              <div />
+                <p
+                  data-testid="text-hero-subtitle"
+                  className="mt-6 max-w-[480px] text-sm leading-6 text-white/70 sm:text-base sm:leading-7"
+                >
+                  A Track entrega soluções reais em energia: da eficiência à geração, armazenamento e mercado livre, com proposta sob medida, execução e monitoramento contínuo.
+                </p>
 
-              <div className="flex w-full max-w-[360px] items-center justify-between gap-3 rounded-[22px] bg-white/10 p-3 ring-1 ring-white/16 backdrop-blur md:max-w-[420px] lg:max-w-[520px]">
-                <div className="flex items-center gap-3">
-                  <div className="h-14 w-14 overflow-hidden rounded-2xl bg-white/10 ring-1 ring-white/12">
-                    <img data-testid="img-hero-card" src={productImg} alt="Painel" className="h-full w-full object-cover" />
-                  </div>
-                  <div>
-                    <div data-testid="text-hero-card-title" className="text-xs font-semibold text-white">
-                      Track | Soluções em energia
-                    </div>
-                    <div data-testid="text-hero-card-desc" className="mt-0.5 text-[11px] leading-4 text-white/65">
-                      Da análise à operação: eficiência, geração, armazenamento e gestão de energia com acompanhamento.
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    data-testid="button-hero-card-prev"
-                    className="grid h-9 w-9 place-items-center rounded-full bg-white/10 ring-1 ring-white/12 transition hover:bg-white/14 active:scale-[0.98]"
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <PrimaryButton testId="button-explore-now" onClick={onContact}>
+                    Vamos conversar
+                  </PrimaryButton>
+
+                  <GhostButton
+                    testId="button-play-video"
+                    onClick={onPlay}
+                    icon={<CirclePlay className="h-4 w-4" strokeWidth={2.25} />}
                   >
-                    <ChevronLeft className="h-4 w-4 text-white" strokeWidth={2.25} />
-                  </button>
-                  <button
-                    data-testid="button-hero-card-next"
-                    className="grid h-9 w-9 place-items-center rounded-full bg-white/10 ring-1 ring-white/12 transition hover:bg-white/14 active:scale-[0.98]"
-                  >
-                    <ChevronRight className="h-4 w-4 text-white" strokeWidth={2.25} />
-                  </button>
+                    Ver vídeo
+                  </GhostButton>
                 </div>
               </div>
             </div>

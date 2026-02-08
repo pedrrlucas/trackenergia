@@ -131,7 +131,7 @@ function ContactPage() {
                       </div>
                     </div>
 
-                    <div className="grid h-11 w-11 place-items-center rounded-2xl bg-white/10 ring-1 ring-white/12">
+                    <div className="hidden sm:grid h-11 w-11 place-items-center rounded-2xl bg-white/10 ring-1 ring-white/12">
                       <Zap className="h-5 w-5 text-white" strokeWidth={2.25} />
                     </div>
                   </div>
@@ -251,33 +251,33 @@ function ContactPage() {
                   <div data-testid="text-social-title" className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
                     Redes sociais
                   </div>
-                  <div className="mt-3 flex flex-nowrap justify-center gap-3 sm:grid sm:grid-cols-3">
+                  <div className="mt-3 flex flex-wrap justify-center gap-3">
                     <a
                       data-testid="button-social-facebook"
                       href="#"
-                      className="group flex items-center justify-center gap-2 rounded-[18px] bg-white px-3 py-3 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 sm:min-w-0 sm:justify-center"
+                      className="group flex items-center justify-center gap-2 rounded-[18px] bg-white px-3 py-3 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50"
                       aria-label="Facebook"
                     >
-                      <Facebook className="h-4 w-4 shrink-0" strokeWidth={2.25} />
-                      <span className="hidden truncate sm:inline">Facebook</span>
+                      <Facebook className="h-4 w-4" strokeWidth={2.25} />
+                      <span className="hidden sm:inline">Facebook</span>
                     </a>
                     <a
                       data-testid="button-social-instagram"
                       href="#"
-                      className="group flex items-center justify-center gap-2 rounded-[18px] bg-white px-3 py-3 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 sm:min-w-0 sm:justify-center"
+                      className="group flex items-center justify-center gap-2 rounded-[18px] bg-white px-3 py-3 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50"
                       aria-label="Instagram"
                     >
-                      <Instagram className="h-4 w-4 shrink-0" strokeWidth={2.25} />
-                      <span className="hidden truncate sm:inline">Instagram</span>
+                      <Instagram className="h-4 w-4" strokeWidth={2.25} />
+                      <span className="hidden sm:inline">Instagram</span>
                     </a>
                     <a
                       data-testid="button-social-linkedin"
                       href="#"
-                      className="group flex items-center justify-center gap-2 rounded-[18px] bg-white px-3 py-3 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 sm:min-w-0 sm:justify-center"
+                      className="group flex items-center justify-center gap-2 rounded-[18px] bg-white px-3 py-3 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50"
                       aria-label="LinkedIn"
                     >
-                      <Linkedin className="h-4 w-4 shrink-0" strokeWidth={2.25} />
-                      <span className="hidden truncate sm:inline">LinkedIn</span>
+                      <Linkedin className="h-4 w-4" strokeWidth={2.25} />
+                      <span className="hidden sm:inline">LinkedIn</span>
                     </a>
                   </div>
 
