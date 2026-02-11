@@ -633,6 +633,15 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
   const [useFallback, setUseFallback] = useState(false);
   const [startFullImageLoad, setStartFullImageLoad] = useState(false);
 
+  // Iniciar carregamento da hero em qualidade cheia cedo, em paralelo com a intro,
+  // para não depender do fim da animação da logo (que no mobile atrasa). Assim
+  // o download corre em background (fetchPriority="low", decoding="async") e
+  // não trava o site; a imagem tende a estar pronta quando o usuário precisar.
+  useEffect(() => {
+    const t = setTimeout(() => setStartFullImageLoad(true), 600);
+    return () => clearTimeout(t);
+  }, []);
+
   const fullImgClass =
     `h-full min-h-screen w-full object-cover object-left md:object-center brightness-100 contrast-[1.02] transition-opacity duration-700 ease-out ` +
     (fullImageLoaded ? "opacity-100" : "opacity-0");
