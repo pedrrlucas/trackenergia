@@ -61,7 +61,7 @@ function usePreloadImages(urls: string[]) {
     };
   }, [urls.join("|")]);
 }
-import heroImg from "@/assets/images/hero-solar.jpg";
+import heroImgFallback from "@/assets/images/hero-solar (2).jpg";
 import processImg from "@/assets/images/process-installation.jpg";
 import productImg from "@/assets/images/product-solarfield.jpg";
 import product1 from "@/assets/images/product-1.jpg";
@@ -186,7 +186,7 @@ function GhostButton({
   );
 }
 
-function Nav({ onContact }: { onContact: () => void }) {
+function Nav({ onContact, onIntroComplete }: { onContact: () => void; onIntroComplete?: () => void }) {
   const reduced = usePrefersReducedMotion();
   const [ready, setReady] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -230,6 +230,7 @@ function Nav({ onContact }: { onContact: () => void }) {
   useEffect(() => {
     if (!ready || reduced) {
       setProgress(reduced ? 1 : 0);
+      if (reduced) onIntroComplete?.();
       return;
     }
 
@@ -284,6 +285,7 @@ function Nav({ onContact }: { onContact: () => void }) {
             swappedRef.current = true;
             setLogoSwap(true);
             setArrowGone(true);
+            onIntroComplete?.();
           }
         }
       }
@@ -608,52 +610,138 @@ function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   );
 }
 
+const heroContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.12, delayChildren: 0.15 },
+  },
+};
+
 function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void }) {
+  const reduced = usePrefersReducedMotion();
+  const [fullImageLoaded, setFullImageLoaded] = useState(false);
+  const [useFallback, setUseFallback] = useState(false);
+  const [startFullImageLoad, setStartFullImageLoad] = useState(false);
+
+  const fullImgClass =
+    `h-full min-h-screen w-full object-cover object-left md:object-center brightness-100 contrast-[1.02] transition-opacity duration-700 ease-out ` +
+    (fullImageLoaded ? "opacity-100" : "opacity-0");
+
   return (
     <section
       id="inicio"
       className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#0d0115] via-[#150120] to-black"
     >
       <div className="absolute inset-0 overflow-hidden">
-        <img
-          data-testid="img-hero"
-          src={heroImg}
-          alt="Energia e infraestrutura"
-          fetchPriority="high"
-          decoding="async"
-          loading="eager"
-          className="h-full min-h-screen w-full object-cover brightness-[0.78]"
-        />
-        <div className="absolute inset-0 hero-overlay noise" />
+        {useFallback ? (
+          <>
+            {startFullImageLoad && (
+              <img
+                data-testid="img-hero"
+                src={heroImgFallback}
+                alt="Técnico inspecionando painéis solares"
+                fetchPriority="low"
+                decoding="async"
+                loading="eager"
+                onLoad={() => setFullImageLoaded(true)}
+                className={fullImgClass}
+                style={{ imageRendering: "auto" }}
+              />
+            )}
+          </>
+        ) : (
+          <>
+            {/* Camada 1: preview — aparece instantaneamente */}
+            <img
+              src="/hero/hero-preview.webp"
+              alt=""
+              aria-hidden
+              className="absolute inset-0 h-full min-h-screen w-full object-cover object-left md:object-center brightness-100 contrast-[1.02]"
+              style={{ imageRendering: "auto" }}
+              fetchPriority="high"
+              loading="eager"
+            />
+            {/* Camada 2: qualidade cheia — só começa a carregar depois da troca de logo */}
+            {startFullImageLoad && (
+              <picture className="absolute inset-0">
+                <source
+                  type="image/webp"
+                  srcSet="/hero/hero-480.webp 480w, /hero/hero-960.webp 960w, /hero/hero-1280.webp 1280w, /hero/hero-1920.webp 1920w"
+                  sizes="100vw"
+                />
+                <img
+                  data-testid="img-hero"
+                  src="/hero/hero-1920.jpg"
+                  srcSet="/hero/hero-480.jpg 480w, /hero/hero-960.jpg 960w, /hero/hero-1280.jpg 1280w, /hero/hero-1920.jpg 1920w"
+                  sizes="100vw"
+                  alt="Técnico inspecionando painéis solares"
+                  fetchPriority="low"
+                  decoding="async"
+                  loading="eager"
+                  onLoad={() => setFullImageLoaded(true)}
+                  onError={() => {
+                    setFullImageLoaded(false);
+                    setUseFallback(true);
+                  }}
+                  className={`absolute inset-0 ${fullImgClass}`}
+                  style={{ imageRendering: "auto" }}
+                />
+              </picture>
+            )}
+          </>
+        )}
+        <div className="absolute inset-0 noise opacity-[0.06]" aria-hidden />
       </div>
 
       <div className="absolute inset-0 flex flex-col">
-        <Nav onContact={onContact} />
+        {/* Overlay escuro apenas atrás da área do texto */}
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 z-0 w-full min-w-[320px] max-w-[min(720px,58vw)]"
+          style={{
+            background:
+              "linear-gradient(to right, rgba(13,1,21,0.52) 0%, rgba(21,1,32,0.42) 40%, transparent 100%)",
+          }}
+          aria-hidden
+        />
+        <Nav onContact={onContact} onIntroComplete={() => setStartFullImageLoad(true)} />
 
-        <div className="container-page flex flex-1 flex-col pt-4 sm:pt-6">
+        <div className="container-page flex flex-1 flex-col pt-4 sm:pt-6 relative z-10">
           <div className="flex min-h-0 flex-1 flex-col pt-[104px] sm:pt-[112px] lg:pt-[132px]">
             {/* 100svh evita “pulo” no mobile quando a barra do browser aparece/desaparece */}
             <div className="flex min-h-[calc(100vh-140px)] min-h-[calc(100svh-140px)] flex-col justify-center pb-6 sm:pb-8">
-              <div className="max-w-[580px] shrink-0 lg:max-w-[720px]">
-                <h1
+              <motion.div
+                className="max-w-[580px] shrink-0 lg:max-w-[720px]"
+                variants={reduced ? undefined : heroContainerVariants}
+                initial={reduced ? undefined : "hidden"}
+                animate="visible"
+              >
+                <motion.h1
                   data-testid="text-hero-title"
                   className="text-balance text-[40px] font-medium leading-[1.08] tracking-[-0.03em] text-white sm:text-[48px] sm:leading-[1] md:text-[64px] lg:text-[76px]"
+                  variants={reduced ? undefined : { hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0 } }}
+                  transition={reduced ? undefined : { duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
                 >
                   Soluções de energia
                   <br />
                   com visão crítica
                   <br />
                   e execução completa
-                </h1>
+                </motion.h1>
 
-                <p
+                <motion.p
                   data-testid="text-hero-subtitle"
                   className="mt-4 max-w-[480px] text-sm leading-6 text-white/70 sm:mt-6 sm:text-base sm:leading-7"
+                  variants={reduced ? undefined : { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
+                  transition={reduced ? undefined : { duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
                 >
                   A Track entrega soluções reais em energia: da eficiência à geração, armazenamento e mercado livre, com proposta sob medida, execução e monitoramento contínuo.
-                </p>
+                </motion.p>
 
-                <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4">
+                <motion.div
+                  className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4"
+                  variants={reduced ? undefined : { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                  transition={reduced ? undefined : { duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                >
                   <PrimaryButton testId="button-explore-now" onClick={onContact}>
                     Vamos conversar
                   </PrimaryButton>
@@ -665,8 +753,8 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
                   >
                     Ver vídeo
                   </GhostButton>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -686,13 +774,13 @@ function About() {
       viewport={{ once: true, amount: 0.22 }}
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="grid gap-10 md:grid-cols-[360px_1fr] md:items-center lg:grid-cols-[420px_1fr] lg:gap-14">
+      <div className="grid gap-4 md:gap-10 md:grid-cols-[360px_1fr] md:items-center lg:grid-cols-[420px_1fr] lg:gap-14">
         <div className="relative">
           <Pill testId="pill-about" muted={false}>
             ( sobre a Track )
           </Pill>
 
-          <div className="mt-5">
+          <div className="mt-5 hidden md:block">
             <div
               data-testid="img-about-team-placeholder"
               className="relative aspect-[16/10] w-full overflow-hidden rounded-[28px] bg-gradient-to-br from-zinc-100 via-white to-zinc-100 ring-1 ring-zinc-200 sm:aspect-[16/9]"
@@ -742,9 +830,30 @@ function About() {
             </h2>
             <p data-testid="text-about-desc" className="mt-4 w-full text-sm leading-6 text-zinc-500">
               A Track nasceu em 2024 com um propósito diferente do mercado tradicional: não vendemos equipamentos.
-              Nosso foco é entregar <span className="font-medium text-zinc-800">soluções reais</span> para quem precisa, entendendo o setor com profundidade
+              Nosso foco é entregar soluções reais para quem precisa, entendendo o setor com profundidade
               e conectando cada cliente à solução energética ideal, sem excessos e sem soluções genéricas.
             </p>
+
+            {/* Mobile: espaço reservado para foto após o texto */}
+            <div className="mt-6 block md:hidden relative aspect-[16/10] w-full overflow-hidden rounded-[28px] bg-gradient-to-br from-zinc-100 via-white to-zinc-100 ring-1 ring-zinc-200">
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#100121]/10 via-transparent to-[#30045c]/10" aria-hidden />
+              <div className="absolute inset-0 noise opacity-[0.08]" aria-hidden />
+              <div className="absolute inset-0 grid place-items-center" aria-hidden>
+                <span className="text-xs font-medium text-zinc-500">
+                  Espaço reservado para foto
+                </span>
+              </div>
+              <Link
+                href="/servicos"
+                data-testid="button-about-how-we-work"
+                className="group absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#30045c] active:scale-[0.98]"
+              >
+                Como trabalhamos
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/10 transition group-hover:translate-x-0.5">
+                  <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
+                </span>
+              </Link>
+            </div>
           </div>
 
         </motion.div>
@@ -1088,9 +1197,14 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
             <div className="text-sm font-semibold text-zinc-900" data-testid="text-spec-title">
               Destaques da solução
             </div>
-            {/* Mobile: lista única com todas as soluções, sem gap entre blocos */}
+            {/* Mobile: lista única com os 7 serviços (Eletromobilidade como item separado) */}
             <ul className="mt-3 flex flex-col gap-0 space-y-2.5 text-sm text-zinc-600 sm:hidden">
-              {[...(product.specLeft ?? []), ...(product.specRight ?? [])].map((s, idx) => (
+              {[
+                ...(product.specLeft ?? []),
+                ...(product.specRight ?? []).slice(0, 2),
+                "Eletromobilidade",
+                ...(product.specRight ?? []).slice(2),
+              ].map((s, idx) => (
                 <li
                   data-testid={idx < (product.specLeft?.length ?? 0) ? `text-spec-left-${idx}` : `text-spec-right-${idx - (product.specLeft?.length ?? 0)}`}
                   key={idx}
@@ -1101,10 +1215,10 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
                 </li>
               ))}
             </ul>
-            {/* sm+: grid em 2 colunas */}
+            {/* sm+: grid em 2 colunas (desktop: "Geração própria e eletromobilidade" junto) */}
             <div className="mt-3 hidden gap-6 sm:grid sm:grid-cols-2">
               <ul className="space-y-2.5 text-sm text-zinc-600">
-                {product.specLeft.map((s, idx) => (
+                {(product.specLeft ?? []).map((s) => s === "Geração própria" ? "Geração própria e eletromobilidade" : s).map((s, idx) => (
                   <li data-testid={`text-spec-left-${idx}`} key={idx} className="flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#1d0238]" />
                     {s}
@@ -1123,16 +1237,16 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
           </div>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <button
-              data-testid="button-lets-talk"
-              onClick={onContact}
+            <Link
+              href="/servicos"
+              data-testid="button-all-services"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
             >
               <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
                 <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
               </span>
-              Vamos conversar
-            </button>
+              Confira todos os serviços
+            </Link>
           </div>
         </motion.div>
 
@@ -1763,7 +1877,7 @@ export default function Landing() {
       subtitle: "Da estratégia à operação",
       desc: "Analisamos oportunidades, desenhamos a proposta ideal e executamos com monitoramento após a implementação, sempre com o radar ligado para melhorias.",
       specLeft: ["Eficiência energética", "Geração própria", "Armazenamento"],
-      specRight: ["Mercado livre", "Assinatura de energia", "Eletromobilidade", "O&M fotovoltaico"],
+      specRight: ["Mercado livre", "Assinatura de energia", "O&M fotovoltaico"],
       image: productImg,
     }),
     [],

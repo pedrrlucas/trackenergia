@@ -576,7 +576,7 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
                 </a>
                 <a
                   data-testid="icon-email"
-                  href="#"
+                  href={`mailto:${CONTACT_EMAIL}`}
                   className="grid h-11 w-11 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white hover:scale-105 active:scale-95"
                   aria-label="E-mail"
                 >
@@ -786,6 +786,7 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
 
 const WHATSAPP_LINK = "https://wa.me/5511999999999";
 const WHATSAPP_MESSAGE = "Oi! Vim pelo site da Track e gostaria de conversar sobre soluções de energia.";
+const CONTACT_EMAIL = "contato@trackenergia.com.br";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const [location, setLocation] = useLocation();

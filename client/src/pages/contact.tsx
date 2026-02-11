@@ -36,6 +36,7 @@ function Pill({ children, testId }: { children: React.ReactNode; testId: string 
       data-testid={testId}
       className="inline-flex items-center gap-2 rounded-full bg-[#1d0238]/7 px-3 py-1 text-[11px] font-medium tracking-wide text-zinc-700 ring-1 ring-[#1d0238]/18"
     >
+      <span className="h-1.5 w-1.5 rounded-full bg-[#30045c]" />
       {children}
     </span>
   );

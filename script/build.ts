@@ -35,6 +35,10 @@ const allowlist = [
 async function buildAll() {
   await rm("dist", { recursive: true, force: true });
 
+  console.log("optimizing hero image...");
+  const { execSync } = await import("child_process");
+  execSync("node script/optimize-hero.mjs", { stdio: "inherit" });
+
   console.log("building client...");
   await viteBuild();
 
