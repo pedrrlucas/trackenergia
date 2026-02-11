@@ -213,18 +213,28 @@ function Nav({ onContact, onIntroComplete }: { onContact: () => void; onIntroCom
       arrowImg.addEventListener("error", done, { once: true });
     };
 
-    if (document.readyState === "complete") {
+    // Não esperar pelo "load" completo: no mobile pode demorar 10+ segundos.
+    // Iniciar quando o DOM estiver pronto (interactive) e a seta carregada,
+    // ou após timeout máximo para não travar em redes lentas.
+    const canStartFromDOM = document.readyState === "complete" || document.readyState === "interactive";
+    if (canStartFromDOM) {
       startWhenReady();
       return;
     }
 
-    const onLoad = () => {
+    const onDOMReady = () => {
       startWhenReady();
-      window.removeEventListener("load", onLoad);
+      window.removeEventListener("DOMContentLoaded", onDOMReady);
     };
+    window.addEventListener("DOMContentLoaded", onDOMReady, { once: true });
 
-    window.addEventListener("load", onLoad, { once: true });
-    return () => window.removeEventListener("load", onLoad);
+    const MAX_WAIT_MS = 2500;
+    const fallbackTimer = setTimeout(() => setReady(true), MAX_WAIT_MS);
+
+    return () => {
+      window.removeEventListener("DOMContentLoaded", onDOMReady);
+      clearTimeout(fallbackTimer);
+    };
   }, []);
 
   useEffect(() => {
