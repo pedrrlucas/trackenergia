@@ -1164,7 +1164,7 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
     loop: false,
     align: "start",
     dragFree: true,
-    containScroll: "", // Retirar trimSnaps para permitir ir até o fim
+    containScroll: "trimSnaps", // Mantém o limite de rolagem para não deixar buraco no final
   });
 
   const [activeId, setActiveId] = useState<string>(products[0].id);
