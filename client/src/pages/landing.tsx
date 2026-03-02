@@ -1524,7 +1524,6 @@ function Testimonials({ onContact }: { onContact: () => void }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
     align: "start",
-    skipSnaps: false,
     containScroll: "trimSnaps",
   });
 
@@ -1574,6 +1573,38 @@ function Testimonials({ onContact }: { onContact: () => void }) {
     [],
   );
 
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(true);
+  
+  useEffect(() => {
+    if (!emblaApi) return;
+    
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+      setCanScrollPrev(emblaApi.canScrollPrev());
+      setCanScrollNext(emblaApi.canScrollNext());
+    };
+    
+    emblaApi.on('select', onSelect);
+    emblaApi.on('reInit', onSelect);
+    
+    onSelect();
+    
+    return () => {
+      emblaApi.off('select', onSelect);
+      emblaApi.off('reInit', onSelect);
+    };
+  }, [emblaApi]);
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
   return (
     <motion.section 
       id="depoimentos" 
@@ -1585,8 +1616,9 @@ function Testimonials({ onContact }: { onContact: () => void }) {
     >
       <div className="grid gap-10 lg:grid-cols-[380px_minmax(0,1fr)] xl:grid-cols-[420px_minmax(0,1fr)] lg:gap-14 items-center">
         
+        {/* Lado Esquerdo */}
         <motion.div 
-          className="flex flex-col"
+          className="flex flex-col relative z-20"
           initial={reduced ? undefined : { opacity: 0, x: -30 }}
           whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -1631,82 +1663,89 @@ function Testimonials({ onContact }: { onContact: () => void }) {
           </a>
         </motion.div>
 
+        {/* Lado Direito - Embla Carousel */}
         <motion.div 
-          className="relative min-w-0 w-full"
+          className="relative min-w-0 w-full z-10"
           initial={reduced ? undefined : { opacity: 0, x: 30 }}
           whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
-          <div className="absolute top-0 bottom-0 right-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-
-          <div className="overflow-visible" ref={emblaRef}>
-            <div className="flex touch-pan-y gap-6 sm:gap-8 py-4 px-2" style={{ backfaceVisibility: 'hidden' }}>
-              {items.map((t) => (
-                <div
-                  key={`testimonial-slide-${t.id}`}
-                  className="relative shrink-0 w-[85%] sm:w-[320px] h-full"
-                >
-                  <div className="flex flex-col h-full rounded-[32px] p-6 sm:p-8 bg-zinc-50 ring-1 ring-zinc-100 transition-all duration-300 hover:ring-zinc-200 hover:bg-white hover:shadow-xl hover:shadow-black/5">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex items-center gap-4">
-                        <div className="h-12 w-12 sm:h-14 sm:w-14 shrink-0 overflow-hidden rounded-full ring-1 bg-zinc-100 ring-zinc-200">
-                          <img
-                            src={t.avatar}
-                            alt={t.name}
-                            className="h-full w-full object-cover"
-                          />
-                        </div>
-                        <div>
-                          <div className="text-sm sm:text-base font-bold text-zinc-950">
-                            {t.name}
+          {/* overflow-hidden e pad de segurança para sombras */}
+          <div className="overflow-hidden -m-4 p-4" ref={emblaRef}>
+            <div className="flex touch-pan-y" style={{ backfaceVisibility: 'hidden' }}>
+              {items.map((t, index) => {
+                const isActive = selectedIndex === index;
+                return (
+                  <div
+                    key={`testimonial-slide-${t.id}`}
+                    className="relative flex-none w-[85%] sm:w-[320px] lg:w-[360px] pl-4 lg:pl-6 cursor-grab active:cursor-grabbing"
+                    onClick={() => emblaApi?.scrollTo(index)}
+                  >
+                    <div className={`flex flex-col h-full min-h-[320px] rounded-[32px] p-6 sm:p-8 transition-all duration-500 ${isActive ? 'bg-white shadow-xl shadow-black/5 ring-1 ring-zinc-200 scale-100 opacity-100' : 'bg-zinc-50 ring-1 ring-zinc-100 scale-[0.96] opacity-60 hover:opacity-100'}`}>
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex items-center gap-4">
+                          <div className="h-12 w-12 sm:h-14 sm:w-14 shrink-0 overflow-hidden rounded-full ring-1 bg-zinc-100 ring-zinc-200">
+                            <img
+                              src={t.avatar}
+                              alt={t.name}
+                              className="h-full w-full object-cover"
+                            />
                           </div>
-                          <div className="mt-0.5 text-xs sm:text-sm font-medium text-zinc-500">
-                            {t.role} · {t.city}
+                          <div>
+                            <div className="text-sm sm:text-base font-bold text-zinc-950">
+                              {t.name}
+                            </div>
+                            <div className="mt-0.5 text-xs sm:text-sm font-medium text-zinc-500">
+                              {t.role} · {t.city}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="mt-6 flex-1 relative">
-                        <Quote className="absolute -top-3 -left-2 h-8 w-8 text-zinc-200 -z-10" />
-                        <p className="text-sm sm:text-base leading-relaxed text-zinc-600 relative z-10">
-                          “{t.quote}”
-                        </p>
-                    </div>
+                      <div className="mt-6 flex-1 relative">
+                          <Quote className="absolute -top-3 -left-2 h-8 w-8 text-zinc-200 -z-10" />
+                          <p className="text-sm sm:text-base leading-relaxed text-zinc-600 relative z-10">
+                            “{t.quote}”
+                          </p>
+                      </div>
 
-                    <div className="mt-6 flex items-center justify-between">
-                      <div className="flex items-center gap-1">
-                        {new Array(5).fill(0).map((_, s) => (
-                          <Star
-                            key={s}
-                            className={`h-4 w-4 ${s < t.rating ? "text-zinc-950" : "text-zinc-200"}`}
-                            fill={s < t.rating ? "currentColor" : "none"}
-                            strokeWidth={2}
-                          />
-                        ))}
+                      <div className="mt-6 flex items-center justify-between">
+                        <div className="flex items-center gap-1">
+                          {new Array(5).fill(0).map((_, s) => (
+                            <Star
+                              key={s}
+                              className={`h-4 w-4 ${s < t.rating ? "text-zinc-950" : "text-zinc-200"}`}
+                              fill={s < t.rating ? "currentColor" : "none"}
+                              strokeWidth={2}
+                            />
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
           
-          <div className="mt-6 flex items-center gap-2 pl-2">
+          {/* Navegação Manual */}
+          <div className="mt-6 flex items-center gap-3 pl-4 lg:pl-6 relative z-30">
             <button
-              onClick={() => emblaApi?.scrollPrev()}
-              className="grid h-10 w-10 place-items-center rounded-full bg-white shadow-sm ring-1 ring-zinc-200 text-zinc-600 transition hover:bg-zinc-50 hover:text-zinc-900 active:scale-[0.98]"
+              onClick={scrollPrev}
+              disabled={!canScrollPrev}
+              className="pointer-events-auto grid h-12 w-12 place-items-center rounded-full bg-white shadow-md ring-1 ring-zinc-200 text-zinc-600 transition hover:bg-zinc-50 hover:text-zinc-900 active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none"
               aria-label="Anterior"
             >
-              <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
+              <ChevronLeft className="h-5 w-5" strokeWidth={2.25} />
             </button>
             <button
-              onClick={() => emblaApi?.scrollNext()}
-              className="grid h-10 w-10 place-items-center rounded-full bg-white shadow-sm ring-1 ring-zinc-200 text-zinc-600 transition hover:bg-zinc-50 hover:text-zinc-900 active:scale-[0.98]"
+              onClick={scrollNext}
+              disabled={!canScrollNext}
+              className="pointer-events-auto grid h-12 w-12 place-items-center rounded-full bg-white shadow-md ring-1 ring-zinc-200 text-zinc-600 transition hover:bg-zinc-50 hover:text-zinc-900 active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none"
               aria-label="Próximo"
             >
-              <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
+              <ChevronRight className="h-5 w-5" strokeWidth={2.25} />
             </button>
           </div>
         </motion.div>
