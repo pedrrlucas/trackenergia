@@ -656,8 +656,17 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
               <Link data-testid="link-footer-storage" href="/servicos/armazenamento" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
                 Armazenamento
               </Link>
-              <Link data-testid="link-footer-trading" href="/servicos/comercializacao" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
-                Comercialização
+              <Link data-testid="link-footer-mercado-livre" href="/servicos/mercado-livre" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
+                Mercado Livre
+              </Link>
+              <Link data-testid="link-footer-assinatura" href="/servicos/assinatura" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
+                Assinatura
+              </Link>
+              <Link data-testid="link-footer-eletromobilidade" href="/servicos/eletromobilidade" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
+                Eletromobilidade
+              </Link>
+              <Link data-testid="link-footer-om-fv" href="/servicos/om-fv" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
+                O&M de Usinas FV
               </Link>
             </nav>
           </div>
