@@ -400,7 +400,7 @@ export default function ServiceDetailPage() {
             <div className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
               <motion.section
                 data-testid="section-service-image"
-                className="relative w-full h-full min-h-[320px] sm:min-h-[420px] overflow-hidden rounded-[28px] lg:rounded-[36px] bg-zinc-900 group shadow-lg"
+                className="relative w-full h-full min-h-[320px] lg:min-h-0 overflow-hidden rounded-[28px] lg:rounded-[36px] bg-zinc-900 group shadow-lg"
                 initial={reduced ? undefined : { opacity: 0, x: 20 }}
                 whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
                 viewport={revealViewport}
