@@ -1742,7 +1742,7 @@ function Testimonials({ onContact }: { onContact: () => void }) {
           })}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 
