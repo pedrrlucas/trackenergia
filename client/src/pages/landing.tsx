@@ -1481,7 +1481,7 @@ function Testimonials({ onContact }: { onContact: () => void }) {
         
         {/* Lado Esquerdo */}
         <motion.div 
-          className="flex flex-col relative z-20 bg-white pr-4 lg:pr-8 lg:-my-12 lg:py-12 shadow-[50px_0_0_0_#ffffff] lg:shadow-[100px_0_0_0_#ffffff]"
+          className="flex flex-col relative z-20"
           initial={reduced ? undefined : { opacity: 0, x: -30 }}
           whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -1528,21 +1528,21 @@ function Testimonials({ onContact }: { onContact: () => void }) {
 
         {/* Lado Direito - Embla Carousel */}
         <motion.div 
-          className="lg:col-span-7 relative z-0 w-full lg:-ml-20"
+          className="relative min-w-0 w-full z-10"
           initial={reduced ? undefined : { opacity: 0, x: 30 }}
           whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
-          {/* overflow-visible para as sombras nao serem cortadas */}
-          <div className="-my-12 py-12 overflow-visible" ref={emblaRef}>
+          {/* overflow-hidden e pad de segurança para sombras */}
+          <div className="overflow-hidden -m-4 p-4" ref={emblaRef}>
             <div className="flex touch-pan-y" style={{ backfaceVisibility: 'hidden' }}>
               {items.map((t, index) => {
                 const isActive = selectedIndex === index;
                 return (
                   <div
                     key={`testimonial-slide-${t.id}`}
-                    className="relative flex-none w-[85%] sm:w-[320px] lg:w-[360px] pl-4 lg:pl-6 cursor-grab active:cursor-grabbing py-2"
+                    className="relative flex-none w-[85%] sm:w-[320px] lg:w-[360px] pl-4 lg:pl-6 cursor-grab active:cursor-grabbing"
                     onClick={() => emblaApi?.scrollTo(index)}
                   >
                     <div className={`flex flex-col h-full min-h-[320px] rounded-[32px] p-6 sm:p-8 transition-all duration-500 ${isActive ? 'bg-white shadow-xl shadow-black/5 ring-1 ring-zinc-200 scale-100 opacity-100' : 'bg-zinc-50 ring-1 ring-zinc-100 scale-[0.96] opacity-60 hover:opacity-100'}`}>
