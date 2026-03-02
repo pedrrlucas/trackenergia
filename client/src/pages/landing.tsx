@@ -657,7 +657,7 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
   }, []);
 
   const fullImgClass =
-    `h-full min-h-screen w-full object-cover object-left md:object-center brightness-100 contrast-[1.02] transition-opacity duration-700 ease-out ` +
+    `h-full w-full object-cover object-left md:object-center brightness-100 contrast-[1.02] transition-opacity duration-700 ease-out ` +
     (fullImageLoaded ? "opacity-100" : "opacity-0");
 
   const heroContainerVariants = {
@@ -680,7 +680,8 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
         className="absolute inset-0 overflow-hidden origin-center"
         style={{
           scale: reduced ? 1 : scaleImage,
-          willChange: "transform"
+          willChange: "transform",
+          
         }}
       >
         {useFallback ? (
@@ -709,7 +710,7 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
               src="/hero/hero-preview.webp"
               alt=""
               aria-hidden
-              className="absolute inset-0 h-full min-h-screen w-full object-cover object-left md:object-center brightness-100 contrast-[1.02]"
+              className="absolute inset-0 h-full w-full object-cover object-left md:object-center brightness-100 contrast-[1.02]"
               style={{ imageRendering: "auto" }}
               fetchPriority="high"
               loading="eager"
@@ -744,6 +745,7 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
           </>
         )}
         <div className="absolute inset-0 noise opacity-[0.06]" aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-[#0d0115]/50 to-transparent pointer-events-none" aria-hidden />
       </motion.div>
 
       <div className="absolute inset-0 flex flex-col">
