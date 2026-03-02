@@ -30,44 +30,6 @@ const tagMap: Record<string, string> = {
   "om-fv": "O&M"
 };
 
-const projectInfoMap: Record<string, { title: string, desc: string, stats: { label: string, value: string }[] }> = {
-  "eficiencia": {
-    title: "Modernização de Parque Industrial",
-    desc: "Retrofit completo do sistema motriz e luminotécnico para indústria de embalagens.",
-    stats: [{ label: "Economia", value: "24%" }, { label: "Payback", value: "14 meses" }]
-  },
-  "geracao": {
-    title: "Usina Solar de Solo - MG",
-    desc: "Projeto turn-key de geração distribuída para abastecer rede varejista regional.",
-    stats: [{ label: "Capacidade", value: "2.5 MWp" }, { label: "Módulos", value: "4.500+" }]
-  },
-  "armazenamento": {
-    title: "BESS para Resiliência em Data Center",
-    desc: "Sistema de armazenamento em baterias para peak shaving e backup de missão crítica.",
-    stats: [{ label: "Capacidade", value: "1.2 MWh" }, { label: "Autonomia", value: "4 horas" }]
-  },
-  "mercado-livre": {
-    title: "Migração de Frota Logística",
-    desc: "Estruturação de compra de energia incentivada para grande centro de distribuição.",
-    stats: [{ label: "Redução de Custo", value: "31%" }, { label: "Fonte", value: "100% Renovável" }]
-  },
-  "assinatura": {
-    title: "Consórcio para Franquias",
-    desc: "Inclusão de 12 lojas de fast-food em modalidade de geração compartilhada sem investimento.",
-    stats: [{ label: "Lojas atendidas", value: "12" }, { label: "Desconto", value: "18% na tarifa" }]
-  },
-  "eletromobilidade": {
-    title: "Hub de Recarga Corporativa",
-    desc: "Infraestrutura de carregadores rápidos (DC) para frota de veículos comerciais elétricos.",
-    stats: [{ label: "Estações", value: "8 pontos" }, { label: "Potência", value: "120 kW/ponto" }]
-  },
-  "om-fv": {
-    title: "Gestão Integrada de Usinas",
-    desc: "Monitoramento 24/7 e manutenção preditiva de parque solar no nordeste do Brasil.",
-    stats: [{ label: "Parque Gerido", value: "15 MWp" }, { label: "Uptime", value: "99.8%" }]
-  }
-};
-
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, ChevronRight, Zap, Leaf, Shield, Wrench, LineChart, BatteryCharging, Cable } from "lucide-react";
 
 const revealViewport = { once: true, amount: 0.22 } as const;
@@ -453,40 +415,13 @@ export default function ServiceDetailPage() {
                 {/* Gradiente escuro para dar contraste e volume */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/20 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-60" />
                 
-                {/* Overlay com informações do projeto ilustrado */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0014]/90 via-[#0a0014]/30 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-100" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-10 flex flex-col justify-end h-full">
-                  <div className="transform transition-transform duration-700 ease-[0.16,1,0.3,1] group-hover:-translate-y-2">
-                    <div className="flex items-center gap-2.5 mb-4">
-                      <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                      </span>
-                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full ring-1 ring-white/10">
-                        Projeto Ilustrado
-                      </span>
-                    </div>
-                    
-                    <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-12">
-                      <div className="max-w-2xl">
-                        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight mb-3 text-white leading-[1.1]">
-                          {projectInfoMap[serviceId]?.title || "Projeto Referência"}
-                        </h3>
-                        <p className="text-sm sm:text-base text-white/60 leading-relaxed max-w-xl">
-                          {projectInfoMap[serviceId]?.desc || "Ilustração de uma de nossas implementações técnicas."}
-                        </p>
-                      </div>
-                      
-                      <div className="flex flex-wrap items-center gap-6 sm:gap-8 shrink-0 bg-white/5 backdrop-blur-md rounded-2xl p-4 sm:p-5 ring-1 ring-white/10">
-                        {projectInfoMap[serviceId]?.stats.map((stat, i) => (
-                          <div key={i} className="flex flex-col gap-1">
-                            <span className="text-[10px] uppercase tracking-[0.15em] text-white/40">{stat.label}</span>
-                            <span className="text-base sm:text-lg font-medium text-white tracking-tight">{stat.value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                <div className="absolute bottom-0 left-0 right-0 p-8 sm:p-10 text-white flex flex-col justify-end">
+                  <div className="inline-flex w-fit items-center rounded-full bg-white/10 backdrop-blur-md px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] mb-4 border border-white/20 shadow-sm transition-transform duration-500 group-hover:-translate-y-1">
+                    {tagMap[serviceId] || "SOLUÇÃO"}
                   </div>
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight leading-[1.1] transition-transform duration-500 group-hover:-translate-y-1">
+                    {service.title}
+                  </h3>
                 </div>
               </motion.section>
 
