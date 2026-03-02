@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useCallback } from "react";
+import React, { useEffect, useMemo, useState, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import { Link, useLocation } from "wouter";
@@ -17,6 +17,8 @@ import {
   Quote,
   Star,
   X,
+  MessageCircle,
+  Zap,
 } from "lucide-react";
 
 const revealViewport = { once: true, amount: 0.22 } as const;
@@ -1518,7 +1520,13 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
 
 function Testimonials({ onContact }: { onContact: () => void }) {
   const reduced = usePrefersReducedMotion();
-  const [active, setActive] = useState<string | null>("t-2");
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: false,
+    align: "start",
+    skipSnaps: false,
+    containScroll: "trimSnaps",
+  });
 
   const items: Testimonial[] = useMemo(
     () => [
@@ -1552,262 +1560,156 @@ function Testimonials({ onContact }: { onContact: () => void }) {
         rating: 5,
         avatar: t3,
       },
+      {
+        id: "t-4",
+        name: "Carlos Mendes",
+        role: "Diretor Comercial",
+        city: "São Paulo, SP",
+        quote:
+          "A transição para o mercado livre de energia com a Track foi transparente. Eles cuidaram de toda a burocracia e agora temos uma economia mensal muito significativa na nossa operação.",
+        rating: 5,
+        avatar: t1,
+      }
     ],
     [],
   );
 
-  const activeItem = items.find((i) => i.id === active) ?? items[0];
-
   return (
     <motion.section 
       id="depoimentos" 
-      className="container-page pb-12 sm:pb-16 lg:pb-20"
+      className="container-page pb-16 sm:pb-20 lg:pb-28 overflow-hidden"
       initial={reduced ? undefined : { opacity: 0, y: 40 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      <motion.div 
-        className="flex items-start justify-between gap-6"
-        initial={reduced ? undefined : { opacity: 0, scale: 0.95 }}
-        whileInView={reduced ? undefined : { opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        <Pill testId="pill-testimonials">( depoimentos )</Pill>
-
-        <div className="hidden" />
-
-        <div className="hidden" />
-      </motion.div>
-
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
-        <motion.div
-          className="relative overflow-hidden rounded-[30px] bg-gradient-to-r from-black via-[#12001f] to-[#1d0238] ring-1 ring-white/10"
-          initial={reduced ? undefined : { opacity: 0, x: -30, filter: "blur(8px)" }}
-          whileInView={reduced ? undefined : { opacity: 1, x: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+      <div className="grid gap-10 lg:grid-cols-[380px_minmax(0,1fr)] xl:grid-cols-[420px_minmax(0,1fr)] lg:gap-14 items-center">
+        
+        <motion.div 
+          className="flex flex-col"
+          initial={reduced ? undefined : { opacity: 0, x: -30 }}
+          whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <div className="absolute inset-0 hero-overlay opacity-60" />
-          <div className="absolute inset-0 noise opacity-[0.22]" />
-
-          {/* Vertical Margin Image (Background) */}
-          <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-full max-w-[400px] overflow-visible opacity-15 mix-blend-luminosity">
-            <img
-              src={marginTrack}
-              alt=""
-              className="absolute left-0 top-1/2 h-auto w-[160vh] max-w-none -translate-x-[45%] -translate-y-1/2 rotate-90 object-cover grayscale invert brightness-75"
-            />
+          <div className="self-start">
+            <Pill testId="pill-testimonials" muted={false}>( depoimentos )</Pill>
           </div>
+          
+          <h2 data-testid="text-testimonials-title" className="mt-6 text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em] text-zinc-950 sm:text-[40px]">
+            O que nossos clientes
+            <br />
+            <span className="subtle-grad">falam sobre a Track</span>
+          </h2>
+          
+          <p data-testid="text-testimonials-sub" className="mt-4 text-sm leading-relaxed text-zinc-500 max-w-[400px]">
+            Experiências reais de quem implementou soluções com a Track, do diagnóstico à operação, com acompanhamento contínuo e foco em resultado.
+          </p>
 
-          <div className="relative p-7 sm:p-8">
-            <div className="flex items-start justify-between gap-4">
+          <a
+            href="https://wa.me/5511999999999?text=Oi!%20Vim%20pelo%20site%20da%20Track%20e%20gostaria%20de%20conversar%20sobre%20solu%C3%A7%C3%B5es%20de%20energia."
+            target="_blank"
+            rel="noreferrer"
+            className="mt-8 group flex items-center justify-between gap-4 rounded-[24px] bg-gradient-to-r from-black via-[#12001f] to-[#1d0238] p-4 text-left shadow-lg ring-1 ring-white/10 transition-all hover:ring-white/30 hover:shadow-xl hover:shadow-[#1d0238]/20 active:scale-[0.98] w-full sm:max-w-[340px]"
+          >
+            <div className="flex items-center gap-3">
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/10 text-white shadow-sm ring-1 ring-white/20 backdrop-blur-md">
+                <MessageCircle className="h-5 w-5" strokeWidth={2.25} />
+              </div>
               <div>
-                <div data-testid="text-testimonials-title" className="text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em] text-white">
-                  O que nossos clientes
-                  <br />
-                  <span className="subtle-grad-dark">falam sobre a Track</span>
+                <div className="text-sm font-bold text-white">
+                  WhatsApp Imediato
                 </div>
-                <div className="mt-3 flex items-end justify-between gap-3">
-                  <p data-testid="text-testimonials-sub" className="max-w-[520px] text-sm leading-6 text-white/70">
-                    Experiências reais de quem implementou soluções com a Track, do diagnóstico à operação, com acompanhamento e foco em resultado.
-                  </p>
-
-                  <div className="hidden" />
+                <div className="text-[11px] font-medium text-white/70 mt-0.5">
+                  Fale com um especialista
                 </div>
-              </div>
-
-              <div className="hidden sm:grid h-11 w-11 place-items-center rounded-2xl bg-white/10 ring-1 ring-white/12">
-                <Quote className="h-5 w-5 text-white" strokeWidth={2.25} />
               </div>
             </div>
-
-            <div className="relative mt-7 rounded-[22px] bg-white/10 p-6 pb-20 ring-1 ring-white/12 backdrop-blur">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-white/10 ring-1 ring-white/12">
-                    <img
-                      data-testid="img-testimonial-active-avatar"
-                      src={activeItem.avatar}
-                      alt={activeItem.name}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div>
-                    <div data-testid="text-testimonial-active-name" className="text-sm font-semibold text-white">
-                      {activeItem.name}
-                    </div>
-                    <div
-                      data-testid="text-testimonial-active-role"
-                      className="mt-0.5 text-[12px] text-white/65 sm:whitespace-nowrap"
-                    >
-                      <span className="hidden sm:inline">{activeItem.role} · {activeItem.city}</span>
-                      <span className="sm:hidden">{activeItem.role}</span>
-                      <br className="sm:hidden" />
-                      <span className="sm:hidden">{activeItem.city}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-1 sm:justify-end" aria-label="Avaliação">
-                  {new Array(5).fill(0).map((_, i) => (
-                    <Star
-                      data-testid={`icon-testimonial-active-star-${i}`}
-                      key={i}
-                      className={"h-4 w-4 " + (i < activeItem.rating ? "text-white" : "text-white/25")}
-                      fill={i < activeItem.rating ? "currentColor" : "none"}
-                      strokeWidth={2}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={activeItem.id}
-                  data-testid="text-testimonial-active-quote"
-                  className="mt-4 text-sm leading-6 text-white/78"
-                  initial={reduced ? undefined : { opacity: 0, y: 8 }}
-                  animate={reduced ? undefined : { opacity: 1, y: 0 }}
-                  exit={reduced ? undefined : { opacity: 0, y: -8 }}
-                  transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
-                >
-                  “{activeItem.quote}”
-                </motion.p>
-              </AnimatePresence>
-
-              <div className="absolute bottom-4 right-4 flex items-center gap-2">
-                <button
-                  data-testid="button-testimonials-prev-inside"
-                  onClick={() => {
-                    const idx = items.findIndex((i) => i.id === activeItem.id);
-                    const next = (idx - 1 + items.length) % items.length;
-                    setActive(items[next].id);
-                  }}
-                  className="grid h-10 w-10 place-items-center rounded-full bg-white/12 text-white ring-1 ring-white/16 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
-                  aria-label="Depoimento anterior"
-                >
-                  <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
-                </button>
-                <button
-                  data-testid="button-testimonials-next-inside"
-                  onClick={() => {
-                    const idx = items.findIndex((i) => i.id === activeItem.id);
-                    const next = (idx + 1) % items.length;
-                    setActive(items[next].id);
-                  }}
-                  className="grid h-10 w-10 place-items-center rounded-full bg-white/12 text-white ring-1 ring-white/16 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
-                  aria-label="Próximo depoimento"
-                >
-                  <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
-                </button>
-              </div>
+            <div className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/10 ring-1 ring-white/20 text-white transition-all group-hover:bg-white/20 group-hover:translate-x-1">
+              <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
             </div>
-
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <button
-                data-testid="button-testimonials-cta"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]"
-                onClick={onContact}
-              >
-                Converse com a gente
-                <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
-                  <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
-                </span>
-              </button>
-              <div data-testid="text-testimonials-proof" className="text-[11px] font-semibold uppercase tracking-wide text-white/55">
-                4,9/5 · 1.200+ instalações
-              </div>
-            </div>
-          </div>
+          </a>
         </motion.div>
 
-        <div className="hidden lg:grid gap-4">
-          {items.map((t, i) => {
-            const selected = t.id === activeItem.id;
-            return (
-              <motion.button
-                data-testid={`card-testimonial-${t.id}`}
-                key={t.id}
-                onClick={() => setActive(t.id)}
-                onFocus={() => setActive(t.id)}
-                className={
-                  "group text-left rounded-[26px] p-5 ring-1 transition-all duration-300 " +
-                  (selected
-                    ? "bg-[#1d0238] text-white ring-[#1d0238]/18 scale-[1.02] shadow-xl shadow-[#1d0238]/10"
-                    : "bg-white text-zinc-950 ring-zinc-200 hover:ring-zinc-300 hover:bg-zinc-50 hover:scale-[1.01]")
-                }
-                initial={reduced ? undefined : { opacity: 0, x: 30 }}
-                whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 + (i * 0.1) }}
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={
-                        "h-11 w-11 shrink-0 overflow-hidden rounded-full ring-1 " +
-                        (selected ? "bg-white/10 ring-white/12" : "bg-zinc-100 ring-zinc-200")
-                      }
-                    >
-                      <img
-                        data-testid={`img-testimonial-avatar-${t.id}`}
-                        src={t.avatar}
-                        alt={t.name}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                    <div>
-                      <div
-                        data-testid={`text-testimonial-name-${t.id}`}
-                        className={"text-sm font-semibold " + (selected ? "text-white" : "text-zinc-950")}
-                      >
-                        {t.name}
-                      </div>
-                      <div
-                        data-testid={`text-testimonial-meta-${t.id}`}
-                        className={"mt-0.5 text-[12px] " + (selected ? "text-white/65" : "text-zinc-500")}
-                      >
-                        {t.role} · {t.city}
-                      </div>
-                    </div>
-                  </div>
+        <motion.div 
+          className="relative min-w-0 w-full"
+          initial={reduced ? undefined : { opacity: 0, x: 30 }}
+          whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        >
+          <div className="absolute top-0 bottom-0 right-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
-                  <div className="flex items-center gap-1">
-                    {new Array(5).fill(0).map((_, s) => (
-                      <Star
-                        data-testid={`icon-testimonial-star-${t.id}-${s}`}
-                        key={s}
-                        className={
-                          "h-3.5 w-3.5 " +
-                          (selected
-                            ? s < t.rating
-                              ? "text-white"
-                              : "text-white/25"
-                            : s < t.rating
-                              ? "text-zinc-950"
-                              : "text-zinc-950/20")
-                        }
-                        fill={s < t.rating ? "currentColor" : "none"}
-                        strokeWidth={2}
-                      />
-                    ))}
-                  </div>
-                </div>
-
+          <div className="overflow-visible" ref={emblaRef}>
+            <div className="flex touch-pan-y gap-6 sm:gap-8 py-4 px-2" style={{ backfaceVisibility: 'hidden' }}>
+              {items.map((t) => (
                 <div
-                  data-testid={`text-testimonial-snippet-${t.id}`}
-                  className={
-                    "mt-3 text-sm leading-6 " + (selected ? "text-white/75" : "text-zinc-500")
-                  }
+                  key={`testimonial-slide-${t.id}`}
+                  className="relative shrink-0 w-[85%] sm:w-[320px] h-full"
                 >
-                  “{t.quote}”
+                  <div className="flex flex-col h-full rounded-[32px] p-6 sm:p-8 bg-zinc-50 ring-1 ring-zinc-100 transition-all duration-300 hover:ring-zinc-200 hover:bg-white hover:shadow-xl hover:shadow-black/5">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-center gap-4">
+                        <div className="h-12 w-12 sm:h-14 sm:w-14 shrink-0 overflow-hidden rounded-full ring-1 bg-zinc-100 ring-zinc-200">
+                          <img
+                            src={t.avatar}
+                            alt={t.name}
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <div className="text-sm sm:text-base font-bold text-zinc-950">
+                            {t.name}
+                          </div>
+                          <div className="mt-0.5 text-xs sm:text-sm font-medium text-zinc-500">
+                            {t.role} · {t.city}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-6 flex-1 relative">
+                        <Quote className="absolute -top-3 -left-2 h-8 w-8 text-zinc-200 -z-10" />
+                        <p className="text-sm sm:text-base leading-relaxed text-zinc-600 relative z-10">
+                          “{t.quote}”
+                        </p>
+                    </div>
+
+                    <div className="mt-6 flex items-center justify-between">
+                      <div className="flex items-center gap-1">
+                        {new Array(5).fill(0).map((_, s) => (
+                          <Star
+                            key={s}
+                            className={`h-4 w-4 ${s < t.rating ? "text-zinc-950" : "text-zinc-200"}`}
+                            fill={s < t.rating ? "currentColor" : "none"}
+                            strokeWidth={2}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </motion.button>
-            );
-          })}
-        </div>
+              ))}
+            </div>
+          </div>
+          
+          <div className="mt-6 flex items-center gap-2 pl-2">
+            <button
+              onClick={() => emblaApi?.scrollPrev()}
+              className="grid h-10 w-10 place-items-center rounded-full bg-white shadow-sm ring-1 ring-zinc-200 text-zinc-600 transition hover:bg-zinc-50 hover:text-zinc-900 active:scale-[0.98]"
+              aria-label="Anterior"
+            >
+              <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
+            </button>
+            <button
+              onClick={() => emblaApi?.scrollNext()}
+              className="grid h-10 w-10 place-items-center rounded-full bg-white shadow-sm ring-1 ring-zinc-200 text-zinc-600 transition hover:bg-zinc-50 hover:text-zinc-900 active:scale-[0.98]"
+              aria-label="Próximo"
+            >
+              <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
+            </button>
+          </div>
+        </motion.div>
       </div>
     </motion.section>
   );
