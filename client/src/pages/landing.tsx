@@ -1210,7 +1210,17 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
     >
       {/* Background decorations */}
       <div className="absolute inset-0 noise opacity-30 mix-blend-overlay" />
-      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-[#30045c]/40 rounded-full blur-[140px] pointer-events-none" />
+      
+      {/* Margin Track Decoration */}
+      <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-full max-w-[400px] overflow-visible opacity-10 mix-blend-luminosity">
+        <img
+          src={marginTrack}
+          alt=""
+          className="absolute left-0 top-1/2 h-auto w-[180vh] max-w-none -translate-x-[40%] -translate-y-1/2 rotate-90 object-cover grayscale invert brightness-75"
+        />
+      </div>
+
+      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-[#30045c]/40 rounded-full blur-[140px] pointer-events-none" /> w-[60%] h-[60%] bg-[#30045c]/40 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-[#1d0238]/60 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 flex flex-col gap-10 lg:gap-14">
