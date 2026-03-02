@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import { Link, useLocation } from "wouter";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -636,6 +636,15 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
   const [useFallback, setUseFallback] = useState(false);
   const [startFullImageLoad, setStartFullImageLoad] = useState(false);
 
+  const { scrollY } = useScroll();
+  const yImage = useTransform(scrollY, [0, 1000], [0, 300]);
+  const scaleImage = useTransform(scrollY, [0, 1000], [1, 1.15]);
+  const yText = useTransform(scrollY, [0, 800], [0, -150]);
+  const opacityText = useTransform(scrollY, [0, 400], [1, 0]);
+  const filterText = useTransform(scrollY, [0, 400], ["blur(0px)", "blur(8px)"]);
+  const yButtons = useTransform(scrollY, [0, 600], [0, 100]);
+  const opacityButtons = useTransform(scrollY, [0, 300], [1, 0]);
+
   // Iniciar carregamento da hero em qualidade cheia cedo, em paralelo com a intro,
   // para não depender do fim da animação da logo (que no mobile atrasa). Assim
   // o download corre em background (fetchPriority="low", decoding="async") e
@@ -649,12 +658,29 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
     `h-full min-h-screen w-full object-cover object-left md:object-center brightness-100 contrast-[1.02] transition-opacity duration-700 ease-out ` +
     (fullImageLoaded ? "opacity-100" : "opacity-0");
 
+  const heroContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2
+      }
+    }
+  };
+
   return (
     <section
       id="inicio"
       className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#0d0115] via-[#150120] to-black"
     >
-      <div className="absolute inset-0 overflow-hidden">
+      <motion.div 
+        className="absolute inset-0 overflow-hidden origin-center"
+        style={{
+          y: reduced ? 0 : yImage,
+          scale: reduced ? 1 : scaleImage,
+        }}
+      >
         {useFallback ? (
           <>
             {startFullImageLoad && (
@@ -674,7 +700,10 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
         ) : (
           <>
             {/* Camada 1: preview — aparece instantaneamente */}
-            <img
+            <motion.img
+              initial={{ scale: 1.15, filter: "blur(12px)" }}
+              animate={{ scale: 1, filter: "blur(0px)" }}
+              transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
               src="/hero/hero-preview.webp"
               alt=""
               aria-hidden
@@ -713,7 +742,7 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
           </>
         )}
         <div className="absolute inset-0 noise opacity-[0.06]" aria-hidden />
-      </div>
+      </motion.div>
 
       <div className="absolute inset-0 flex flex-col">
         {/* Overlay escuro apenas atrás da área do texto */}
@@ -736,12 +765,17 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
                 variants={reduced ? undefined : heroContainerVariants}
                 initial={reduced ? undefined : "hidden"}
                 animate="visible"
+                style={{
+                  y: reduced ? 0 : yText,
+                  opacity: reduced ? 1 : opacityText,
+                  filter: reduced ? "none" : filterText
+                }}
               >
                 <motion.h1
                   data-testid="text-hero-title"
                   className="text-balance text-[40px] font-medium leading-[1.08] tracking-[-0.03em] text-white sm:text-[48px] sm:leading-[1] md:text-[64px] lg:text-[76px]"
-                  variants={reduced ? undefined : { hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0 } }}
-                  transition={reduced ? undefined : { duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+                  variants={reduced ? undefined : { hidden: { opacity: 0, y: 40, filter: "blur(12px)", scale: 0.95 }, visible: { opacity: 1, y: 0, filter: "blur(0px)", scale: 1 } }}
+                  transition={reduced ? undefined : { duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                 >
                   Soluções de energia
                   <br />
@@ -753,16 +787,20 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
                 <motion.p
                   data-testid="text-hero-subtitle"
                   className="mt-4 max-w-[480px] text-sm leading-6 text-white/70 sm:mt-6 sm:text-base sm:leading-7"
-                  variants={reduced ? undefined : { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
-                  transition={reduced ? undefined : { duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                  variants={reduced ? undefined : { hidden: { opacity: 0, y: 30, filter: "blur(8px)" }, visible: { opacity: 1, y: 0, filter: "blur(0px)" } }}
+                  transition={reduced ? undefined : { duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 >
                   A Track entrega soluções reais em energia: da eficiência à geração, armazenamento e mercado livre, com proposta sob medida, execução e monitoramento contínuo.
                 </motion.p>
 
                 <motion.div
-                  className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4"
-                  variants={reduced ? undefined : { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                  transition={reduced ? undefined : { duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4 origin-left"
+                  variants={reduced ? undefined : { hidden: { opacity: 0, y: 30, scale: 0.9 }, visible: { opacity: 1, y: 0, scale: 1 } }}
+                  transition={reduced ? undefined : { duration: 0.8, ease: [0.22, 1, 0.36, 1], type: "spring", stiffness: 80, damping: 15 }}
+                  style={{
+                    y: reduced ? 0 : yButtons,
+                    opacity: reduced ? 1 : opacityButtons
+                  }}
                 >
                   <PrimaryButton testId="button-explore-now" onClick={onContact}>
                     Vamos conversar
