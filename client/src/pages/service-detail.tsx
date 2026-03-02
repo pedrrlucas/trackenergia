@@ -371,53 +371,30 @@ export default function ServiceDetailPage() {
 
             <div className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
               <motion.section
-                data-testid="section-service-scope"
-                className="overflow-hidden rounded-[28px] bg-white ring-1 ring-zinc-200"
-                initial={reduced ? undefined : { opacity: 0, y: 16 }}
-                whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+                data-testid="section-service-image"
+                className="relative w-full h-full min-h-[320px] sm:min-h-[420px] overflow-hidden rounded-[28px] lg:rounded-[36px] bg-zinc-900 group shadow-lg"
+                initial={reduced ? undefined : { opacity: 0, x: 20 }}
+                whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
                 viewport={revealViewport}
                 transition={revealTransition}
               >
-                <div className="px-7 pt-7">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <div data-testid="text-scope-title" className="text-sm font-semibold text-zinc-950">
-                        O que entregamos
-                      </div>
-                      <div data-testid="text-scope-sub" className="mt-1 text-sm text-zinc-600">
-                        Cada item abre com mais detalhes.
-                      </div>
-                    </div>
-                    <div className="hidden sm:grid h-10 w-10 place-items-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200">
-                      <ArrowRight className="h-5 w-5 text-zinc-900" strokeWidth={2.25} />
-                    </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#1d0238]/30 to-[#30045c]/30 blur-2xl -z-10 transition-opacity duration-700 opacity-0 group-hover:opacity-100" />
+                <img 
+                  src={service.image} 
+                  alt={service.title} 
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-[0.16,1,0.3,1] group-hover:scale-105"
+                />
+                {/* Gradiente escuro para dar contraste e volume */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/20 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-60" />
+                
+                <div className="absolute bottom-0 left-0 right-0 p-8 sm:p-10 text-white flex flex-col justify-end">
+                  <div className="inline-flex w-fit items-center rounded-full bg-white/10 backdrop-blur-md px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] mb-4 border border-white/20 shadow-sm transition-transform duration-500 group-hover:-translate-y-1">
+                    {service.tag}
                   </div>
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight leading-[1.1] transition-transform duration-500 group-hover:-translate-y-1">
+                    {service.title}
+                  </h3>
                 </div>
-
-                <Accordion.Root type="single" collapsible className="mt-6 grid divide-y divide-zinc-200">
-                  {service.scope.map((s, i) => (
-                    <Accordion.Item key={i} value={String(i)} className="">
-                      <Accordion.Header className="">
-                        <Accordion.Trigger
-                          data-testid={`accordion-scope-trigger-${i}`}
-                          className="group flex w-full cursor-pointer items-center justify-between gap-4 px-7 py-5 text-left"
-                        >
-                          <div className="min-w-0">
-                            <div className="truncate text-sm font-semibold text-zinc-950">{s}</div>
-                          </div>
-                          <span className="grid h-7 w-7 place-items-center rounded-full bg-zinc-100 text-zinc-700 ring-1 ring-zinc-200">
-                            <ChevronRight className="h-4 w-4 transition group-data-[state=open]:rotate-90" strokeWidth={2.25} />
-                          </span>
-                        </Accordion.Trigger>
-                      </Accordion.Header>
-                      <Accordion.Content className="px-7 pb-6 data-[state=closed]:animate-accordionUp data-[state=open]:animate-accordionDown">
-                        <div data-testid={`accordion-scope-content-${i}`} className="text-sm leading-6 text-zinc-600">
-                          Entregáveis e passos típicos para <span className="font-medium text-zinc-800">{s}</span>, ajustados ao seu contexto e às prioridades do projeto.
-                        </div>
-                      </Accordion.Content>
-                    </Accordion.Item>
-                  ))}
-                </Accordion.Root>
               </motion.section>
 
               <motion.aside
