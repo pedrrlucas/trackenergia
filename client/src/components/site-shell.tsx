@@ -541,135 +541,274 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
   );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-const WHATSAPP_LINK = "https://wa.me/5511999999999";
-const WHATSAPP_MESSAGE = "Oi! Vim pelo site da Track e gostaria de conversar sobre soluções de energia.";
-const CONTACT_EMAIL = "contato@trackenergia.com.br";
 const INSTAGRAM_USERNAME = "track.energia";
 const INSTAGRAM_PROFILE_URL = `https://www.instagram.com/${INSTAGRAM_USERNAME}/`;
 
 export function SiteFooter({ onContact }: { onContact: () => void }) {
+  const scrollRef = React.useRef<HTMLDivElement | null>(null);
+  const { data, isLoading } = useQuery<{ posts: Array<{ id: string; media_url: string; thumbnail_url?: string; permalink: string }> }>({
+    queryKey: ["/api/instagram/posts"],
+    staleTime: 60 * 60 * 1000, // 1h - server já faz cache
+  });
+  const posts = data?.posts ?? [];
+
+  const scrollBy = (dir: -1 | 1) => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const gap = 6;
+    const card = el.querySelector<HTMLElement>("[data-ig-card]");
+    const step = card ? card.offsetWidth + gap : el.clientWidth;
+    el.scrollBy({ left: dir * step, behavior: "smooth" });
+  };
+
   return (
-    <footer id="footer" className="w-full bg-black">
-      <div className="mx-auto w-full max-w-[1560px] px-6 sm:px-8 lg:px-12 pt-20 pb-8 lg:pt-28 lg:pb-10">
-        <div className="flex flex-col gap-16 lg:flex-row lg:justify-between">
-          
-          {/* Left Column */}
-          <div className="flex flex-col max-w-sm">
-            <div className="flex items-center gap-4 mb-10">
-              <span className="grid h-[60px] w-[60px] place-items-center rounded-full bg-white text-black">
-                <img src={footerLogoMark} alt="" className="h-8 w-8 object-contain brightness-0" />
-              </span>
-              <img
-                src={footerLogoText}
-                alt="Track"
-                className="h-6 w-auto object-contain brightness-0 invert"
-              />
-            </div>
-
-            <div className="text-[17px] font-bold leading-relaxed text-white mb-10">
-              Track. Soluções em energia<br/>
-              Uberlândia, Minas Gerais
-            </div>
-
-            <div className="flex flex-wrap items-center gap-4 text-white">
-              <a 
-                href={`${WHATSAPP_LINK}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`}
-                target="_blank" rel="noreferrer"
-                className="grid h-14 w-14 place-items-center rounded-full bg-white text-black transition hover:scale-105 active:scale-95"
-              >
-                <MessageCircle className="h-6 w-6" />
-              </a>
-              <a href={`mailto:${CONTACT_EMAIL}`} className="grid h-14 w-14 place-items-center rounded-full border-[1.5px] border-white/20 transition hover:bg-white hover:border-white hover:text-black hover:scale-105 active:scale-95">
-                <Mail className="h-6 w-6" />
-              </a>
-              <a href={INSTAGRAM_PROFILE_URL} target="_blank" rel="noopener noreferrer" className="grid h-14 w-14 place-items-center rounded-full border-[1.5px] border-white/20 transition hover:bg-white hover:border-white hover:text-black hover:scale-105 active:scale-95">
-                <Instagram className="h-6 w-6" />
-              </a>
-              <a href="#" className="grid h-14 w-14 place-items-center rounded-full border-[1.5px] border-white/20 transition hover:bg-white hover:border-white hover:text-black hover:scale-105 active:scale-95">
-                <Facebook className="h-6 w-6" />
-              </a>
-              <a href="#" className="grid h-14 w-14 place-items-center rounded-full border-[1.5px] border-white/20 transition hover:bg-white hover:border-white hover:text-black hover:scale-105 active:scale-95">
-                <Linkedin className="h-6 w-6" />
-              </a>
-            </div>
-          </div>
-
-          {/* Middle Columns */}
-          <div className="grid grid-cols-2 gap-x-12 gap-y-12 sm:grid-cols-2 lg:gap-x-32 pt-4">
-            <div>
-              <div className="text-sm font-bold text-white mb-8">
-                Navegação
+    <footer id="footer" className="w-full bg-white">
+      <div className="w-full bg-gradient-to-r from-black via-[#12001f] to-[#1d0238]">
+        <div className="mx-auto w-full max-w-[1560px] px-6 sm:px-8 lg:px-10 2xl:px-12">
+          <div className="flex flex-col gap-12 py-12 lg:grid lg:grid-cols-4 lg:items-start lg:gap-10 lg:py-16">
+            <div className="min-w-0 max-w-sm">
+              <div className="flex items-center gap-3">
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/10">
+                  <img src={footerLogoMark} alt="" className="h-5 w-5 object-contain" />
+                </span>
+                <img
+                  src={footerLogoText}
+                  alt="Track"
+                  data-testid="text-footer-brand"
+                  className="h-3.5 w-auto object-contain brightness-0 invert"
+                />
               </div>
-              <div className="flex flex-col gap-6 text-base font-bold text-white">
-                <a href="/#inicio" className="transition hover:opacity-70">Início</a>
-                <a href="/#editorial" className="transition hover:opacity-70">Editorial</a>
-                <a href="/#servicos" className="transition hover:opacity-70">Serviços</a>
-                <a href="/#depoimentos" className="transition hover:opacity-70">Depoimentos</a>
-                <a href="/contato" className="transition hover:opacity-70">Contato</a>
-              </div>
-            </div>
 
-            <div>
-              <div className="text-sm font-bold text-white mb-8">
-                Soluções
+              <div data-testid="text-footer-address" className="mt-6 text-sm leading-6 text-white/60">
+                Track, Soluções em energia<br/>
+                Uberlândia, Minas Gerais
               </div>
-              <div className="flex flex-col gap-6 text-base font-bold text-white">
-                <Link href="/servicos" className="flex items-center gap-2 transition hover:opacity-70 group">
-                  Ver todas
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" strokeWidth={3} />
-                </Link>
-                <Link href="/servicos/eficiencia" className="transition hover:opacity-70">Eficiência</Link>
-                <Link href="/servicos/geracao" className="transition hover:opacity-70">Geração própria</Link>
-                <Link href="/servicos/armazenamento" className="transition hover:opacity-70">Armazenamento</Link>
+
+              <div className="mt-8 flex flex-wrap items-center gap-3 text-white/75">
+                <a
+                  data-testid="icon-whatsapp"
+                  href={`${WHATSAPP_LINK}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="grid h-11 w-11 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white hover:scale-105 active:scale-95"
+                  aria-label="WhatsApp"
+                >
+                  <MessageCircle className="h-5 w-5" strokeWidth={2} />
+                </a>
+                <a
+                  data-testid="icon-email"
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="grid h-11 w-11 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white hover:scale-105 active:scale-95"
+                  aria-label="E-mail"
+                >
+                  <Mail className="h-5 w-5" strokeWidth={2} />
+                </a>
+                <a
+                  data-testid="icon-instagram"
+                  href={INSTAGRAM_PROFILE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="grid h-11 w-11 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white hover:scale-105 active:scale-95"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="h-5 w-5" strokeWidth={2} />
+                </a>
+                <a
+                  data-testid="icon-facebook"
+                  href="#"
+                  className="grid h-11 w-11 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white hover:scale-105 active:scale-95"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="h-5 w-5" strokeWidth={2} />
+                </a>
+                <a
+                  data-testid="icon-linkedin"
+                  href="#"
+                  className="grid h-11 w-11 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white hover:scale-105 active:scale-95"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="h-5 w-5" strokeWidth={2} />
+                </a>
               </div>
             </div>
-          </div>
 
-          {/* Right Column */}
-          <div className="flex flex-col lg:items-end pt-4">
-            <div className="flex items-center justify-between w-full lg:w-[420px] gap-8 mb-6">
-              <div className="text-sm font-bold text-white">
-                Fale conosco
-              </div>
-              <a href={INSTAGRAM_PROFILE_URL} target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-white transition hover:opacity-70">
-                @track.energia
-              </a>
-            </div>
-            <div className="w-full lg:w-[420px]">
-              <button onClick={onContact} className="group relative w-full overflow-hidden rounded-[40px] bg-white p-1 text-left transition-all hover:scale-[1.02] active:scale-[0.98]">
-                <div className="flex w-full items-center justify-between rounded-[36px] border border-black/10 bg-white px-8 py-10 sm:py-12">
-                  <div className="flex flex-col gap-3">
-                    <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest">Inicie um projeto</span>
-                    <span className="text-[32px] leading-none font-bold text-black tracking-tight">Entrar em<br/>contato</span>
-                  </div>
-                  <div className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-black text-white transition-transform duration-500 group-hover:-rotate-45">
-                    <ArrowRight className="h-7 w-7" strokeWidth={2.5} />
-                  </div>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:col-span-3">
+              <div>
+                <div data-testid="text-footer-nav-title" className="text-[11px] font-bold uppercase tracking-wider text-white/40">
+                  Navegação
                 </div>
-              </button>
+                <div className="mt-6 flex flex-col gap-3 text-[13px] font-medium text-white/80">
+                  <a
+                    data-testid="link-footer-home"
+                    href="/#inicio"
+                    className="transition hover:text-white"
+                  >
+                    Início
+                  </a>
+                  <a
+                    data-testid="link-footer-editorial"
+                    href="/#editorial"
+                    className="transition hover:text-white"
+                  >
+                    Editorial
+                  </a>
+                  <a
+                    data-testid="link-footer-servicos"
+                    href="/#servicos"
+                    className="transition hover:text-white"
+                  >
+                    Serviços
+                  </a>
+                  <a
+                    data-testid="link-footer-testimonials"
+                    href="/#depoimentos"
+                    className="transition hover:text-white"
+                  >
+                    Depoimentos
+                  </a>
+                  <Link
+                    data-testid="link-footer-contact"
+                    href="/contato"
+                    className="transition hover:text-white"
+                  >
+                    Contato
+                  </Link>
+                </div>
+              </div>
+
+              <div>
+                <div data-testid="text-footer-solutions-title" className="text-[11px] font-bold uppercase tracking-wider text-white/40">
+                  Soluções
+                </div>
+                <div className="mt-6 flex flex-col gap-3 text-[13px] font-medium text-white/80">
+                  <Link
+                    data-testid="link-footer-services"
+                    href="/servicos"
+                    className="flex items-center gap-2 transition hover:text-white group"
+                  >
+                    Ver todas
+                    <ArrowRight className="h-3 w-3 opacity-50 transition-transform group-hover:translate-x-0.5" />
+                  </Link>
+                  <Link
+                    data-testid="link-footer-efficiency"
+                    href="/servicos/eficiencia"
+                    className="transition hover:text-white"
+                  >
+                    Eficiência
+                  </Link>
+                  <Link
+                    data-testid="link-footer-generation"
+                    href="/servicos/geracao"
+                    className="transition hover:text-white"
+                  >
+                    Geração própria
+                  </Link>
+                  <Link
+                    data-testid="link-footer-storage"
+                    href="/servicos/armazenamento"
+                    className="transition hover:text-white"
+                  >
+                    Armazenamento
+                  </Link>
+                </div>
+              </div>
+
+              <div className="col-span-2 sm:col-span-1 pt-4 sm:pt-0 border-t border-white/5 sm:border-0">
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div data-testid="text-footer-instagram-title" className="text-[11px] font-bold uppercase tracking-wider text-white/40">
+                    Instagram
+                  </div>
+                  <a
+                    data-testid="link-footer-instagram"
+                    href={INSTAGRAM_PROFILE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[11px] font-semibold text-white/60 transition hover:text-white"
+                  >
+                    @{INSTAGRAM_USERNAME}
+                  </a>
+                </div>
+
+                <div data-testid="carousel-instagram" className="group relative mt-3 rounded-2xl bg-white/6 p-2 ring-1 ring-white/10">
+                  <div
+                    ref={scrollRef}
+                    className="scrollbar-none flex snap-x snap-mandatory gap-1.5 overflow-x-auto overscroll-x-contain"
+                    style={{ scrollPaddingLeft: 8, scrollPaddingRight: 8 }}
+                  >
+                    {isLoading || posts.length === 0
+                      ? new Array(9).fill(0).map((_, i) => (
+                          <div
+                            data-testid={`card-footer-ig-${i}`}
+                            data-ig-card
+                            key={i}
+                            className="relative aspect-square w-[calc((100%-12px)/3)] shrink-0 snap-start overflow-hidden rounded-lg bg-white/7 ring-1 ring-white/10"
+                            aria-hidden
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
+                            <div className="absolute inset-0 grid place-items-center">
+                              <div className="h-7 w-7 rounded-xl bg-white/10 ring-1 ring-white/12" />
+                            </div>
+                          </div>
+                        ))
+                      : posts.map((post, i) => (
+                          <a
+                            data-testid={`card-footer-ig-${i}`}
+                            data-ig-card
+                            key={post.id}
+                            href={post.permalink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="relative aspect-square w-[calc((100%-12px)/3)] shrink-0 snap-start overflow-hidden rounded-lg bg-white/7 ring-1 ring-white/10 transition hover:bg-white/10"
+                            aria-label={`Post do Instagram ${i + 1}`}
+                          >
+                            <img
+                              src={post.thumbnail_url || post.media_url}
+                              alt=""
+                              className="absolute inset-0 h-full w-full object-cover"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
+                            <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-black/45 to-transparent opacity-0 transition group-hover:opacity-100" />
+                          </a>
+                        ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    data-testid="button-ig-prev"
+                    onClick={() => scrollBy(-1)}
+                    className="pointer-events-none absolute left-2 top-1/2 hidden h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-white/12 text-white/80 opacity-0 ring-1 ring-white/16 backdrop-blur transition group-hover:opacity-100 md:grid md:group-hover:pointer-events-auto"
+                    aria-label="Anterior"
+                  >
+                    <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
+                  </button>
+                  <button
+                    type="button"
+                    data-testid="button-ig-next"
+                    onClick={() => scrollBy(1)}
+                    className="pointer-events-none absolute right-2 top-1/2 hidden h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-white/12 text-white/80 opacity-0 ring-1 ring-white/16 backdrop-blur transition group-hover:opacity-100 md:grid md:group-hover:pointer-events-auto"
+                    aria-label="Próximo"
+                  >
+                    <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
-        </div>
-
-        <div className="mt-24 border-t border-white pt-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[17px] font-bold text-white">
-          <div>© {new Date().getFullYear()} Track. Todos os direitos reservados.</div>
+          <div className="border-t border-white/10 py-6 text-xs text-white/55">
+            <div data-testid="text-footer-copyright">© {new Date().getFullYear()} Track. Todos os direitos reservados.</div>
+          </div>
         </div>
       </div>
     </footer>
   );
 }
+
+const WHATSAPP_LINK = "https://wa.me/5511999999999";
+const WHATSAPP_MESSAGE = "Oi! Vim pelo site da Track e gostaria de conversar sobre soluções de energia.";
+const CONTACT_EMAIL = "contato@trackenergia.com.br";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const [location, setLocation] = useLocation();
@@ -717,7 +856,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   const onContact = () => setLocation("/contato");
 
   return (
-    <div data-testid="site-shell" className="min-h-screen w-full bg-black">
+    <div data-testid="site-shell" className="min-h-screen w-full">
       <div className="relative">
         <SiteHeader onContact={onContact} />
         {children}
