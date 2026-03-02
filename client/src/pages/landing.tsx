@@ -1159,358 +1159,179 @@ function Editorial() {
 
 function ProductFeature({ product, products, onContact }: { product: Product; products: Product[]; onContact: () => void }) {
   const reduced = usePrefersReducedMotion();
-  const [activeId, setActiveId] = useState<string>(products[0].id);
-  const [scrollIndex, setScrollIndex] = useState(0);
-  const [isDesktop, setIsDesktop] = useState(false);
-  const [timerKey, setTimerKey] = useState(0);
-
-  // Detectar viewport desktop (lg = 1024px) para ativar rotação automática só no desktop
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const update = () => setIsDesktop(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
-  // Rotação automática da imagem principal apenas em desktop (8s). Hover no card reinicia o cronômetro.
-  useEffect(() => {
-    if (!isDesktop || products.length === 0) return;
-    const interval = setInterval(() => {
-      setActiveId((currentId) => {
-        const idx = products.findIndex((p) => p.id === currentId);
-        const nextIdx = (idx + 1) % products.length;
-        return products[nextIdx].id;
-      });
-    }, 8000);
-    return () => clearInterval(interval);
-  }, [isDesktop, products, timerKey]);
-
-  const handleProductHover = useCallback((id: string) => {
-    setActiveId(id);
-    setTimerKey((k) => k + 1);
-  }, []);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: false,
-    align: "center",
-    skipSnaps: false,
-    containScroll: false,
+    loop: true,
+    align: "start",
+    dragFree: true,
+    containScroll: "trimSnaps",
   });
 
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    const index = emblaApi.selectedScrollSnap();
-    if (products[index]) {
-       setActiveId(products[index].id);
+  const [activeId, setActiveId] = useState<string>(products[0].id);
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  const onSelect = useCallback((api: any) => {
+    if (!api) return;
+    const snapIndex = api.selectedScrollSnap();
+    if (products[snapIndex]) {
+      setActiveId(products[snapIndex].id);
     }
-  }, [emblaApi, products]);
+  }, [products]);
 
   useEffect(() => {
     if (!emblaApi) return;
-    emblaApi.on("select", onSelect);
-    emblaApi.on("reInit", onSelect);
-    // Sync initial state
-    const index = products.findIndex(p => p.id === activeId);
-    if (index !== -1) emblaApi.scrollTo(index, true);
-
+    
+    emblaApi.on("select", () => onSelect(emblaApi));
+    emblaApi.on("reInit", () => onSelect(emblaApi));
+    
+    onSelect(emblaApi);
+    
     return () => {
-        emblaApi.off("select", onSelect);
-        emblaApi.off("reInit", onSelect);
+      emblaApi.off("select", () => onSelect(emblaApi));
+      emblaApi.off("reInit", () => onSelect(emblaApi));
     };
-  }, [emblaApi, onSelect]); // Removed activeId from deps to avoid loop
-
-  const activeProduct = useMemo(
-    () => products.find((p) => p.id === activeId) || products[0],
-    [activeId, products],
-  );
-
-  const handleNext = () => {
-    setScrollIndex((prev) => Math.min(prev + 1, products.length - 4));
-  };
-
-  const handlePrev = () => {
-    setScrollIndex((prev) => Math.max(prev - 1, 0));
-  };
-
-  const visibleProducts = useMemo(() => {
-    // For desktop carousel logic
-    return products; 
-  }, [products]);
+  }, [emblaApi, onSelect]);
 
   return (
-    <motion.section
-      id="servicos"
-      className="container-page pb-12 sm:pb-16 lg:pb-20"
+    <motion.section 
+      id="servicos" 
+      className="container-page py-16 sm:py-20 lg:py-28 overflow-hidden bg-[#0a0014] rounded-[40px] lg:rounded-[64px] my-10 relative shadow-[0_0_100px_rgba(29,2,56,0.3)]"
       initial={reduced ? undefined : { opacity: 0, y: 40 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      <motion.div
-        initial={reduced ? undefined : { opacity: 0, scale: 0.95 }}
-        whileInView={reduced ? undefined : { opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        <Pill testId="pill-servicos" muted={false}>
-          ( serviços )
-        </Pill>
-      </motion.div>
-      
-      <div className="mt-6 grid gap-6 md:grid-cols-2 lg:gap-8">
-        <motion.div
-          className="rounded-[28px] bg-zinc-50 p-8 ring-1 ring-zinc-100 transition-shadow hover:shadow-xl hover:shadow-zinc-200/40"
-          initial={reduced ? undefined : { opacity: 0, x: -30 }}
-          whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-        >
-          <h3
-            data-testid="text-product-title"
-            className="mt-6 text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em]"
+      {/* Background decorations */}
+      <div className="absolute inset-0 noise opacity-30 mix-blend-overlay" />
+      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-[#30045c]/40 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-[#1d0238]/60 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="relative z-10 flex flex-col gap-12 lg:gap-16">
+        
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 px-4 sm:px-8 lg:px-12">
+          <motion.div 
+            className="flex flex-col max-w-2xl"
+            initial={reduced ? undefined : { opacity: 0, x: -30 }}
+            whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            {product.title}
-            <br />
-            <span className="subtle-grad">{product.subtitle}</span>
-          </h3>
-          <p data-testid="text-product-desc" className="mt-3 max-w-[520px] text-sm leading-6 text-zinc-500">
-            {product.desc}
-          </p>
-
-          <div className="mt-8 rounded-2xl bg-white p-5 ring-1 ring-zinc-100">
-            <div className="text-sm font-semibold text-zinc-900" data-testid="text-spec-title">
-              Destaques da solução
+            <div className="self-start">
+               <Pill testId="pill-services" muted={false}>( serviços )</Pill>
             </div>
-            {/* Mobile: lista única com os 7 serviços (Eletromobilidade como item separado) */}
-            <ul className="mt-3 flex flex-col gap-0 space-y-2.5 text-sm text-zinc-600 sm:hidden">
-              {[
-                ...(product.specLeft ?? []),
-                ...(product.specRight ?? []).slice(0, 2),
-                "Eletromobilidade",
-                ...(product.specRight ?? []).slice(2),
-              ].map((s, idx) => (
-                <li
-                  data-testid={idx < (product.specLeft?.length ?? 0) ? `text-spec-left-${idx}` : `text-spec-right-${idx - (product.specLeft?.length ?? 0)}`}
-                  key={idx}
-                  className="flex items-center gap-2"
-                >
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#1d0238]" />
-                  {s}
-                </li>
-              ))}
-            </ul>
-            {/* sm+: grid em 2 colunas (desktop: "Geração própria e eletromobilidade" junto) */}
-            <div className="mt-3 hidden gap-6 sm:grid sm:grid-cols-2">
-              <ul className="space-y-2.5 text-sm text-zinc-600">
-                {(product.specLeft ?? []).map((s) => s === "Geração própria" ? "Geração própria e eletromobilidade" : s).map((s, idx) => (
-                  <li data-testid={`text-spec-left-${idx}`} key={idx} className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#1d0238]" />
-                    {s}
-                  </li>
-                ))}
-              </ul>
-              <ul className="space-y-2.5 text-sm text-zinc-600">
-                {product.specRight.map((s, idx) => (
-                  <li data-testid={`text-spec-right-${idx}`} key={idx} className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#1d0238]" />
-                    {s}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <Link
-              href="/servicos"
-              data-testid="button-all-services"
-              className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98]"
-            >
-              <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
-                <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
-              </span>
-              Confira todos os serviços
-            </Link>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="relative hidden overflow-hidden rounded-[28px] lg:block lg:rounded-[32px]"
-          initial={reduced ? undefined : { opacity: 0, scale: 0.95, y: 20 }}
-          whileInView={reduced ? undefined : { opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: true, margin: "-120px" }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-        >
-          <AnimatePresence>
-            <motion.div
-              key={activeProduct.id}
-              className="absolute inset-0 z-10"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
-            >
-              <img
-                data-testid="img-product"
-                src={activeProduct.image}
-                alt={activeProduct.title}
-                className="h-full min-h-[420px] w-full object-cover lg:min-h-[540px]"
-              />
-               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90" />
-               
-               <div className="absolute bottom-0 left-0 right-0 p-8">
-                  <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur-md">
-                    <div className="text-[11px] font-semibold uppercase tracking-wide text-white/70">
-                      {activeProduct.tag}
-                    </div>
-                    <div className="mt-2 text-2xl font-semibold text-white">
-                      {activeProduct.title}
-                    </div>
-                    <div className="mt-1 text-sm text-white/80">
-                      {activeProduct.subtitle}
-                    </div>
-                    <div className="mt-4 flex items-center gap-3">
-                         <Link href={`/servicos/${activeProduct.id}`} className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]">
-                            Saiba mais
-                            <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" strokeWidth={2.25} />
-                         </Link>
-                    </div>
-                  </div>
-               </div>
-            </motion.div>
-          </AnimatePresence>
+            <h2 data-testid="text-services-title" className="mt-6 text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white sm:text-[48px] md:text-[56px]">
+              Energia sob medida
+              <br />
+              <span className="subtle-grad-dark">Da estratégia à operação</span>
+            </h2>
+            <p data-testid="text-services-sub" className="mt-6 text-base sm:text-lg leading-relaxed text-white/60 max-w-xl">
+              Analisamos oportunidades, desenhamos a proposta ideal e executamos com monitoramento após a implementação. Sempre de olho no futuro.
+            </p>
+          </motion.div>
           
-          <div className="absolute inset-y-0 right-0 w-[15%] min-w-[60px] max-w-[120px] overflow-hidden z-20 pointer-events-none hidden" />
-        </motion.div>
-      </div>
+          <motion.div 
+            className="hidden lg:flex items-center gap-4"
+            initial={reduced ? undefined : { opacity: 0, x: 30 }}
+            whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+          >
+            <button
+              onClick={scrollPrev}
+              className="grid h-14 w-14 place-items-center rounded-full bg-white/5 border border-white/10 text-white transition-all hover:bg-white/15 hover:border-white/20 hover:scale-105 active:scale-95 backdrop-blur-xl"
+              aria-label="Anterior"
+            >
+              <ChevronLeft className="h-6 w-6" strokeWidth={2} />
+            </button>
+            <button
+              onClick={scrollNext}
+              className="grid h-14 w-14 place-items-center rounded-full bg-white/5 border border-white/10 text-white transition-all hover:bg-white/15 hover:border-white/20 hover:scale-105 active:scale-95 backdrop-blur-xl"
+              aria-label="Próximo"
+            >
+              <ChevronRight className="h-6 w-6" strokeWidth={2} />
+            </button>
+          </motion.div>
+        </div>
 
-      {/* Carousel Section */}
-      <div className="mt-6">
-          <div className="hidden lg:block">
-            <div className="relative">
-                <div className="overflow-hidden py-10 -my-10 px-4 -mx-4">
-                    <motion.div 
-                        className="flex gap-6"
-                        animate={{ x: `-${scrollIndex * (25 + 1.5)}%` }} // Approx percentage based width + gap
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    >
-                        {products.map((p) => (
-                            <Link
-                                key={p.id}
-                                href={`/servicos/${p.id}`}
-                                onMouseEnter={() => handleProductHover(p.id)}
-                                className={`group relative block w-[23%] shrink-0 text-left rounded-[26px] bg-zinc-100 transition-all duration-300 ${activeId === p.id ? 'ring-1 ring-[#1d0238] ring-inset shadow-md scale-[1.01] z-10' : 'ring-1 ring-zinc-200 hover:ring-zinc-300 hover:scale-[1.005]'}`}
-                            >
-                                <div className="relative overflow-hidden rounded-t-[26px] h-[200px]">
-                                    <img
-                                        src={p.image}
-                                        alt={p.title}
-                                        className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
-                                    />
-                                    <div className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent transition duration-300 ${activeId === p.id ? 'opacity-0' : 'opacity-80 group-hover:opacity-60'}`} />
-                                </div>
-                                <div className={`p-4 transition-colors duration-300 ${activeId === p.id ? 'bg-[#f8f5fa]' : ''} rounded-b-[26px]`}>
-                                    <div className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
-                                        {p.tag}
-                                    </div>
-                                    <div className="mt-1 text-sm font-semibold leading-tight text-zinc-950">
-                                        {p.title}
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
-                    </motion.div>
-                </div>
-
-                <div className="absolute -left-6 -right-6 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none px-2 z-20">
-                    <button 
-                         onClick={handlePrev}
-                         disabled={scrollIndex === 0}
-                         className="pointer-events-auto grid h-12 w-12 place-items-center rounded-full bg-white shadow-xl text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-0 disabled:pointer-events-none"
-                    >
-                        <ChevronLeft className="h-5 w-5" strokeWidth={2.25} />
-                    </button>
-                    <button 
-                         onClick={handleNext}
-                         disabled={scrollIndex >= products.length - 4}
-                         className="pointer-events-auto grid h-12 w-12 place-items-center rounded-full bg-white shadow-xl text-zinc-900 ring-1 ring-zinc-200 transition hover:bg-zinc-50 active:scale-[0.98] disabled:opacity-0 disabled:pointer-events-none"
-                    >
-                        <ChevronRight className="h-5 w-5" strokeWidth={2.25} />
-                    </button>
-                </div>
-            </div>
-            
-            <div className="mt-8 flex justify-center">
-                <Link
-                  href="/servicos"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-[#30045c] active:scale-[0.98] shadow-lg shadow-[#1d0238]/20"
-                >
-                  Ver todos os serviços
-                  <ArrowUpRight className="h-4 w-4" strokeWidth={2.25} />
-                </Link>
-            </div>
-          </div>
-
-          {/* Mobile Scroll (Cover Flow Style with Embla) */}
-          <div className="lg:hidden relative pb-8">
-            <div className="overflow-hidden px-4 pb-8 pt-4" ref={emblaRef}>
-              <div className="flex gap-4 touch-pan-y" style={{ backfaceVisibility: 'hidden' }}>
-                {products.map((p, i) => {
+        <motion.div 
+          className="relative w-full"
+          initial={reduced ? undefined : { opacity: 0, y: 40 }}
+          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+        >
+           <div className="overflow-visible px-4 sm:px-8 lg:px-12 pb-12" ref={emblaRef}>
+             <div className="flex touch-pan-y gap-6 sm:gap-8" style={{ backfaceVisibility: 'hidden' }}>
+                {products.map((p) => {
                   const isActive = activeId === p.id;
+                  
                   return (
                     <div
-                      key={`mobile-${p.id}`}
-                      className={`relative shrink-0 w-[280px] transition-all duration-500 ease-out ${isActive ? 'scale-100 z-10' : 'scale-90 opacity-60 z-0'}`}
-                      style={{ backfaceVisibility: 'hidden' }}
-                      onClick={() => {
-                        setActiveId(p.id);
-                        emblaApi?.scrollTo(i);
-                      }}
+                      key={`service-slide-${p.id}`}
+                      className={`relative shrink-0 w-[85vw] sm:w-[480px] lg:w-[640px] h-[480px] sm:h-[540px] lg:h-[600px] cursor-grab active:cursor-grabbing transition-all duration-[800ms] ease-[0.16,1,0.3,1] ${isActive ? 'scale-100 opacity-100 z-10' : 'scale-[0.95] opacity-50 hover:opacity-80 z-0'}`}
+                      onClick={() => setActiveId(p.id)}
                     >
-                     <div className={`flex h-full flex-col overflow-hidden rounded-[24px] bg-white ring-1 shadow-sm transition-all duration-500 ${isActive ? 'ring-zinc-300 shadow-xl' : 'ring-zinc-200'}`}>
-                      <div className="relative h-[180px]">
+                      <div className="absolute inset-0 rounded-[32px] sm:rounded-[40px] lg:rounded-[48px] overflow-hidden group bg-zinc-900 border border-white/10">
                         <img
-                          src={p.image}
-                          alt={p.title}
-                          className="h-full w-full object-cover"
+                           src={p.image}
+                           alt={p.title}
+                           className={`h-full w-full object-cover transition-transform duration-[1200ms] ease-[0.16,1,0.3,1] ${isActive ? 'scale-105' : 'scale-100'}`}
                         />
-                        <div className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent transition-opacity duration-500 ${isActive ? 'opacity-80' : 'opacity-100'}`} />
-                        <div className="absolute left-4 top-4">
-                          <div className={`glass inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white transition-transform duration-500 ${isActive ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0'}`}>
-                            <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
-                            {p.tag}
-                          </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0014] via-[#0a0014]/50 to-transparent opacity-90 transition-opacity duration-700 group-hover:opacity-80" />
+                        
+                        <div className={`absolute bottom-0 left-0 right-0 p-8 sm:p-10 lg:p-12 transition-all duration-[800ms] ease-[0.16,1,0.3,1] ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+                           <div className="inline-flex mb-6 text-[11px] font-bold uppercase tracking-[0.2em] text-white/90 bg-white/10 px-4 py-2 rounded-full backdrop-blur-md border border-white/10 shadow-lg">
+                             {p.tag}
+                           </div>
+                           <h3 className="text-3xl sm:text-4xl lg:text-[40px] font-medium leading-[1.1] tracking-[-0.02em] text-white mb-4">
+                             {p.title}
+                           </h3>
+                           <p className="text-sm sm:text-base text-white/60 leading-relaxed max-w-[420px] mb-8">
+                             {p.subtitle}
+                           </p>
+                           
+                           <Link 
+                             href={`/servicos/${p.id}`}
+                             className="inline-flex items-center justify-between w-full sm:w-auto gap-8 rounded-full bg-white px-6 py-4 text-sm font-bold text-zinc-950 transition-all duration-300 hover:bg-zinc-200 hover:scale-[1.02] active:scale-[0.98]"
+                           >
+                             <span className="tracking-wide">Explorar solução</span>
+                             <div className="grid place-items-center w-8 h-8 rounded-full bg-black/5">
+                               <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
+                             </div>
+                           </Link>
                         </div>
                       </div>
-
-                      <div className="p-5">
-                          <div className={`text-lg font-bold text-zinc-950 transition-colors duration-300 ${isActive ? 'text-[#1d0238]' : ''}`}>
-                            {p.title}
-                          </div>
-                          <div className="mt-2 text-sm text-zinc-600 line-clamp-2">
-                            {p.subtitle}
-                          </div>
-                          
-                          <motion.div 
-                            className="mt-4 overflow-hidden"
-                            initial={false}
-                            animate={{ height: isActive ? "auto" : 0, opacity: isActive ? 1 : 0 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <Link href={`/servicos/${p.id}`} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#1d0238]">
-                                Ver detalhes
-                                <ArrowRight className="h-3.5 w-3.5" />
-                            </Link>
-                          </motion.div>
-                      </div>
                     </div>
-                  </div>
-                );
-              })}
-              </div>
-            </div>
-          </div>
+                  );
+                })}
+             </div>
+           </div>
+        </motion.div>
+
+        <div className="flex lg:hidden items-center justify-center gap-4 mt-[-1rem] pb-8">
+            <button
+              onClick={scrollPrev}
+              className="grid h-14 w-14 place-items-center rounded-full bg-white/5 border border-white/10 text-white transition-all hover:bg-white/15 hover:scale-105 active:scale-95 backdrop-blur-md"
+              aria-label="Anterior"
+            >
+              <ChevronLeft className="h-6 w-6" strokeWidth={2} />
+            </button>
+            <button
+              onClick={scrollNext}
+              className="grid h-14 w-14 place-items-center rounded-full bg-white/5 border border-white/10 text-white transition-all hover:bg-white/15 hover:scale-105 active:scale-95 backdrop-blur-md"
+              aria-label="Próximo"
+            >
+              <ChevronRight className="h-6 w-6" strokeWidth={2} />
+            </button>
+        </div>
+
       </div>
     </motion.section>
   );
