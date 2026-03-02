@@ -1567,7 +1567,7 @@ function Testimonials({ onContact }: { onContact: () => void }) {
                       </div>
 
                       <div className="mt-6 flex-1 relative">
-                          <Quote className="absolute -bottom-4 -right-2 h-12 w-12 text-zinc-100 -z-10 opacity-70" />
+                          <Quote className="absolute -bottom-10 -right-4 h-16 w-16 text-zinc-100 -z-10 opacity-70" />
                           <p className="text-sm sm:text-base leading-relaxed text-zinc-600 relative z-10">
                             “{t.quote}”
                           </p>
