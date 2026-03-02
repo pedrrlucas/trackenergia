@@ -361,38 +361,50 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
                 : "relative z-10 hidden items-center gap-7 text-xs font-medium text-white/85 md:flex"
             }
           >
-            <a
+            <motion.a
               data-testid="link-nav-home"
               href="/#inicio"
               className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
+              initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
               style={{ pointerEvents: showHome ? "auto" : "none", visibility: showHome ? "visible" : "hidden" }}
             >
               Início
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               data-testid="link-nav-editorial"
               href="/#editorial"
               className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
+              initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
               style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
             >
               Editorial
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               data-testid="link-nav-product"
               href="/#servicos"
               className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
+              initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
               style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
             >
               Serviços
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               data-testid="link-nav-testimonials"
               href="/#depoimentos"
               className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
+              initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
               style={{ pointerEvents: showTestimonials ? "auto" : "none", visibility: showTestimonials ? "visible" : "hidden" }}
             >
               Depoimentos
-            </a>
+            </motion.a>
           </div>
 
           <button

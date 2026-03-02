@@ -423,7 +423,10 @@ function Nav({ onContact, onIntroComplete }: { onContact: () => void; onIntroCom
             />
           </a>
 
-          <div data-testid="nav-desktop" className="hidden items-center gap-7 text-xs font-medium text-white/78 md:flex">
+          <motion.div
+            data-testid="nav-desktop"
+            className="hidden items-center gap-7 text-xs font-medium text-white/78 md:flex"
+          >
             <motion.a
               data-testid="link-nav-home"
               href="/#inicio"
@@ -468,7 +471,7 @@ function Nav({ onContact, onIntroComplete }: { onContact: () => void; onIntroCom
             >
               Depoimentos
             </motion.a>
-          </div>
+          </motion.div>
 
           <button
             data-testid="button-contact"
@@ -788,10 +791,10 @@ function About() {
   return (
     <motion.section
       className="container-page py-12 sm:py-16 lg:py-20"
-      initial={reduced ? undefined : { opacity: 0, y: 18 }}
+      initial={reduced ? undefined : { opacity: 0, y: 30 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.22 }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="grid gap-4 md:gap-10 md:grid-cols-[360px_1fr] md:items-center lg:grid-cols-[420px_1fr] lg:gap-14">
         <div className="relative">
@@ -829,10 +832,10 @@ function About() {
 
         <motion.div
           className="md:pl-10 lg:pl-0 lg:col-start-2"
-          initial={reduced ? undefined : { opacity: 0, y: 12 }}
+          initial={reduced ? undefined : { opacity: 0, y: 20 }}
           whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-90px" }}
-          transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1], delay: 0.05 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
         >
           <div className="lg:ml-auto lg:max-w-[740px]">
             <h2
@@ -905,10 +908,10 @@ function Editorial() {
     <motion.section
       id="editorial"
       className="container-page pb-12 sm:pb-16 lg:pb-20"
-      initial={reduced ? undefined : { opacity: 0, y: 12 }}
+      initial={reduced ? undefined : { opacity: 0, y: 30 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-90px" }}
-      transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="rounded-[40px] bg-zinc-50/80 p-6 sm:p-10 lg:p-12 ring-1 ring-zinc-100">
         <div className="flex items-center justify-between mb-8 lg:mb-10">
@@ -943,10 +946,10 @@ function Editorial() {
             {/* Featured Post (Left) - sempre o primeiro do array = "Novo"; os demais vão para os laterais */}
             <motion.div
             className="group relative flex flex-col sm:flex-row gap-6 lg:gap-8 overflow-hidden rounded-[32px] bg-white p-5 sm:p-8 ring-1 ring-zinc-100 transition-all hover:ring-zinc-200 hover:shadow-lg"
-            initial={reduced ? undefined : { opacity: 0, x: -10 }}
-            whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
+            initial={reduced ? undefined : { opacity: 0, x: -20, y: 20 }}
+            whileInView={reduced ? undefined : { opacity: 1, x: 0, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
             >
                 <div className="hidden sm:block shrink-0">
                     <div className="relative h-28 w-28 sm:h-36 sm:w-36 overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-100/50 shadow-sm">
@@ -1184,10 +1187,10 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
     <motion.section
       id="servicos"
       className="container-page pb-12 sm:pb-16 lg:pb-20"
-      initial={reduced ? undefined : { opacity: 0, y: 12 }}
+      initial={reduced ? undefined : { opacity: 0, y: 30 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-90px" }}
-      transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
       <Pill testId="pill-servicos" muted={false}>
         ( serviços )
@@ -1195,10 +1198,10 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
       <div className="mt-6 grid gap-6 md:grid-cols-2 lg:gap-8">
         <motion.div
           className="rounded-[28px] bg-zinc-50 p-8 ring-1 ring-zinc-100"
-          initial={reduced ? undefined : { opacity: 0, y: 10 }}
+          initial={reduced ? undefined : { opacity: 0, y: 20 }}
           whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-110px" }}
-          transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
         >
           <h3
             data-testid="text-product-title"
@@ -1271,10 +1274,10 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
 
         <motion.div
           className="relative hidden overflow-hidden rounded-[28px] lg:block lg:rounded-[32px]"
-          initial={reduced ? undefined : { opacity: 0, scale: 0.985 }}
-          whileInView={reduced ? undefined : { opacity: 1, scale: 1 }}
+          initial={reduced ? undefined : { opacity: 0, scale: 0.95, y: 20 }}
+          whileInView={reduced ? undefined : { opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, margin: "-120px" }}
-          transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1], delay: 0.05 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
         >
           <AnimatePresence>
             <motion.div
@@ -1495,7 +1498,14 @@ function Testimonials({ onContact }: { onContact: () => void }) {
   const activeItem = items.find((i) => i.id === active) ?? items[0];
 
   return (
-    <section id="depoimentos" className="container-page pb-12 sm:pb-16 lg:pb-20">
+    <motion.section 
+      id="depoimentos" 
+      className="container-page pb-12 sm:pb-16 lg:pb-20"
+      initial={reduced ? undefined : { opacity: 0, y: 30 }}
+      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-90px" }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="flex items-start justify-between gap-6">
         <Pill testId="pill-testimonials">( depoimentos )</Pill>
 
