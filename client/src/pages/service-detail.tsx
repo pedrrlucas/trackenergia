@@ -2,6 +2,34 @@ import React, { useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import * as Accordion from "@radix-ui/react-accordion";
 import { useLocation } from "wouter";
+import product1 from "@/assets/images/product-1.jpg";
+import product2 from "@/assets/images/product-2.jpg";
+import product3 from "@/assets/images/product-3.jpg";
+import product4 from "@/assets/images/product-4.jpg";
+import product5 from "@/assets/images/product-5.jpg";
+import product6 from "@/assets/images/product-6.jpg";
+import product7 from "@/assets/images/product-7.jpg";
+
+const imageMap: Record<string, string> = {
+  "eficiencia": product1,
+  "geracao": product2,
+  "armazenamento": product3,
+  "mercado-livre": product4,
+  "assinatura": product5,
+  "eletromobilidade": product6,
+  "om-fv": product7
+};
+
+const tagMap: Record<string, string> = {
+  "eficiencia": "ANÁLISE",
+  "geracao": "GERAÇÃO PRÓPRIA",
+  "armazenamento": "ARMAZENAMENTO",
+  "mercado-livre": "MERCADO LIVRE",
+  "assinatura": "ASSINATURA",
+  "eletromobilidade": "ELETROMOBILIDADE",
+  "om-fv": "O&M"
+};
+
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, ChevronRight, Zap, Leaf, Shield, Wrench, LineChart, BatteryCharging, Cable } from "lucide-react";
 
 const revealViewport = { once: true, amount: 0.22 } as const;
@@ -380,7 +408,7 @@ export default function ServiceDetailPage() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-[#1d0238]/30 to-[#30045c]/30 blur-2xl -z-10 transition-opacity duration-700 opacity-0 group-hover:opacity-100" />
                 <img 
-                  src={service.image} 
+                  src={imageMap[serviceId] || ""} 
                   alt={service.title} 
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-[0.16,1,0.3,1] group-hover:scale-105"
                 />
@@ -389,7 +417,7 @@ export default function ServiceDetailPage() {
                 
                 <div className="absolute bottom-0 left-0 right-0 p-8 sm:p-10 text-white flex flex-col justify-end">
                   <div className="inline-flex w-fit items-center rounded-full bg-white/10 backdrop-blur-md px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] mb-4 border border-white/20 shadow-sm transition-transform duration-500 group-hover:-translate-y-1">
-                    {service.tag}
+                    {tagMap[serviceId] || "SOLUÇÃO"}
                   </div>
                   <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight leading-[1.1] transition-transform duration-500 group-hover:-translate-y-1">
                     {service.title}
