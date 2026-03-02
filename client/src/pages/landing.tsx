@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import { Link, useLocation } from "wouter";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import {
@@ -1371,11 +1372,13 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
 function Testimonials({ onContact }: { onContact: () => void }) {
   const reduced = usePrefersReducedMotion();
 
+  const autoplayPlugin = useMemo(() => Autoplay({ delay: 5000, stopOnInteraction: false }), []);
+  
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: "start",
     containScroll: "trimSnaps",
-  });
+  }, [autoplayPlugin]);
 
   const items: Testimonial[] = useMemo(
     () => [
@@ -1448,11 +1451,21 @@ function Testimonials({ onContact }: { onContact: () => void }) {
   }, [emblaApi]);
 
   const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
+    if (!emblaApi) return;
+    emblaApi.scrollPrev();
+    try {
+      const autoplay = emblaApi.plugins()?.autoplay;
+      if (autoplay && typeof autoplay.reset === 'function') autoplay.reset();
+    } catch(e) {}
   }, [emblaApi]);
 
   const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
+    if (!emblaApi) return;
+    emblaApi.scrollNext();
+    try {
+      const autoplay = emblaApi.plugins()?.autoplay;
+      if (autoplay && typeof autoplay.reset === 'function') autoplay.reset();
+    } catch(e) {}
   }, [emblaApi]);
 
   return (
