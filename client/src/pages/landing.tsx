@@ -1535,14 +1535,14 @@ function Testimonials({ onContact }: { onContact: () => void }) {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
           {/* overflow-hidden e pad de segurança para sombras */}
-          <div className="overflow-hidden -m-4 p-4" ref={emblaRef}>
+          <div className="overflow-visible -mx-4 px-4 py-6" ref={emblaRef}>
             <div className="flex touch-pan-y" style={{ backfaceVisibility: 'hidden' }}>
               {items.map((t, index) => {
                 const isActive = selectedIndex === index;
                 return (
                   <div
                     key={`testimonial-slide-${t.id}`}
-                    className="relative flex-none w-[85%] sm:w-[320px] lg:w-[360px] pl-4 lg:pl-6 cursor-grab active:cursor-grabbing"
+                    className="relative flex-none w-[85%] sm:w-[320px] lg:w-[360px] pl-4 lg:pl-6 cursor-grab active:cursor-grabbing py-2"
                     onClick={() => emblaApi?.scrollTo(index)}
                   >
                     <div className={`flex flex-col h-full min-h-[320px] rounded-[32px] p-6 sm:p-8 transition-all duration-500 ${isActive ? 'bg-white shadow-xl shadow-black/5 ring-1 ring-zinc-200 scale-100 opacity-100' : 'bg-zinc-50 ring-1 ring-zinc-100 scale-[0.96] opacity-60 hover:opacity-100'}`}>
