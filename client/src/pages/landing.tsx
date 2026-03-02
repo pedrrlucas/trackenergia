@@ -1202,13 +1202,12 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
   return (
     <motion.section 
       id="servicos" 
-      className="container-page pb-12 sm:pb-16 lg:pb-20"
+      className="container-page py-16 sm:py-20 lg:py-28 overflow-hidden bg-[#0a0014] rounded-[40px] lg:rounded-[64px] my-10 relative shadow-[0_0_100px_rgba(29,2,56,0.3)]"
       initial={reduced ? undefined : { opacity: 0, y: 40 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="relative overflow-hidden bg-[#0a0014] rounded-[40px] lg:rounded-[48px] py-16 sm:py-20 lg:py-24 ring-1 ring-white/10 shadow-[0_0_80px_rgba(29,2,56,0.5)]">
       {/* Background decorations */}
       <div className="absolute inset-0 noise opacity-30 mix-blend-overlay" />
       <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-[#30045c]/40 rounded-full blur-[140px] pointer-events-none" />
@@ -1225,9 +1224,7 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <div className="self-start">
-              <div data-testid="pill-services" className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-white backdrop-blur-md">
-                ( serviços )
-              </div>
+               <Pill testId="pill-services" muted={false}>( serviços )</Pill>
             </div>
             <h2 data-testid="text-services-title" className="mt-6 text-balance text-[34px] font-medium leading-[1.05] tracking-[-0.03em] text-white sm:text-[42px] md:text-[48px]">
               Energia sob medida
