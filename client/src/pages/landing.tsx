@@ -637,13 +637,12 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
   const [startFullImageLoad, setStartFullImageLoad] = useState(false);
 
   const { scrollY } = useScroll();
-  const yImage = useTransform(scrollY, [0, 1000], [0, 300]);
-  const scaleImage = useTransform(scrollY, [0, 1000], [1, 1.15]);
-  const yText = useTransform(scrollY, [0, 800], [0, -150]);
-  const opacityText = useTransform(scrollY, [0, 400], [1, 0]);
-  const filterText = useTransform(scrollY, [0, 400], ["blur(0px)", "blur(8px)"]);
-  const yButtons = useTransform(scrollY, [0, 600], [0, 100]);
-  const opacityButtons = useTransform(scrollY, [0, 300], [1, 0]);
+  const scaleImage = useTransform(scrollY, [0, 1000], [1, 1.15], { clamp: true });
+  const yText = useTransform(scrollY, [0, 800], [0, -120], { clamp: true });
+  const opacityText = useTransform(scrollY, [0, 400], [1, 0], { clamp: true });
+  const filterText = useTransform(scrollY, [0, 400], ["blur(0px)", "blur(8px)"], { clamp: true });
+  const yButtons = useTransform(scrollY, [0, 600], [0, 80], { clamp: true });
+  const opacityButtons = useTransform(scrollY, [0, 300], [1, 0], { clamp: true });
 
   // Iniciar carregamento da hero em qualidade cheia cedo, em paralelo com a intro,
   // para não depender do fim da animação da logo (que no mobile atrasa). Assim
@@ -677,8 +676,8 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
       <motion.div 
         className="absolute inset-0 overflow-hidden origin-center"
         style={{
-          y: reduced ? 0 : yImage,
           scale: reduced ? 1 : scaleImage,
+          willChange: "transform"
         }}
       >
         {useFallback ? (
@@ -768,7 +767,8 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
                 style={{
                   y: reduced ? 0 : yText,
                   opacity: reduced ? 1 : opacityText,
-                  filter: reduced ? "none" : filterText
+                  filter: reduced ? "none" : filterText,
+                  willChange: "transform, opacity, filter"
                 }}
               >
                 <motion.h1
@@ -799,7 +799,8 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
                   transition={reduced ? undefined : { duration: 0.8, ease: [0.22, 1, 0.36, 1], type: "spring", stiffness: 80, damping: 15 }}
                   style={{
                     y: reduced ? 0 : yButtons,
-                    opacity: reduced ? 1 : opacityButtons
+                    opacity: reduced ? 1 : opacityButtons,
+                    willChange: "transform, opacity"
                   }}
                 >
                   <PrimaryButton testId="button-explore-now" onClick={onContact}>
