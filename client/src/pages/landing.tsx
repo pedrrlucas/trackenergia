@@ -673,7 +673,7 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
   return (
     <section
       id="inicio"
-      className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#0d0115] via-[#150120] to-black"
+      className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#0d0115] via-[#150120] to-black rounded-b-[40px] lg:rounded-b-[64px]"
     >
       <motion.div 
         className="absolute inset-0 overflow-hidden origin-center"

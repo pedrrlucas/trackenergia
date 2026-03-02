@@ -562,7 +562,7 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
   };
 
   return (
-    <footer id="footer" className="w-full bg-[#0a0014] relative border-t border-white/5 overflow-hidden">
+    <footer id="footer" className="w-full bg-[#0a0014] relative border-t border-white/5 overflow-hidden rounded-t-[40px] lg:rounded-t-[64px] mt-4 lg:mt-8">
       <div className="absolute inset-0 noise opacity-20 mix-blend-overlay pointer-events-none" />
       <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] bg-[#30045c]/30 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-[#1d0238]/40 rounded-full blur-[120px] pointer-events-none" />
