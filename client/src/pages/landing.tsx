@@ -1202,7 +1202,7 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
   return (
     <motion.section 
       id="servicos" 
-      className="container-page py-16 sm:py-20 lg:py-28 overflow-hidden bg-[#0a0014] rounded-[40px] lg:rounded-[64px] my-10 relative shadow-[0_0_100px_rgba(29,2,56,0.3)]"
+      className="container-page py-12 sm:py-16 lg:py-20 overflow-hidden bg-[#0a0014] rounded-[32px] lg:rounded-[48px] mt-8 mb-16 lg:mt-12 lg:mb-20 relative shadow-[0_0_80px_rgba(29,2,56,0.2)]"
       initial={reduced ? undefined : { opacity: 0, y: 40 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
@@ -1224,7 +1224,7 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <div className="self-start">
-               <Pill testId="pill-services" muted={false}>( serviços )</Pill>
+               <div className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/20 backdrop-blur-md" data-testid="pill-services">( serviços )</div>
             </div>
             <h2 data-testid="text-services-title" className="mt-6 text-balance text-[34px] font-medium leading-[1.05] tracking-[-0.03em] text-white sm:text-[42px] md:text-[48px]">
               Energia sob medida
