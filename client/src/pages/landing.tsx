@@ -1164,26 +1164,35 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
     loop: false,
     align: "start",
     dragFree: true,
-    containScroll: "trimSnaps",
+    containScroll: "", // Retirar trimSnaps para permitir ir até o fim
   });
 
   const [activeId, setActiveId] = useState<string>(products[0].id);
 
   const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
+    if (!emblaApi) return;
+    const currentIndex = products.findIndex(p => p.id === activeId);
+    if (currentIndex > 0) {
+        const prevIndex = currentIndex - 1;
+        setActiveId(products[prevIndex].id);
+        emblaApi.scrollTo(prevIndex);
+    }
+  }, [emblaApi, activeId, products]);
 
   const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
+    if (!emblaApi) return;
+    const currentIndex = products.findIndex(p => p.id === activeId);
+    if (currentIndex < products.length - 1) {
+        const nextIndex = currentIndex + 1;
+        setActiveId(products[nextIndex].id);
+        emblaApi.scrollTo(nextIndex);
+    }
+  }, [emblaApi, activeId, products]);
 
   const onSelect = useCallback((api: any) => {
-    if (!api) return;
-    const snapIndex = api.selectedScrollSnap();
-    if (products[snapIndex]) {
-      setActiveId(products[snapIndex].id);
-    }
-  }, [products]);
+    // We intentionally do not auto-select on scroll anymore. 
+    // Selection is now explicitly via click on the card, or by using the arrows.
+  }, []);
 
   useEffect(() => {
     if (!emblaApi) return;
