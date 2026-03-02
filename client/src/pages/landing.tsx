@@ -993,7 +993,7 @@ function Editorial() {
                     </div>
                 </div>
             )}
-        </div>
+        </motion.div>
 
         <div className={`grid gap-8 ${listPosts.length > 0 ? "lg:grid-cols-[1.2fr_0.8fr]" : ""} lg:gap-10 items-stretch`}>
             {/* Featured Post (Left) - sempre o primeiro do array = "Novo"; os demais vão para os laterais */}
