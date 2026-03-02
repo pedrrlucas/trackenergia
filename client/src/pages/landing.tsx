@@ -13,14 +13,9 @@ import {
   Instagram,
   Linkedin,
   Menu,
-  MessageCircle,
   MoveUpRight,
   Quote,
   Star,
-  Zap,
-  ShieldCheck,
-  Clock,
-  Sparkles,
   X,
 } from "lucide-react";
 
@@ -1547,6 +1542,16 @@ function Testimonials({ onContact }: { onContact: () => void }) {
         rating: 5,
         avatar: t2,
       },
+      {
+        id: "t-3",
+        name: "Patrícia Moura",
+        role: "Empreendedora",
+        city: "Belo Horizonte, MG",
+        quote:
+          "Queríamos previsibilidade e clareza de custos. A Track entregou uma estratégia sólida e executou com acompanhamento pós-implantação. Valeu cada centavo.",
+        rating: 5,
+        avatar: t3,
+      },
     ],
     [],
   );
@@ -1576,16 +1581,16 @@ function Testimonials({ onContact }: { onContact: () => void }) {
         <div className="hidden" />
       </motion.div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-8 items-stretch">
+      <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
         <motion.div
-          className="relative overflow-hidden rounded-[30px] bg-gradient-to-r from-black via-[#12001f] to-[#1d0238] ring-1 ring-white/10 p-7 sm:p-8 flex flex-col justify-between h-full"
+          className="relative overflow-hidden rounded-[30px] bg-gradient-to-r from-black via-[#12001f] to-[#1d0238] ring-1 ring-white/10"
           initial={reduced ? undefined : { opacity: 0, x: -30, filter: "blur(8px)" }}
           whileInView={reduced ? undefined : { opacity: 1, x: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
         >
-          <div className="absolute inset-0 hero-overlay opacity-60 pointer-events-none" />
-          <div className="absolute inset-0 noise opacity-[0.22] pointer-events-none" />
+          <div className="absolute inset-0 hero-overlay opacity-60" />
+          <div className="absolute inset-0 noise opacity-[0.22]" />
 
           {/* Vertical Margin Image (Background) */}
           <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-full max-w-[400px] overflow-visible opacity-15 mix-blend-luminosity">
@@ -1596,103 +1601,139 @@ function Testimonials({ onContact }: { onContact: () => void }) {
             />
           </div>
 
-          <div className="relative flex flex-col h-full z-10">
-            <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="relative p-7 sm:p-8">
+            <div className="flex items-start justify-between gap-4">
               <div>
-                <div data-testid="text-whatsapp-title" className="text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em] text-white">
-                  WhatsApp
+                <div data-testid="text-testimonials-title" className="text-balance text-[34px] font-medium leading-[1.06] tracking-[-0.03em] text-white">
+                  O que nossos clientes
                   <br />
-                  <span className="subtle-grad-dark">imediato</span>
+                  <span className="subtle-grad-dark">falam sobre a Track</span>
                 </div>
-                <div className="mt-3">
+                <div className="mt-3 flex items-end justify-between gap-3">
                   <p data-testid="text-testimonials-sub" className="max-w-[520px] text-sm leading-6 text-white/70">
-                    Clique e comece agora. A gente responde com clareza e direciona os próximos passos de forma ágil e objetiva.
+                    Experiências reais de quem implementou soluções com a Track, do diagnóstico à operação, com acompanhamento e foco em resultado.
                   </p>
+
+                  <div className="hidden" />
                 </div>
               </div>
 
               <div className="hidden sm:grid h-11 w-11 place-items-center rounded-2xl bg-white/10 ring-1 ring-white/12">
-                 <Zap className="h-5 w-5 text-white" strokeWidth={2.25} />
+                <Quote className="h-5 w-5 text-white" strokeWidth={2.25} />
               </div>
             </div>
 
-            <div className="mt-auto pt-8">
-              <a
-                data-testid="button-whatsapp-primary"
-                href="https://wa.me/5511999999999?text=Oi!%20Vim%20pelo%20site%20da%20Track%20e%20gostaria%20de%20conversar%20sobre%20solu%C3%A7%C3%B5es%20de%20energia."
-                target="_blank"
-                rel="noreferrer"
-                className="group inline-flex w-full items-center justify-between gap-4 rounded-[22px] bg-white px-5 py-4 text-left text-zinc-950 shadow-lg shadow-black/20 ring-1 ring-white/30 transition hover:bg-zinc-50 active:scale-[0.99]"
-              >
-                <span className="flex items-center gap-4">
-                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#1d0238] text-white shadow-sm transition group-hover:bg-[#30045c]">
-                    <MessageCircle className="h-5 w-5" strokeWidth={2.25} />
-                  </span>
-                  <span>
-                    <span data-testid="text-whatsapp-cta" className="block text-sm font-semibold">
-                      Entrar em contato via WhatsApp
-                    </span>
-                    <span data-testid="text-whatsapp-number" className="mt-0.5 block text-[12px] text-zinc-600">
-                      +55 11 99999-9999
-                    </span>
-                  </span>
-                </span>
-                <span className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-900">
-                  Abrir
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-2xl bg-zinc-100 ring-1 ring-zinc-200 transition group-hover:bg-zinc-200">
-                    <MessageCircle className="h-4 w-4" strokeWidth={2.25} />
-                  </span>
-                </span>
-              </a>
-
-              <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-                <div data-testid="text-testimonials-proof" className="text-[11px] font-semibold uppercase tracking-wide text-white/55">
-                  Resposta rápida · Fluxo direto
-                </div>
-              </div>
-              
-              <div className="mt-7 hidden gap-3 sm:grid sm:grid-cols-2">
-                {[{ icon: <Clock className="h-4 w-4" strokeWidth={2.25} />, t: "Resposta rápida", d: "Fluxo direto no WhatsApp" }, { icon: <ShieldCheck className="h-4 w-4" strokeWidth={2.25} />, t: "Clareza", d: "Sem promessas vagas" }].map((b, i) => (
-                  <div
-                    data-testid={`card-benefit-${i}`}
-                    key={i}
-                    className="rounded-[20px] bg-white/10 p-4 ring-1 ring-white/12 backdrop-blur"
-                  >
-                    <div className="flex items-center gap-2 text-white">
-                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-white/10 ring-1 ring-white/12">{b.icon}</span>
-                      <div data-testid={`text-benefit-title-${i}`} className="text-xs font-semibold">
-                        {b.t}
-                      </div>
+            <div className="relative mt-7 rounded-[22px] bg-white/10 p-6 pb-20 ring-1 ring-white/12 backdrop-blur">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-white/10 ring-1 ring-white/12">
+                    <img
+                      data-testid="img-testimonial-active-avatar"
+                      src={activeItem.avatar}
+                      alt={activeItem.name}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <div data-testid="text-testimonial-active-name" className="text-sm font-semibold text-white">
+                      {activeItem.name}
                     </div>
-                    <div data-testid={`text-benefit-desc-${i}`} className="mt-2 text-[11px] leading-5 text-white/65">
-                      {b.d}
+                    <div
+                      data-testid="text-testimonial-active-role"
+                      className="mt-0.5 text-[12px] text-white/65 sm:whitespace-nowrap"
+                    >
+                      <span className="hidden sm:inline">{activeItem.role} · {activeItem.city}</span>
+                      <span className="sm:hidden">{activeItem.role}</span>
+                      <br className="sm:hidden" />
+                      <span className="sm:hidden">{activeItem.city}</span>
                     </div>
                   </div>
-                ))}
+                </div>
+
+                <div className="flex items-center gap-1 sm:justify-end" aria-label="Avaliação">
+                  {new Array(5).fill(0).map((_, i) => (
+                    <Star
+                      data-testid={`icon-testimonial-active-star-${i}`}
+                      key={i}
+                      className={"h-4 w-4 " + (i < activeItem.rating ? "text-white" : "text-white/25")}
+                      fill={i < activeItem.rating ? "currentColor" : "none"}
+                      strokeWidth={2}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={activeItem.id}
+                  data-testid="text-testimonial-active-quote"
+                  className="mt-4 text-sm leading-6 text-white/78"
+                  initial={reduced ? undefined : { opacity: 0, y: 8 }}
+                  animate={reduced ? undefined : { opacity: 1, y: 0 }}
+                  exit={reduced ? undefined : { opacity: 0, y: -8 }}
+                  transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
+                >
+                  “{activeItem.quote}”
+                </motion.p>
+              </AnimatePresence>
+
+              <div className="absolute bottom-4 right-4 flex items-center gap-2">
+                <button
+                  data-testid="button-testimonials-prev-inside"
+                  onClick={() => {
+                    const idx = items.findIndex((i) => i.id === activeItem.id);
+                    const next = (idx - 1 + items.length) % items.length;
+                    setActive(items[next].id);
+                  }}
+                  className="grid h-10 w-10 place-items-center rounded-full bg-white/12 text-white ring-1 ring-white/16 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+                  aria-label="Depoimento anterior"
+                >
+                  <ChevronLeft className="h-4 w-4" strokeWidth={2.25} />
+                </button>
+                <button
+                  data-testid="button-testimonials-next-inside"
+                  onClick={() => {
+                    const idx = items.findIndex((i) => i.id === activeItem.id);
+                    const next = (idx + 1) % items.length;
+                    setActive(items[next].id);
+                  }}
+                  className="grid h-10 w-10 place-items-center rounded-full bg-white/12 text-white ring-1 ring-white/16 backdrop-blur transition hover:bg-white/16 active:scale-[0.98]"
+                  aria-label="Próximo depoimento"
+                >
+                  <ChevronRight className="h-4 w-4" strokeWidth={2.25} />
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <button
+                data-testid="button-testimonials-cta"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-100 active:scale-[0.98]"
+                onClick={onContact}
+              >
+                Converse com a gente
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1d0238] text-white">
+                  <MoveUpRight className="h-4 w-4" strokeWidth={2.25} />
+                </span>
+              </button>
+              <div data-testid="text-testimonials-proof" className="text-[11px] font-semibold uppercase tracking-wide text-white/55">
+                4,9/5 · 1.200+ instalações
               </div>
             </div>
           </div>
         </motion.div>
 
-        <div className="flex flex-col gap-4">
-          <div className="mb-2">
-             <div data-testid="text-testimonials-title-right" className="text-balance text-[28px] font-medium leading-[1.06] tracking-[-0.03em] text-zinc-950">
-                  O que nossos clientes
-                  <br />
-                  <span className="subtle-grad">falam sobre a Track</span>
-             </div>
-             <p className="mt-3 text-sm text-zinc-600 max-w-md">
-                 Experiências reais de quem implementou soluções com a Track, do diagnóstico à operação, com acompanhamento e foco em resultado.
-             </p>
-          </div>
+        <div className="hidden lg:grid gap-4">
           {items.map((t, i) => {
             const selected = t.id === activeItem.id;
             return (
-                <motion.div
+              <motion.button
                 data-testid={`card-testimonial-${t.id}`}
                 key={t.id}
+                onClick={() => setActive(t.id)}
+                onFocus={() => setActive(t.id)}
                 className={
-                  "group text-left rounded-[26px] p-6 sm:p-7 ring-1 transition-all duration-300 h-full flex flex-col " +
+                  "group text-left rounded-[26px] p-5 ring-1 transition-all duration-300 " +
                   (selected
                     ? "bg-[#1d0238] text-white ring-[#1d0238]/18 scale-[1.02] shadow-xl shadow-[#1d0238]/10"
                     : "bg-white text-zinc-950 ring-zinc-200 hover:ring-zinc-300 hover:bg-zinc-50 hover:scale-[1.01]")
@@ -1701,13 +1742,12 @@ function Testimonials({ onContact }: { onContact: () => void }) {
                 whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 + (i * 0.1) }}
-                onMouseEnter={() => setActive(t.id)}
               >
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
                     <div
                       className={
-                        "h-12 w-12 shrink-0 overflow-hidden rounded-full ring-1 " +
+                        "h-11 w-11 shrink-0 overflow-hidden rounded-full ring-1 " +
                         (selected ? "bg-white/10 ring-white/12" : "bg-zinc-100 ring-zinc-200")
                       }
                     >
@@ -1721,32 +1761,32 @@ function Testimonials({ onContact }: { onContact: () => void }) {
                     <div>
                       <div
                         data-testid={`text-testimonial-name-${t.id}`}
-                        className={"text-[15px] font-semibold " + (selected ? "text-white" : "text-zinc-950")}
+                        className={"text-sm font-semibold " + (selected ? "text-white" : "text-zinc-950")}
                       >
                         {t.name}
                       </div>
                       <div
                         data-testid={`text-testimonial-meta-${t.id}`}
-                        className={"mt-0.5 text-xs " + (selected ? "text-white/65" : "text-zinc-500")}
+                        className={"mt-0.5 text-[12px] " + (selected ? "text-white/65" : "text-zinc-500")}
                       >
                         {t.role} · {t.city}
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1 hidden sm:flex">
+                  <div className="flex items-center gap-1">
                     {new Array(5).fill(0).map((_, s) => (
                       <Star
                         data-testid={`icon-testimonial-star-${t.id}-${s}`}
                         key={s}
                         className={
-                          "h-4 w-4 " +
+                          "h-3.5 w-3.5 " +
                           (selected
                             ? s < t.rating
                               ? "text-white"
                               : "text-white/25"
                             : s < t.rating
-                              ? "text-[#1d0238]"
+                              ? "text-zinc-950"
                               : "text-zinc-950/20")
                         }
                         fill={s < t.rating ? "currentColor" : "none"}
@@ -1759,12 +1799,12 @@ function Testimonials({ onContact }: { onContact: () => void }) {
                 <div
                   data-testid={`text-testimonial-snippet-${t.id}`}
                   className={
-                    "mt-5 text-[15px] leading-relaxed flex-1 " + (selected ? "text-white/80" : "text-zinc-600")
+                    "mt-3 text-sm leading-6 " + (selected ? "text-white/75" : "text-zinc-500")
                   }
                 >
                   “{t.quote}”
                 </div>
-              </motion.div>
+              </motion.button>
             );
           })}
         </div>
