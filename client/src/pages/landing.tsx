@@ -830,27 +830,35 @@ function About() {
   return (
     <motion.section
       className="container-page py-12 sm:py-16 lg:py-20"
-      initial={reduced ? undefined : { opacity: 0, y: 30 }}
+      initial={reduced ? undefined : { opacity: 0, y: 40 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.22 }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="grid gap-4 md:gap-10 md:grid-cols-[360px_1fr] md:items-center lg:grid-cols-[420px_1fr] lg:gap-14">
-        <div className="relative">
+        <motion.div 
+          className="relative"
+          initial={reduced ? undefined : { opacity: 0, x: -30 }}
+          whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+        >
           <Pill testId="pill-about" muted={false}>
             ( sobre a Track )
           </Pill>
 
           <div className="mt-5 hidden md:block">
-            <div
+            <motion.div
               data-testid="img-about-team-placeholder"
-              className="relative aspect-[16/10] w-full overflow-hidden rounded-[28px] bg-gradient-to-br from-zinc-100 via-white to-zinc-100 ring-1 ring-zinc-200 sm:aspect-[16/9]"
+              className="relative aspect-[16/10] w-full overflow-hidden rounded-[28px] bg-gradient-to-br from-zinc-100 via-white to-zinc-100 ring-1 ring-zinc-200 sm:aspect-[16/9] group"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
             >
               <div className="absolute inset-0 bg-gradient-to-tr from-[#100121]/10 via-transparent to-[#30045c]/10" />
               <div className="absolute inset-0 noise opacity-[0.08]" />
 
               <div className="absolute inset-0 grid place-items-center">
-                <div data-testid="text-about-team-placeholder" className="text-xs font-medium text-zinc-500">
+                <div data-testid="text-about-team-placeholder" className="text-xs font-medium text-zinc-500 transition-transform duration-500 group-hover:scale-105">
                   Espaço reservado para foto
                 </div>
               </div>
@@ -858,23 +866,23 @@ function About() {
               <Link
                 href="/servicos"
                 data-testid="button-about-how-we-work"
-                className="group absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#30045c] active:scale-[0.98]"
+                className="group/btn absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-full bg-[#1d0238] px-4 py-2 text-xs font-semibold text-white shadow-sm transition-all hover:bg-[#30045c] hover:pr-3 active:scale-[0.98]"
               >
                 Como trabalhamos
-                <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/10 transition group-hover:translate-x-0.5">
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 ring-1 ring-white/10 transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:bg-white/20">
                   <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
                 </span>
               </Link>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         <motion.div
           className="md:pl-10 lg:pl-0 lg:col-start-2"
-          initial={reduced ? undefined : { opacity: 0, y: 20 }}
-          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-90px" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+          initial={reduced ? undefined : { opacity: 0, x: 30, filter: "blur(8px)" }}
+          whileInView={reduced ? undefined : { opacity: 1, x: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
         >
           <div className="lg:ml-auto lg:max-w-[740px]">
             <h2
@@ -947,13 +955,19 @@ function Editorial() {
     <motion.section
       id="editorial"
       className="container-page pb-12 sm:pb-16 lg:pb-20"
-      initial={reduced ? undefined : { opacity: 0, y: 30 }}
+      initial={reduced ? undefined : { opacity: 0, y: 40 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-90px" }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="rounded-[40px] bg-zinc-50/80 p-6 sm:p-10 lg:p-12 ring-1 ring-zinc-100">
-        <div className="flex items-center justify-between mb-8 lg:mb-10">
+      <div className="rounded-[40px] bg-zinc-50/80 p-6 sm:p-10 lg:p-12 ring-1 ring-zinc-100 transition-colors duration-500 hover:bg-zinc-50">
+        <motion.div 
+          className="flex items-center justify-between mb-8 lg:mb-10"
+          initial={reduced ? undefined : { opacity: 0, filter: "blur(4px)" }}
+          whileInView={reduced ? undefined : { opacity: 1, filter: "blur(0px)" }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
             <Pill testId="pill-editorial" muted={false}>
             ( editorial )
             </Pill>
@@ -1226,21 +1240,29 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
     <motion.section
       id="servicos"
       className="container-page pb-12 sm:pb-16 lg:pb-20"
-      initial={reduced ? undefined : { opacity: 0, y: 30 }}
+      initial={reduced ? undefined : { opacity: 0, y: 40 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-90px" }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      <Pill testId="pill-servicos" muted={false}>
-        ( serviços )
-      </Pill>
+      <motion.div
+        initial={reduced ? undefined : { opacity: 0, scale: 0.95 }}
+        whileInView={reduced ? undefined : { opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <Pill testId="pill-servicos" muted={false}>
+          ( serviços )
+        </Pill>
+      </motion.div>
+      
       <div className="mt-6 grid gap-6 md:grid-cols-2 lg:gap-8">
         <motion.div
-          className="rounded-[28px] bg-zinc-50 p-8 ring-1 ring-zinc-100"
-          initial={reduced ? undefined : { opacity: 0, y: 20 }}
-          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-110px" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+          className="rounded-[28px] bg-zinc-50 p-8 ring-1 ring-zinc-100 transition-shadow hover:shadow-xl hover:shadow-zinc-200/40"
+          initial={reduced ? undefined : { opacity: 0, x: -30 }}
+          whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
         >
           <h3
             data-testid="text-product-title"
@@ -1540,26 +1562,32 @@ function Testimonials({ onContact }: { onContact: () => void }) {
     <motion.section 
       id="depoimentos" 
       className="container-page pb-12 sm:pb-16 lg:pb-20"
-      initial={reduced ? undefined : { opacity: 0, y: 30 }}
+      initial={reduced ? undefined : { opacity: 0, y: 40 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-90px" }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="flex items-start justify-between gap-6">
+      <motion.div 
+        className="flex items-start justify-between gap-6"
+        initial={reduced ? undefined : { opacity: 0, scale: 0.95 }}
+        whileInView={reduced ? undefined : { opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <Pill testId="pill-testimonials">( depoimentos )</Pill>
 
         <div className="hidden" />
 
         <div className="hidden" />
-      </div>
+      </motion.div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-8">
         <motion.div
           className="relative overflow-hidden rounded-[30px] bg-gradient-to-r from-black via-[#12001f] to-[#1d0238] ring-1 ring-white/10"
-          initial={reduced ? undefined : { opacity: 0, y: 10 }}
-          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
+          initial={reduced ? undefined : { opacity: 0, x: -30, filter: "blur(8px)" }}
+          whileInView={reduced ? undefined : { opacity: 1, x: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
         >
           <div className="absolute inset-0 hero-overlay opacity-60" />
           <div className="absolute inset-0 noise opacity-[0.22]" />
@@ -1705,15 +1733,15 @@ function Testimonials({ onContact }: { onContact: () => void }) {
                 onClick={() => setActive(t.id)}
                 onFocus={() => setActive(t.id)}
                 className={
-                  "group text-left rounded-[26px] p-5 ring-1 transition " +
+                  "group text-left rounded-[26px] p-5 ring-1 transition-all duration-300 " +
                   (selected
-                    ? "bg-[#1d0238] text-white ring-[#1d0238]/18"
-                    : "bg-white text-zinc-950 ring-zinc-200 hover:bg-zinc-50")
+                    ? "bg-[#1d0238] text-white ring-[#1d0238]/18 scale-[1.02] shadow-xl shadow-[#1d0238]/10"
+                    : "bg-white text-zinc-950 ring-zinc-200 hover:ring-zinc-300 hover:bg-zinc-50 hover:scale-[1.01]")
                 }
-                initial={reduced ? undefined : { opacity: 0, y: 10 }}
-                whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1], delay: i * 0.04 }}
+                initial={reduced ? undefined : { opacity: 0, x: 30 }}
+                whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 + (i * 0.1) }}
               >
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
