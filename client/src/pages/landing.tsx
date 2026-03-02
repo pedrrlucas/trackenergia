@@ -1481,7 +1481,7 @@ function Testimonials({ onContact }: { onContact: () => void }) {
         
         {/* Lado Esquerdo */}
         <motion.div 
-          className="flex flex-col relative z-20"
+          className="flex flex-col relative z-20 bg-white pr-4 lg:pr-8 lg:-my-12 lg:py-12 shadow-[50px_0_0_0_#ffffff] lg:shadow-[100px_0_0_0_#ffffff]"
           initial={reduced ? undefined : { opacity: 0, x: -30 }}
           whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -1528,14 +1528,14 @@ function Testimonials({ onContact }: { onContact: () => void }) {
 
         {/* Lado Direito - Embla Carousel */}
         <motion.div 
-          className="relative min-w-0 w-full z-10"
+          className="lg:col-span-7 relative z-0 w-full lg:-ml-20"
           initial={reduced ? undefined : { opacity: 0, x: 30 }}
           whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
-          {/* overflow-hidden e pad de segurança para sombras */}
-          <div className="overflow-visible -mx-4 px-4 py-6" ref={emblaRef}>
+          {/* overflow-visible para as sombras nao serem cortadas */}
+          <div className="-my-12 py-12 overflow-visible" ref={emblaRef}>
             <div className="flex touch-pan-y" style={{ backfaceVisibility: 'hidden' }}>
               {items.map((t, index) => {
                 const isActive = selectedIndex === index;
