@@ -112,52 +112,52 @@ const SERVICES: Record<string, ServiceDetail> = {
   "geracao": {
     id: "geracao",
     title: "Sistemas de geração própria",
-    summary: "Do projeto à entrega: geração própria integrada à sua operação e ao seu consumo.",
+    summary: "Do projeto à entrega: Reduzindo a conta de luz em até 95% e protegendo dos aumentos na conta de energia.",
     longText:
-      "Geração própria precisa nascer alinhada com o consumo real e com a operação do local. A Track desenha, implanta e comissiona com foco em segurança, performance e integração — para você acompanhar resultados sem fricção.",
-    outcomes: ["Economia recorrente", "Autonomia", "Previsibilidade"],
+      "A Track projeta, implanta e monitora usinas solares com foco em segurança, performance e retorno financeiro — Oferecemos soluções completas em energia solar com equipamentos de ponta e uma equipe altamente qualificada para gerar resultados reais.",
+    outcomes: ["Economia", "Previsibilidade", "Sustentabilidade"],
     scope: ["Dimensionamento", "Projeto executivo", "Implantação e comissionamento", "Monitoramento e suporte"],
     sections: [
       {
-        id: "dimensionamento",
-        title: "Dimensionamento sob medida",
-        description: "Arquitetura e potência do sistema alinhadas ao consumo real, com margem para expansão e integração ao local.",
+        id: "residencial",
+        title: "Residencial",
+        description: "Seu conforto não precisa custar mais caro na conta de energia.",
       },
       {
-        id: "implantacao",
-        title: "Implantação e comissionamento",
-        description: "Execução com checklist, segurança e conformidade — validando o funcionamento antes da entrega.",
+        id: "comercial-industrial",
+        title: "Comercial / Industrial",
+        description: "Reduz seu custo de operação, aumenta sua competitividade e lucro.",
       },
       {
-        id: "monitoramento",
-        title: "Monitoramento",
-        description: "Acompanhamento por indicadores para garantir performance, identificar desvios e agir rápido quando necessário.",
+        id: "rural",
+        title: "Rural",
+        description: "O campo está cada vez mais tecnológico, quem não acompanha essa evolução fica para trás.",
       },
     ],
   },
   "armazenamento": {
     id: "armazenamento",
     title: "Armazenamento de energia",
-    summary: "Estratégia e implantação para estabilidade, resiliência e continuidade de operação.",
+    summary: "Quando todas as luzes se apagam sua casa ainda tem energia.",
     longText:
-      "Armazenamento é controle: você decide quando usar energia da rede e quando usar sua própria reserva. Criamos a arquitetura ideal para reduzir picos, aumentar resiliência e deixar a operação mais previsível — com segurança e integração ao seu sistema elétrico.",
-    outcomes: ["Resiliência", "Peak shaving", "Continuidade"],
+      "Para alguns a falta de energia não é só um episódio desconfortável, ela pode representar riscos de segurança, prejuízos financeiros ou até riscos à vida — A Track trabalha com equipamentos de ponta em armazenamento, para garantir continuidade no uso de energia mesmo quando a distribuidora falha.",
+    outcomes: ["Tranquilidade em apagões", "Segurança energética", "Tecnologia de ponta"],
     scope: ["Arquitetura e segurança", "Integrações", "Operação e manutenção", "Relatórios"],
     sections: [
       {
-        id: "homecare",
-        title: "HomeCare",
-        description: "Resiliência para residências e pequenos comércios, com autonomia e operação simples no dia a dia.",
+        id: "comercial-residencial",
+        title: "Comercial/Residencial",
+        description: "A falta de energia na sua região não impactará mais no seu trabalho, conforto e segurança.",
       },
       {
-        id: "peak-shaving",
-        title: "Peak shaving",
-        description: "Estratégia para reduzir picos de demanda, aliviar custos e melhorar previsibilidade usando a reserva de energia.",
+        id: "homecare-clinicas",
+        title: "Pacientes em Home Care e Clínicas",
+        description: "Energia não é uma questão de conforto, é uma necessidade para saúde e sua falta traz riscos vitais.",
       },
       {
-        id: "continuidade",
-        title: "Continuidade operacional",
-        description: "Arquitetura para ambientes que não podem parar, com redundância, estabilidade e plano de contingência.",
+        id: "locais-isolados",
+        title: "Locais isolados ou com rede elétrica precária",
+        description: "Energia confiável e limpa onde a distribuidora não consegue entregar.",
       },
     ],
   },
@@ -325,7 +325,7 @@ export default function ServiceDetailPage() {
             <div className="pt-24 sm:pt-24 lg:pt-28">
               <a
                 data-testid="link-back-services"
-                href="/servicos"
+                href="/#servicos"
                 className="inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950"
               >
                 <ArrowLeft className="h-4 w-4" strokeWidth={2.25} />
@@ -363,7 +363,7 @@ export default function ServiceDetailPage() {
             >
               <a
                 data-testid="link-back-services"
-                href="/servicos"
+                href="/#servicos"
                 className="inline-flex items-center gap-2 text-xs font-medium text-zinc-600 transition hover:text-zinc-950"
               >
                 <ArrowLeft className="h-4 w-4" strokeWidth={2.25} />
@@ -477,10 +477,10 @@ export default function ServiceDetailPage() {
               <div className="px-7 pt-7">
                 <div>
                   <div data-testid="text-sections-title" className="text-sm font-semibold text-zinc-950">
-                    Tópicos do serviço
+                    Serviços oferecidos
                   </div>
                   <div data-testid="text-sections-sub" className="mt-1 text-sm text-zinc-600">
-                    Clique para expandir. Ao abrir, você tem um atalho para chamar no WhatsApp.
+                    Conheça algumas das maneiras que podemos ajudar você!
                   </div>
                 </div>
               </div>
@@ -498,7 +498,11 @@ export default function ServiceDetailPage() {
                             {(() => {
                               const id = sec.id;
                               const Icon =
+                                id.includes("resid") ? Shield :
+                                id.includes("comerc") ? LineChart :
+                                id.includes("rural") ? Leaf :
                                 id.includes("home") ? Shield :
+                                id.includes("isolad") ? Leaf :
                                 id.includes("peak") ? LineChart :
                                 id.includes("cont") ? Zap :
                                 id.includes("viab") ? LineChart :
@@ -525,7 +529,7 @@ export default function ServiceDetailPage() {
                               {sec.title}
                             </div>
                             <div data-testid={`text-section-index-${sec.id}`} className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-zinc-500">
-                              Tópico {String(index + 1).padStart(2, "0")}
+                              Saiba mais
                             </div>
                           </div>
                         </div>
