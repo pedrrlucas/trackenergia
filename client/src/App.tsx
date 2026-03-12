@@ -9,6 +9,8 @@ import Contact from "./pages/contact";
 import Services from "./pages/services";
 import ServiceDetailPage from "./pages/service-detail";
 import PostPage from "./pages/post";
+import TermsPage from "./pages/terms";
+import PrivacyPage from "./pages/privacy";
 import { SiteShell } from "@/components/site-shell";
 
 function Router() {
@@ -19,6 +21,8 @@ function Router() {
       <Route path="/servicos/:id" component={ServiceDetailPage} />
       <Route path="/editorial/:id" component={PostPage} />
       <Route path="/contato" component={Contact} />
+      <Route path="/termos-de-uso" component={TermsPage} />
+      <Route path="/politica-de-privacidade" component={PrivacyPage} />
       <Route component={NotFound} />
     </Switch>
   );

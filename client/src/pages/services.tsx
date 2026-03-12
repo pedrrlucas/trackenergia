@@ -80,8 +80,8 @@ export default function Services() {
       {
         id: "armazenamento",
         title: "Armazenamento de energia",
-        subtitle: "Resiliência, estabilidade e autonomia para seu consumo.",
-        bullets: ["Arquitetura e segurança", "Peak shaving", "Back-up e continuidade"],
+        subtitle: "Quando todas as luzes se apagam sua casa ainda tem energia.",
+        bullets: ["Tranquilidade em apagões", "Segurança energética", "Tecnologia de ponta"],
         icon: <BatteryCharging className="h-5 w-5" strokeWidth={2.25} />,
         gradient: "from-[#0b0b12] via-[#12001f] to-[#1d0238]",
       },

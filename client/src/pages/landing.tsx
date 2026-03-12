@@ -64,7 +64,7 @@ function usePreloadImages(urls: string[]) {
     };
   }, [urls.join("|")]);
 }
-import heroImgFallback from "@/assets/images/hero-solar (2).jpg";
+const HERO_BASE = "/hero";
 import processImg from "@/assets/images/process-installation.jpg";
 import productImg from "@/assets/images/product-solarfield.jpg";
 import product1 from "@/assets/images/product-1.jpg";
@@ -422,7 +422,7 @@ function Nav({ onContact, onIntroComplete }: { onContact: () => void; onIntroCom
               src={trackName}
               alt="Track"
               data-testid="text-logo"
-              className="h-[14px] w-auto object-contain brightness-0 invert sm:invert-0"
+              className="h-[14px] w-auto object-contain brightness-0 invert"
             />
           </a>
 
@@ -442,17 +442,6 @@ function Nav({ onContact, onIntroComplete }: { onContact: () => void; onIntroCom
               Início
             </motion.a>
             <motion.a
-              data-testid="link-nav-editorial"
-              href="/#editorial"
-              className="transition hover:text-white"
-              initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
-              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              style={{ pointerEvents: showEditorial ? "auto" : "none", visibility: showEditorial ? "visible" : "hidden" }}
-            >
-              Editorial
-            </motion.a>
-            <motion.a
               data-testid="link-nav-product"
               href="/#servicos"
               className="transition hover:text-white"
@@ -462,6 +451,17 @@ function Nav({ onContact, onIntroComplete }: { onContact: () => void; onIntroCom
               style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
             >
               Serviços
+            </motion.a>
+            <motion.a
+              data-testid="link-nav-editorial"
+              href="/#editorial"
+              className="transition hover:text-white"
+              initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              style={{ pointerEvents: showEditorial ? "auto" : "none", visibility: showEditorial ? "visible" : "hidden" }}
+            >
+              Editorial
             </motion.a>
             <motion.a
               data-testid="link-nav-testimonials"
@@ -535,8 +535,8 @@ function Nav({ onContact, onIntroComplete }: { onContact: () => void; onIntroCom
                   <nav className="flex flex-col gap-2">
                     {[
                       { label: "Início", href: "/#inicio" },
-                      { label: "Editorial", href: "/#editorial" },
                       { label: "Serviços", href: "/#servicos" },
+                      { label: "Editorial", href: "/#editorial" },
                       { label: "Depoimentos", href: "/#depoimentos" },
                     ].map((link) => (
                       <a
@@ -636,8 +636,6 @@ const heroContainerVariants = {
 function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void }) {
   const reduced = usePrefersReducedMotion();
   const [fullImageLoaded, setFullImageLoaded] = useState(false);
-  const [useFallback, setUseFallback] = useState(false);
-  const [startFullImageLoad, setStartFullImageLoad] = useState(false);
 
   const { scrollY } = useScroll();
   const scaleImage = useTransform(scrollY, [0, 1000], [1, 1.15], { clamp: true });
@@ -647,17 +645,8 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
   const yButtons = useTransform(scrollY, [0, 600], [0, 80], { clamp: true });
   const opacityButtons = useTransform(scrollY, [0, 300], [1, 0], { clamp: true });
 
-  // Iniciar carregamento da hero em qualidade cheia cedo, em paralelo com a intro,
-  // para não depender do fim da animação da logo (que no mobile atrasa). Assim
-  // o download corre em background (fetchPriority="low", decoding="async") e
-  // não trava o site; a imagem tende a estar pronta quando o usuário precisar.
-  useEffect(() => {
-    const t = setTimeout(() => setStartFullImageLoad(true), 600);
-    return () => clearTimeout(t);
-  }, []);
-
   const fullImgClass =
-    `h-full min-h-screen w-full object-cover object-left md:object-center brightness-100 contrast-[1.02] transition-opacity duration-700 ease-out ` +
+    `absolute inset-0 h-full min-h-screen w-full object-cover object-top md:object-[center_15%] brightness-100 contrast-[1.02] transition-opacity duration-300 ease-out ` +
     (fullImageLoaded ? "opacity-100" : "opacity-0");
 
   const heroContainerVariants = {
@@ -683,66 +672,32 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
           willChange: "transform"
         }}
       >
-        {useFallback ? (
-          <>
-            {startFullImageLoad && (
-              <img
-                data-testid="img-hero"
-                src={heroImgFallback}
-                alt="Técnico inspecionando painéis solares"
-                fetchPriority="low"
-                decoding="async"
-                loading="eager"
-                onLoad={() => setFullImageLoaded(true)}
-                className={fullImgClass}
-                style={{ imageRendering: "auto" }}
-              />
-            )}
-          </>
-        ) : (
-          <>
-            {/* Camada 1: preview — aparece instantaneamente */}
-            <motion.img
-              initial={{ scale: 1.15, filter: "blur(12px)" }}
-              animate={{ scale: 1, filter: "blur(0px)" }}
-              transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
-              src="/hero/hero-preview.webp"
-              alt=""
-              aria-hidden
-              className="absolute inset-0 h-full min-h-screen w-full object-cover object-left md:object-center brightness-100 contrast-[1.02]"
-              style={{ imageRendering: "auto" }}
-              fetchPriority="high"
-              loading="eager"
-            />
-            {/* Camada 2: qualidade cheia — só começa a carregar depois da troca de logo */}
-            {startFullImageLoad && (
-              <picture className="absolute inset-0">
-                <source
-                  type="image/webp"
-                  srcSet="/hero/hero-480.webp 480w, /hero/hero-960.webp 960w, /hero/hero-1280.webp 1280w, /hero/hero-1920.webp 1920w"
-                  sizes="100vw"
-                />
-                <img
-                  data-testid="img-hero"
-                  src="/hero/hero-1920.jpg"
-                  srcSet="/hero/hero-480.jpg 480w, /hero/hero-960.jpg 960w, /hero/hero-1280.jpg 1280w, /hero/hero-1920.jpg 1920w"
-                  sizes="100vw"
-                  alt="Técnico inspecionando painéis solares"
-                  fetchPriority="low"
-                  decoding="async"
-                  loading="eager"
-                  onLoad={() => setFullImageLoaded(true)}
-                  onError={() => {
-                    setFullImageLoaded(false);
-                    setUseFallback(true);
-                  }}
-                  className={`absolute inset-0 ${fullImgClass}`}
-                  style={{ imageRendering: "auto" }}
-                />
-              </picture>
-            )}
-          </>
-        )}
+        <picture className="absolute inset-0">
+          <source
+            media="(min-width: 768px)"
+            type="image/webp"
+            srcSet={`${HERO_BASE}/hero-desk-720.webp 720w, ${HERO_BASE}/hero-desk-960.webp 960w, ${HERO_BASE}/hero-desk-1440.webp 1440w`}
+          />
+          <source
+            type="image/webp"
+            srcSet={`${HERO_BASE}/hero-480.webp 480w, ${HERO_BASE}/hero-960.webp 960w, ${HERO_BASE}/hero-1280.webp 1280w`}
+          />
+          <source
+            media="(min-width: 768px)"
+            srcSet={`${HERO_BASE}/hero-desk-720.jpg 720w, ${HERO_BASE}/hero-desk-960.jpg 960w, ${HERO_BASE}/hero-desk-1440.jpg 1440w`}
+          />
+          <img
+            data-testid="img-hero"
+            src={`${HERO_BASE}/hero-960.jpg`}
+            alt="Técnico inspecionando painéis solares"
+            fetchPriority="high"
+            decoding="async"
+            loading="eager"
+            onLoad={() => setFullImageLoaded(true)}
+            className={fullImgClass}
+            style={{ imageRendering: "auto" }}
+          />
+        </picture>
         <div className="absolute inset-0 noise opacity-[0.06]" aria-hidden />
       </motion.div>
 
@@ -756,7 +711,7 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
           }}
           aria-hidden
         />
-        <Nav onContact={onContact} onIntroComplete={() => setStartFullImageLoad(true)} />
+        <Nav onContact={onContact} />
 
         <div className="container-page flex flex-1 flex-col pt-4 sm:pt-6 relative z-10">
           <div className="flex min-h-0 flex-1 flex-col pt-[104px] sm:pt-[112px] lg:pt-[132px]">
@@ -780,11 +735,9 @@ function Hero({ onPlay, onContact }: { onPlay: () => void; onContact: () => void
                   variants={reduced ? undefined : { hidden: { opacity: 0, y: 40, filter: "blur(12px)", scale: 0.95 }, visible: { opacity: 1, y: 0, filter: "blur(0px)", scale: 1 } }}
                   transition={reduced ? undefined : { duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  Soluções de energia
+                  Transformamos desafios
                   <br />
-                  com visão crítica
-                  <br />
-                  e execução completa
+                  energéticos em oportunidades
                 </motion.h1>
 
                 <motion.p
@@ -832,6 +785,7 @@ function About() {
 
   return (
     <motion.section
+      id="sobre"
       className="container-page py-12 sm:py-16 lg:py-20"
       initial={reduced ? undefined : { opacity: 0, y: 40 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
@@ -892,18 +846,12 @@ function About() {
               data-testid="text-about-title"
               className="text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-zinc-950 sm:text-[46px] lg:text-[56px]"
             >
-              Fundada por dois sócios
+              Conectando a solução ideal
               <br />
-              vindos do setor solar e
-              <br />
-              <span className="subtle-grad">apaixonados</span> pela
-              <br />
-              <span className="subtle-grad">vastidão</span> de possibilidades
+              com as <span className="subtle-grad">necessidades específicas</span> de cada cliente
             </h2>
             <p data-testid="text-about-desc" className="mt-4 w-full text-sm leading-6 text-zinc-500">
-              A Track nasceu em 2024 com um propósito diferente do mercado tradicional: não vendemos equipamentos.
-              Nosso foco é entregar soluções reais para quem precisa, entendendo o setor com profundidade
-              e conectando cada cliente à solução energética ideal, sem excessos e sem soluções genéricas.
+              Atuamos de forma estratégica, analisando a realidade de cada cliente para estruturar soluções energéticas sob medida, sem excessos e sem soluções genéricas. Integramos gestão, geração, armazenamento e novas demandas elétricas com foco em confiabilidade e retorno financeiro. Nosso trabalho é transformar energia em uma alavanca que sustenta segurança, crescimento, previsibilidade e tranquilidade dos nossos clientes.
             </p>
 
             {/* Mobile: espaço reservado para foto após o texto */}
@@ -1244,12 +1192,10 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <div className="self-start">
-               <div className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/20 backdrop-blur-md" data-testid="pill-services">( serviços )</div>
+               <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/20 backdrop-blur-md" data-testid="pill-services"><span className="h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400" />( serviços )</div>
             </div>
             <h2 data-testid="text-services-title" className="mt-6 text-balance text-[34px] font-medium leading-[1.05] tracking-[-0.03em] text-white sm:text-[42px] md:text-[48px]">
-              Energia sob medida
-              <br />
-              <span className="subtle-grad-dark">Da estratégia à operação</span>
+              Como podemos te ajudar?
             </h2>
             <p data-testid="text-services-sub" className="mt-4 text-sm sm:text-base leading-relaxed text-white/60 max-w-xl">
               Analisamos oportunidades, desenhamos a proposta ideal e executamos com monitoramento após a implementação. Sempre de olho no futuro.
@@ -1297,7 +1243,11 @@ function ProductFeature({ product, products, onContact }: { product: Product; pr
                       key={`service-slide-${p.id}`}
                       // Reduzimos o width para acomodar aprox 3.5 a 4 cards na tela (desktop), 2.5 (tablet) e 1.2 (mobile)
                       className={`relative shrink-0 w-[80vw] sm:w-[320px] lg:w-[360px] h-[360px] sm:h-[420px] lg:h-[460px] cursor-pointer transition-all duration-[600ms] ease-out ${isActive ? 'scale-100 opacity-100 z-10' : 'scale-[0.98] opacity-70 hover:opacity-100 z-0'}`}
-                      onClick={() => setActiveId(p.id)}
+                      onClick={() => {
+                        const index = products.findIndex(pr => pr.id === p.id);
+                        setActiveId(p.id);
+                        emblaApi?.scrollTo(index);
+                      }}
                     >
                       <div className="absolute inset-0 rounded-[24px] sm:rounded-[32px] overflow-hidden group bg-zinc-900 border border-white/10">
                         <img
@@ -1567,7 +1517,7 @@ function Testimonials({ onContact }: { onContact: () => void }) {
                       </div>
 
                       <div className="mt-6 flex-1 relative">
-                          <Quote className="absolute -bottom-10 -right-4 h-16 w-16 text-zinc-100 -z-10 opacity-70" />
+                          <Quote className="absolute -bottom-10 -right-4 h-10 w-10 text-zinc-100 -z-10 opacity-70" />
                           <p className="text-sm sm:text-base leading-relaxed text-zinc-600 relative z-10">
                             “{t.quote}”
                           </p>
@@ -1739,9 +1689,12 @@ function Footer({ onPlay, onContact }: { onPlay: () => void; onContact: () => vo
         <div className="flex flex-wrap items-center justify-between gap-3 py-6 text-[11px] text-zinc-500">
           <div data-testid="text-footer-copyright">©2026 Track. Todos os direitos reservados</div>
           <div className="flex items-center gap-4">
-            <a data-testid="link-footer-terms" href="#" className="transition hover:text-zinc-950">
+            <Link data-testid="link-footer-terms" href="/termos-de-uso" className="transition hover:text-zinc-950">
               Termos de uso
-            </a>
+            </Link>
+            <Link href="/politica-de-privacidade" className="transition hover:text-zinc-950">
+              Privacidade
+            </Link>
             <a data-testid="link-footer-home" href="/#inicio" className="transition hover:text-zinc-950">
               Início
             </a>
@@ -1773,8 +1726,8 @@ export default function Landing() {
     () => ({
       id: "solucoes-track",
       tag: "SOLUÇÕES TRACK",
-      title: "Energia sob medida",
-      subtitle: "Da estratégia à operação",
+      title: "Como podemos te ajudar?",
+      subtitle: "",
       desc: "Analisamos oportunidades, desenhamos a proposta ideal e executamos com monitoramento após a implementação, sempre com o radar ligado para melhorias.",
       specLeft: ["Eficiência energética", "Geração própria", "Armazenamento"],
       specRight: ["Mercado livre", "Assinatura de energia", "O&M fotovoltaico"],
@@ -1809,7 +1762,7 @@ export default function Landing() {
         id: "armazenamento",
         tag: "ARMAZENAMENTO",
         title: "Armazenamento de energia",
-        subtitle: "Resiliência, estabilidade e autonomia",
+        subtitle: "Quando todas as luzes se apagam sua casa ainda tem energia.",
         desc: "",
         specLeft: [],
         specRight: [],
@@ -1869,8 +1822,8 @@ export default function Landing() {
       </section>
 
       <About />
-      <Editorial />
       <ProductFeature product={primaryProduct} products={products} onContact={() => setLocation("/contato")} />
+      <Editorial />
       <Testimonials onContact={() => setLocation("/contato")} />
 
       <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} />

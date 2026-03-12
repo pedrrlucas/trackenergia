@@ -373,26 +373,26 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
               Início
             </motion.a>
             <motion.a
-              data-testid="link-nav-editorial"
-              href="/#editorial"
+              data-testid="link-nav-product"
+              href="/#servicos"
               className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
               initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
               animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
               style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
             >
-              Editorial
+              Serviços
             </motion.a>
             <motion.a
-              data-testid="link-nav-product"
-              href="/#servicos"
+              data-testid="link-nav-editorial"
+              href="/#editorial"
               className={onHome ? "transition hover:text-white" : "transition hover:text-white"}
               initial={{ opacity: 0, x: 14, filter: "blur(6px)" }}
               animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
               style={{ pointerEvents: showProduct ? "auto" : "none", visibility: showProduct ? "visible" : "hidden" }}
             >
-              Serviços
+              Editorial
             </motion.a>
             <motion.a
               data-testid="link-nav-testimonials"
@@ -499,8 +499,8 @@ export function SiteHeader({ onContact }: { onContact: () => void }) {
               <nav className="flex flex-col gap-2">
                  {[
                    { label: "Início", href: "/#inicio" },
-                   { label: "Editorial", href: "/#editorial" },
                    { label: "Serviços", href: "/#servicos" },
+                   { label: "Editorial", href: "/#editorial" },
                    { label: "Depoimentos", href: "/#depoimentos" },
                  ].map((link) => (
                     <a 
@@ -627,11 +627,14 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
               <a data-testid="link-footer-home" href="/#inicio" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
                 Início
               </a>
-              <a data-testid="link-footer-editorial" href="/#editorial" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
+              <a data-testid="link-footer-sobre" href="/#sobre" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
                 Sobre nós
               </a>
               <a data-testid="link-footer-servicos" href="/#servicos" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
                 O que fazemos
+              </a>
+              <a data-testid="link-footer-editorial" href="/#editorial" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
+                Editorial
               </a>
               <a data-testid="link-footer-testimonials" href="/#depoimentos" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
                 Depoimentos
@@ -648,25 +651,25 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
             </h4>
             <nav className="flex flex-col gap-4 text-sm font-medium text-white/60">
               <Link data-testid="link-footer-efficiency" href="/servicos/eficiencia" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
-                Eficiência
+                Eficiência energética
               </Link>
               <Link data-testid="link-footer-generation" href="/servicos/geracao" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
-                Geração
+                Sistemas de geração própria
               </Link>
               <Link data-testid="link-footer-storage" href="/servicos/armazenamento" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
-                Armazenamento
+                Armazenamento de energia
               </Link>
               <Link data-testid="link-footer-mercado-livre" href="/servicos/mercado-livre" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
-                Mercado Livre
+                Mercado livre de energia
               </Link>
               <Link data-testid="link-footer-assinatura" href="/servicos/assinatura" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
-                Assinatura
+                Assinatura de energia
               </Link>
               <Link data-testid="link-footer-eletromobilidade" href="/servicos/eletromobilidade" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
                 Eletromobilidade
               </Link>
               <Link data-testid="link-footer-om-fv" href="/servicos/om-fv" className="w-fit transition-colors hover:text-white relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full">
-                O&M de Usinas FV
+                O&M fotovoltaico
               </Link>
             </nav>
           </div>
@@ -756,8 +759,8 @@ export function SiteFooter({ onContact }: { onContact: () => void }) {
         <div className="flex flex-col sm:flex-row items-center justify-between border-t border-white/10 py-8 text-[13px] text-white/40 font-medium">
           <div data-testid="text-footer-copyright">© {new Date().getFullYear()} Track Energia. Todos os direitos reservados.</div>
           <div className="flex gap-6 mt-4 sm:mt-0">
-             <a href="#" className="hover:text-white transition-colors">Termos de Uso</a>
-             <a href="#" className="hover:text-white transition-colors">Privacidade</a>
+             <Link href="/termos-de-uso" className="hover:text-white transition-colors">Termos de Uso</Link>
+             <Link href="/politica-de-privacidade" className="hover:text-white transition-colors">Privacidade</Link>
           </div>
         </div>
       </div>
